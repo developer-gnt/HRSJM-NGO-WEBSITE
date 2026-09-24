@@ -1,0 +1,286 @@
+/* ---------- Take Action for a Better Tomorrow ---------- */
+
+.section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.bgWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+}
+
+.bg {
+  object-fit: cover;
+  object-position: left 14%;
+}
+
+/* readability veil for mid breakpoints only; the girl/community zone stays untouched */
+.veil {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 30%,
+    rgba(247, 244, 236, 0.78) 52%,
+    rgba(247, 244, 236, 0.6) 100%
+  );
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding: 44px var(--page-padding) 46px;
+}
+
+.inner {
+  margin-left: 54%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 40px;
+  min-height: 224px;
+}
+
+.content {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  margin: 0 0 9px;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: clamp(31px, 2.6vw, 38px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--color-navy);
+  margin: 0 0 10px;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #102a43;
+  margin: 0;
+}
+
+.quote {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  justify-self: end;
+}
+
+.quoteText {
+  font-family: var(--font-script);
+  font-size: 24px;
+  line-height: 1.35;
+  color: var(--color-navy);
+  margin: 0;
+}
+
+.quoteUnderline {
+  display: block;
+  width: 52px;
+  height: 10px;
+  margin-top: 3px;
+  color: var(--color-gold);
+}
+
+.actions {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.primary,
+.outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 19px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color 0.22s ease,
+    color 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.primary {
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+}
+
+.primary:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-1px);
+}
+
+.outline {
+  background: transparent;
+  border: 1px solid var(--color-navy);
+  color: var(--color-navy);
+}
+
+.outline:hover {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+.primary:focus-visible,
+.outline:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1379px) {
+  .primary,
+  .outline {
+    padding: 0 16px;
+  }
+
+  .actions {
+    gap: 10px;
+  }
+}
+
+/* ---------- tablet ---------- */
+
+@media (max-width: 1023px) {
+  .veil {
+    display: block;
+  }
+
+  .container {
+    padding-block: 38px;
+  }
+
+  .inner {
+    margin-left: 52%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .content {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .actions {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 16px;
+  }
+
+  .quote {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: start;
+    margin-top: 16px;
+  }
+
+  .heading {
+    max-width: 30ch;
+  }
+}
+
+/* ---------- mobile ---------- */
+
+@media (max-width: 639px) {
+  .section {
+    background: var(--color-cream);
+  }
+
+  .bgWrap {
+    position: relative;
+    inset: auto;
+    height: 216px;
+  }
+
+  .bg {
+    object-position: 0% 25%;
+  }
+
+  .veil {
+    display: none;
+  }
+
+  .container {
+    padding: 24px var(--page-padding) 30px;
+  }
+
+  .inner {
+    margin-left: 0;
+    min-height: 0;
+  }
+
+  .heading {
+    font-size: 29px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+    margin-top: 16px;
+  }
+
+  .primary,
+  .outline {
+    width: 100%;
+  }
+
+  .quote {
+    margin-top: 18px;
+  }
+}
+
+/* ---------- reveal animation ---------- */
+
+.section [data-reveal-item] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: calc(var(--stagger, 0) * 70ms);
+}
+
+.section.revealed [data-reveal-item] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section [data-reveal-item] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

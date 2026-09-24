@@ -45,20 +45,25 @@ export const socialLinks: SocialLink[] = [
   { label: "LinkedIn", href: "#", icon: "linkedin", placeholder: true },
 ];
 
+// TODO: phone and email are dummy placeholders — replace with real contact details.
 export const contactItems: ContactItem[] = [
   {
     label: "Address",
-    value: "Contact details to be added",
+    value:
+      "Sir Mathuradas Vasanji Rd, Chimatpada, Marol Naka, Andheri East, Mumbai, Maharashtra 400059, India",
+    href: "https://www.google.com/maps/search/?api=1&query=Human+Rights+and+Social+Justice+Mission+Marol+Naka+Andheri+East+Mumbai+400059",
     icon: "location",
   },
   {
     label: "Phone",
-    value: "Contact details to be added",
+    value: "+91 98765 43210",
+    href: "tel:+919876543210",
     icon: "phone",
   },
   {
     label: "Email",
-    value: "Contact details to be added",
+    value: "info@hrsjm.org",
+    href: "mailto:info@hrsjm.org",
     icon: "email",
   },
 ];

@@ -133,9 +133,9 @@
 
 .navLinkSecondary {
   min-height: 43px;
-  color: var(--color-text-secondary);
+  color: var(--color-navy-dark);
   font-size: 12.5px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .navLink::after,
@@ -152,6 +152,11 @@
   transition: transform 200ms ease;
 }
 
+/* White underline stays visible on the secondary brand gold bar */
+.navLinkSecondary::after {
+  background: rgba(255, 255, 255, 0.92);
+}
+
 .navLink:hover,
 .navLink.active {
   color: var(--color-navy);
@@ -162,11 +167,13 @@
 }
 
 .navLinkSecondary:hover {
-  color: var(--color-navy);
+  color: var(--color-navy-dark);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .navLinkSecondary.active {
-  color: var(--color-navy);
+  color: var(--color-white);
+  background: rgba(3, 29, 56, 0.32);
   font-weight: 600;
 }
 
@@ -178,7 +185,9 @@
   display: flex;
   justify-content: center;
   min-height: 44px;
-  border-top: 1px solid var(--color-border);
+  padding: 0 var(--page-padding);
+  background: var(--color-gold);
+  border-top: 1px solid rgba(3, 29, 56, 0.14);
 }
 
 .headerActions {
@@ -277,7 +286,7 @@
 }
 
 .footer .logoHindi {
-  color: var(--color-gold-light);
+  color: var(--color-gold);
 }
 
 .brandColumn > p {
@@ -382,7 +391,7 @@
   display: grid;
   gap: 3px;
   padding-left: 26px;
-  border-left: 1px solid rgba(217, 169, 40, 0.55);
+  border-left: 1px solid rgba(250, 210, 92, 0.55);
   color: var(--color-gold);
   font-family: var(--font-display), Georgia, serif;
   font-size: 17px;
@@ -395,7 +404,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  border-top: 1px solid rgba(217, 169, 40, 0.72);
+  border-top: 1px solid rgba(250, 210, 92, 0.72);
   color: rgba(255, 255, 255, 0.56);
 }
 
@@ -417,7 +426,7 @@
   min-height: 40px;
   padding: 0;
   border: 0;
-  color: var(--color-gold-light);
+  color: var(--color-gold);
   background: transparent;
   cursor: pointer;
   opacity: 0.48;

@@ -1,0 +1,320 @@
+/* ── What HRSJM Does — three-zone editorial section on warm cream ── */
+
+.section {
+  background: var(--color-cream);
+  padding: 46px 0 42px;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-inline: var(--page-padding);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 25fr) minmax(0, 52fr) minmax(0, 20fr);
+  gap: 32px;
+  align-items: center;
+}
+
+/* ── Reveal animation (armed only when motion is allowed) ── */
+
+.armed [data-reveal],
+.armed [data-reveal-fade] {
+  opacity: 0;
+}
+
+.armed [data-reveal] {
+  transform: translateY(14px);
+}
+
+.armed [data-reveal-fade] {
+  transform: translateY(8px);
+}
+
+.armed [data-reveal-item] {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.revealed [data-reveal],
+.revealed [data-reveal-fade],
+.revealed [data-reveal-item] {
+  opacity: 1;
+  transform: none;
+}
+
+.revealed [data-reveal],
+.revealed [data-reveal-fade] {
+  transition:
+    opacity 520ms cubic-bezier(0.33, 0.1, 0.25, 1),
+    transform 520ms cubic-bezier(0.33, 0.1, 0.25, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.revealed [data-reveal-item] {
+  transition:
+    opacity 460ms cubic-bezier(0.33, 0.1, 0.25, 1),
+    transform 460ms cubic-bezier(0.33, 0.1, 0.25, 1);
+  transition-delay: calc(var(--stagger, 0) * 70ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .armed [data-reveal],
+  .armed [data-reveal-fade],
+  .armed [data-reveal-item],
+  .revealed [data-reveal],
+  .revealed [data-reveal-fade],
+  .revealed [data-reveal-item] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── Left intro ── */
+
+.intro {
+  min-width: 0;
+}
+
+.heading {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 2.5vw, 36px);
+  font-weight: 600;
+  line-height: 1.14;
+  color: var(--color-navy);
+  letter-spacing: 0.005em;
+}
+
+.description {
+  margin-top: 14px;
+  max-width: 300px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: rgba(6, 42, 79, 0.86);
+}
+
+.cta {
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: var(--radius-sm);
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: 13.5px;
+  font-weight: 700;
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease,
+    background-color 240ms ease;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  background: var(--color-gold-light);
+  box-shadow: 0 8px 18px rgba(6, 42, 79, 0.16);
+}
+
+.cta:active {
+  transform: translateY(0);
+}
+
+.cta:focus-visible {
+  outline-color: var(--color-navy);
+}
+
+/* ── Center: four work-area cards ── */
+
+.cards {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  list-style: none;
+}
+
+.cardCell {
+  min-width: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  box-shadow: 0 2px 10px rgba(6, 42, 79, 0.08);
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(6, 42, 79, 0.14);
+}
+
+.card:focus-visible {
+  outline-color: var(--color-navy);
+}
+
+.cardImageWrap {
+  position: relative;
+  display: block;
+  height: 104px;
+  overflow: hidden;
+}
+
+.cardImage {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 240ms ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.02);
+}
+
+.cardBody {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px 14px;
+}
+
+.cardTitle {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-navy);
+}
+
+.cardSubtitle {
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: rgba(6, 42, 79, 0.72);
+}
+
+.cardArrow {
+  margin-top: auto;
+  padding-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-gold);
+  transition: transform 240ms ease;
+}
+
+.card:hover .cardArrow {
+  transform: translateX(3px);
+}
+
+/* ── Right: Our Work Areas list ── */
+
+.workAreas {
+  min-width: 0;
+  padding-left: 24px;
+  border-left: 1px solid var(--color-border);
+}
+
+.workAreasTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+}
+
+.workAreasList {
+  margin-top: 16px;
+  display: grid;
+  gap: 13px;
+  list-style: none;
+}
+
+.workArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-navy);
+}
+
+.workAreaMarker {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* ── Tablet: intro, 2×2 cards, then work areas ── */
+
+@media (max-width: 1023px) {
+  .section {
+    padding: 42px 0 40px;
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  /* Cards grow much wider than on desktop while the source images are
+     near-square (~354×379), so size the frame to the image ratio to
+     keep cover-fit from cropping people out. */
+  .cardImageWrap {
+    height: auto;
+    aspect-ratio: 20 / 21;
+  }
+
+  .workAreas {
+    padding-left: 0;
+    padding-top: 24px;
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+/* ── Mobile: single-column stack ── */
+
+@media (max-width: 639px) {
+  .section {
+    padding: 36px 0 34px;
+  }
+
+  .layout {
+    gap: 26px;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .description {
+    max-width: none;
+  }
+
+  .workAreas {
+    padding-top: 22px;
+  }
+}
