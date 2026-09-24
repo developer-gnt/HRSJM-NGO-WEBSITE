@@ -90,12 +90,13 @@
   touch-action: pan-y;
 }
 
+/* The track's position is driven per-frame by requestAnimationFrame in
+   HumanStoriesSection (continuous marquee), so no CSS transition here. */
 .track {
   display: flex;
   list-style: none;
   margin: 0 -7px;
   padding: 0;
-  transition: transform 0.52s cubic-bezier(0.33, 0.1, 0.25, 1);
   will-change: transform;
 }
 
@@ -207,16 +208,11 @@
   right: -15px;
 }
 
-.control:hover:not(:disabled),
-.control:focus-visible:not(:disabled) {
+.control:hover,
+.control:focus-visible {
   background: var(--color-navy);
   border-color: var(--color-navy);
   color: var(--color-white);
-}
-
-.control:disabled {
-  opacity: 0.45;
-  cursor: default;
 }
 
 .control:focus-visible {
@@ -382,10 +378,6 @@
   .section [data-reveal-item] {
     opacity: 1;
     transform: none;
-    transition: none;
-  }
-
-  .track {
     transition: none;
   }
 
