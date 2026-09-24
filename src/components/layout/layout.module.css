@@ -1,0 +1,613 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-white);
+  color: var(--color-navy);
+  transition: box-shadow 220ms ease;
+}
+
+.scrolled {
+  box-shadow: 0 4px 20px rgba(3, 29, 56, 0.1);
+}
+
+.headerInner {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+.topRowInner {
+  min-width: 0;
+  min-height: 66px;
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2vw, 32px);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  min-width: 0;
+  min-height: 48px;
+  color: var(--color-navy);
+}
+
+.logoMark {
+  flex: 0 0 auto;
+  width: auto;
+  height: 44px;
+  object-fit: contain;
+}
+
+.logoCopy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.logoCopy strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.logoCopy small {
+  color: var(--color-text-secondary);
+  font-size: 7.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.logoHindi {
+  color: var(--color-gold);
+  font-family: var(--font-devanagari), "Noto Sans Devanagari", sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
+.primaryNav,
+.secondaryNav {
+  min-width: 0;
+}
+
+.primaryNav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.desktopNav ul,
+.primaryNav ul,
+.secondaryNav ul,
+.mobilePanel ul,
+.footerLinks,
+.socialLinks,
+.contactList,
+.footerBottom ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.primaryNav ul,
+.secondaryNav ul {
+  display: flex;
+  align-items: stretch;
+}
+
+.primaryNav ul {
+  gap: clamp(14px, 1.4vw, 20px);
+}
+
+.secondaryNav ul {
+  gap: clamp(18px, 2.2vw, 28px);
+}
+
+.navLink,
+.navLinkSecondary {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition: color 200ms ease;
+}
+
+.navLink {
+  min-height: 66px;
+  color: var(--color-navy);
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.navLinkSecondary {
+  min-height: 43px;
+  color: var(--color-text-secondary);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.navLink::after,
+.navLinkSecondary::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 200ms ease;
+}
+
+.navLink:hover,
+.navLink.active {
+  color: var(--color-navy);
+}
+
+.navLink.active::after {
+  transform: scaleX(1);
+}
+
+.navLinkSecondary:hover {
+  color: var(--color-navy);
+}
+
+.navLinkSecondary.active {
+  color: var(--color-navy);
+  font-weight: 600;
+}
+
+.navLinkSecondary.active::after {
+  transform: scaleX(1);
+}
+
+.secondaryRow {
+  display: flex;
+  justify-content: center;
+  min-height: 44px;
+  border-top: 1px solid var(--color-border);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 0 0 auto;
+}
+
+.searchButton,
+.menuButton {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  color: var(--color-navy);
+  background: transparent;
+  cursor: pointer;
+}
+
+.searchButton:hover,
+.menuButton:hover {
+  color: var(--color-gold);
+}
+
+.donateButton,
+.mobileDonateButton {
+  min-height: 45px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 17px;
+  border-radius: 999px;
+  color: var(--color-navy);
+  background: var(--color-gold);
+  font-size: var(--type-button);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform 200ms ease, background-color 200ms ease;
+}
+
+.donateButton:hover,
+.mobileDonateButton:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-1px);
+}
+
+.donateButton svg,
+.mobileDonateButton svg {
+  width: 15px;
+  height: 15px;
+}
+
+.menuButton,
+.mobilePanel {
+  display: none;
+}
+
+.footer {
+  color: rgba(255, 255, 255, 0.82);
+  background: var(--color-navy-dark);
+}
+
+.footerMain,
+.footerBottom {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding-right: var(--page-padding);
+  padding-left: var(--page-padding);
+}
+
+.footerMain {
+  display: grid;
+  grid-template-columns: minmax(190px, 1.4fr) repeat(2, minmax(130px, 1fr)) minmax(190px, 1.35fr) minmax(115px, 0.7fr);
+  gap: 36px;
+  padding-top: 52px;
+  padding-bottom: 44px;
+}
+
+.footer .logo {
+  color: var(--color-white);
+}
+
+.footer .logoMark {
+  height: 48px;
+  padding: 5px;
+  border-radius: 10px;
+  background: var(--color-white);
+}
+
+.footer .logoCopy small {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.footer .logoHindi {
+  color: var(--color-gold-light);
+}
+
+.brandColumn > p {
+  max-width: 220px;
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: var(--type-body-small);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 7px;
+  margin-top: 22px;
+}
+
+.socialLinks a {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  color: var(--color-white);
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.socialLinks a:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.socialLinks svg {
+  width: 15px;
+  height: 15px;
+}
+
+.footerColumn h2 {
+  margin: 4px 0 17px;
+  color: var(--color-white);
+  font-size: var(--type-body-small);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.footerLinks {
+  display: grid;
+  gap: 8px;
+}
+
+.footerLinks a,
+.footerBottom a {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: var(--type-body-small);
+  font-weight: 400;
+  line-height: 1.5;
+  transition: color 200ms ease;
+}
+
+.footerLinks a:hover,
+.footerBottom a:hover {
+  color: var(--color-gold-light);
+}
+
+.contactList {
+  display: grid;
+  gap: 16px;
+}
+
+.contactList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: var(--type-body-small);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.contactList svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  color: var(--color-gold);
+}
+
+.contactList span {
+  display: grid;
+  gap: 2px;
+}
+
+.contactList strong {
+  color: var(--color-white);
+  font-size: var(--type-caption);
+  line-height: 1.4;
+}
+
+.tagline {
+  align-self: center;
+  display: grid;
+  gap: 3px;
+  padding-left: 26px;
+  border-left: 1px solid rgba(217, 169, 40, 0.55);
+  color: var(--color-gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 17px;
+  line-height: 1.1;
+}
+
+.footerBottom {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid rgba(217, 169, 40, 0.72);
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.footerBottom p,
+.footerBottom a,
+.backToTop {
+  font-size: var(--type-caption);
+  line-height: 1.4;
+}
+
+.footerBottom nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.backToTop {
+  min-width: 92px;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
+  color: var(--color-gold-light);
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.48;
+  transition: opacity 200ms ease;
+}
+
+.backToTop:hover,
+.backToTopVisible {
+  opacity: 1;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 1180px) {
+  .primaryNav ul {
+    gap: 12px;
+  }
+
+  .secondaryNav ul {
+    gap: 16px;
+  }
+
+  .navLink {
+    font-size: 12.5px;
+  }
+
+  .navLinkSecondary {
+    font-size: 12px;
+  }
+
+  .headerActions {
+    gap: 5px;
+  }
+
+  .donateButton {
+    padding: 0 13px;
+  }
+
+  .footerMain {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .tagline {
+    grid-column: 4;
+  }
+}
+
+@media (max-width: 1023px) {
+  .topRowInner {
+    min-height: 72px;
+  }
+
+  .primaryNav,
+  .secondaryRow,
+  .headerActions {
+    display: none;
+  }
+
+  .menuButton {
+    display: grid;
+    margin-left: auto;
+  }
+
+  .mobilePanel {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    border-top: 1px solid transparent;
+    background: var(--color-white);
+    transition: max-height 260ms ease, border-color 260ms ease;
+  }
+
+  .mobilePanelOpen {
+    max-height: calc(100dvh - 72px);
+    overflow-y: auto;
+    border-color: var(--color-border);
+  }
+
+  .mobilePanel nav {
+    width: min(100%, var(--container));
+    padding: 10px var(--page-padding) 28px;
+    margin: 0 auto;
+  }
+
+  .mobileNavLink {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .mobileNavLink.active {
+    color: var(--color-navy);
+    border-bottom-color: var(--color-gold);
+  }
+
+  .mobileDonateButton {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 639px) {
+  .headerInner,
+  .footerMain,
+  .footerBottom {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .logoCopy strong {
+    font-size: 21px;
+  }
+
+  .logoCopy small {
+    font-size: 7px;
+  }
+
+  .logoHindi {
+    font-size: 9px;
+  }
+
+  .logoMark {
+    height: 38px;
+  }
+
+  .footerMain {
+    grid-template-columns: 1fr 1fr;
+    gap: 34px 24px;
+    padding-top: 42px;
+    padding-bottom: 36px;
+  }
+
+  .brandColumn {
+    grid-column: 1 / -1;
+  }
+
+  .tagline {
+    grid-column: 1 / -1;
+    padding-top: 18px;
+    padding-left: 0;
+    border-top: 1px solid rgba(217, 169, 40, 0.55);
+    border-left: 0;
+  }
+
+  .footerBottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .footerBottom nav ul {
+    gap: 10px 16px;
+  }
+
+  .backToTop {
+    align-self: flex-end;
+    margin-top: -42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .navLink::after,
+  .navLinkSecondary::after,
+  .donateButton,
+  .mobileDonateButton,
+  .mobilePanel,
+  .socialLinks a,
+  .footerLinks a,
+  .footerBottom a,
+  .backToTop {
+    transition: none;
+  }
+}
