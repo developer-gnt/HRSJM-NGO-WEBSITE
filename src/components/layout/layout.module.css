@@ -215,7 +215,7 @@
   padding: 0 17px;
   border-radius: 999px;
   color: var(--color-navy);
-  background: var(--color-gold);
+  background: #fad25c;
   font-size: var(--type-button);
   font-weight: 600;
   line-height: 1;
@@ -225,7 +225,7 @@
 
 .donateButton:hover,
 .mobileDonateButton:hover {
-  background: var(--color-gold-light);
+  background: #fce49c;
   transform: translateY(-1px);
 }
 
