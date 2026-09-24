@@ -102,9 +102,9 @@
   place-items: center;
   width: 34px;
   height: 34px;
-  border: 1.5px solid var(--color-gold);
+  border: 1.5px solid var(--color-gold-dark);
   border-radius: 50%;
-  color: var(--color-gold);
+  color: var(--color-gold-dark);
 }
 
 .label {

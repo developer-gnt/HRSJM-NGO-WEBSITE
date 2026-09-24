@@ -176,7 +176,7 @@
 }
 
 .locationIcon {
-  color: var(--color-gold);
+  color: var(--color-gold-dark);
   flex-shrink: 0;
 }
 

@@ -257,8 +257,8 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 1.5px solid var(--color-gold);
-  color: var(--color-gold);
+  border: 1.5px solid var(--color-gold-dark);
+  color: var(--color-gold-dark);
 }
 
 /* ── Tablet: intro, 2×2 cards, then work areas ── */

@@ -52,6 +52,7 @@
 .content {
   grid-column: 1;
   grid-row: 1;
+  padding-left: 16px;
 }
 
 .eyebrow {
