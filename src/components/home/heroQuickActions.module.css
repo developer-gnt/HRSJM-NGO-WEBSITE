@@ -35,7 +35,7 @@
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  color: var(--color-gold);
+  color: var(--color-gold-dark);
 }
 
 .cardIcon svg {
