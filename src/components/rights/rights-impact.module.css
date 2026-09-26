@@ -1,0 +1,271 @@
+/* ---------------------------------------------------------------- */
+/* Know Your Rights page styles.                                    */
+/* Section 05 — Our Impact                                          */
+/* (full-width navy photo banner: eyebrow, heading, description,    */
+/* four statistics with gold ring icons)                            */
+/* ---------------------------------------------------------------- */
+
+.section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--color-navy);
+  color: var(--color-white);
+  scroll-margin-top: 120px;
+}
+
+/* Background community scene — crop follows the copy column on small
+   screens so the speaker stays in frame. */
+.bg {
+  object-fit: cover;
+  object-position: 62% center;
+  z-index: -2;
+}
+
+/* Navy treatment: strong behind the left copy column, easing off so
+   the speaker and community remain visible on the right. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 29, 56, 0.92) 0%,
+      rgba(3, 29, 56, 0.72) 30%,
+      rgba(3, 29, 56, 0.42) 56%,
+      rgba(3, 29, 56, 0.14) 78%,
+      rgba(3, 29, 56, 0.3) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(3, 29, 56, 0.3) 0%,
+      rgba(3, 29, 56, 0) 28%,
+      rgba(3, 29, 56, 0) 68%,
+      rgba(3, 29, 56, 0.42) 100%
+    );
+}
+
+.inner {
+  position: relative;
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: clamp(46px, 4.2vw, 48px) var(--page-padding);
+}
+
+/* Gold accents in this section are #B88916 (gold-dark) */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-white);
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold-dark);
+  box-shadow: 0 0 0 4px rgba(184, 137, 22, 0.22);
+}
+
+.heading {
+  margin-top: 12px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+}
+
+.description {
+  max-width: 400px;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: var(--type-body);
+  line-height: 1.6;
+  /* Soft dark shadow keeps the copy legible where it sits over the
+     brighter parts of the community scene. */
+  text-shadow:
+    0 1px 3px rgba(3, 29, 56, 0.55),
+    0 2px 12px rgba(3, 29, 56, 0.35);
+}
+
+/* ---------- statistics row ---------- */
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 34px;
+  margin-top: 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* Ring + icon are exactly #B88916 (var(--color-gold-dark)) */
+.statIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--color-gold-dark);
+  border-radius: 50%;
+  color: var(--color-gold-dark);
+}
+
+.statCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.statValue {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-white);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.statLabel {
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ---------- reveal — same armed/revealed system as Explore Rights ---------- */
+
+.section.armed .eyebrow,
+.section.armed .heading,
+.section.armed .description,
+.section.armed .stat {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.section.armed.revealed .eyebrow,
+.section.armed.revealed .heading,
+.section.armed.revealed .description,
+.section.armed.revealed .stat {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
+}
+
+.section.armed.revealed .heading {
+  transition-delay: 80ms;
+}
+
+.section.armed.revealed .description {
+  transition-delay: 160ms;
+}
+
+.section.armed.revealed .stat {
+  transition-delay: calc(220ms + var(--stagger, 0) * 70ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section.armed .eyebrow,
+  .section.armed .heading,
+  .section.armed .description,
+  .section.armed .stat {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- tablet ---------- */
+
+@media (max-width: 1023px) {
+  .inner {
+    padding-top: 42px;
+    padding-bottom: 42px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 26px;
+    margin-top: 26px;
+    max-width: 560px;
+  }
+}
+
+/* ---------- mobile ---------- */
+
+@media (max-width: 639px) {
+  .bg {
+    object-position: 60% center;
+  }
+
+  /* Stronger, more even coverage so heading, description and stats
+     all stay readable while the scene still shows through. */
+  .scrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3, 29, 56, 0.6) 0%,
+        rgba(3, 29, 56, 0.38) 42%,
+        rgba(3, 29, 56, 0.62) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(3, 29, 56, 0.86) 0%,
+        rgba(3, 29, 56, 0.58) 55%,
+        rgba(3, 29, 56, 0.32) 100%
+      );
+  }
+
+  .inner {
+    padding-top: 38px;
+    padding-bottom: 42px;
+  }
+
+  .heading {
+    font-size: 30px;
+  }
+
+  .description {
+    max-width: none;
+    font-size: var(--type-body-small);
+  }
+
+  .stats {
+    gap: 16px 18px;
+    margin-top: 24px;
+  }
+
+  .statIcon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .statValue {
+    font-size: 19px;
+  }
+
+  .statLabel {
+    font-size: 11.5px;
+  }
+}

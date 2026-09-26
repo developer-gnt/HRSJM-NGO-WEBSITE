@@ -133,9 +133,12 @@
 
 .navLinkSecondary {
   min-height: 43px;
+  padding: 0 12px;
+  border-radius: 4px;
   color: var(--color-navy-dark);
   font-size: 12.5px;
   font-weight: 600;
+  transition: color 200ms ease, background-color 200ms ease;
 }
 
 .navLink::after,
@@ -167,13 +170,13 @@
 }
 
 .navLinkSecondary:hover {
-  color: var(--color-navy-dark);
-  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+  background: var(--color-gold-dark);
 }
 
 .navLinkSecondary.active {
   color: var(--color-white);
-  background: rgba(3, 29, 56, 0.32);
+  background: var(--color-gold-dark);
   font-weight: 600;
 }
 
@@ -224,7 +227,7 @@
   padding: 0 17px;
   border-radius: 999px;
   color: var(--color-navy);
-  background: var(--color-gold);
+  background: #fad25c;
   font-size: var(--type-button);
   font-weight: 600;
   line-height: 1;
@@ -234,7 +237,7 @@
 
 .donateButton:hover,
 .mobileDonateButton:hover {
-  background: var(--color-gold-light);
+  background: #fce49c;
   transform: translateY(-1px);
 }
 

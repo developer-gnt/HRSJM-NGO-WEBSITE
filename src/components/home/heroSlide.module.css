@@ -59,7 +59,7 @@
   height: 100%;
   width: min(100%, var(--container));
   margin: 0 auto;
-  padding: 30px var(--page-padding) 116px;
+  padding: 44px var(--page-padding) 128px;
   display: flex;
   align-items: center;
 }

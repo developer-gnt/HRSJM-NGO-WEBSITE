@@ -193,8 +193,8 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 1.5px solid var(--color-gold);
-  color: var(--color-gold);
+  border: 1.5px solid var(--color-gold-dark);
+  color: var(--color-gold-dark);
 }
 
 .principleLabel {

@@ -19,7 +19,7 @@ export const quickLinks: FooterLink[] = [
   { label: "Home", href: "/" },
   { label: "About HRSJM", href: "/about" },
   { label: "Know Your Rights", href: "/rights" },
-  { label: "What We Do", href: "/what-we-do" },
+  { label: "What We Do", href: "/what-hrsjm-does" },
   { label: "Membership", href: "/membership" },
   { label: "Donation", href: "/donation" },
   { label: "Complaint / Get Help", href: "/complaint" },

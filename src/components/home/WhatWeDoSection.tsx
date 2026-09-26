@@ -102,7 +102,7 @@ export default function WhatWeDoSection() {
               organising and support to create lasting change.
             </p>
             <Link
-              href="/what-we-do"
+              href="/what-hrsjm-does"
               className={styles.cta}
               style={revealDelay(2)}
               data-reveal-fade=""
@@ -116,7 +116,7 @@ export default function WhatWeDoSection() {
             {workCards.map((card, index) => (
               <li key={card.title} className={styles.cardCell}>
                 <Link
-                  href="/what-we-do"
+                  href="/what-hrsjm-does"
                   className={styles.card}
                   style={{ "--stagger": index } as CSSProperties}
                   data-reveal-item=""

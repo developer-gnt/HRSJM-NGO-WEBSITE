@@ -11,6 +11,7 @@ export type IconName =
   | "chevronLeft"
   | "chevronRight"
   | "close"
+  | "download"
   | "email"
   | "facebook"
   | "fileText"
@@ -75,6 +76,8 @@ export default function Icon({ name, ...props }: IconProps) {
       return <svg {...commonProps}><path d="m9 18 6-6-6-6" /></svg>;
     case "close":
       return <svg {...commonProps}><path d="m6 6 12 12" /><path d="M18 6 6 18" /></svg>;
+    case "download":
+      return <svg {...commonProps}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="m7 10 5 5 5-5" /><path d="M12 15V3" /></svg>;
     case "email":
       return <svg {...commonProps}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>;
     case "facebook":
