@@ -123,12 +123,12 @@ export default function Header({ className }: HeaderProps) {
             </button>
           </div>
         </div>
+      </div>
 
-        <div className={styles.secondaryRow}>
-          <nav className={styles.secondaryNav} aria-label="Secondary navigation">
-            <NavList items={secondaryNavigation} pathname={pathname} linkClassName={styles.navLinkSecondary} />
-          </nav>
-        </div>
+      <div className={styles.secondaryRow}>
+        <nav className={styles.secondaryNav} aria-label="Secondary navigation">
+          <NavList items={secondaryNavigation} pathname={pathname} linkClassName={styles.navLinkSecondary} />
+        </nav>
       </div>
 
       <div className={`${styles.mobilePanel} ${isMenuOpen ? styles.mobilePanelOpen : ""}`}>

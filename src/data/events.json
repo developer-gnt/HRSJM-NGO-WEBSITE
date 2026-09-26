@@ -1,0 +1,23 @@
+[
+  {
+    "id": "legal-aid-camp",
+    "title": "Legal Aid Camp",
+    "day": "12",
+    "month": "Oct",
+    "location": "Mumbai, Maharashtra"
+  },
+  {
+    "id": "awareness-drive",
+    "title": "Community Awareness Drive",
+    "day": "26",
+    "month": "Oct",
+    "location": "Nashik, Maharashtra"
+  },
+  {
+    "id": "volunteer-workshop",
+    "title": "Volunteer Training Workshop",
+    "day": "09",
+    "month": "Nov",
+    "location": "Satyenagar, Delhi"
+  }
+]

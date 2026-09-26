@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope, Noto_Sans_Devanagari } from "next/font/google";
+import { Caveat, Cormorant_Garamond, Manrope, Noto_Sans_Devanagari } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
@@ -14,6 +14,12 @@ const bodyFont = Manrope({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
+});
+
+const scriptFont = Caveat({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: ["500", "600"],
 });
 
 const devanagariFont = Noto_Sans_Devanagari({
@@ -32,7 +38,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${devanagariFont.variable}`}>
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${scriptFont.variable} ${devanagariFont.variable}`}>
       <body>
         <Header />
         <main>{children}</main>

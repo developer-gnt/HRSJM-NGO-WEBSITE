@@ -1,0 +1,60 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 384px;
+  color: var(--color-white);
+  background-color: var(--color-navy);
+}
+
+.slides {
+  position: absolute;
+  inset: 0;
+}
+
+.frame {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.frameInner {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 0 var(--page-padding) 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.frameInner > * {
+  pointer-events: auto;
+}
+
+.liveStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 899px) {
+  .hero {
+    min-height: 512px;
+  }
+
+  .frameInner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+}
