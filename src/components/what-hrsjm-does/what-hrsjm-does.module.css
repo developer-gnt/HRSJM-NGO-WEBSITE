@@ -1,0 +1,1891 @@
+/* ---------------------------------------------------------------- */
+/* What HRSJM Does page styles.                                     */
+/* Section 01 — Hero                                                */
+/* (breadcrumb, eyebrow, heading, description, CTAs, handwritten    */
+/* script overlay, floating impact card)                            */
+/* ---------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-navy);
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  /* Compact cinematic height (430–500px): the page continues straight
+     below the hero, so it stays inside the first viewport without
+     dominating it. */
+  min-height: clamp(430px, calc(100vh - 128px), 500px);
+}
+
+/* Background image + readability scrims */
+.heroBg {
+  position: absolute;
+  inset: 0;
+}
+
+.heroImg {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Left scrim only — deep navy where the copy sits, easing out so the
+   woman/community composition on the right keeps its golden light. */
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(3, 29, 56, 0.88) 0%,
+    rgba(3, 29, 56, 0.55) 30%,
+    rgba(3, 29, 56, 0.15) 54%,
+    rgba(3, 29, 56, 0) 72%
+  );
+  pointer-events: none;
+}
+
+/* Subtle top/bottom vignette to seat the navbar and page edge */
+.heroShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(3, 29, 56, 0.38) 0%,
+    rgba(3, 29, 56, 0) 24%,
+    rgba(3, 29, 56, 0) 70%,
+    rgba(3, 29, 56, 0.45) 100%
+  );
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  flex: 1;
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 20px var(--page-padding) 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.heroContent {
+  max-width: 47%;
+  margin-block: auto;
+}
+
+/* Breadcrumb */
+.breadcrumbList {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  font-size: 13px;
+}
+
+.breadcrumbLink {
+  color: rgba(255, 255, 255, 0.62);
+  font-weight: 500;
+  transition: color 200ms ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-white);
+}
+
+.breadcrumbSeparator {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.breadcrumbCurrent {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+}
+
+/* Eyebrow */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  color: var(--color-white);
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(250, 210, 92, 0.16);
+}
+
+/* Main heading */
+.heading {
+  max-width: 620px;
+  margin-top: 12px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(38px, 4.45vw, 64px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.03;
+  letter-spacing: -0.015em;
+  color: var(--color-white);
+}
+
+.headingGold {
+  display: block;
+  color: var(--color-gold);
+}
+
+/* Description */
+.description {
+  max-width: 470px;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+/* CTA buttons */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: var(--type-button);
+  font-weight: 700;
+  transition:
+    background 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.primaryBtn:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(3, 29, 56, 0.28);
+}
+
+.primaryBtn:active {
+  transform: translateY(0);
+}
+
+.primaryBtnIcon {
+  display: inline-flex;
+  transition: transform 200ms ease;
+}
+
+.primaryBtn:hover .primaryBtnIcon {
+  transform: translateX(3px);
+}
+
+/* Secondary — double chevron + label, transparent with thin border */
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* 13px + 1px border mirrors the primary button's 14px so both
+     buttons sit at the same height. */
+  padding: 13px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-white);
+  font-size: var(--type-button);
+  font-weight: 600;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease;
+}
+
+.secondaryBtn:hover {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.secondaryChevrons {
+  display: inline-flex;
+  align-items: center;
+}
+
+.secondaryChevrons svg:last-child {
+  margin-left: -9px;
+}
+
+/* Handwritten script overlay — sits over the image's golden light.
+   Rotation lives on the wrapper so the fade-up animation on the text
+   never overwrites it. */
+.heroScript {
+  position: absolute;
+  top: clamp(22px, 5vw, 64px);
+  right: clamp(24px, 5vw, 76px);
+  pointer-events: none;
+}
+
+.heroScriptText {
+  font-family: var(--font-script), cursive;
+  font-size: clamp(28px, 2.6vw, 38px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: 0.02em;
+  color: rgba(15, 39, 67, 0.92);
+  text-shadow: 0 1px 10px rgba(247, 244, 236, 0.45);
+}
+
+/* Floating impact card (lower right) */
+.heroCard {
+  position: absolute;
+  right: calc(var(--page-padding) + 12px);
+  bottom: 26px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(3, 29, 56, 0.25);
+}
+
+.heroCardIcon {
+  flex: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+}
+
+/* Tiny gold sparkles just above the icon */
+.heroCardIcon::before,
+.heroCardIcon::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-gold-dark);
+}
+
+.heroCardIcon::before {
+  width: 5px;
+  height: 5px;
+  top: -10px;
+  right: -7px;
+  opacity: 0.9;
+}
+
+.heroCardIcon::after {
+  width: 3px;
+  height: 3px;
+  top: -14px;
+  right: 3px;
+  opacity: 0.7;
+}
+
+.heroCardText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.heroCardTitle {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-navy);
+}
+
+.heroCardSub {
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+/* Load-in animations — subtle fade + upward stagger */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.breadcrumbList,
+.eyebrow,
+.heading,
+.description,
+.actions,
+.heroScriptText,
+.heroCard {
+  animation: heroFadeUp 600ms ease both;
+}
+
+.breadcrumbList {
+  animation-delay: 60ms;
+}
+
+.eyebrow {
+  animation-delay: 160ms;
+}
+
+.heading {
+  animation-delay: 260ms;
+}
+
+.description {
+  animation-delay: 380ms;
+}
+
+.actions {
+  animation-delay: 480ms;
+}
+
+.heroCard {
+  animation-delay: 620ms;
+}
+
+.heroScriptText {
+  animation-delay: 720ms;
+}
+
+/* Tablet — 640–1024px */
+@media (max-width: 1023px) {
+  /* Same viewport-fit strategy as desktop with a shorter navbar */
+  .hero {
+    min-height: clamp(430px, calc(100vh - 118px), 500px);
+  }
+
+  .heroContent {
+    max-width: 62%;
+  }
+
+  .heroImg {
+    object-position: 62% center;
+  }
+
+  /* Script overlay is a desktop-only accent — it would crowd the
+     narrower copy column */
+  .heroScript {
+    display: none;
+  }
+
+  .heroCard {
+    right: var(--page-padding);
+    bottom: 22px;
+  }
+}
+
+/* Mobile — under 640px */
+@media (max-width: 639px) {
+  /* Content-driven height on mobile — no fixed min-height, so the
+     hero is never taller than its copy needs. */
+  .hero {
+    min-height: 0;
+  }
+
+  /* Keep the woman/community composition in frame on the narrow crop */
+  .heroImg {
+    object-position: 70% center;
+  }
+
+  /* Even coverage so heading and buttons stay readable over the photo */
+  .heroScrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3, 29, 56, 0.5) 0%,
+        rgba(3, 29, 56, 0.3) 40%,
+        rgba(3, 29, 56, 0.55) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(3, 29, 56, 0.88) 0%,
+        rgba(3, 29, 56, 0.55) 55%,
+        rgba(3, 29, 56, 0.28) 100%
+      );
+  }
+
+  .heroInner {
+    padding-top: 18px;
+    padding-bottom: 24px;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  .heading {
+    font-size: clamp(34px, 8.6vw, 40px);
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 22px;
+  }
+
+  /* Card reflows into the column below the CTAs so it never
+     overlaps the copy */
+  .heroCard {
+    position: static;
+    align-self: flex-end;
+    margin-top: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumbList,
+  .eyebrow,
+  .heading,
+  .description,
+  .actions,
+  .heroScriptText,
+  .heroCard {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Our Approach                                                     */
+/* ---------------------------------------------------------------- */
+
+.approach {
+  background: var(--color-cream);
+  padding-block: clamp(48px, 4.8vw, 68px);
+}
+
+.approachInner {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+  display: grid;
+  grid-template-columns: minmax(0, 42fr) 1px minmax(0, 58fr);
+  align-items: stretch;
+  gap: clamp(32px, 3.5vw, 52px);
+}
+
+.approachIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.approachEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+}
+
+.approachEyebrowDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(250, 210, 92, 0.35);
+}
+
+.approachHeading {
+  margin-top: 14px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 2.95vw, 42px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-navy);
+}
+
+.approachHeadingLine {
+  display: block;
+}
+
+.approachDescription {
+  margin-top: 14px;
+  max-width: 420px;
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.approachCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: var(--type-button);
+  font-weight: 700;
+  transition:
+    background 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.approachCta:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(3, 29, 56, 0.22);
+}
+
+.approachCta:active {
+  transform: translateY(0);
+}
+
+.approachCtaIcon {
+  display: inline-flex;
+  transition: transform 200ms ease;
+}
+
+.approachCta:hover .approachCtaIcon {
+  transform: translateX(3px);
+}
+
+.approachDivider {
+  width: 1px;
+  background: rgba(6, 42, 79, 0.14);
+}
+
+.approachList {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 2vw, 30px);
+  align-content: center;
+}
+
+.approachItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.approachIconRing {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(6, 42, 79, 0.07);
+  color: var(--color-gold-dark);
+}
+
+.approachItemTitle {
+  margin-top: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-navy);
+}
+
+.approachItemDesc {
+  margin-top: 6px;
+  max-width: 150px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+/* Viewport-entry reveal — intro copy, divider, then staggered pillars */
+.approach.armed .approachEyebrow,
+.approach.armed .approachHeading,
+.approach.armed .approachDescription,
+.approach.armed .approachCta,
+.approach.armed .approachItem {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.approach.armed .approachDivider {
+  opacity: 0;
+}
+
+.approach.armed.revealed .approachEyebrow,
+.approach.armed.revealed .approachHeading,
+.approach.armed.revealed .approachDescription,
+.approach.armed.revealed .approachCta,
+.approach.armed.revealed .approachDivider,
+.approach.armed.revealed .approachItem {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.approach.armed.revealed .approachHeading {
+  transition-delay: 90ms;
+}
+
+.approach.armed.revealed .approachDescription {
+  transition-delay: 180ms;
+}
+
+.approach.armed.revealed .approachCta {
+  transition-delay: 270ms;
+}
+
+.approach.armed.revealed .approachDivider {
+  transition-delay: 320ms;
+}
+
+.approach.armed.revealed .approachItem {
+  transition-delay: calc(360ms + var(--stagger, 0) * 90ms);
+}
+
+/* ---------------------------------------------------------------- */
+/* Approach — responsive                                            */
+/* ---------------------------------------------------------------- */
+
+/* Tablet — 640–1023px */
+@media (max-width: 1023px) {
+  .approachInner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .approachDivider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .approachList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 24px;
+  }
+}
+
+/* Mobile — under 640px */
+@media (max-width: 639px) {
+  .approach {
+    padding-block: 44px 52px;
+  }
+
+  .approachInner {
+    gap: 30px;
+  }
+
+  .approachList {
+    gap: 24px 18px;
+  }
+}
+
+/* Very narrow — single-column pillars */
+@media (max-width: 379px) {
+  .approachList {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .approach.armed .approachEyebrow,
+  .approach.armed .approachHeading,
+  .approach.armed .approachDescription,
+  .approach.armed .approachCta,
+  .approach.armed .approachDivider,
+  .approach.armed .approachItem,
+  .approach.armed.revealed .approachEyebrow,
+  .approach.armed.revealed .approachHeading,
+  .approach.armed.revealed .approachDescription,
+  .approach.armed.revealed .approachCta,
+  .approach.armed.revealed .approachDivider,
+  .approach.armed.revealed .approachItem {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Key Areas of Our Work                                            */
+/* Dark photographic band — the section background is the provided  */
+/* navy community scene (public/WHD-Cards/section-bg.png); a soft   */
+/* navy wash keeps the header copy readable over it.                */
+/* ---------------------------------------------------------------- */
+
+.coreAreas {
+  position: relative;
+  background-color: var(--color-navy-dark);
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(3, 29, 56, 0.66) 0%,
+      rgba(3, 29, 56, 0.26) 34%,
+      rgba(3, 29, 56, 0.42) 100%
+    ),
+    url("/WHD-Cards/section-bg.png");
+  background-size: cover;
+  background-position: center;
+  padding-block: clamp(56px, 5.5vw, 84px);
+}
+
+.coreAreasInner {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+/* Header — heading block left, supporting paragraph right */
+.coreAreasHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: start;
+  gap: clamp(32px, 4vw, 72px);
+}
+
+.coreAreasIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.coreAreasEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+}
+
+.coreAreasEyebrowDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(250, 210, 92, 0.16);
+}
+
+.coreAreasHeading {
+  margin-top: 14px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 2.95vw, 42px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-cream);
+}
+
+.coreAreasHeadingLine {
+  display: block;
+}
+
+.coreAreasDescription {
+  justify-self: end;
+  margin-top: 4px;
+  max-width: 470px;
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: rgba(247, 244, 236, 0.82);
+}
+
+/* Cards — panoramic photo over a navy body, thin light border */
+.coreAreasGrid {
+  margin-top: clamp(36px, 3.4vw, 52px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 2.2vw, 32px);
+}
+
+/* The li carries the scroll-reveal transform; the inner wrapper owns
+   the hover lift so the two transforms never fight over one element */
+.coreCard {
+  position: relative;
+}
+
+.coreCardInner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(247, 244, 236, 0.16);
+  background: rgba(5, 33, 62, 0.8);
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background 260ms ease;
+}
+
+.coreCard:hover .coreCardInner {
+  transform: translateY(-5px);
+  border-color: rgba(184, 137, 22, 0.55);
+  background: rgba(7, 38, 70, 0.86);
+  box-shadow: 0 18px 40px rgba(2, 18, 36, 0.5);
+}
+
+.coreCardMedia {
+  position: relative;
+  flex: none;
+  aspect-ratio: 21 / 9;
+  overflow: hidden;
+}
+
+.coreCardImage {
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.coreCard:hover .coreCardImage {
+  transform: scale(1.05);
+}
+
+.coreCardBody {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 18px 20px;
+}
+
+.coreCardIcon {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(184, 137, 22, 0.8);
+  background: rgba(184, 137, 22, 0.1);
+  color: var(--color-gold-dark);
+}
+
+.coreCardText {
+  flex: 1;
+  min-width: 0;
+}
+
+.coreCardTitle {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-cream);
+  transition: color 260ms ease;
+}
+
+.coreCard:hover .coreCardTitle {
+  color: var(--color-gold);
+}
+
+.coreCardDesc {
+  margin-top: 6px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: rgba(247, 244, 236, 0.68);
+}
+
+.coreCardArrow {
+  flex: none;
+  margin-top: 2px;
+  display: inline-flex;
+  color: var(--color-gold-dark);
+  transition:
+    transform 260ms ease,
+    color 260ms ease;
+}
+
+.coreCard:hover .coreCardArrow {
+  transform: translateX(3px);
+  color: var(--color-gold);
+}
+
+/* Viewport-entry reveal — eyebrow, heading, paragraph, then the six
+   cards in a left-to-right stagger */
+.coreAreas.armed .coreAreasEyebrow,
+.coreAreas.armed .coreAreasHeading,
+.coreAreas.armed .coreAreasDescription,
+.coreAreas.armed .coreCard {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.coreAreas.armed.revealed .coreAreasEyebrow,
+.coreAreas.armed.revealed .coreAreasHeading,
+.coreAreas.armed.revealed .coreAreasDescription,
+.coreAreas.armed.revealed .coreCard {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.coreAreas.armed.revealed .coreAreasHeading {
+  transition-delay: 90ms;
+}
+
+.coreAreas.armed.revealed .coreAreasDescription {
+  transition-delay: 180ms;
+}
+
+.coreAreas.armed.revealed .coreCard {
+  transition-delay: calc(300ms + var(--stagger, 0) * 90ms);
+}
+
+/* ---------------------------------------------------------------- */
+/* Key Areas — responsive                                           */
+/* ---------------------------------------------------------------- */
+
+/* Tablet — 640–1023px */
+@media (max-width: 1023px) {
+  .coreAreasHeader {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .coreAreasDescription {
+    justify-self: start;
+    margin-top: 0;
+    max-width: 560px;
+  }
+
+  .coreAreasGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 36px;
+  }
+}
+
+/* Mobile — under 640px */
+@media (max-width: 639px) {
+  .coreAreas {
+    padding-block: 52px 60px;
+    /* Keep the tree/community composition, not a random slice */
+    background-position: 62% center;
+  }
+
+  .coreAreasGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 30px;
+  }
+
+  .coreCardBody {
+    padding: 16px 16px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coreAreas.armed .coreAreasEyebrow,
+  .coreAreas.armed .coreAreasHeading,
+  .coreAreas.armed .coreAreasDescription,
+  .coreAreas.armed .coreCard,
+  .coreAreas.armed.revealed .coreAreasEyebrow,
+  .coreAreas.armed.revealed .coreAreasHeading,
+  .coreAreas.armed.revealed .coreAreasDescription,
+  .coreAreas.armed.revealed .coreCard {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .coreCardImage,
+  .coreCardInner {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* How We Work                                                      */
+/* Cream editorial band — intro copy left, brush-edge photo centre, */
+/* five-step process list right (per page wireframe).               */
+/* ---------------------------------------------------------------- */
+
+.howWeWork {
+  background: var(--color-cream);
+  padding-block: clamp(52px, 5vw, 76px);
+}
+
+.howWeWorkInner {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr) minmax(0, 0.95fr);
+  gap: clamp(36px, 3.4vw, 56px);
+  align-items: center;
+}
+
+.howWeWorkIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.howWeWorkEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+}
+
+.howWeWorkEyebrowDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(250, 210, 92, 0.35);
+}
+
+.howWeWorkHeading {
+  margin-top: 14px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 2.95vw, 42px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-navy);
+}
+
+.howWeWorkHeadingLine {
+  display: block;
+}
+
+.howWeWorkDescription {
+  margin-top: 14px;
+  max-width: 430px;
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.howWeWorkCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: var(--type-button);
+  font-weight: 700;
+  transition:
+    background 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.howWeWorkCta:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(3, 29, 56, 0.22);
+}
+
+.howWeWorkCta:active {
+  transform: translateY(0);
+}
+
+.howWeWorkCtaIcon {
+  display: inline-flex;
+  transition: transform 200ms ease;
+}
+
+.howWeWorkCta:hover .howWeWorkCtaIcon {
+  transform: translateX(3px);
+}
+
+/* Centre image — the artwork's own painted cream ground lets it sit
+   directly on the section background with no card treatment */
+.howWeWorkMedia {
+  position: relative;
+  line-height: 0;
+}
+
+.howWeWorkImage {
+  width: 100%;
+  height: auto;
+}
+
+/* Process list — number in a thin gold ring, no filled cards */
+.howWeWorkSteps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 2.2vw, 34px);
+}
+
+.howWeWorkStep {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.howWeWorkStepNumber {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-gold-light);
+  color: var(--color-gold-light);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.howWeWorkStepTitle {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-navy);
+}
+
+.howWeWorkStepDesc {
+  margin-top: 5px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* Viewport-entry reveal — intro copy, image, then the five steps in
+   sequence */
+.howWeWork.armed .howWeWorkEyebrow,
+.howWeWork.armed .howWeWorkHeading,
+.howWeWork.armed .howWeWorkDescription,
+.howWeWork.armed .howWeWorkCta,
+.howWeWork.armed .howWeWorkMedia,
+.howWeWork.armed .howWeWorkStep {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.howWeWork.armed.revealed .howWeWorkEyebrow,
+.howWeWork.armed.revealed .howWeWorkHeading,
+.howWeWork.armed.revealed .howWeWorkDescription,
+.howWeWork.armed.revealed .howWeWorkCta,
+.howWeWork.armed.revealed .howWeWorkMedia,
+.howWeWork.armed.revealed .howWeWorkStep {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.howWeWork.armed.revealed .howWeWorkHeading {
+  transition-delay: 90ms;
+}
+
+.howWeWork.armed.revealed .howWeWorkDescription {
+  transition-delay: 180ms;
+}
+
+.howWeWork.armed.revealed .howWeWorkCta {
+  transition-delay: 270ms;
+}
+
+.howWeWork.armed.revealed .howWeWorkMedia {
+  transition-delay: 320ms;
+}
+
+.howWeWork.armed.revealed .howWeWorkStep {
+  transition-delay: calc(380ms + var(--stagger, 0) * 90ms);
+}
+
+/* ---------------------------------------------------------------- */
+/* How We Work — responsive                                         */
+/* ---------------------------------------------------------------- */
+
+/* Tablet — 640–1023px: keep the 3-column hierarchy, tightened */
+@media (max-width: 1023px) {
+  .howWeWorkInner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.78fr) minmax(0, 1fr);
+    gap: clamp(24px, 3vw, 36px);
+  }
+}
+
+/* Mobile — under 640px: stack eyebrow → heading → copy → CTA → image
+   → steps */
+@media (max-width: 639px) {
+  .howWeWork {
+    padding-block: 48px 56px;
+  }
+
+  .howWeWorkInner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .howWeWorkMedia {
+    max-width: 440px;
+    margin-inline: auto;
+  }
+
+  .howWeWorkSteps {
+    gap: 22px;
+  }
+}
+
+/* Very narrow — tighter step rows */
+@media (max-width: 379px) {
+  .howWeWorkStep {
+    gap: 14px;
+  }
+
+  .howWeWorkStepNumber {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .howWeWork.armed .howWeWorkEyebrow,
+  .howWeWork.armed .howWeWorkHeading,
+  .howWeWork.armed .howWeWorkDescription,
+  .howWeWork.armed .howWeWorkCta,
+  .howWeWork.armed .howWeWorkMedia,
+  .howWeWork.armed .howWeWorkStep,
+  .howWeWork.armed.revealed .howWeWorkEyebrow,
+  .howWeWork.armed.revealed .howWeWorkHeading,
+  .howWeWork.armed.revealed .howWeWorkDescription,
+  .howWeWork.armed.revealed .howWeWorkCta,
+  .howWeWork.armed.revealed .howWeWorkMedia,
+  .howWeWork.armed.revealed .howWeWorkStep {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .howWeWorkCta,
+  .howWeWorkCtaIcon {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Our Impact                                                       */
+/* Dark cinematic band over the supplied sunset walk image          */
+/* (public/WHD-Impact/impact-bg.png). Left copy column + one large  */
+/* glassmorphic stats panel on the right.                           */
+/* ---------------------------------------------------------------- */
+
+.impact {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-navy-dark);
+  color: var(--color-white);
+  padding-block: clamp(56px, 5.5vw, 88px);
+}
+
+.impactBg {
+  position: absolute;
+  inset: 0;
+}
+
+/* 66% keeps the people/path/sunset composition in frame on the right
+   while the darker treeline anchors the copy on the left. */
+.impactImg {
+  object-fit: cover;
+  object-position: 66% center;
+}
+
+/* Light left-only wash for copy legibility — the image is already
+   dark navy on the left, so this stays subtle and never muddies the
+   sunset/people on the right. */
+.impactScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(3, 29, 56, 0.6) 0%,
+    rgba(3, 29, 56, 0.3) 34%,
+    rgba(3, 29, 56, 0.05) 58%,
+    rgba(3, 29, 56, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.impactInner {
+  position: relative;
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(36px, 4.2vw, 76px);
+}
+
+.impactIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.impactEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+}
+
+.impactEyebrowDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(250, 210, 92, 0.16);
+}
+
+.impactHeading {
+  margin-top: 14px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 2.95vw, 42px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-cream);
+}
+
+.impactHeadingHighlight {
+  display: block;
+  color: var(--color-gold);
+}
+
+.impactDescription {
+  margin-top: 14px;
+  max-width: 430px;
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: rgba(247, 244, 236, 0.82);
+}
+
+.impactCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: var(--type-button);
+  font-weight: 700;
+  transition:
+    background 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.impactCta:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(3, 29, 56, 0.28);
+}
+
+.impactCta:active {
+  transform: translateY(0);
+}
+
+.impactCtaIcon {
+  display: inline-flex;
+  transition: transform 200ms ease;
+}
+
+.impactCta:hover .impactCtaIcon {
+  transform: translateX(3px);
+}
+
+/* Glass panel — one unified surface for all four statistics. The
+   backdrop blur lets the sunset/people composition read through it
+   without ever becoming a solid or a bright card. */
+.impactPanel {
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(8, 29, 48, 0.55);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .impactPanel {
+    background: rgba(8, 29, 48, 0.92);
+  }
+}
+
+.impactStats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+}
+
+.impactStat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(18px, 1.8vw, 26px) clamp(22px, 2.8vw, 40px);
+}
+
+/* Hairline dividers — vertical between columns, horizontal between
+   rows — so the grid reads as one panel, not four cards. */
+.impactStat:nth-child(odd) {
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.impactStat:nth-child(-n + 2) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.impactStatIcon {
+  display: inline-flex;
+  color: var(--color-gold);
+}
+
+.impactStatNumber {
+  margin-top: 10px;
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: clamp(34px, 3vw, 44px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--color-cream);
+}
+
+.impactStatLabel {
+  margin-top: 4px;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(247, 244, 236, 0.72);
+}
+
+/* Viewport-entry reveal — copy column, then panel, then a very
+   subtle per-statistic stagger. */
+.impact.armed .impactEyebrow,
+.impact.armed .impactHeading,
+.impact.armed .impactDescription,
+.impact.armed .impactCta,
+.impact.armed .impactPanel,
+.impact.armed .impactStat {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.impact.armed.revealed .impactEyebrow,
+.impact.armed.revealed .impactHeading,
+.impact.armed.revealed .impactDescription,
+.impact.armed.revealed .impactCta,
+.impact.armed.revealed .impactPanel,
+.impact.armed.revealed .impactStat {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.impact.armed.revealed .impactHeading {
+  transition-delay: 90ms;
+}
+
+.impact.armed.revealed .impactDescription {
+  transition-delay: 180ms;
+}
+
+.impact.armed.revealed .impactCta {
+  transition-delay: 270ms;
+}
+
+.impact.armed.revealed .impactPanel {
+  transition-delay: 320ms;
+}
+
+.impact.armed.revealed .impactStat {
+  transition-delay: calc(380ms + var(--stagger, 0) * 90ms);
+}
+
+/* Tablet — keep the two-column editorial split, tightened */
+@media (max-width: 1023px) {
+  .impactInner {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: clamp(24px, 3vw, 36px);
+  }
+
+  .impactImg {
+    object-position: 68% center;
+  }
+}
+
+/* Mobile — copy stacks first, panel drops below; the sunset walk
+   stays in frame via a right-leaning crop and an even wash. */
+@media (max-width: 639px) {
+  .impact {
+    padding-block: 52px 60px;
+  }
+
+  .impactInner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .impactImg {
+    object-position: 70% center;
+  }
+
+  .impactScrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3, 29, 56, 0.6) 0%,
+        rgba(3, 29, 56, 0.28) 45%,
+        rgba(3, 29, 56, 0.5) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(3, 29, 56, 0.6) 0%,
+        rgba(3, 29, 56, 0.35) 55%,
+        rgba(3, 29, 56, 0.15) 100%
+      );
+  }
+
+  .impactDescription {
+    max-width: 100%;
+  }
+
+  .impactCta {
+    margin-top: 24px;
+  }
+
+  .impactStat {
+    padding: 16px 20px;
+  }
+}
+
+/* Very narrow — single-column statistics */
+@media (max-width: 379px) {
+  .impactStat:nth-child(odd) {
+    border-right: none;
+  }
+
+  .impactStat:nth-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .impactStat:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .impact.armed .impactEyebrow,
+  .impact.armed .impactHeading,
+  .impact.armed .impactDescription,
+  .impact.armed .impactCta,
+  .impact.armed .impactPanel,
+  .impact.armed .impactStat,
+  .impact.armed.revealed .impactEyebrow,
+  .impact.armed.revealed .impactHeading,
+  .impact.armed.revealed .impactDescription,
+  .impact.armed.revealed .impactCta,
+  .impact.armed.revealed .impactPanel,
+  .impact.armed.revealed .impactStat {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .impactCta,
+  .impactCtaIcon {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Final CTA                                                        */
+/* Full-width cinematic banner over the supplied boy image          */
+/* (public/WHD-FinalCta/final-cta-bg.png). Left copy column with    */
+/* two buttons; handwritten script sits over the darker right edge. */
+/* ---------------------------------------------------------------- */
+
+.finalCta {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-navy-dark);
+  color: var(--color-white);
+}
+
+.finalCtaBg {
+  position: absolute;
+  inset: 0;
+}
+
+/* 63% keeps the boy center-right with his face in frame while the
+   deep navy texture stays behind the copy on the left. */
+.finalCtaImg {
+  object-fit: cover;
+  object-position: 63% center;
+}
+
+/* Subtle left-weighted wash for copy legibility — the image is
+   already dark navy on the left, so this stays light-handed and
+   never muddies the golden-hour center or the boy. */
+.finalCtaScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(3, 29, 56, 0.55) 0%,
+    rgba(3, 29, 56, 0.32) 30%,
+    rgba(3, 29, 56, 0.08) 55%,
+    rgba(3, 29, 56, 0) 80%,
+    rgba(3, 29, 56, 0.22) 100%
+  );
+  pointer-events: none;
+}
+
+.finalCtaInner {
+  position: relative;
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+  display: flex;
+  align-items: center;
+  min-height: clamp(280px, 22vw, 330px);
+  padding-block: clamp(28px, 2.4vw, 35px);
+}
+
+.finalCtaContent {
+  width: 44%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.finalCtaEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+}
+
+.finalCtaEyebrowDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(250, 210, 92, 0.16);
+}
+
+.finalCtaHeading {
+  margin-top: 14px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 2.95vw, 42px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-cream);
+}
+
+.finalCtaHeadingLine {
+  display: block;
+}
+
+.finalCtaDescription {
+  margin-top: 14px;
+  max-width: 420px;
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: rgba(247, 244, 236, 0.82);
+}
+
+.finalCtaActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+/* Single leading arrow — distinguishes the movement link from the
+   hero's double-chevron variant while reusing the same surface. */
+.finalCtaSecondaryIcon {
+  display: inline-flex;
+  color: var(--color-white);
+}
+
+/* Handwritten script over the darker right edge — narrow column so
+   it stays on the navy brushwork and never crosses the boy's face.
+   Rotation lives on the wrapper so the fade-up animation on the text
+   never overwrites it, exactly like the hero script. */
+.finalCtaScript {
+  position: absolute;
+  right: clamp(24px, 3vw, 44px);
+  top: clamp(22px, 4vw, 48px);
+  width: 225px;
+  pointer-events: none;
+}
+
+.finalCtaScriptText {
+  font-family: var(--font-script), cursive;
+  font-size: clamp(26px, 2.3vw, 34px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: rgba(247, 244, 236, 0.92);
+  text-align: right;
+  text-shadow: 0 1px 10px rgba(3, 29, 56, 0.55);
+}
+
+/* Viewport-entry reveal — text column first, buttons slightly after,
+   then the handwritten line fades in. */
+.finalCta.armed .finalCtaEyebrow,
+.finalCta.armed .finalCtaHeading,
+.finalCta.armed .finalCtaDescription,
+.finalCta.armed .finalCtaActions,
+.finalCta.armed .finalCtaScriptText {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.finalCta.armed.revealed .finalCtaEyebrow,
+.finalCta.armed.revealed .finalCtaHeading,
+.finalCta.armed.revealed .finalCtaDescription,
+.finalCta.armed.revealed .finalCtaActions,
+.finalCta.armed.revealed .finalCtaScriptText {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.finalCta.armed.revealed .finalCtaHeading {
+  transition-delay: 90ms;
+}
+
+.finalCta.armed.revealed .finalCtaDescription {
+  transition-delay: 180ms;
+}
+
+.finalCta.armed.revealed .finalCtaActions {
+  transition-delay: 270ms;
+}
+
+.finalCta.armed.revealed .finalCtaScriptText {
+  transition-delay: 340ms;
+}
+
+/* Tablet — copy widens a touch; the script hides with the crop, as
+   on the hero, so it can never crowd the boy's face. */
+@media (max-width: 1023px) {
+  .finalCtaImg {
+    object-position: 66% center;
+  }
+
+  .finalCtaContent {
+    width: 54%;
+  }
+
+  .finalCtaScript {
+    display: none;
+  }
+}
+
+/* Mobile — column stacks, buttons may stack vertically, and the boy
+   stays visible on the right via a right-leaning crop with a fuller
+   wash behind the copy. */
+@media (max-width: 639px) {
+  .finalCtaInner {
+    min-height: 0;
+    padding-block: 48px 56px;
+  }
+
+  .finalCtaContent {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .finalCtaImg {
+    object-position: 62% center;
+  }
+
+  .finalCtaScrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3, 29, 56, 0.55) 0%,
+        rgba(3, 29, 56, 0.3) 45%,
+        rgba(3, 29, 56, 0.55) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(3, 29, 56, 0.6) 0%,
+        rgba(3, 29, 56, 0.4) 55%,
+        rgba(3, 29, 56, 0.2) 100%
+      );
+  }
+
+  .finalCtaDescription {
+    max-width: 100%;
+  }
+
+  .finalCtaActions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .finalCtaScript {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .finalCta.armed .finalCtaEyebrow,
+  .finalCta.armed .finalCtaHeading,
+  .finalCta.armed .finalCtaDescription,
+  .finalCta.armed .finalCtaActions,
+  .finalCta.armed .finalCtaScriptText,
+  .finalCta.armed.revealed .finalCtaEyebrow,
+  .finalCta.armed.revealed .finalCtaHeading,
+  .finalCta.armed.revealed .finalCtaDescription,
+  .finalCta.armed.revealed .finalCtaActions,
+  .finalCta.armed.revealed .finalCtaScriptText {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

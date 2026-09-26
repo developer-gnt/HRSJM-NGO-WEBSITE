@@ -1,0 +1,667 @@
+/* ---------------------------------------------------------------- */
+/* Know Your Rights page styles.                                    */
+/* Section 01 — Rights Hero                                         */
+/* (breadcrumb, eyebrow, heading, CTAs, handwritten note,           */
+/* bottom feature strip)                                            */
+/* ---------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-navy);
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  /* Compact cinematic height: sized to the space below the sticky
+     navbar (~110px) so the whole hero — feature strip included —
+     stays inside one viewport without scrolling. */
+  min-height: clamp(520px, calc(100vh - 128px), 600px);
+}
+
+/* Background image + readability scrims */
+.heroBg {
+  position: absolute;
+  inset: 0;
+}
+
+.heroImg {
+  object-fit: cover;
+  object-position: 62% center;
+}
+
+/* Soft left scrim — the image already carries deep navy negative
+   space on the left, so only reinforce the side the text sits on. */
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(3, 29, 56, 0.78) 0%,
+    rgba(3, 29, 56, 0.42) 30%,
+    rgba(3, 29, 56, 0.05) 58%,
+    rgba(3, 29, 56, 0) 74%
+  );
+  pointer-events: none;
+}
+
+/* Subtle top/bottom vignette to seat the navbar and feature strip */
+.heroShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(3, 29, 56, 0.42) 0%,
+    rgba(3, 29, 56, 0) 22%,
+    rgba(3, 29, 56, 0) 68%,
+    rgba(3, 29, 56, 0.52) 100%
+  );
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  flex: 1;
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 20px var(--page-padding) 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.heroContent {
+  max-width: 50%;
+  /* Centre the copy between breadcrumb and feature strip */
+  margin-block: auto;
+}
+
+/* Breadcrumb */
+.breadcrumbList {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  font-size: 13px;
+}
+
+.breadcrumbLink {
+  color: rgba(255, 255, 255, 0.62);
+  font-weight: 500;
+  transition: color 200ms ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-white);
+}
+
+.breadcrumbSeparator {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.breadcrumbCurrent {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+}
+
+/* Eyebrow */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  color: var(--color-white);
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(250, 210, 92, 0.16);
+}
+
+/* Main heading */
+.heading {
+  max-width: 620px;
+  margin-top: 12px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(36px, 4.6vw, 64px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--color-white);
+}
+
+.headingGold {
+  display: block;
+  color: var(--color-gold);
+}
+
+/* Description */
+.description {
+  max-width: 470px;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+/* CTA buttons */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: var(--type-button);
+  font-weight: 700;
+  transition:
+    background 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.primaryBtn:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(3, 29, 56, 0.28);
+}
+
+.primaryBtn:active {
+  transform: translateY(0);
+}
+
+.primaryBtnIcon {
+  transition: transform 200ms ease;
+}
+
+.primaryBtn:hover .primaryBtnIcon {
+  transform: translateX(3px);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-sm);
+  background: rgba(3, 29, 56, 0.28);
+  color: var(--color-white);
+  font-size: var(--type-button);
+  font-weight: 600;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease;
+}
+
+.secondaryBtn:hover {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.playBadge {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+/* Handwritten note (top right) */
+.heroNote {
+  position: absolute;
+  top: 40px;
+  right: calc(var(--page-padding) + 12px);
+}
+
+.heroNoteInner {
+  transform: rotate(-3deg);
+}
+
+.heroNoteText {
+  font-family: var(--font-script), cursive;
+  font-size: clamp(24px, 2.1vw, 30px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  color: #0f2743;
+  text-shadow: 0 1px 8px rgba(247, 244, 236, 0.4);
+}
+
+.heroNoteUnderline {
+  width: 92px;
+  height: 10px;
+  margin: 8px 0 0 6px;
+  color: var(--color-gold-dark);
+}
+
+/* Bottom feature strip */
+.featureStrip {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(3, 29, 56, 0.62);
+}
+
+.featureList {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 18px var(--page-padding);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  list-style: none;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.featureIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid var(--color-gold-dark);
+  border-radius: 50%;
+  color: var(--color-gold-dark);
+}
+
+.featureTitle {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-white);
+}
+
+.featureSub {
+  display: block;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Load-in animations — subtle fade + upward stagger */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.breadcrumbList,
+.eyebrow,
+.heading,
+.description,
+.actions,
+.heroNote,
+.featureItem {
+  animation: heroFadeUp 600ms ease both;
+}
+
+.breadcrumbList {
+  animation-delay: 60ms;
+}
+
+.eyebrow {
+  animation-delay: 160ms;
+}
+
+.heading {
+  animation-delay: 260ms;
+}
+
+.description {
+  animation-delay: 380ms;
+}
+
+.actions {
+  animation-delay: 480ms;
+}
+
+.heroNote {
+  animation-delay: 620ms;
+}
+
+.featureItem {
+  animation-delay: calc(560ms + var(--stagger, 0) * 90ms);
+}
+
+/* Tablet — 640–1024px */
+@media (max-width: 1023px) {
+  /* Same viewport-fit strategy as desktop with a shorter navbar */
+  .hero {
+    min-height: clamp(480px, calc(100vh - 118px), 560px);
+  }
+
+  .heroContent {
+    max-width: 62%;
+  }
+
+  .heroImg {
+    object-position: 62% center;
+  }
+
+  .heroNote {
+    top: 30px;
+  }
+
+  .featureList {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 14px;
+  }
+}
+
+/* Mobile — under 640px */
+@media (max-width: 639px) {
+  /* Content-driven height on mobile — no fixed min-height, so the
+     hero is never taller than its copy needs. */
+  .hero {
+    min-height: 0;
+  }
+
+  .heroImg {
+    object-position: 66% center;
+  }
+
+  /* Even coverage so heading, note and strip all stay readable */
+  .heroScrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3, 29, 56, 0.5) 0%,
+        rgba(3, 29, 56, 0.3) 40%,
+        rgba(3, 29, 56, 0.55) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(3, 29, 56, 0.88) 0%,
+        rgba(3, 29, 56, 0.55) 55%,
+        rgba(3, 29, 56, 0.28) 100%
+      );
+  }
+
+  .heroInner {
+    min-height: 0;
+    padding-top: 20px;
+    padding-bottom: 26px;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  .eyebrow {
+    margin-top: 20px;
+  }
+
+  .heading {
+    font-size: clamp(30px, 8.4vw, 36px);
+  }
+
+  .description {
+    font-size: var(--type-body-small);
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 22px;
+  }
+
+  /* Note moves into the flow so it never overlaps the heading —
+     kept small so it does not bloat the hero height. */
+  .heroNote {
+    position: static;
+    align-self: flex-end;
+    margin-top: 18px;
+  }
+
+  .heroNoteText {
+    font-size: 20px;
+    line-height: 1.15;
+    color: var(--color-gold);
+    text-shadow: 0 1px 6px rgba(3, 29, 56, 0.45);
+  }
+
+  .heroNoteUnderline {
+    width: 72px;
+    margin: 6px 0 0 4px;
+    color: var(--color-gold);
+  }
+
+  /* Compact 2×2 strip — icon beside text so the hero never grows
+     four stacked rows tall on small screens. */
+  .featureList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 14px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .featureItem {
+    gap: 10px;
+  }
+
+  .featureItem > span:last-child {
+    min-width: 0;
+  }
+
+  .featureIcon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .featureIcon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .featureTitle {
+    font-size: 13.5px;
+  }
+
+  .featureSub {
+    font-size: 11.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumbList,
+  .eyebrow,
+  .heading,
+  .description,
+  .actions,
+  .heroNote,
+  .featureItem {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Section 02 — Featured Video                                      */
+/* (eyebrow, heading, description, YouTube CTA, embedded video)     */
+/* ---------------------------------------------------------------- */
+
+.videoSection {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    var(--color-navy) 0%,
+    var(--color-navy-dark) 100%
+  );
+  color: var(--color-white);
+  padding: clamp(45px, 4.8vw, 68px) 0;
+  /* Anchor target of the hero "Watch Video" CTA */
+  scroll-margin-top: 120px;
+}
+
+.videoInner {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+  display: grid;
+  /* ~38% copy / ~62% video */
+  grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
+  gap: clamp(32px, 4vw, 60px);
+  align-items: center;
+}
+
+.videoCopy {
+  text-align: center;
+}
+
+.videoEyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--color-white);
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Gold accents in this section are #B88916 (gold-dark) */
+.videoEyebrowDot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold-dark);
+  box-shadow: 0 0 0 4px rgba(184, 137, 22, 0.22);
+}
+
+.videoHeading {
+  margin-top: 14px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+}
+
+.videoDescription {
+  max-width: 400px;
+  margin: 14px auto 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+/* Shares the hero's gold CTA styles — only adds top spacing */
+.videoCta {
+  margin-top: 24px;
+}
+
+.videoFrame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-navy-dark);
+}
+
+.videoFrame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Load-in — same CSS-only fade-up convention as the hero */
+.videoEyebrow,
+.videoHeading,
+.videoDescription,
+.videoCta,
+.videoFrame {
+  animation: heroFadeUp 600ms ease both;
+}
+
+.videoEyebrow {
+  animation-delay: 60ms;
+}
+
+.videoHeading {
+  animation-delay: 160ms;
+}
+
+.videoDescription {
+  animation-delay: 280ms;
+}
+
+.videoCta {
+  animation-delay: 380ms;
+}
+
+.videoFrame {
+  animation-delay: 260ms;
+}
+
+/* Tablet — keep the two-column layout, tighten the gap */
+@media (max-width: 1023px) {
+  .videoInner {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(24px, 3.5vw, 40px);
+  }
+}
+
+/* Mobile — single column: copy stack, then the video */
+@media (max-width: 639px) {
+  .videoSection {
+    padding: 45px 0 50px;
+  }
+
+  .videoInner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .videoHeading {
+    font-size: 30px;
+  }
+
+  .videoDescription {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .videoEyebrow,
+  .videoHeading,
+  .videoDescription,
+  .videoCta,
+  .videoFrame {
+    animation: none;
+  }
+}

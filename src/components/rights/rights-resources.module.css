@@ -1,0 +1,257 @@
+/* ---------------------------------------------------------------- */
+/* Know Your Rights page styles.                                    */
+/* Section 03 — Helpful Resources                                   */
+/* (section header, "View All Resources" link, 5 PDF resource cards) */
+/* ---------------------------------------------------------------- */
+
+.section {
+  background: var(--color-cream);
+  padding: clamp(56px, 6.5vw, 96px) 0;
+  /* Anchor target of the hero CTA — clear the sticky navbar */
+  scroll-margin-top: 120px;
+}
+
+.inner {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+/* ---------------------------------------------------------------- */
+/* Section header — copy left, "View All Resources" right           */
+/* ---------------------------------------------------------------- */
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 40px;
+  margin-bottom: clamp(32px, 4vw, 52px);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-navy);
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-gold-dark);
+  box-shadow: 0 0 0 4px rgba(184, 137, 22, 0.16);
+}
+
+.heading {
+  margin-top: 12px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-navy);
+}
+
+.description {
+  max-width: 460px;
+  margin-top: 14px;
+  color: var(--color-text-secondary);
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 3px;
+  color: var(--color-navy);
+  font-size: var(--type-body-small);
+  font-weight: 700;
+  transition: color 200ms ease;
+}
+
+.viewAllIcon {
+  display: inline-flex;
+  color: var(--color-gold-dark);
+  transition: transform 200ms ease;
+}
+
+.viewAll:hover {
+  color: var(--color-gold-dark);
+}
+
+.viewAll:hover .viewAllIcon {
+  transform: translateX(3px);
+}
+
+/* ---------------------------------------------------------------- */
+/* Resource cards — 5 across on desktop                             */
+/* ---------------------------------------------------------------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+  list-style: none;
+}
+
+.cell {
+  display: flex;
+  min-width: 0;
+}
+
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(16, 42, 67, 0.05);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(16, 42, 67, 0.2);
+  box-shadow: 0 16px 30px rgba(16, 42, 67, 0.1);
+}
+
+/* Cover image — the source files are ~2:3 portrait, so that ratio
+   shows the artwork essentially uncropped */
+.media {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  background: var(--color-cream);
+}
+
+.mediaImg {
+  object-fit: cover;
+  transition: transform 320ms ease;
+}
+
+.card:hover .mediaImg {
+  transform: scale(1.04);
+}
+
+/* Document badge straddling the image / body boundary */
+.pdfBadge {
+  position: absolute;
+  left: 14px;
+  bottom: -14px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  box-shadow: 0 4px 10px rgba(16, 42, 67, 0.12);
+  color: var(--color-gold-dark); /* #B88916 */
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 16px 16px;
+}
+
+.cardTitle {
+  color: var(--color-navy);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.cardType {
+  margin-top: 3px;
+  margin-bottom: 18px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Pinned to the card bottom so all five cards read at equal height */
+.download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-gold-dark); /* #B88916 */
+  font-size: var(--type-body-small);
+  font-weight: 700;
+  transition: color 200ms ease;
+}
+
+.download svg {
+  transition: transform 200ms ease;
+}
+
+.download:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.download:hover svg {
+  transform: translateY(2px);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                       */
+/* ---------------------------------------------------------------- */
+
+/* Tablet — 640–1024px: header stacks, 3 cards per row */
+@media (max-width: 1023px) {
+  .header {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 20px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+/* Mobile — under 640px: one card per row */
+@media (max-width: 639px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .mediaImg,
+  .viewAll,
+  .viewAllIcon,
+  .download,
+  .download svg {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:hover .mediaImg,
+  .viewAll:hover .viewAllIcon,
+  .download:hover svg {
+    transform: none;
+  }
+}
