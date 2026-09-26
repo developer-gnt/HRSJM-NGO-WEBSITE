@@ -1,0 +1,1324 @@
+/* ---------------------------------------------------------------- */
+/* News & Blog page styles.                                         */
+/* Section 01 — News Hero                                           */
+/* ---------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-navy)
+    url("/images/news-hero-bg.png")
+    center right / cover
+    no-repeat;
+  color: var(--color-white);
+}
+
+/* Navy editorial overlay — strongest on the left where the text sits,
+   easing off to the right so the courthouse/newspaper visual stays
+   visible. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(3, 29, 56, 0.94) 0%,
+    rgba(3, 29, 56, 0.82) 32%,
+    rgba(3, 29, 56, 0.38) 58%,
+    rgba(3, 29, 56, 0.05) 100%
+  );
+}
+
+.heroInner {
+  position: relative;
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  min-height: 460px;
+  padding: 24px var(--page-padding) 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Breadcrumb (inside the hero, on the dark background) */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.breadcrumbLink {
+  transition: color 200ms ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-gold);
+}
+
+.breadcrumbSeparator {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.breadcrumbCurrent {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Main hero content */
+.heroMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 560px;
+  padding: 14px 0 20px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--color-white);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border: 2px solid var(--color-gold);
+  border-radius: 50%;
+}
+
+.heading {
+  margin-top: 10px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(38px, 4.2vw, 58px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.05;
+  color: var(--color-white);
+}
+
+.headingLine {
+  display: block;
+}
+
+.headingGold {
+  color: var(--color-gold);
+}
+
+.description {
+  max-width: 430px;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: var(--type-body-small);
+  line-height: 1.6;
+}
+
+/* Compact editorial CTA */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.btnGold {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  background: var(--color-gold);
+  color: #062f50;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+
+.btnGold:hover {
+  background: #fce49c;
+  transform: translateY(-1px);
+}
+
+/* Handwritten quote, upper-right over the image */
+.scriptNote {
+  position: absolute;
+  top: 34px;
+  right: var(--page-padding);
+  font-family: var(--font-script), "Segoe Script", cursive;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 12px rgba(3, 29, 56, 0.65);
+}
+
+.scriptStroke {
+  display: block;
+  width: 58px;
+  height: 3px;
+  margin: 8px auto 0;
+  border-radius: 2px;
+  background: var(--color-gold);
+  transform: rotate(-2deg);
+}
+
+/* Bottom category strip — compact dark translucent navigation */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  list-style: none;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(3, 29, 56, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.categoryIcon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(250, 210, 92, 0.9);
+  border-radius: 50%;
+  color: var(--color-gold);
+}
+
+.categoryText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.categoryTitle {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.categorySub {
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.62);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Tablet — 640–1023px: 3×2 category grid, script note stays top-right */
+@media (max-width: 1023px) {
+  .hero {
+    background-position: 62% center;
+  }
+
+  .heroInner {
+    min-height: 440px;
+  }
+
+  .heroMain {
+    max-width: 520px;
+  }
+
+  .heading {
+    font-size: clamp(34px, 5vw, 46px);
+  }
+
+  .scriptNote {
+    top: 22px;
+    font-size: 19px;
+    line-height: 1.25;
+  }
+
+  .scriptStroke {
+    width: 46px;
+    margin-top: 5px;
+  }
+
+  .categories {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+/* Handwritten note joins the flow before it can collide with content */
+@media (max-width: 700px) {
+  .scriptNote {
+    position: static;
+    align-self: flex-end;
+    margin: 2px 0 10px;
+    font-size: 21px;
+    text-shadow: none;
+  }
+}
+
+/* Mobile — under 640px: stronger overlay for text legibility, strip
+   becomes horizontally scrollable without page-level scrolling */
+@media (max-width: 639px) {
+  .hero {
+    background-position: 68% center;
+  }
+
+  .hero::before {
+    background: linear-gradient(
+      180deg,
+      rgba(3, 29, 56, 0.88) 0%,
+      rgba(3, 29, 56, 0.78) 55%,
+      rgba(3, 29, 56, 0.92) 100%
+    );
+  }
+
+  .heroInner {
+    min-height: 520px;
+    padding-top: 20px;
+  }
+
+  .heroMain {
+    padding: 14px 0 18px;
+  }
+
+  .heading {
+    font-size: clamp(28px, 8vw, 34px);
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .categories {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    padding-bottom: 4px;
+  }
+
+  .categories::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category {
+    flex: 0 0 auto;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Section 02 — Featured Article + Categories                        */
+/* ---------------------------------------------------------------- */
+
+.featured {
+  padding: 56px 0 16px;
+}
+
+.sectionInner {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+/* Section label — same rhythm as the hero eyebrow, on cream */
+.sectionEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--color-navy);
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.featuredGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.33fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin-top: 16px;
+}
+
+/* Featured article card — image left, navy content panel right */
+.featuredCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid rgba(3, 29, 56, 0.14);
+  border-radius: 10px;
+  background: var(--color-navy-dark);
+  color: var(--color-white);
+}
+
+.featuredMedia {
+  position: relative;
+  min-height: 360px;
+}
+
+.featuredBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px 30px 28px;
+}
+
+.featuredTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 5px 11px;
+  border: 1px solid rgba(250, 210, 92, 0.55);
+  border-radius: 999px;
+  background: rgba(250, 210, 92, 0.08);
+  color: var(--color-gold);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tagGold {
+  background: rgba(250, 210, 92, 0.16);
+}
+
+.featuredTitle {
+  margin-top: 16px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(24px, 2.2vw, 30px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.16;
+}
+
+.featuredTitle a {
+  transition: color 200ms ease;
+}
+
+.featuredTitle a:hover {
+  color: var(--color-gold);
+}
+
+.featuredDesc {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* Author + date/reading time */
+.featuredMeta {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 18px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(250, 210, 92, 0.9);
+  border-radius: 50%;
+  background: rgba(250, 210, 92, 0.14);
+  color: var(--color-gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.metaText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.author {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.metaInfo {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.featuredAction {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+/* Categories sidebar card */
+.sidebarCard {
+  padding: 22px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-white);
+}
+
+.sidebarTitle {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 23px;
+  font-weight: var(--type-display-weight);
+  color: var(--color-navy);
+}
+
+.categoryList {
+  list-style: none;
+  margin-top: 10px;
+}
+
+.categoryItem {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  transition: background-color 200ms ease;
+}
+
+.categoryItem:hover {
+  background: var(--color-cream);
+}
+
+.categoryItemActive {
+  background: var(--color-cream);
+}
+
+.categoryItemIcon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--color-cream);
+  color: var(--color-navy);
+}
+
+.categoryItemActive .categoryItemIcon {
+  background: var(--color-gold);
+  color: var(--color-navy);
+}
+
+.categoryItemLabel {
+  flex: 1;
+  min-width: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.categoryItemCount {
+  flex-shrink: 0;
+  min-width: 28px;
+  padding: 3px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-cream);
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.categoryItemActive .categoryItemCount {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-gold);
+}
+
+/* Tablet — stack columns, featured first then categories */
+@media (max-width: 1023px) {
+  .featured {
+    padding-top: 44px;
+  }
+
+  .featuredGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .featuredMedia {
+    min-height: 320px;
+  }
+}
+
+/* Featured card stacks vertically on small screens */
+@media (max-width: 700px) {
+  .featuredCard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .featuredMedia {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+
+  .featuredBody {
+    padding: 22px 20px;
+  }
+
+  .featuredAction {
+    padding-top: 18px;
+  }
+}
+
+@media (max-width: 639px) {
+  .featured {
+    padding-top: 36px;
+  }
+
+  .featuredBody {
+    padding: 20px 18px;
+  }
+
+  .featuredTitle {
+    font-size: 22px;
+  }
+
+  .sidebarCard {
+    padding: 18px 14px;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Section 03 — Latest News & Updates + Trending + Newsletter        */
+/* ---------------------------------------------------------------- */
+
+.latest {
+  padding: 40px 0 64px;
+}
+
+.latestGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin-top: 0;
+}
+
+.latestHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.sectionTitle {
+  margin-top: 8px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.12;
+  color: var(--color-navy);
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-bottom: 4px;
+  color: var(--color-navy);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: color 200ms ease;
+}
+
+.viewAll:hover {
+  color: var(--color-gold-dark);
+}
+
+/* Article cards — editorial, white on cream, subtle borders.
+   Wide desktop shows the reference's 3×2 compact grid. */
+.articleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.articleCard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-white);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.articleCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(3, 29, 56, 0.08);
+}
+
+.articleMedia {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+}
+
+.articleBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px 16px 14px;
+}
+
+.articleCategory {
+  color: var(--color-gold-dark);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.articleTitle {
+  margin-top: 7px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 18px;
+  font-weight: var(--type-display-weight);
+  line-height: 1.24;
+  color: var(--color-navy);
+}
+
+.articleTitle a {
+  transition: color 200ms ease;
+}
+
+.articleTitle a:hover {
+  color: var(--color-gold-dark);
+}
+
+.articleDesc {
+  margin-top: 7px;
+  color: var(--color-text-secondary);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.articleFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.articleMeta {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.articleArrow {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(250, 210, 92, 0.9);
+  border-radius: 50%;
+  color: var(--color-gold-dark);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.articleCard:hover .articleArrow {
+  background: var(--color-gold);
+  color: var(--color-navy);
+}
+
+/* Sidebar — trending + newsletter */
+.latestSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.trendingCard,
+.newsletterCard {
+  padding: 22px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-white);
+}
+
+.trendingList {
+  list-style: none;
+  margin-top: 6px;
+}
+
+.trendingItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+}
+
+.trendingList li + li .trendingItem {
+  border-top: 1px solid var(--color-border);
+}
+
+.trendingNumber {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-cream);
+  color: var(--color-navy);
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.trendingTitle {
+  flex: 1;
+  min-width: 0;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: color 200ms ease;
+}
+
+.trendingItem:hover .trendingTitle {
+  color: var(--color-gold-dark);
+}
+
+.trendingItem:hover .trendingNumber {
+  background: var(--color-gold);
+  color: var(--color-navy);
+}
+
+/* Newsletter card */
+.newsletterDesc {
+  margin-top: 8px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.newsletterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.newsletterInput {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-cream);
+  color: var(--color-text-primary);
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 13.5px;
+  transition: border-color 200ms ease;
+}
+
+.newsletterInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.newsletterInput:focus {
+  outline: none;
+  border-color: var(--color-gold-dark);
+}
+
+.newsletterButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-gold);
+  color: #062f50;
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.newsletterButton:hover {
+  background: #fce49c;
+}
+
+.newsletterThanks {
+  margin-top: 10px;
+  color: var(--color-navy);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Handwritten quote below the newsletter card */
+.sidebarQuote {
+  font-family: var(--font-script), "Segoe Script", cursive;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--color-gold-dark);
+}
+
+.quoteMark {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--color-gold);
+}
+
+.sidebarQuote .scriptStroke {
+  margin-top: 6px;
+}
+
+/* Mid-width desktop — 2-column article grid when the sidebar
+   would squeeze 3 columns too tight */
+@media (max-width: 1279px) {
+  .articleGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Tablet — stack content and sidebar */
+@media (max-width: 1023px) {
+  .latest {
+    padding: 32px 0 52px;
+  }
+
+  .latestGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .latestSidebar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+
+  .sidebarQuote {
+    grid-column: 1 / -1;
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 700px) {
+  .articleGrid {
+    gap: 16px;
+  }
+
+  .articleTitle {
+    font-size: 17px;
+  }
+}
+
+/* Mobile — single column cards, sidebar stacks below */
+@media (max-width: 639px) {
+  .latest {
+    padding: 28px 0 44px;
+  }
+
+  .latestSidebar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .articleGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .articleBody {
+    padding: 16px 16px 14px;
+  }
+
+  .trendingCard,
+  .newsletterCard {
+    padding: 18px 16px;
+  }
+
+  .sidebarQuote {
+    font-size: 22px;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Section 04 — Knowledge Empowers Banner                            */
+/* ---------------------------------------------------------------- */
+
+.knowledge {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-navy-dark)
+    url("/images/news-knowledge-bg.png")
+    center right / cover
+    no-repeat;
+  color: var(--color-white);
+}
+
+/* Navy editorial overlay — solid on the left where the text sits,
+   easing off so the book/scales/gavel imagery stays visible. */
+.knowledge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(3, 29, 56, 0.96) 0%,
+    rgba(3, 29, 56, 0.86) 30%,
+    rgba(3, 29, 56, 0.45) 58%,
+    rgba(3, 29, 56, 0.08) 100%
+  );
+}
+
+.knowledgeInner {
+  position: relative;
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 62px var(--page-padding);
+}
+
+.knowledgeMain {
+  max-width: 620px;
+}
+
+.knowledgeEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--color-white);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.knowledgeHeading {
+  margin-top: 12px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.14;
+  color: var(--color-white);
+}
+
+.knowledgeGold {
+  color: var(--color-gold);
+}
+
+.knowledgeDesc {
+  max-width: 520px;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--type-body-small);
+  line-height: 1.6;
+}
+
+.knowledgeAction {
+  margin-top: 22px;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .knowledge {
+    background-position: 68% center;
+  }
+
+  .knowledgeInner {
+    padding: 48px var(--page-padding);
+  }
+}
+
+/* Mobile — text first, imagery stays as the backdrop */
+@media (max-width: 639px) {
+  .knowledge {
+    background-position: 74% center;
+  }
+
+  .knowledge::before {
+    background: linear-gradient(
+      180deg,
+      rgba(3, 29, 56, 0.92) 0%,
+      rgba(3, 29, 56, 0.82) 55%,
+      rgba(3, 29, 56, 0.9) 100%
+    );
+  }
+
+  .knowledgeInner {
+    padding: 40px var(--page-padding);
+  }
+
+  .knowledgeDesc {
+    font-size: 14px;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Section 05 — Voices from the Community                            */
+/* ---------------------------------------------------------------- */
+
+.voices {
+  padding: 56px 0 64px;
+}
+
+.voicesHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.voicesControls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 4px;
+}
+
+.voicesArrows {
+  display: flex;
+  gap: 8px;
+}
+
+.voicesArrow {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(3, 29, 56, 0.25);
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-navy);
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.voicesArrow:hover {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-gold);
+}
+
+/* Card track — 4 per view on desktop, scrollable within the section */
+.voicesTrack {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 60px) / 4);
+  gap: 20px;
+  list-style: none;
+  margin-top: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.voicesTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.voiceCard {
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-white);
+}
+
+.voicePortrait {
+  position: relative;
+  aspect-ratio: 16 / 11;
+}
+
+.voiceBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px 18px 16px;
+}
+
+/* Small gold accent above the quote */
+.voiceAccent {
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-gold);
+}
+
+.voiceQuote {
+  margin-top: 10px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 16.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-navy);
+}
+
+.voiceName {
+  margin-top: auto;
+  padding-top: 14px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.voiceLocation {
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  font-size: 11.5px;
+  font-weight: 500;
+}
+
+/* Tablet — 2 cards per view */
+@media (max-width: 1023px) {
+  .voices {
+    padding: 44px 0 52px;
+  }
+
+  .voicesTrack {
+    grid-auto-columns: calc((100% - 20px) / 2);
+  }
+}
+
+/* Mobile — 1 card per view, scrolling contained in the track */
+@media (max-width: 639px) {
+  .voices {
+    padding: 36px 0 44px;
+  }
+
+  .voicesTrack {
+    grid-auto-columns: 86%;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .voiceQuote {
+    font-size: 15px;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Scroll reveal (same animation system as the HRSJM home sections)  */
+/* ---------------------------------------------------------------- */
+
+.armed [data-reveal],
+.armed [data-reveal-fade] {
+  opacity: 0;
+}
+
+.armed [data-reveal] {
+  transform: translateY(14px);
+}
+
+.armed [data-reveal-fade] {
+  transform: translateY(8px);
+}
+
+.armed [data-reveal-item] {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.revealed [data-reveal],
+.revealed [data-reveal-fade],
+.revealed [data-reveal-item] {
+  opacity: 1;
+  transform: none;
+}
+
+.revealed [data-reveal],
+.revealed [data-reveal-fade] {
+  transition:
+    opacity 520ms cubic-bezier(0.33, 0.1, 0.25, 1),
+    transform 520ms cubic-bezier(0.33, 0.1, 0.25, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.revealed [data-reveal-item] {
+  transition:
+    opacity 460ms cubic-bezier(0.33, 0.1, 0.25, 1),
+    transform 460ms cubic-bezier(0.33, 0.1, 0.25, 1);
+  transition-delay: calc(var(--stagger, 0) * 70ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .armed [data-reveal],
+  .armed [data-reveal-fade],
+  .armed [data-reveal-item],
+  .revealed [data-reveal],
+  .revealed [data-reveal-fade],
+  .revealed [data-reveal-item] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
