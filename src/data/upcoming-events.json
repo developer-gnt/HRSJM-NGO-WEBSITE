@@ -1,0 +1,44 @@
+[
+  {
+    "id": "child-rights-awareness-workshop",
+    "date": "22 SEP 2026",
+    "title": "Child Rights Awareness Workshop",
+    "location": "Pune, Maharashtra",
+    "description": "Interactive session on child rights, safety and education for a brighter future.",
+    "status": "Register Open",
+    "statusType": "open",
+    "image": "/images/story-3.png",
+    "action": {
+      "label": "View Details",
+      "type": "details"
+    }
+  },
+  {
+    "id": "community-tree-plantation-drive",
+    "date": "05 OCT 2026",
+    "title": "Community Tree Plantation Drive",
+    "location": "Nashik, Maharashtra",
+    "description": "Green communities for a healthier and more sustainable tomorrow.",
+    "status": "Register Open",
+    "statusType": "open",
+    "image": "/images/story-5.png",
+    "action": {
+      "label": "View Details",
+      "type": "details"
+    }
+  },
+  {
+    "id": "rti-awareness-seminar",
+    "date": "12 OCT 2026",
+    "title": "RTI Awareness Seminar",
+    "location": "Delhi, India",
+    "description": "Learn how to use the Right to Information (RTI) for transparency and accountability.",
+    "status": "Registration Soon",
+    "statusType": "soon",
+    "image": "/WHD-Cards/card-3.png",
+    "action": {
+      "label": "Notify Me",
+      "type": "notify"
+    }
+  }
+]

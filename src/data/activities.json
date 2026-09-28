@@ -1,0 +1,34 @@
+[
+  {
+    "id": "human-rights-awareness-rally",
+    "title": "Human Rights Awareness Rally",
+    "date": "12 AUG 2026",
+    "location": "Mumbai",
+    "category": "Awareness",
+    "image": "/images/activities/human-rights-awareness-rally.png"
+  },
+  {
+    "id": "free-legal-aid-camp",
+    "title": "Free Legal Aid Camp",
+    "date": "26 JUL 2026",
+    "location": "Thane",
+    "category": "Legal Aid",
+    "image": "/images/activities/free-legal-aid-camp.png"
+  },
+  {
+    "id": "womens-rights-awareness-program",
+    "title": "Women's Rights Awareness Program",
+    "date": "18 JUL 2026",
+    "location": "Nagpur",
+    "category": "Awareness",
+    "image": "/images/activities/womens-rights-awareness-program.png"
+  },
+  {
+    "id": "community-cleanliness-drive",
+    "title": "Community Cleanliness Drive",
+    "date": "02 JUL 2026",
+    "location": "Pune",
+    "category": "Community Outreach",
+    "image": "/images/activities/community-cleanliness-drive.png"
+  }
+]
