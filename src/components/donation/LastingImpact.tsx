@@ -49,7 +49,7 @@ export default function LastingImpact() {
       <div className={styles.container}>
         <div className={styles.lastingInner}>
           <div className={styles.lastingContent}>
-            <p className={styles.eyebrowNeutral}>Build a Better Tomorrow</p>
+            <p className={styles.lastingEyebrow}>Build a Better Tomorrow</p>
             <h2 id="lasting-impact-heading" className={styles.lastingHeading}>
               Make a Lasting Impact
             </h2>
