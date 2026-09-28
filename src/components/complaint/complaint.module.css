@@ -679,9 +679,9 @@
 /* Tablet — 640–1023px */
 @media (max-width: 1023px) {
   .processInner {
-    padding: 48px var(--page-padding);
+    padding: 56px var(--page-padding);
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 44px;
   }
 
   /* Content stacks over the photo, so switch to a darker, more
@@ -695,8 +695,9 @@
     );
   }
 
+  /* Balanced 2×2 grid with clear row separation */
   .processSteps {
-    gap: 28px 20px;
+    gap: 44px 32px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -710,6 +711,79 @@
 
   .processStepText {
     color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+/* Tablet-only step redesign (640–1023px): large icon circles with
+   overlapping number badges and dotted connector lines between the
+   columns, matching the reference. Scoped so the desktop timeline and
+   the mobile vertical rail stay untouched. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .processIntro {
+    max-width: 560px;
+  }
+
+  .processIntro .btnGold {
+    min-height: 48px;
+    padding: 13px 26px;
+  }
+
+  .processSteps {
+    justify-items: center;
+    max-width: 640px;
+    margin-inline: auto;
+    gap: 64px 48px;
+  }
+
+  .processStep {
+    position: relative;
+    max-width: 300px;
+  }
+
+  /* Number badge overlaps the icon circle's upper-left edge */
+  .processStepNumber {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 64px);
+    z-index: 2;
+  }
+
+  .processStepIcon {
+    position: relative;
+    width: 72px;
+    height: 72px;
+  }
+
+  .processStepIcon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Thin decorative ring around the icon circle */
+  .processStepIcon::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 92px;
+    height: 92px;
+    transform: translateX(-50%);
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+  }
+
+  /* Dotted connector line between the two columns of each row */
+  .processStep:nth-child(odd)::after {
+    content: "";
+    position: absolute;
+    top: 51px;
+    left: calc(50% + 56px);
+    width: calc(100% - 64px);
+    height: 10px;
+    background:
+      radial-gradient(circle at 4px 5px, rgba(255, 255, 255, 0.55) 3.5px, transparent 4px) left center / 9px 9px no-repeat,
+      linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)) center / calc(100% - 18px) 1.5px no-repeat,
+      radial-gradient(circle at calc(100% - 4px) 5px, rgba(255, 255, 255, 0.55) 3.5px, transparent 4px) right center / 9px 9px no-repeat;
   }
 }
 
@@ -1242,7 +1316,7 @@ a.supportExtraValue:hover {
 .storiesInner {
   width: min(100%, var(--container));
   margin: 0 auto;
-  padding: 0 var(--page-padding);
+  padding: 24px 40px 24px 40px;
   display: grid;
   grid-template-columns: minmax(280px, 5fr) 7fr;
   align-items: center;

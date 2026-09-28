@@ -846,35 +846,55 @@
 /* Mobile — under 640px */
 @media (max-width: 639px) {
   .contactCta {
-    background-position: 30% center;
+    background-position: 15% center;
   }
 
   .contactCta__container {
     min-height: 0;
-    padding: 45px 20px;
+    padding: 48px 20px 42px;
     grid-template-columns: 1fr;
     grid-template-areas:
       "heading"
       "content"
       "quote";
     gap: 22px;
+    align-items: start;
   }
 
   .contactCta__title {
     font-size: 28px;
+    line-height: 1.08;
+  }
+
+  .contactCta__content {
+    justify-self: stretch;
+    max-width: 100%;
+    padding-left: 0;
+  }
+
+  .contactCta__description {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .contactCta__button {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+    margin-top: 18px;
+  }
+
+  .contactCta__quote {
+    justify-self: end;
+    display: inline-block;
+    padding: 16px 20px;
+    border-radius: 8px;
+    background: rgba(250, 248, 244, 0.82);
   }
 
   .contactCta__quoteText {
     font-size: 19px;
-  }
-
-  /* Localized soft backing so the navy quote stays readable
-     over the darker climbers/rock area of the photo. */
-  .contactCta__quote {
-    display: inline-block;
-    padding: 14px 18px 18px;
-    border-radius: 8px;
-    background: rgba(250, 248, 244, 0.78);
+    line-height: 1.12;
   }
 }
 
