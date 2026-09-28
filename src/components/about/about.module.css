@@ -425,7 +425,7 @@
 .breadcrumbList {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 22px;
   font-size: 13.5px;
   color: #7b8794;
 }

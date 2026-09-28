@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
-import { ArrowRight, Lock, Plus } from "lucide-react";
+import { ArrowRight, CircleCheck, Lock, Plus } from "lucide-react";
 import { useScrollReveal, revealDelay, revealStagger } from "@/hooks/useScrollReveal";
 import styles from "./complaint.module.css";
 
@@ -92,6 +92,7 @@ const complaintTypes = [
 export default function ComplaintForm() {
   const sectionRef = useScrollReveal(styles);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [submitted, setSubmitted] = useState(false);
 
   const toggleItem = (index: number) => {
     setOpenIndex((current) => (current === index ? null : index));
@@ -99,6 +100,17 @@ export default function ComplaintForm() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
+    // Native constraint validation: focuses the first invalid field and
+    // shows its built-in message; valid data submits without any error.
+    if (!form.reportValidity()) {
+      setSubmitted(false);
+      return;
+    }
+    // Successful submission. Replace with an API call when the backend
+    // endpoint is available.
+    setSubmitted(true);
+    form.reset();
   };
 
   return (
@@ -232,11 +244,19 @@ export default function ComplaintForm() {
               <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
             </button>
 
-            <p className={styles.formNote}>
-              <Lock size={13} strokeWidth={2} aria-hidden="true" />
-              Your information is confidential and will only be used to provide
-              support.
-            </p>
+            {submitted ? (
+              <p className={styles.formNote} role="status">
+                <CircleCheck size={14} strokeWidth={2} aria-hidden="true" />
+                Thank you! Your complaint has been submitted successfully. Our
+                team will get back to you soon.
+              </p>
+            ) : (
+              <p className={styles.formNote}>
+                <Lock size={13} strokeWidth={2} aria-hidden="true" />
+                Your information is confidential and will only be used to provide
+                support.
+              </p>
+            )}
           </form>
         </div>
 
