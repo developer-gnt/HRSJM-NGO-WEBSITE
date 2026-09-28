@@ -32,34 +32,34 @@ export default function MembershipHero() {
         <nav className={styles.breadcrumb} aria-label="Breadcrumb">
           <Link href="/">Home</Link>
           <ChevronRight size={14} strokeWidth={2.2} aria-hidden="true" />
-          <span aria-current="page">Complaints / Get Help</span>
+          <span aria-current="page">Membership</span>
         </nav>
 
         <div className={styles.heroInner}>
           <div className={styles.heroContent}>
             <p className={styles.heroEyebrow}>
               <span className={styles.heroEyebrowDot} aria-hidden="true" />
-              Complaint / Get Help
+              Membership
             </p>
 
             <h1 id="membership-hero-heading" className={styles.heroHeading}>
-              <span>Raise a Concern.</span>
-              <span className={styles.heroHeadingGold}>Get Support.</span>
+              <span>Join the Movement.</span>
+              <span className={styles.heroHeadingGold}>Be the Change.</span>
             </h1>
 
             <p className={styles.heroDescription}>
-              If you or someone you know has faced a human rights violation or
-              needs legal, social or community support, we are here to help.
-              Your voice matter, and we will stand with you.
+              Become a member of Human Rights &amp; Social Justice Mission and
+              stand up for human rights, dignity and social justice. Your
+              support helps us build a more just, equal and inclusive society.
             </p>
 
             <div className={styles.heroActions}>
               <a href="#membership-options" className={styles.btnGold}>
-                File a Complaint
+                Become a Member
                 <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
               </a>
               <a href="#why-membership" className={styles.btnOutline}>
-                Explore Support Options
+                Explore Member Benefits
               </a>
             </div>
 
