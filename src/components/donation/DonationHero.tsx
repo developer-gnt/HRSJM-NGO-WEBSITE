@@ -12,7 +12,7 @@ export default function DonationHero() {
   return (
     <section className={styles.hero} aria-labelledby="donation-hero-heading">
       <Image
-        src="/donation/donation-hero.png"
+        src="/donation/donation-hero-clean.png"
         alt=""
         fill
         preload
