@@ -4,6 +4,7 @@ import FeaturedNews from "@/components/news/FeaturedNews";
 import LatestNews from "@/components/news/LatestNews";
 import KnowledgeBanner from "@/components/news/KnowledgeBanner";
 import CommunityVoices from "@/components/news/CommunityVoices";
+import NewsCTA from "@/components/news/NewsCTA";
 
 export const metadata: Metadata = {
   title: "News & Blog",
@@ -19,6 +20,7 @@ export default function NewsPage() {
       <LatestNews />
       <KnowledgeBanner />
       <CommunityVoices />
+      <NewsCTA />
     </>
   );
 }
