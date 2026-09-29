@@ -1,0 +1,169 @@
+/* ================================================================ */
+/* Category listing page — categoryListing.module.css                */
+/* Navy editorial header band + shared article grid and Categories   */
+/* card, matching the News & Blog design system.                     */
+/* ================================================================ */
+
+.header {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    var(--color-navy-dark) 0%,
+    var(--color-navy) 100%
+  );
+  color: var(--color-white);
+}
+
+.headerInner {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 24px var(--page-padding) 44px;
+}
+
+/* Breadcrumb on the dark band — same recipe as the news hero */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.breadcrumbLink {
+  transition: color 200ms ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-gold);
+}
+
+.breadcrumbSeparator {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.breadcrumbCurrent {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 26px;
+  color: var(--color-white);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border: 2px solid var(--color-gold);
+  border-radius: 50%;
+}
+
+.heading {
+  margin-top: 10px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.08;
+  color: var(--color-white);
+}
+
+.description {
+  max-width: 560px;
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--type-body-small);
+  line-height: 1.6;
+}
+
+.listing {
+  padding-bottom: 72px;
+}
+
+.listingGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.33fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: stretch;
+  margin-top: 44px;
+}
+
+.listingMain {
+  min-width: 0;
+}
+
+.resultsMeta {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Category card stays reachable while browsing on desktop */
+.sidebarSticky {
+  min-width: 0;
+}
+
+.sidebarSticky > aside {
+  position: sticky;
+  top: 96px;
+}
+
+/* Empty state — soft dashed card, same shell language as listings */
+.listingEmpty {
+  margin-top: 18px;
+  padding: 30px 26px;
+  border: 1px dashed var(--color-border);
+  border-radius: 10px;
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Tablet — grid and category card stack */
+@media (max-width: 1023px) {
+  .listing {
+    padding-bottom: 56px;
+  }
+
+  .listingGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+
+  .sidebarSticky > aside {
+    position: static;
+  }
+}
+
+/* Mobile — compact header, readable single column */
+@media (max-width: 639px) {
+  .headerInner {
+    padding: 20px var(--page-padding) 36px;
+  }
+
+  .eyebrow {
+    margin-top: 22px;
+  }
+
+  .listing {
+    padding-bottom: 44px;
+  }
+
+  .listingGrid {
+    margin-top: 32px;
+  }
+
+  .listingEmpty {
+    padding: 24px 20px;
+  }
+}

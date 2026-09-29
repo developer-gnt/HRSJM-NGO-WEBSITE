@@ -57,7 +57,7 @@ export default function WhatHRSJMDoesHero() {
           </p>
 
           <div className={styles.actions}>
-            <Link href="#key-areas" className={styles.primaryBtn}>
+            <Link href="#core-areas" className={styles.primaryBtn}>
               Explore Our Work
               <span className={styles.primaryBtnIcon}>
                 <Icon name="arrow" width={17} height={17} strokeWidth={2} />

@@ -22,7 +22,7 @@ export default function ContactCTA() {
             social justice. Join hands with HRSJM to create real and lasting
             change.
           </p>
-          <Link href="/join-us" className={styles.contactCta__button}>
+          <Link href="/membership" className={styles.contactCta__button}>
             Join Our Movement
             <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
           </Link>

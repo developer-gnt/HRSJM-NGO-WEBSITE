@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Minus, Plus } from "lucide-react";
 import styles from "./donation.module.css";
 
 const faqs = [
@@ -48,6 +49,10 @@ export default function DonationFAQ() {
               Find answers to common questions about how your donation helps
               and how it is used.
             </p>
+            <Link href="/faqs#donation" className={styles.faqViewAll}>
+              View All FAQs
+              <ArrowRight size={15} strokeWidth={2.4} aria-hidden="true" />
+            </Link>
           </div>
 
           <div className={styles.faqList}>

@@ -29,7 +29,7 @@ export default function UpcomingEvents() {
           </div>
 
           <div className={styles.upcomingControls}>
-            <Link href="#upcoming-events" className={styles.viewAll}>
+            <Link href="/events/all" className={styles.viewAll}>
               View All Events
               <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
             </Link>

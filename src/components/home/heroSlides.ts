@@ -23,9 +23,9 @@ export const heroSlides: HeroSlideData[] = [
     description:
       "HRSJM stands for human rights, dignity, equality and peace. We work with communities, empower individuals and fight for a fairer, more just society.",
     primaryAction: "Join HRSJM",
-    primaryHref: "#join",
+    primaryHref: "/membership",
     secondaryAction: "Watch Our Story",
-    secondaryHref: "#story",
+    secondaryHref: "/about#who-we-are",
   },
   {
     id: 2,
@@ -37,9 +37,9 @@ export const heroSlides: HeroSlideData[] = [
     description:
       "We stand with communities, protect human dignity and work toward a more equal and just society.",
     primaryAction: "Join HRSJM",
-    primaryHref: "#join",
+    primaryHref: "/membership",
     secondaryAction: "Our Work",
-    secondaryHref: "#our-work",
+    secondaryHref: "/what-hrsjm-does",
   },
   {
     id: 3,
@@ -53,6 +53,6 @@ export const heroSlides: HeroSlideData[] = [
     primaryAction: "Take Action",
     primaryHref: "#take-action",
     secondaryAction: "Learn More",
-    secondaryHref: "#learn-more",
+    secondaryHref: "/about",
   },
 ];

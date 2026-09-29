@@ -35,7 +35,7 @@ export default function DonationCTA() {
                 Donate Now
                 <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
               </a>
-              <Link href="/join-us" className={styles.btnOutline}>
+              <Link href="/membership" className={styles.btnOutline}>
                 Join Our Movement
               </Link>
             </div>

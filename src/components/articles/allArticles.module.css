@@ -1,0 +1,213 @@
+/* ================================================================ */
+/* All Articles page — allArticles.module.css                        */
+/* Navy editorial header band + category filter pills over the      */
+/* shared article grid and Trending/Newsletter sidebar, matching    */
+/* the News & Blog design system.                                   */
+/* ================================================================ */
+
+.header {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    var(--color-navy-dark) 0%,
+    var(--color-navy) 100%
+  );
+  color: var(--color-white);
+}
+
+.headerInner {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 24px var(--page-padding) 44px;
+}
+
+/* Breadcrumb on the dark band — same recipe as the news hero */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.breadcrumbLink {
+  transition: color 200ms ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-gold);
+}
+
+.breadcrumbSeparator {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.breadcrumbCurrent {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 26px;
+  color: var(--color-white);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border: 2px solid var(--color-gold);
+  border-radius: 50%;
+}
+
+.heading {
+  margin-top: 10px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.08;
+  color: var(--color-white);
+}
+
+.description {
+  max-width: 560px;
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--type-body-small);
+  line-height: 1.6;
+}
+
+.listing {
+  padding: 28px 0 72px;
+}
+
+/* Category filter pills — white with thin borders, navy active state */
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filterPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 9px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-white);
+  color: var(--color-text-primary);
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 200ms ease, border-color 200ms ease,
+    color 200ms ease;
+}
+
+.filterPill:hover {
+  border-color: var(--color-gold);
+}
+
+.filterPillActive,
+.filterPillActive:hover {
+  border-color: var(--color-navy);
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+.filterCount {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--color-cream);
+  color: var(--color-navy);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.filterPillActive .filterCount {
+  background: var(--color-gold);
+  color: var(--color-navy);
+}
+
+.listingGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+.listingMain {
+  min-width: 0;
+}
+
+.resultsMeta {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Empty state — soft dashed card, same shell language as listings */
+.listingEmpty {
+  margin-top: 18px;
+  padding: 30px 26px;
+  border: 1px dashed var(--color-border);
+  border-radius: 10px;
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Tablet — grid and sidebar stack (the shared sidebar carries its own
+   2-up tablet layout from news.module.css) */
+@media (max-width: 1023px) {
+  .listing {
+    padding: 24px 0 56px;
+  }
+
+  .listingGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+
+/* Mobile — compact header, single column, wrapping pills */
+@media (max-width: 639px) {
+  .headerInner {
+    padding: 20px var(--page-padding) 36px;
+  }
+
+  .eyebrow {
+    margin-top: 22px;
+  }
+
+  .listing {
+    padding: 22px 0 44px;
+  }
+
+  .listingGrid {
+    margin-top: 20px;
+  }
+
+  .filterPill {
+    padding: 8px 14px;
+    font-size: 12.5px;
+  }
+
+  .listingEmpty {
+    padding: 24px 20px;
+  }
+}

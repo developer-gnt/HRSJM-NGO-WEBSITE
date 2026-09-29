@@ -112,6 +112,7 @@ export default function RealImpact() {
 
   return (
     <section
+      id="impact"
       className={styles.impact}
       aria-labelledby="real-impact-heading"
     >
@@ -129,7 +130,7 @@ export default function RealImpact() {
               communities across India. Here are some real stories of change
               made possible by donors like you.
             </p>
-            <Link href="/about" className={styles.btnGoldSmall}>
+            <Link href="/success-stories" className={styles.btnGoldSmall}>
               View More Stories
               <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
             </Link>
