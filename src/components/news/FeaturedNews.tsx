@@ -2,26 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ArrowRight,
-  CalendarDays,
-  HeartHandshake,
-  Megaphone,
-  Newspaper,
-  Scale,
-  Tv,
-} from "lucide-react";
-import { useScrollReveal, revealDelay, revealStagger } from "@/hooks/useScrollReveal";
+import { ArrowRight } from "lucide-react";
+import { featuredArticle } from "@/data/articles";
+import { useScrollReveal, revealDelay } from "@/hooks/useScrollReveal";
+import CategorySidebar from "./CategorySidebar";
 import styles from "./news.module.css";
-
-const categories = [
-  { icon: Newspaper, label: "All Posts", count: 98, active: true },
-  { icon: Megaphone, label: "Announcements", count: 12 },
-  { icon: Scale, label: "Legal Insights", count: 26 },
-  { icon: HeartHandshake, label: "Success Stories", count: 20 },
-  { icon: CalendarDays, label: "Events & Activities", count: 22 },
-  { icon: Tv, label: "Media Coverage", count: 18 },
-];
 
 export default function FeaturedNews() {
   const sectionRef = useScrollReveal(styles);
@@ -53,7 +38,7 @@ export default function FeaturedNews() {
               </div>
 
               <h3 className={styles.featuredTitle}>
-                <Link href="#featured-article">
+                <Link href={featuredArticle.href ?? "/featured-article"}>
                   Strengthening Fundamental Rights in a Changing India
                 </Link>
               </h3>
@@ -74,7 +59,7 @@ export default function FeaturedNews() {
               </div>
 
               <div className={styles.featuredAction}>
-                <Link href="#featured-article" className={styles.btnGold}>
+                <Link href={featuredArticle.href ?? "/featured-article"} className={styles.btnGold}>
                   Read Full Article
                   <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
                 </Link>
@@ -82,28 +67,7 @@ export default function FeaturedNews() {
             </div>
           </article>
 
-          <aside className={styles.sidebar} aria-label="Article categories">
-            <div className={styles.sidebarCard} data-reveal style={revealDelay(2)}>
-              <h3 className={styles.sidebarTitle}>Categories</h3>
-              <ul className={styles.categoryList}>
-                {categories.map(({ icon: Icon, label, count, active }, index) => (
-                  <li key={label} data-reveal-item style={revealStagger(index)}>
-                    <Link
-                      href="#featured-article"
-                      className={`${styles.categoryItem}${active ? ` ${styles.categoryItemActive}` : ""}`}
-                      aria-current={active ? "true" : undefined}
-                    >
-                      <span className={styles.categoryItemIcon}>
-                        <Icon size={16} strokeWidth={1.8} aria-hidden="true" />
-                      </span>
-                      <span className={styles.categoryItemLabel}>{label}</span>
-                      <span className={styles.categoryItemCount}>{count}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </aside>
+          <CategorySidebar activeLabel="All Posts" />
         </div>
       </div>
     </section>

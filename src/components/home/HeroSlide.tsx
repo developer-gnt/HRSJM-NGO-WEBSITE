@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import type { HeroSlideData } from "./heroSlides";
 import styles from "./heroSlide.module.css";
@@ -47,14 +48,14 @@ export default function HeroSlide({
           </HeadingTag>
           <p className={heroStyles.description}>{slide.description}</p>
           <div className={heroStyles.actions}>
-            <a href={slide.primaryHref} className={heroStyles.primaryCta}>
+            <Link href={slide.primaryHref} className={heroStyles.primaryCta}>
               {slide.primaryAction}
               <Icon name="arrow" />
-            </a>
-            <a href={slide.secondaryHref} className={heroStyles.secondaryCta}>
+            </Link>
+            <Link href={slide.secondaryHref} className={heroStyles.secondaryCta}>
               <Icon name="play" />
               {slide.secondaryAction}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

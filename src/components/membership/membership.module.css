@@ -956,6 +956,25 @@
   line-height: 1.6;
 }
 
+.faqViewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 11px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--color-navy);
+  color: var(--color-white);
+  font-size: 13.5px;
+  font-weight: 700;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.faqViewAll:hover {
+  background: var(--color-navy-dark);
+  transform: translateY(-1px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .faqPanel {
     transition: none;

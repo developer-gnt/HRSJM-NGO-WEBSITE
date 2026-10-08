@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type CSSProperties } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Icon, { type IconName } from "@/components/ui/Icon";
 import styles from "./about.module.css";
 
@@ -81,15 +82,15 @@ export default function AboutSection() {
               regional levels. We work for democracy, peace, secularism, human
               security, social justice, dignity and equality.
             </p>
-            <a
-              href="#about"
+            <Link
+              href="/about"
               className={styles.cta}
               style={revealDelay(3)}
               data-reveal-fade=""
             >
               Learn More About HRSJM
               <Icon name="arrow" width={16} height={16} />
-            </a>
+            </Link>
           </div>
 
           <div className={styles.collage} data-reveal-scale="">

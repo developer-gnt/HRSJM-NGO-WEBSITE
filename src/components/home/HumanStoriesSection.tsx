@@ -11,60 +11,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import eventsData from "@/data/events.json";
+import { successStories as stories } from "@/data/successStories";
 import styles from "./humanStories.module.css";
-
-interface Story {
-  title: string;
-  quote: string;
-  location: string;
-  image: string;
-  alt: string;
-}
-
-const stories: Story[] = [
-  {
-    title: "From Silence to Strength",
-    quote: "HRSJM gave me a voice and a new future.",
-    location: "Mumbai, Maharashtra",
-    image: "/images/story-1.png",
-    alt: "A woman in an orange and brown headscarf shares her story of finding her voice.",
-  },
-  {
-    title: "Justice for Our Community",
-    quote: "With legal support, our community found hope.",
-    location: "Satyenagar, Delhi",
-    image: "/images/story-2.png",
-    alt: "A man in a blue shirt standing before members of his community.",
-  },
-  {
-    title: "Education Changes Lives",
-    quote: "I can now dream of a brighter tomorrow.",
-    location: "Nashik, Maharashtra",
-    image: "/images/story-3.png",
-    alt: "A young student in a community education setting.",
-  },
-  {
-    title: "Community Voices",
-    quote: "Together, our voices can create meaningful change.",
-    location: "Mumbai, Maharashtra",
-    image: "/images/story-4.png",
-    alt: "A young woman carrying her books on her way to study.",
-  },
-  {
-    title: "Dignity & Justice",
-    quote: "Everyone deserves dignity, support and justice.",
-    location: "Maharashtra, India",
-    image: "/images/story-5.png",
-    alt: "An elderly man from a rural village.",
-  },
-  {
-    title: "A Brighter Tomorrow",
-    quote: "Education gives every child a reason to dream.",
-    location: "Maharashtra, India",
-    image: "/images/story-6.png",
-    alt: "A smiling child in a classroom setting.",
-  },
-];
 
 const getVisibleCount = () => {
   if (window.matchMedia("(max-width: 639px)").matches) return 1;
@@ -271,7 +219,7 @@ export default function HumanStoriesSection() {
               from the people and communities HRSJM stands with.
             </p>
             <div data-reveal style={{ "--reveal-delay": 3 } as React.CSSProperties}>
-              <Link href="/stories" className={styles.cta}>
+              <Link href="/success-stories" className={styles.cta}>
                 View All Stories
                 <Icon name="arrow" width={16} height={16} />
               </Link>
@@ -352,7 +300,7 @@ export default function HumanStoriesSection() {
           <div className={styles.events}>
             <div className={styles.eventsHead} data-reveal>
               <h3 className={styles.eventsHeading}>Events &amp; Activities</h3>
-              <Link href="/events" className={styles.eventsLink}>
+              <Link href="/events/all" className={styles.eventsLink}>
                 View All Events
                 <Icon name="arrow" width={14} height={14} />
               </Link>

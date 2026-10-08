@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Minus, Plus } from "lucide-react";
 import styles from "./membership.module.css";
 
 const faqs = [
@@ -63,6 +64,10 @@ export default function MembershipFAQ() {
               Find answers to common questions about becoming an HRSJM member
               and participating in our work.
             </p>
+            <Link href="/faqs#membership" className={styles.faqViewAll}>
+              View All FAQs
+              <ArrowRight size={15} strokeWidth={2.4} aria-hidden="true" />
+            </Link>
           </div>
 
           <div className={styles.faqList}>
