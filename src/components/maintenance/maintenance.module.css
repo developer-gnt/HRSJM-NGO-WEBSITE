@@ -1,0 +1,628 @@
+/* ---------------------------------------------------------------- */
+/* HRSJM Maintenance Page Styles                                    */
+/* Fully unified with the HRSJM institutional theme:                */
+/* - Background: Warm cream (--color-cream: #f7f4ec)                */
+/* - Headings: Cormorant Garamond (--font-display) in Navy & Gold   */
+/* - Body text: Manrope (--font-body)                               */
+/* - Hindi: Noto Sans Devanagari (--font-devanagari)                */
+/* - Card surfaces: White with warm borders (--color-border)        */
+/* - Buttons: HRSJM signature Gold pills (--color-gold: #fad25c)     */
+/* - Footer: Deep Navy (--color-navy-dark: #031d38) with Gold tagline*/
+/* ---------------------------------------------------------------- */
+
+.maintenanceContainer {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-cream, #f7f4ec);
+  color: var(--color-text-primary, #102a43);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Atmospheric warm institutional backdrop (no sci-fi grids) */
+.ambientWarmth {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1400px;
+  height: 480px;
+  background: radial-gradient(
+    ellipse 75% 360px at 50% 0%,
+    rgba(250, 210, 92, 0.18) 0%,
+    rgba(247, 244, 236, 0.05) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------------- HEADER BAR ---------------- */
+.header {
+  position: relative;
+  z-index: 10;
+  background: var(--color-white, #ffffff);
+  border-bottom: 1px solid var(--color-border, #e5e0d5);
+  box-shadow: 0 2px 14px rgba(3, 29, 56, 0.04);
+}
+
+.headerInner {
+  width: min(100%, var(--container, 1440px));
+  margin: 0 auto;
+  padding: 12px var(--page-padding, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Header Brand / Logo */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-navy, #062a4f);
+  text-decoration: none;
+}
+
+.logoImage {
+  width: auto;
+  height: 46px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brandCopy {
+  display: grid;
+  gap: 1px;
+}
+
+.brandTitle {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--color-navy, #062a4f);
+}
+
+.brandSubtitle {
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary, #52606d);
+}
+
+.brandHindi {
+  font-family: var(--font-devanagari), "Noto Sans Devanagari", sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--color-gold-dark, #b88916);
+}
+
+/* Header Right Actions */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.headerHelpline {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  background: var(--color-cream, #f7f4ec);
+  border: 1px solid var(--color-border, #e5e0d5);
+  border-radius: 999px;
+  color: var(--color-navy, #062a4f);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.headerHelpline:hover {
+  background: var(--color-gold, #fad25c);
+  border-color: var(--color-gold-light, #e8bc3f);
+  color: var(--color-navy-dark, #031d38);
+}
+
+.headerHelplineIcon {
+  color: var(--color-gold-dark, #b88916);
+  flex-shrink: 0;
+}
+
+.headerHelpline:hover .headerHelplineIcon {
+  color: var(--color-navy-dark, #031d38);
+}
+
+/* Live Maintenance Status Pill */
+.statusIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 16px;
+  background: rgba(250, 210, 92, 0.16);
+  border: 1px solid rgba(184, 137, 22, 0.35);
+  border-radius: 999px;
+}
+
+.pulsingDot {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  background-color: #d97706;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pulsingDot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px solid #d97706;
+  animation: pulseRipple 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseRipple {
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.statusBadgeText {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: var(--color-navy-dark, #031d38);
+  text-transform: uppercase;
+}
+
+/* ---------------- MAIN CONTENT ---------------- */
+.mainContent {
+  position: relative;
+  z-index: 1;
+  flex: 1 0 auto;
+  width: min(100%, var(--container, 1440px));
+  margin: 0 auto;
+  padding: clamp(36px, 5vw, 64px) var(--page-padding, 24px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heroCard {
+  max-width: 920px;
+  width: 100%;
+  background: var(--color-white, #ffffff);
+  border: 1px solid var(--color-border, #e5e0d5);
+  border-top: 4px solid var(--color-gold, #fad25c);
+  border-radius: 18px;
+  padding: clamp(36px, 5vw, 60px) clamp(24px, 4vw, 56px);
+  box-shadow:
+    0 20px 48px -12px rgba(6, 42, 79, 0.08),
+    0 4px 12px rgba(6, 42, 79, 0.03);
+  text-align: center;
+}
+
+/* Emblem / Seal */
+.emblemWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(250, 210, 92, 0.25) 0%,
+    rgba(232, 188, 63, 0.08) 100%
+  );
+  border: 1.5px solid var(--color-gold, #fad25c);
+  color: var(--color-navy, #062a4f);
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(250, 210, 92, 0.22);
+}
+
+.eyebrow {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold-dark, #b88916);
+  margin-bottom: 10px;
+}
+
+.mainHeading {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--color-navy, #062a4f);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+.mainHeadingHighlight {
+  color: var(--color-gold-dark, #b88916);
+}
+
+.hindiBadge {
+  display: inline-block;
+  font-family: var(--font-devanagari), "Noto Sans Devanagari", sans-serif;
+  font-size: clamp(13.5px, 1.4vw, 15px);
+  color: #8c6409;
+  background: #faf4e6;
+  border: 1px solid rgba(184, 137, 22, 0.26);
+  border-radius: 999px;
+  padding: 7px 22px;
+  font-weight: 600;
+  margin-bottom: 22px;
+  line-height: 1.4;
+}
+
+.description {
+  font-size: clamp(15px, 1.4vw, 16.5px);
+  line-height: 1.7;
+  color: var(--color-text-secondary, #52606d);
+  max-width: 720px;
+  margin: 0 auto 36px;
+  font-weight: 400;
+}
+
+/* ---------------- FEATURE UPGRADES GRID ---------------- */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 36px;
+  text-align: left;
+}
+
+.featureCard {
+  background: #faf8f4;
+  border: 1px solid var(--color-border, #e5e0d5);
+  border-radius: 12px;
+  padding: 22px 20px;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.featureCard:hover {
+  transform: translateY(-3px);
+  background: var(--color-white, #ffffff);
+  border-color: var(--color-gold, #fad25c);
+  box-shadow: 0 10px 24px rgba(6, 42, 79, 0.07);
+}
+
+.featureIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(250, 210, 92, 0.22);
+  color: var(--color-navy, #062a4f);
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.featureTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-navy, #062a4f);
+  line-height: 1.35;
+}
+
+.featureDescription {
+  font-size: 13.5px;
+  color: var(--color-text-secondary, #52606d);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ---------------- EMERGENCY HELPLINE CALLOUT ---------------- */
+.emergencySection {
+  background: linear-gradient(
+    135deg,
+    var(--color-navy, #062a4f) 0%,
+    var(--color-navy-dark, #031d38) 100%
+  );
+  border: 1px solid rgba(250, 210, 92, 0.35);
+  border-radius: 14px;
+  padding: 28px 24px;
+  color: var(--color-white, #ffffff);
+  margin-bottom: 34px;
+}
+
+.emergencyTitle {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-gold, #fad25c);
+  margin-bottom: 6px;
+}
+
+.emergencySub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.55;
+  max-width: 620px;
+  margin: 0 auto 20px;
+}
+
+.contactCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.phoneButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--color-gold, #fad25c);
+  color: var(--color-navy-dark, #031d38);
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 200ms ease;
+  box-shadow: 0 4px 14px rgba(250, 210, 92, 0.3);
+}
+
+.phoneButton:hover {
+  background: var(--color-gold-light, #e8bc3f);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(250, 210, 92, 0.42);
+}
+
+.emailButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.emailButton:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--color-gold, #fad25c);
+  color: var(--color-gold, #fad25c);
+  transform: translateY(-2px);
+}
+
+.addressPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.82);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+/* ---------------- ACTIONS ROW ---------------- */
+.actionRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.refreshButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-gold, #fad25c);
+  color: var(--color-navy-dark, #031d38);
+  border: none;
+  padding: 13px 32px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 200ms ease;
+  box-shadow: 0 6px 18px rgba(184, 137, 22, 0.22);
+}
+
+.refreshButton:hover {
+  background: var(--color-gold-light, #e8bc3f);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(184, 137, 22, 0.32);
+}
+
+.refreshButton:active {
+  transform: translateY(0);
+}
+
+.refreshButtonDisabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.returnNotice {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--color-text-muted, #7b8794);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.returnNoticeIcon {
+  color: var(--color-gold-dark, #b88916);
+  flex-shrink: 0;
+}
+
+/* ---------------- FOOTER SECTION ---------------- */
+.footer {
+  position: relative;
+  z-index: 1;
+  background: var(--color-navy-dark, #031d38);
+  color: rgba(255, 255, 255, 0.82);
+  border-top: 1px solid rgba(250, 210, 92, 0.35);
+  padding: 36px 0 28px;
+  width: 100%;
+}
+
+.footerInner {
+  width: min(100%, var(--container, 1440px));
+  margin: 0 auto;
+  padding: 0 var(--page-padding, 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.footerTagline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-gold, #fad25c);
+  letter-spacing: 0.04em;
+}
+
+.taglineSeparator {
+  opacity: 0.5;
+  font-size: 13px;
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.socialLink {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.socialLink:hover {
+  border-color: var(--color-gold, #fad25c);
+  color: var(--color-gold, #fad25c);
+  transform: translateY(-2px);
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.54);
+  font-size: var(--type-caption, 12px);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ---------------- RESPONSIVE BREAKPOINTS ---------------- */
+@media (max-width: 900px) {
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .headerInner {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .headerActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 640px) {
+  .headerInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerActions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .statusIndicator {
+    justify-content: center;
+  }
+
+  .headerHelpline {
+    justify-content: center;
+  }
+
+  .heroCard {
+    padding: 32px 18px;
+    border-radius: 14px;
+  }
+
+  .contactCards {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .phoneButton,
+  .emailButton,
+  .addressPill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .refreshButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footerTagline {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    font-size: 15px;
+  }
+}

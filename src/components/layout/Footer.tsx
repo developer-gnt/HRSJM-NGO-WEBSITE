@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { contactItems, legalLinks, quickLinks, socialLinks, usefulLinks, type FooterLink } from "@/config/footer";
 import Icon, { type IconName } from "@/components/ui/Icon";
 import Logo from "./Logo";
+import { maintenanceConfig } from "@/config/maintenance";
 import styles from "./layout.module.css";
 
 function FooterLinks({ links }: { links: FooterLink[] }) {
@@ -20,14 +22,20 @@ function FooterLinks({ links }: { links: FooterLink[] }) {
 }
 
 export default function Footer() {
+  const pathname = usePathname();
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
+    if (pathname === "/maintenance" || maintenanceConfig.enabled) return;
     const handleScroll = () => setShowBackToTop(window.scrollY > 320);
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
+
+  if (pathname === "/maintenance" || maintenanceConfig.enabled) {
+    return null;
+  }
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
