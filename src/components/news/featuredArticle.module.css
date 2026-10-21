@@ -1,0 +1,189 @@
+/* ================================================================ */
+/* Featured Article page — featuredArticle.module.css                */
+/* Same design system: navy + gold on cream, editorial serif,        */
+/* white cards with thin borders (mirrors the event detail page).    */
+/* ================================================================ */
+
+.detail {
+  padding: 30px 0 72px;
+}
+
+/* Breadcrumb on the light background */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.breadcrumbLink {
+  transition: color 200ms ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-gold-dark);
+}
+
+.breadcrumbSeparator {
+  color: var(--color-text-muted);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-navy);
+  font-weight: 600;
+}
+
+/* Page title inside the featured card hero (larger than the section card) */
+.heroTitle {
+  margin-top: 16px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.14;
+}
+
+/* Article content + category navigation */
+.contentGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.33fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: stretch;
+  margin-top: 36px;
+}
+
+.articleMain {
+  min-width: 0;
+}
+
+/* Category card stays reachable while reading on desktop */
+.sidebarSticky {
+  min-width: 0;
+}
+
+.sidebarSticky > aside {
+  position: sticky;
+  top: 96px;
+}
+
+/* Numbered editorial sections */
+.articleSection {
+  padding: 26px 0;
+}
+
+.articleSection:first-child {
+  padding-top: 0;
+}
+
+.articleSection + .articleSection {
+  border-top: 1px solid var(--color-border);
+}
+
+.sectionNumber {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-gold-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.sectionNumber::after {
+  content: "";
+  width: 34px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-gold);
+}
+
+.sectionHeading {
+  margin-top: 8px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(21px, 2vw, 25px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.2;
+  color: var(--color-navy);
+}
+
+.sectionParagraph {
+  max-width: 70ch;
+  margin-top: 12px;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* End-of-article marker + back navigation */
+.articleEnd {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  margin-top: 8px;
+  padding-top: 28px;
+  border-top: 1px solid var(--color-border);
+}
+
+.endStroke {
+  width: 58px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-gold);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  background: var(--color-gold);
+  color: #062f50;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+
+.backLink:hover {
+  background: #fce49c;
+  transform: translateY(-1px);
+}
+
+/* Tablet — article and category navigation stack, navigation follows
+   the content */
+@media (max-width: 1023px) {
+  .contentGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+
+  .sidebarSticky > aside {
+    position: static;
+  }
+}
+
+/* Mobile — readable single-column article */
+@media (max-width: 639px) {
+  .detail {
+    padding: 24px 0 52px;
+  }
+
+  .contentGrid {
+    margin-top: 28px;
+  }
+
+  .articleSection {
+    padding: 22px 0;
+  }
+
+  .sectionParagraph {
+    font-size: 14.5px;
+  }
+}

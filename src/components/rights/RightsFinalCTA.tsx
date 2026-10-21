@@ -72,7 +72,7 @@ export default function RightsFinalCTA() {
               <Icon name="arrow" width={17} height={17} strokeWidth={2} />
             </span>
           </Link>
-          <Link href="/join-us" className={styles.secondaryBtn}>
+          <Link href="/membership" className={styles.secondaryBtn}>
             Join Our Movement
           </Link>
         </div>

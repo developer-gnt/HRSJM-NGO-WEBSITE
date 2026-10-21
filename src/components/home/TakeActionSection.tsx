@@ -12,10 +12,9 @@ interface Action {
 }
 
 const actions: Action[] = [
-  { label: "Join HRSJM", href: "/membership", variant: "primary" },
+  { label: "I Want To Become A member", href: "/membership", variant: "primary" },
   { label: "Make a Donation", href: "/donation", variant: "outline" },
   { label: "File a Complaint", href: "/complaint", variant: "outline" },
-  { label: "Renew Membership", href: "/membership/renew", variant: "outline" },
 ];
 
 export default function TakeActionSection() {

@@ -200,7 +200,6 @@
   flex: 0 0 auto;
 }
 
-.searchButton,
 .menuButton {
   width: 44px;
   height: 44px;
@@ -212,7 +211,6 @@
   cursor: pointer;
 }
 
-.searchButton:hover,
 .menuButton:hover {
   color: var(--color-gold);
 }

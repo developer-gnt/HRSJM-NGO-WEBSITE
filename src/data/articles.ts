@@ -104,7 +104,7 @@ export const featuredArticle: Article = {
 export const latestArticles: Article[] = [
   {
     slug: "understanding-your-right-to-information-rti",
-    image: "/images/news/card-rti.png",
+    image: "/images/story-6.png",
     alt: "Village elder in Maharashtra looking hopefully into the distance",
     category: "Legal Insights",
     title: "Understanding Your Right to Information (RTI)",
@@ -153,7 +153,7 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "how-a-small-step-in-education-changed-a-community",
-    image: "/images/news/card-education.png",
+    image: "/images/story-2.png",
     alt: "A young student attending class in a government school",
     category: "Success Stories",
     title: "How a Small Step in Education Changed a Community",
@@ -202,7 +202,7 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "womens-rights-progress-and-the-road-ahead",
-    image: "/images/news/card-womens-rights.png",
+    image: "/images/story-3.png",
     alt: "A woman wearing a traditional headscarf in her neighbourhood",
     category: "Women's Rights",
     title: "Women's Rights: Progress and the Road Ahead",
@@ -251,7 +251,7 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "hrsjm-community-outreach-program-in-maharashtra",
-    image: "/images/news/card-maharashtra.png",
+    image: "/images/story-1.png",
     alt: "Community members gathered together in an urban settlement",
     category: "Events & Activities",
     title: "HRSJM Community Outreach Program in Maharashtra",
@@ -293,7 +293,7 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "child-rights-building-a-safer-and-brighter-future",
-    image: "/images/news/card-child-rights.png",
+    image: "/images/story-5.png",
     alt: "A smiling child in a classroom full of students",
     category: "Children's Rights",
     title: "Child Rights: Building a Safer and Brighter Future",
@@ -342,7 +342,8 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "hrsjm-in-the-news-recent-media-highlights",
-    image: "/images/news/card-media-coverage.png",
+    image: "/images/news-hero-bg.png",
+    imagePosition: "center 72%",
     alt: "Newspaper front page reading Human Rights — A Stronger India",
     category: "Media Coverage",
     title: "HRSJM in the News: Recent Media Highlights",

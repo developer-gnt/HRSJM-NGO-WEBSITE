@@ -96,7 +96,7 @@ export default function RightsFAQ() {
             Find answers to common questions about human rights, legal
             protections and how to seek support.
           </p>
-          <Link href="#faqs" className={styles.primaryBtn}>
+          <Link href="/faqs" className={styles.primaryBtn}>
             View All FAQs
             <span className={styles.primaryBtnIcon}>
               <Icon name="arrow" width={17} height={17} strokeWidth={2} />

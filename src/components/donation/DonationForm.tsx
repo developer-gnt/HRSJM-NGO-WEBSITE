@@ -13,13 +13,7 @@ import {
 } from "lucide-react";
 import styles from "./donation.module.css";
 
-type Frequency = "one-time" | "monthly" | "custom";
 
-const frequencies: { id: Frequency; label: string }[] = [
-  { id: "one-time", label: "One Time" },
-  { id: "monthly", label: "Monthly" },
-  { id: "custom", label: "Custom Amount" },
-];
 
 const amountOptions = [
   { value: 500, label: "₹500", description: "Supports awareness programs" },
@@ -48,14 +42,7 @@ const paymentMarks = ["UPI", "VISA", "Mastercard", "RuPay"];
 const formatINR = (value: number) =>
   `₹${new Intl.NumberFormat("en-IN").format(value)}`;
 
-const frequencyLabels: Record<Frequency, string> = {
-  "one-time": "one-time",
-  monthly: "monthly",
-  custom: "one-time",
-};
-
 export default function DonationForm() {
-  const [frequency, setFrequency] = useState<Frequency>("one-time");
   const [selectedAmount, setSelectedAmount] = useState<number | null>(5000);
   const [customValue, setCustomValue] = useState("");
   const [message, setMessage] = useState<{
@@ -63,15 +50,6 @@ export default function DonationForm() {
     text: string;
   } | null>(null);
   const customInputRef = useRef<HTMLInputElement>(null);
-
-  const selectFrequency = (next: Frequency) => {
-    setFrequency(next);
-    setMessage(null);
-    if (next === "custom") {
-      setSelectedAmount(null);
-      requestAnimationFrame(() => customInputRef.current?.focus());
-    }
-  };
 
   const selectAmount = (value: number) => {
     setSelectedAmount(value);
@@ -103,7 +81,7 @@ export default function DonationForm() {
     }
     setMessage({
       type: "info",
-      text: `Your ${frequencyLabels[frequency]} donation of ${formatINR(
+      text: `Your donation of ${formatINR(
         amount
       )} is ready. Payment integration can be connected here.`,
     });
@@ -150,21 +128,6 @@ export default function DonationForm() {
             onSubmit={onSubmit}
             aria-label="Donation form"
           >
-            <div className={styles.tabs} role="group" aria-label="Donation frequency">
-              {frequencies.map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  className={styles.tab}
-                  data-active={frequency === tab.id || undefined}
-                  aria-pressed={frequency === tab.id}
-                  onClick={() => selectFrequency(tab.id)}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
             <h3 className={styles.formHeading}>Choose an Amount</h3>
             <p className={styles.formSubheading}>
               Your contribution helps us continue our mission for human rights
@@ -191,7 +154,7 @@ export default function DonationForm() {
             </div>
 
             <div className={styles.customRow}>
-              <label className={styles.customField} data-focused={frequency === "custom" || undefined}>
+              <label className={styles.customField}>
                 <span className={styles.customIcon}>
                   <HandCoins size={16} strokeWidth={1.8} aria-hidden="true" />
                 </span>

@@ -12,6 +12,7 @@ export type EventItem = {
   status: string;
   statusType: string;
   image: string;
+  href?: string;
   action: {
     label: string;
     type: string;
@@ -52,7 +53,7 @@ export default function EventCard({ event }: { event: EventItem }) {
         </p>
         <p className={styles.eventDesc}>{event.description}</p>
         <Link
-          href={actionHrefs[event.action.type] ?? "#event-details"}
+          href={event.href ?? actionHrefs[event.action.type] ?? "#event-details"}
           className={styles.eventCta}
         >
           {event.action.label}

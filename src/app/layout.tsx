@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Caveat, Cormorant_Garamond, Manrope, Noto_Sans_Devanagari } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import TestingPhaseModal from "@/components/ui/TestingPhaseModal";
 import "./globals.css";
 
 const displayFont = Cormorant_Garamond({
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${scriptFont.variable} ${devanagariFont.variable}`}>
       <body suppressHydrationWarning>
+        <TestingPhaseModal />
         <Header />
         <main>{children}</main>
         <Footer />

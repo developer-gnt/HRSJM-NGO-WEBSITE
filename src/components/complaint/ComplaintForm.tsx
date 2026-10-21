@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import Image from "next/image";
-import { ArrowRight, CircleCheck, Lock, Plus } from "lucide-react";
+import { AlertCircle, ArrowRight, CircleCheck, Lock, Plus } from "lucide-react";
 import { useScrollReveal, revealDelay, revealStagger } from "@/hooks/useScrollReveal";
 import styles from "./complaint.module.css";
 
@@ -34,7 +34,7 @@ const faqItems = [
   },
 ];
 
-const indianStates = [
+export const indianStates = [
   "Andhra Pradesh",
   "Arunachal Pradesh",
   "Assam",
@@ -89,28 +89,132 @@ const complaintTypes = [
   "Other",
 ];
 
+interface FormValues {
+  fullName: string;
+  email: string;
+  phone: string;
+  state: string;
+  complaintType: string;
+  details: string;
+}
+
+interface FormErrors {
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  state?: string;
+  complaintType?: string;
+  details?: string;
+}
+
+const initialValues: FormValues = {
+  fullName: "",
+  email: "",
+  phone: "",
+  state: "",
+  complaintType: "",
+  details: "",
+};
+
 export default function ComplaintForm() {
   const sectionRef = useScrollReveal(styles);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [submitted, setSubmitted] = useState(false);
+  const [values, setValues] = useState<FormValues>(initialValues);
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const toggleItem = (index: number) => {
     setOpenIndex((current) => (current === index ? null : index));
   };
 
+  const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // Disallow special characters and numbers: only letters and spaces allowed
+    const sanitized = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+    setValues((prev) => ({ ...prev, fullName: sanitized }));
+    if (errors.fullName) {
+      setErrors((prev) => ({ ...prev, fullName: undefined }));
+    }
+  };
+
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // Disallow alphabets/symbols, limit to max 10 digits
+    const digits = e.target.value.replace(/\D/g, "").slice(0, 10);
+    setValues((prev) => ({ ...prev, phone: digits }));
+    if (errors.phone) {
+      setErrors((prev) => ({ ...prev, phone: undefined }));
+    }
+  };
+
+  const handleChange = (
+    field: keyof FormValues,
+    value: string
+  ) => {
+    setValues((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const validate = (): boolean => {
+    const nextErrors: FormErrors = {};
+
+    // Full Name: No special characters or numbers allowed, letters and spaces only
+    const trimmedName = values.fullName.trim();
+    if (!trimmedName) {
+      nextErrors.fullName = "Please enter your full name.";
+    } else if (!/^[a-zA-Z\s]+$/.test(trimmedName)) {
+      nextErrors.fullName = "Full name should only contain letters and spaces (no special characters).";
+    } else if (trimmedName.length < 2) {
+      nextErrors.fullName = "Full name must be at least 2 characters.";
+    }
+
+    // Phone Number: No alphabets allowed, exactly 10 digits
+    const phoneDigits = values.phone.trim();
+    if (!phoneDigits) {
+      nextErrors.phone = "Please enter your phone number.";
+    } else if (phoneDigits.length !== 10) {
+      nextErrors.phone = "Phone number must be exactly 10 digits.";
+    }
+
+    // Email Address: strictly email format
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const trimmedEmail = values.email.trim();
+    if (!trimmedEmail) {
+      nextErrors.email = "Please enter your email address.";
+    } else if (!emailRegex.test(trimmedEmail)) {
+      nextErrors.email = "Please enter a valid email address.";
+    }
+
+    // State
+    if (!values.state) {
+      nextErrors.state = "Please select your state.";
+    }
+
+    // Complaint Type
+    if (!values.complaintType) {
+      nextErrors.complaintType = "Please select a complaint type.";
+    }
+
+    // Details
+    if (!values.details.trim()) {
+      nextErrors.details = "Please describe your concern.";
+    } else if (values.details.trim().length < 10) {
+      nextErrors.details = "Please provide more details (at least 10 characters).";
+    }
+
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    // Native constraint validation: focuses the first invalid field and
-    // shows its built-in message; valid data submits without any error.
-    if (!form.reportValidity()) {
+    if (!validate()) {
       setSubmitted(false);
       return;
     }
-    // Successful submission. Replace with an API call when the backend
-    // endpoint is available.
     setSubmitted(true);
-    form.reset();
+    setValues(initialValues);
+    setErrors({});
   };
 
   return (
@@ -129,7 +233,13 @@ export default function ComplaintForm() {
             you. Your information is confidential and secure.
           </p>
 
-          <form className={styles.form} onSubmit={handleSubmit} data-reveal style={revealDelay(3)}>
+          <form
+            className={styles.form}
+            onSubmit={handleSubmit}
+            noValidate
+            data-reveal
+            style={revealDelay(3)}
+          >
             <div className={styles.formRow}>
               <div className={styles.formField}>
                 <label htmlFor="complaint-name" className={styles.formLabel}>
@@ -142,8 +252,17 @@ export default function ComplaintForm() {
                   required
                   autoComplete="name"
                   placeholder="Enter your full name"
-                  className={styles.formInput}
+                  value={values.fullName}
+                  onChange={handleFullNameChange}
+                  className={`${styles.formInput} ${errors.fullName ? styles.inputError : ""}`}
+                  aria-invalid={errors.fullName ? "true" : undefined}
                 />
+                {errors.fullName && (
+                  <p className={styles.formFieldError} role="alert">
+                    <AlertCircle size={13} strokeWidth={2} aria-hidden="true" />
+                    {errors.fullName}
+                  </p>
+                )}
               </div>
               <div className={styles.formField}>
                 <label htmlFor="complaint-email" className={styles.formLabel}>
@@ -156,8 +275,17 @@ export default function ComplaintForm() {
                   required
                   autoComplete="email"
                   placeholder="Enter your email"
-                  className={styles.formInput}
+                  value={values.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  className={`${styles.formInput} ${errors.email ? styles.inputError : ""}`}
+                  aria-invalid={errors.email ? "true" : undefined}
                 />
+                {errors.email && (
+                  <p className={styles.formFieldError} role="alert">
+                    <AlertCircle size={13} strokeWidth={2} aria-hidden="true" />
+                    {errors.email}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -166,19 +294,30 @@ export default function ComplaintForm() {
                 <label htmlFor="complaint-phone" className={styles.formLabel}>
                   Phone Number <span className={styles.formRequired} aria-hidden="true">*</span>
                 </label>
-                <div className={styles.formPhone}>
+                <div className={`${styles.formPhone} ${errors.phone ? styles.inputError : ""}`}>
                   <span className={styles.formPhoneCode}>+91</span>
                   <input
                     id="complaint-phone"
                     name="phone"
                     type="tel"
+                    inputMode="numeric"
                     required
                     autoComplete="tel-national"
                     placeholder="Enter your phone number"
                     aria-label="Phone number"
+                    maxLength={10}
+                    value={values.phone}
+                    onChange={handlePhoneChange}
                     className={styles.formInput}
+                    aria-invalid={errors.phone ? "true" : undefined}
                   />
                 </div>
+                {errors.phone && (
+                  <p className={styles.formFieldError} role="alert">
+                    <AlertCircle size={13} strokeWidth={2} aria-hidden="true" />
+                    {errors.phone}
+                  </p>
+                )}
               </div>
               <div className={styles.formField}>
                 <label htmlFor="complaint-state" className={styles.formLabel}>
@@ -188,8 +327,10 @@ export default function ComplaintForm() {
                   id="complaint-state"
                   name="state"
                   required
-                  defaultValue=""
-                  className={styles.formSelect}
+                  value={values.state}
+                  onChange={(e) => handleChange("state", e.target.value)}
+                  className={`${styles.formSelect} ${errors.state ? styles.inputError : ""}`}
+                  aria-invalid={errors.state ? "true" : undefined}
                 >
                   <option value="" disabled>
                     Select your state
@@ -200,6 +341,12 @@ export default function ComplaintForm() {
                     </option>
                   ))}
                 </select>
+                {errors.state && (
+                  <p className={styles.formFieldError} role="alert">
+                    <AlertCircle size={13} strokeWidth={2} aria-hidden="true" />
+                    {errors.state}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -211,8 +358,10 @@ export default function ComplaintForm() {
                 id="complaint-type"
                 name="complaintType"
                 required
-                defaultValue=""
-                className={styles.formSelect}
+                value={values.complaintType}
+                onChange={(e) => handleChange("complaintType", e.target.value)}
+                className={`${styles.formSelect} ${errors.complaintType ? styles.inputError : ""}`}
+                aria-invalid={errors.complaintType ? "true" : undefined}
               >
                 <option value="" disabled>
                   Select complaint type
@@ -223,6 +372,12 @@ export default function ComplaintForm() {
                   </option>
                 ))}
               </select>
+              {errors.complaintType && (
+                <p className={styles.formFieldError} role="alert">
+                  <AlertCircle size={13} strokeWidth={2} aria-hidden="true" />
+                  {errors.complaintType}
+                </p>
+              )}
             </div>
 
             <div className={styles.formField}>
@@ -235,8 +390,17 @@ export default function ComplaintForm() {
                 required
                 rows={6}
                 placeholder="Please provide details about the issue..."
-                className={styles.formTextarea}
+                value={values.details}
+                onChange={(e) => handleChange("details", e.target.value)}
+                className={`${styles.formTextarea} ${errors.details ? styles.inputError : ""}`}
+                aria-invalid={errors.details ? "true" : undefined}
               />
+              {errors.details && (
+                <p className={styles.formFieldError} role="alert">
+                  <AlertCircle size={13} strokeWidth={2} aria-hidden="true" />
+                  {errors.details}
+                </p>
+              )}
             </div>
 
             <button type="submit" className={styles.formSubmit}>
