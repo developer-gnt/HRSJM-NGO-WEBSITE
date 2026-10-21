@@ -379,6 +379,62 @@
   border-color: #b83232;
 }
 
+.contactPhoneWrap {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #d9dee3;
+  border-radius: 6px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.contactPhoneWrap:hover {
+  border-color: var(--color-gold-light);
+}
+
+.contactPhoneWrap:focus-within {
+  border-color: #163a5b;
+  box-shadow: 0 0 0 3px rgba(221, 170, 58, 0.25);
+}
+
+.contactPhoneWrapInvalid {
+  border-color: #b83232 !important;
+}
+
+.contactPhonePrefix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  background: #f1f5f9;
+  color: #163a5b;
+  font-weight: 600;
+  font-size: 14px;
+  border-right: 1px solid #d9dee3;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.contactPhoneInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 14px 16px;
+  background: transparent;
+  color: #163a5b;
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.contactPhoneInput::placeholder {
+  color: #7b8792;
+}
+
 .contactSection__select {
   appearance: none;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2352606d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");

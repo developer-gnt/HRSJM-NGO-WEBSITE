@@ -255,6 +255,7 @@
   overflow: hidden;
   background: var(--color-navy);
   color: var(--color-white);
+  margin-bottom: clamp(48px, 6vw, 80px);
 }
 
 /* Soft gold glow — same treatment as the FAQ bottom CTA */

@@ -87,7 +87,7 @@ export default function ExploreRightsSection() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.05 }
     );
 
     observer.observe(section);

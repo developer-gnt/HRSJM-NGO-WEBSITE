@@ -12,8 +12,8 @@ interface Action {
 }
 
 const actions: Action[] = [
-  { label: "I Want To Become A member", href: "/membership", variant: "primary" },
-  { label: "Make a Donation", href: "/donation", variant: "outline" },
+  { label: "I Want To Become A Member", href: "/membership", variant: "primary" },
+  { label: "Make a Donation", href: "/donation#donate", variant: "outline" },
   { label: "File a Complaint", href: "/complaint", variant: "outline" },
 ];
 

@@ -58,9 +58,9 @@ export default function MembershipHero() {
                 Become a Member
                 <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
               </Link>
-              <a href="#why-membership" className={styles.btnOutline}>
+              <Link href="/benefits" className={styles.btnOutline}>
                 Explore Member Benefits
-              </a>
+              </Link>
             </div>
 
             <div className={styles.heroFeatures}>

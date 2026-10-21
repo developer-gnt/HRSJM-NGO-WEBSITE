@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   ArrowRight,
   HeartHandshake,
@@ -36,12 +37,6 @@ const plans = [
 ];
 
 export default function MembershipOptions() {
-  const choosePlan = (planId: string) => {
-    window.dispatchEvent(
-      new CustomEvent("hrsjm:membership-type", { detail: planId })
-    );
-  };
-
   return (
     <section
       id="membership-options"
@@ -77,14 +72,13 @@ export default function MembershipOptions() {
                 </span>
                 <h3 className={styles.planName}>{plan.name}</h3>
                 <p className={styles.planDescription}>{plan.description}</p>
-                <a
-                  href="#membership-form"
+                <Link
+                  href="/membership/categories"
                   className={styles.planButton}
-                  onClick={() => choosePlan(plan.id)}
                 >
                   Join Now
                   <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
-                </a>
+                </Link>
               </li>
             );
           })}
