@@ -108,9 +108,6 @@ export default function Header({ className }: HeaderProps) {
             </nav>
 
             <div className={styles.headerActions}>
-              <button className={styles.searchButton} type="button" aria-label="Search">
-                <Icon name="search" />
-              </button>
               <Link className={styles.donateButton} href="/donation">
                 <span>Donate Now</span>
                 <Icon name="arrow" />

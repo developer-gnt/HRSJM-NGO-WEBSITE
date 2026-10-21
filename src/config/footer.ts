@@ -30,9 +30,11 @@ export const quickLinks: FooterLink[] = [
 
 export const usefulLinks: FooterLink[] = [
   { label: "Join Us", href: "/membership" },
+  { label: "Membership Categories", href: "/membership/categories" },
+  { label: "Apply for Membership", href: "/membership/apply" },
   { label: "Make a Donation", href: "/donation" },
   { label: "File a Complaint", href: "/complaint" },
-  { label: "Renew Membership", href: "/membership/renew" },
+  // { label: "Renew Membership", href: "/membership/renew" },
   { label: "Our Constitution", href: "/constitution" },
   { label: "FAQs", href: "/faqs" },
 ];
@@ -71,5 +73,4 @@ export const contactItems: ContactItem[] = [
 export const legalLinks: FooterLink[] = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms & Conditions", href: "/terms" },
-  { label: "Sitemap", href: "/sitemap" },
 ];
