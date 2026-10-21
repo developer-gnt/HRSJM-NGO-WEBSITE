@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import Icon, { type IconName } from "@/components/ui/Icon";
 import styles from "./exploreRights.module.css";
 
@@ -9,58 +10,81 @@ interface RightArea {
   icon: IconName;
   title: string;
   description: string;
+  href: string;
 }
 
 const rights: RightArea[] = [
   {
     icon: "users",
     title: "Human Rights",
-    description: "Basic rights and freedoms every individual is entitled to.",
+    description: "Inherent rights, dignity and universal freedoms every individual is entitled to.",
+    href: "/rights/human-rights",
+  },
+  {
+    icon: "scale",
+    title: "Civil Rights",
+    description: "Equal treatment, civic protections and non-discrimination under the law.",
+    href: "/rights/civil-rights",
   },
   {
     icon: "shieldCheck",
     title: "Fundamental Rights",
-    description: "Constitutional rights guaranteed to every citizen of India.",
+    description: "Six constitutional rights guaranteed to every citizen under Part III of the Constitution.",
+    href: "/rights/fundamental-rights",
   },
   {
     icon: "venus",
     title: "Women's Rights",
-    description: "Protection, safety, equality and opportunities for women.",
+    description: "Protection, safety, equal pay, domestic safeguards and empowerment for women.",
+    href: "/rights/womens-rights",
   },
   {
     icon: "baby",
     title: "Children's Rights",
-    description: "Care, protection, education and development for every child.",
+    description: "Care, protection, education, nutrition and eradication of child labour.",
+    href: "/rights/childrens-rights",
   },
   {
     icon: "briefcase",
     title: "Labour Rights",
-    description: "Fair wages, safe working conditions and social security.",
+    description: "Fair wages, workplace safety, social security and dignity for workers.",
+    href: "/rights/labour-rights",
   },
   {
     icon: "userRoundCheck",
     title: "Senior Citizen Rights",
-    description: "Dignity, care and protection for senior citizens.",
+    description: "Dignity, maintenance, priority healthcare and legal care for our elders.",
+    href: "/rights/senior-citizen-rights",
   },
   {
     icon: "usersRound",
     title: "Minority Rights",
-    description: "Equal rights and protection for minority communities.",
+    description: "Protection of culture, language, religious freedom and educational autonomy.",
+    href: "/rights/minority-rights",
   },
   {
     icon: "graduationCap",
     title: "Right to Education",
-    description: "Access to quality education for every child.",
+    description: "Universal access to free, compulsory quality schooling under Article 21A.",
+    href: "/rights/right-to-education",
   },
   {
     icon: "fileText",
     title: "Right to Information",
-    description: "The right to access information and promote transparency.",
+    description: "Citizen empowerment to inspect public records and demand accountability.",
+    href: "/rights/right-to-information",
   },
   {
     icon: "megaphone",
     title: "Freedom of Speech",
-    description: "The right to express opinions and participate in democracy.",
+    description: "The right to hold opinions, express ideas, debate and peacefully dissent.",
+    href: "/rights/freedom-of-speech",
+  },
+  {
+    icon: "hand",
+    title: "Civil Liberties",
+    description: "Personal autonomy, privacy, freedom of peaceful assembly and due process.",
+    href: "/rights/civil-liberties",
   },
 ];
 
@@ -87,7 +111,7 @@ export default function ExploreRightsSection() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     observer.observe(section);
@@ -113,7 +137,7 @@ export default function ExploreRightsSection() {
             </h2>
             <p className={styles.description}>
               Explore key areas of human rights that protect your dignity,
-              freedom and equal opportunities.
+              freedom and equal opportunities — click any category to view its comprehensive guide.
             </p>
           </div>
 
@@ -138,13 +162,17 @@ export default function ExploreRightsSection() {
               className={styles.cell}
               style={{ "--stagger": index } as CSSProperties}
             >
-              <article className={styles.card}>
+              <Link
+                href={right.href}
+                className={styles.card}
+                title={`Explore ${right.title} Details`}
+              >
                 <span className={styles.iconRing} aria-hidden="true">
                   <Icon name={right.icon} width={20} height={20} />
                 </span>
                 <h3 className={styles.cardTitle}>{right.title}</h3>
                 <p className={styles.cardDesc}>{right.description}</p>
-              </article>
+              </Link>
             </li>
           ))}
         </ul>
