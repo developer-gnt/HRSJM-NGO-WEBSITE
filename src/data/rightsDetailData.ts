@@ -149,13 +149,13 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“A safe, equal and empowered society begins with respecting women’s rights.”",
         source: "— Gender Equality Principle",
         iconType: "shield",
-        image: "/images/rights/womens-rights-sidecard.png",
+        image: "/images/rights/womens-rights-sidecard-hd.jpg",
     }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Indian Laws for Women’s Rights",
-      centerImage: "/images/rights/womens-rights-laws.png",
+      centerImage: "/images/rights/womens-rights-laws-hd.jpg",
       items: [
         {
           title: "Constitution of India (Equality and Non-Discrimination)",
@@ -280,7 +280,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Women’s Rights",
-      centerImage: "/images/rights/womens-rights-faq.png",
+      centerImage: "/images/rights/womens-rights-faq-hd.jpg",
       centerQuote: "“Stronger Women Stronger Societies”",
       items: [
         {
@@ -372,13 +372,13 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“Invest in children today for a brighter, safer and more equal tomorrow.”",
         source: "— Child Rights Charter",
         iconType: "shield",
-        image: "/images/rights/childrens-rights-sidecard.png",
+        image: "/images/rights/childrens-rights-sidecard-hd.jpg",
     }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Indian Laws for Children’s Rights",
-      centerImage: "/images/rights/childrens-rights-laws.png",
+      centerImage: "/images/rights/childrens-rights-laws-hd.jpg",
       items: [
         {
           title: "The Constitution of India (Articles 21, 21A, 24, 39, 45)",
@@ -501,7 +501,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Children’s Rights",
-      centerImage: "/images/rights/childrens-rights-faq.png",
+      centerImage: "/images/rights/childrens-rights-faq-hd.jpg",
       centerQuote: "“Safe Children Stronger Communities Brighter Futures.”",
       items: [
         {
@@ -1129,7 +1129,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Human Rights",
-      centerImage: "/images/rights/human-rights-faq.png",
+      centerImage: "/images/rights/human-rights-faq-hd.jpg",
       centerQuote: "“Together we can build a fairer and more just society.”",
       items: [
         {
@@ -1352,7 +1352,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Fundamental Rights",
-      centerImage: "/images/rights/fundamental-rights-faq.png",
+      centerImage: "/images/rights/fundamental-rights-faq-hd.jpg",
       centerQuote: "“Rights empower people and build a stronger, more inclusive India.”",
       items: [
         {
@@ -1442,13 +1442,13 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“Justice is not a privilege for the few, but a right for all.”",
         source: "— Civil Rights Principle",
         iconType: "scales",
-        image: "/images/rights/civil-rights-sidecard.png",
+        image: "/images/rights/civil-rights-sidecard-hd.jpg",
     }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Indian Laws Related to Civil Rights",
-      centerImage: "/images/rights/civil-rights-laws.png",
+      centerImage: "/images/rights/civil-rights-laws-hd.jpg",
       items: [
         {
           title: "Constitution of India (Fundamental Rights & Equality Provisions)",
@@ -1540,7 +1540,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Civil Rights",
-      centerImage: "/images/rights/civil-rights-faq.png",
+      centerImage: "/images/rights/civil-rights-faq-hd.jpg",
       centerQuote: "“A fair society is possible when every individual has equal rights and opportunities.”",
       items: [
         {

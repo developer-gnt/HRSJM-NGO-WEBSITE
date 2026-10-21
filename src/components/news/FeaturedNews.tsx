@@ -11,8 +11,12 @@ import styles from "./news.module.css";
 export default function FeaturedNews() {
   const sectionRef = useScrollReveal(styles);
 
+  const articleHref =
+    featuredArticle.href ??
+    "/news/strengthening-fundamental-rights-in-a-changing-india";
+
   return (
-    <section ref={sectionRef} className={styles.featured} aria-labelledby="featured-heading">
+    <section ref={sectionRef} id="featured-article" className={styles.featured} aria-labelledby="featured-heading">
       <div className={styles.sectionInner}>
         <h2 id="featured-heading" className={styles.sectionEyebrow} data-reveal>
           <span className={styles.eyebrowDot} aria-hidden="true" />
@@ -38,7 +42,7 @@ export default function FeaturedNews() {
               </div>
 
               <h3 className={styles.featuredTitle}>
-                <Link href={featuredArticle.href ?? "/featured-article"}>
+                <Link href={articleHref}>
                   Strengthening Fundamental Rights in a Changing India
                 </Link>
               </h3>
@@ -59,7 +63,7 @@ export default function FeaturedNews() {
               </div>
 
               <div className={styles.featuredAction}>
-                <Link href={featuredArticle.href ?? "/featured-article"} className={styles.btnGold}>
+                <Link href={articleHref} className={styles.btnGold}>
                   Read Full Article
                   <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
                 </Link>
