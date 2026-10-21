@@ -1,4 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@500;600&display=swap");
+
 :root {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", Arial, sans-serif;
+  --font-script: "Caveat", "Segoe Script", cursive;
+  --font-devanagari: "Noto Sans Devanagari", sans-serif;
   --color-navy: #062a4f;
   --color-navy-dark: #031d38;
   --color-gold: #fad25c;

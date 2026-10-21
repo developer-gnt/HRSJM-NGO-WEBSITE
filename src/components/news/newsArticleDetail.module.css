@@ -1,0 +1,765 @@
+/* ------------------------------------------------------------------ */
+/* News & Blog Article Detail Page Styles                            */
+/* Exact recreation of editorial article UI matching reference design */
+/* ------------------------------------------------------------------ */
+
+.pageWrapper {
+  background: var(--color-cream-light, #fcfbf7);
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+.container {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 32px var(--page-padding, 24px) 40px;
+}
+
+/* 1. Breadcrumbs */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-muted, #64748b);
+  margin-bottom: 20px;
+}
+
+.breadcrumbLink {
+  color: var(--color-text-secondary, #475569);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-gold-dark, #b88916);
+}
+
+.breadcrumbSeparator {
+  color: #cbd5e1;
+  font-size: 11px;
+}
+
+.breadcrumbCurrent {
+  color: var(--color-navy, #0d2238);
+  font-weight: 600;
+}
+
+/* 2. Article Header Header */
+.articleHeader {
+  margin-bottom: 28px;
+}
+
+.categoryEyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold-dark, #b88916);
+  margin-bottom: 12px;
+}
+
+.articleTitle {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-navy, #0d2238);
+  margin: 0 0 14px 0;
+}
+
+.articleSubtitle {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text-secondary, #475569);
+  max-width: 840px;
+  margin: 0 0 20px 0;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.metaLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.metaIcon {
+  color: var(--color-gold-dark, #b88916);
+}
+
+.shareRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shareLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  margin-right: 4px;
+}
+
+.shareBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 180ms ease;
+  text-decoration: none;
+}
+
+.shareBtn:hover {
+  background: var(--color-gold, #f59e0b);
+  border-color: var(--color-gold, #f59e0b);
+  color: var(--color-navy, #0d2238);
+  transform: translateY(-2px);
+}
+
+/* 3. Main Content & Sidebar Layout */
+.layoutGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 48px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+/* 4. Article Column */
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.bannerWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(13, 34, 56, 0.08);
+}
+
+.bannerImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.summaryCallout {
+  margin-top: 28px;
+  background: #fdfaf3;
+  border-left: 4px solid var(--color-gold, #f59e0b);
+  border-radius: 0 10px 10px 0;
+  padding: 22px 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.summaryText {
+  font-size: 15px;
+  line-height: 1.68;
+  color: var(--color-navy, #0d2238);
+  margin: 0;
+  font-weight: 450;
+}
+
+/* Numbered Article Sections */
+.articleSection {
+  margin-top: 36px;
+  scroll-margin-top: 110px;
+}
+
+.sectionHeading {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-navy, #0d2238);
+  margin: 0 0 14px 0;
+  line-height: 1.25;
+}
+
+.paragraph {
+  font-size: 15px;
+  line-height: 1.72;
+  color: #334155;
+  margin: 0 0 14px 0;
+}
+
+/* Numbered Steps / Feature List */
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 18px 0;
+  list-style: none;
+  padding: 0;
+}
+
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.stepBadge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fef3c7;
+  color: #b45309;
+  font-size: 12px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.stepText {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* Community Testimonials Grid */
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 22px 0 10px;
+}
+
+.testimonialCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.testimonialCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(13, 34, 56, 0.06);
+}
+
+.testimonialTop {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid var(--color-gold, #f59e0b);
+}
+
+.avatarImage {
+  object-fit: cover;
+}
+
+.testimonialBody {
+  flex: 1;
+}
+
+.quoteMark {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--color-gold-dark, #b88916);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.quoteText {
+  font-size: 13.5px;
+  font-style: normal;
+  line-height: 1.55;
+  color: #334155;
+  margin: 0 0 10px 0;
+}
+
+.authorMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-navy, #0d2238);
+}
+
+.authorRole {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 1px;
+}
+
+/* Story cards with top rectangular photo (Stories of Change in Women's Rights) */
+.storyCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.storyCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(13, 34, 56, 0.06);
+}
+
+.storyCardMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.storyCardBody {
+  padding: 16px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* In-Article Call to Action Banner */
+.ctaBanner {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.06);
+}
+
+.ctaLeft {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.ctaIconCircle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fef3c7;
+  color: #d97706;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.ctaHeading {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-navy, #0d2238);
+  margin: 0 0 4px 0;
+}
+
+.ctaDesc {
+  font-size: 13.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-gold, #f59e0b);
+  color: var(--color-navy, #0d2238);
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 11px 24px;
+  border-radius: 9999px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 180ms ease;
+  flex-shrink: 0;
+}
+
+.ctaButton:hover {
+  background: #d97706;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(217, 119, 6, 0.25);
+}
+
+/* 5. Sticky Sidebar */
+.sidebar {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebarCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.sidebarTitle {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-navy, #0d2238);
+  margin: 0 0 16px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* In This Article - Table of Contents */
+.tocList {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tocItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.tocItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tocItem:first-child {
+  padding-top: 0;
+}
+
+.tocBadge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.tocLink {
+  font-size: 13px;
+  color: #334155;
+  text-decoration: none;
+  line-height: 1.4;
+  font-weight: 500;
+  transition: color 150ms ease;
+  cursor: pointer;
+}
+
+.tocLink:hover {
+  color: var(--color-gold-dark, #b88916);
+}
+
+/* Trending Articles Widget */
+.trendingList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.trendingItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trendingMedia {
+  position: relative;
+  width: 56px;
+  height: 42px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.trendingImage {
+  object-fit: cover;
+}
+
+.trendingTitle {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-navy, #0d2238);
+  line-height: 1.35;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.trendingTitle:hover {
+  color: var(--color-gold-dark, #b88916);
+}
+
+/* Newsletter Widget */
+.newsletterDesc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0 0 14px 0;
+}
+
+.newsletterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.newsletterInput {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 150ms ease;
+}
+
+.newsletterInput:focus {
+  border-color: var(--color-gold, #f59e0b);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
+}
+
+.newsletterBtn {
+  background: var(--color-gold, #f59e0b);
+  color: var(--color-navy, #0d2238);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 180ms ease;
+}
+
+.newsletterBtn:hover {
+  background: #d97706;
+  color: #ffffff;
+}
+
+/* Sidebar Quote Poster */
+.quotePosterWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 6;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(13, 34, 56, 0.08);
+}
+
+.quotePosterImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 6. Related Articles Section */
+.relatedSection {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.relatedHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.relatedHeading {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(24px, 2.4vw, 30px);
+  font-weight: 700;
+  color: var(--color-navy, #0d2238);
+  margin: 0;
+}
+
+.viewAllLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-navy, #0d2238);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.viewAllLink:hover {
+  color: var(--color-gold-dark, #b88916);
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.relatedCard {
+  background: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.relatedCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(3, 29, 56, 0.08);
+}
+
+.relatedMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+}
+
+.relatedBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px 16px 14px;
+}
+
+.relatedCategory {
+  color: var(--color-gold-dark, #b88916);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 6px 0;
+}
+
+.relatedTitle {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-navy, #0d2238);
+  line-height: 1.25;
+  margin: 0 0 14px 0;
+}
+
+.relatedFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.relatedMeta {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.relatedArrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(250, 210, 92, 0.9);
+  color: var(--color-gold-dark, #b88916);
+  display: grid;
+  place-items: center;
+  transition: all 180ms ease;
+}
+
+.relatedCard:hover .relatedArrow {
+  background: var(--color-gold, #f59e0b);
+  color: var(--color-navy, #0d2238);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .layoutGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .relatedGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .testimonialsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ctaBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .relatedGrid {
+    grid-template-columns: 1fr;
+  }
+}
