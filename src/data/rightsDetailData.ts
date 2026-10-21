@@ -593,13 +593,13 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“Respect Labour. Build a Fairer India for Every Worker.”",
         source: "— Worker Dignity Charter",
         iconType: "shield",
-        image: "/images/rights/labour-rights-sidecard.png",
+        image: "/images/rights/labour-rights-sidecard-hd.jpg",
     }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Indian Labour Laws",
-      centerImage: "/images/rights/labour-rights-laws.png",
+      centerImage: "/images/rights/labour-rights-laws-hd.jpg",
       items: [
         {
           title: "The Code on Wages, 2019",
@@ -723,7 +723,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Labour Rights",
-      centerImage: "/images/rights/labour-rights-faq.png",
+      centerImage: "/images/rights/labour-rights-faq-hd.jpg",
       centerQuote: "“Safe Workers Strong Nation Better Tomorrow.”",
       items: [
         {
@@ -816,13 +816,13 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“Respect our elders today for a stronger, more compassionate tomorrow.”",
         source: "— Senior Citizens Dignity Charter",
         iconType: "heart",
-        image: "/images/rights/senior-citizen-rights-sidecard.png",
+        image: "/images/rights/senior-citizen-rights-sidecard-hd.jpg",
     }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Indian Laws for Senior Citizens",
-      centerImage: "/images/rights/senior-citizen-rights-laws.png",
+      centerImage: "/images/rights/senior-citizen-rights-laws-hd.jpg",
       items: [
         {
           title: "The Maintenance and Welfare of Parents and Senior Citizens Act, 2007",
@@ -930,7 +930,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Senior Citizen Rights",
-      centerImage: "/images/rights/senior-citizen-rights-faq.png",
+      centerImage: "/images/rights/senior-citizen-rights-faq-hd.jpg",
       centerQuote: "“Caring for our elders creates a kinder, stronger and more humane society.”",
       items: [
         {
