@@ -52,7 +52,7 @@ export default function ComplaintProcess() {
             We have made the process easy, transparent and people-centric to
             ensure you get the right support at the right time.
           </p>
-          <Link href="#file-a-complaint" className={styles.btnGold} data-reveal style={revealDelay(3)}>
+          <Link href="/help" className={styles.btnGold} data-reveal style={revealDelay(3)}>
             Learn How It Works
             <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
           </Link>

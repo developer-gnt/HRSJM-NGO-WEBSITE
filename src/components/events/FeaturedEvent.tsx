@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 import styles from "./events.module.css";
 
 export default function FeaturedEvent() {
@@ -33,11 +33,7 @@ export default function FeaturedEvent() {
               rights are violated.
             </p>
             <div className={styles.featuredActions}>
-              <Link href="#upcoming-events" className={styles.btnGold}>
-                Register Now
-                <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
-              </Link>
-              <Link href="#featured-event" className={styles.btnLight}>
+              <Link href="/events/all" className={styles.btnLight}>
                 View Details
               </Link>
             </div>

@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import { useEffect, type MouseEvent, type CSSProperties } from "react";
 import Icon, { type IconName } from "@/components/ui/Icon";
 import styles from "./rights.module.css";
 
@@ -18,6 +20,30 @@ const features: FeatureItem[] = [
 ];
 
 export default function RightsHero() {
+  const handleScrollTo = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (window.location.hash !== `#${id}`) {
+        window.history.pushState(null, "", `#${id}`);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const targetId = window.location.hash.replace("#", "");
+      const el = document.getElementById(targetId);
+      if (el) {
+        const timer = setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 150);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
+
   return (
     <section className={styles.hero} aria-labelledby="rights-hero-heading">
       <div className={styles.heroBg} aria-hidden="true">
@@ -72,18 +98,26 @@ export default function RightsHero() {
           </p>
 
           <div className={styles.actions}>
-            <Link href="#explore-rights" className={styles.primaryBtn}>
+            <a
+              href="#explore-rights"
+              onClick={(e) => handleScrollTo(e, "explore-rights")}
+              className={styles.primaryBtn}
+            >
               Explore Your Rights
               <span className={styles.primaryBtnIcon}>
                 <Icon name="arrow" width={17} height={17} strokeWidth={2} />
               </span>
-            </Link>
-            <Link href="#featured-video" className={styles.secondaryBtn}>
+            </a>
+            <a
+              href="#featured-video"
+              onClick={(e) => handleScrollTo(e, "featured-video")}
+              className={styles.secondaryBtn}
+            >
               <span className={styles.playBadge}>
                 <Icon name="play" width={11} height={11} />
               </span>
               Watch Video
-            </Link>
+            </a>
           </div>
         </div>
 

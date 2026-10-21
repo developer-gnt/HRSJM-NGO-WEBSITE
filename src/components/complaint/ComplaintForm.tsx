@@ -94,6 +94,7 @@ interface FormValues {
   email: string;
   phone: string;
   state: string;
+  policeStation: string;
   complaintType: string;
   details: string;
 }
@@ -103,6 +104,7 @@ interface FormErrors {
   email?: string;
   phone?: string;
   state?: string;
+  policeStation?: string;
   complaintType?: string;
   details?: string;
 }
@@ -112,6 +114,7 @@ const initialValues: FormValues = {
   email: "",
   phone: "",
   state: "",
+  policeStation: "",
   complaintType: "",
   details: "",
 };
@@ -188,6 +191,13 @@ export default function ComplaintForm() {
     // State
     if (!values.state) {
       nextErrors.state = "Please select your state.";
+    }
+
+    // Nearby Police Station
+    if (!values.policeStation.trim()) {
+      nextErrors.policeStation = "Please enter nearby police station.";
+    } else if (values.policeStation.trim().length < 3) {
+      nextErrors.policeStation = "Police station name must be at least 3 characters.";
     }
 
     // Complaint Type
@@ -350,34 +360,59 @@ export default function ComplaintForm() {
               </div>
             </div>
 
-            <div className={styles.formField}>
-              <label htmlFor="complaint-type" className={styles.formLabel}>
-                Type of Complaint <span className={styles.formRequired} aria-hidden="true">*</span>
-              </label>
-              <select
-                id="complaint-type"
-                name="complaintType"
-                required
-                value={values.complaintType}
-                onChange={(e) => handleChange("complaintType", e.target.value)}
-                className={`${styles.formSelect} ${errors.complaintType ? styles.inputError : ""}`}
-                aria-invalid={errors.complaintType ? "true" : undefined}
-              >
-                <option value="" disabled>
-                  Select complaint type
-                </option>
-                {complaintTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
+            <div className={styles.formRow}>
+              <div className={styles.formField}>
+                <label htmlFor="complaint-type" className={styles.formLabel}>
+                  Type of Complaint <span className={styles.formRequired} aria-hidden="true">*</span>
+                </label>
+                <select
+                  id="complaint-type"
+                  name="complaintType"
+                  required
+                  value={values.complaintType}
+                  onChange={(e) => handleChange("complaintType", e.target.value)}
+                  className={`${styles.formSelect} ${errors.complaintType ? styles.inputError : ""}`}
+                  aria-invalid={errors.complaintType ? "true" : undefined}
+                >
+                  <option value="" disabled>
+                    Select complaint type
                   </option>
-                ))}
-              </select>
-              {errors.complaintType && (
-                <p className={styles.formFieldError} role="alert">
-                  <AlertCircle size={13} strokeWidth={2} aria-hidden="true" />
-                  {errors.complaintType}
-                </p>
-              )}
+                  {complaintTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+                {errors.complaintType && (
+                  <p className={styles.formFieldError} role="alert">
+                    <AlertCircle size={13} strokeWidth={2} aria-hidden="true" />
+                    {errors.complaintType}
+                  </p>
+                )}
+              </div>
+
+              <div className={styles.formField}>
+                <label htmlFor="complaint-police-station" className={styles.formLabel}>
+                  Nearby Police Station <span className={styles.formRequired} aria-hidden="true">*</span>
+                </label>
+                <input
+                  id="complaint-police-station"
+                  name="policeStation"
+                  type="text"
+                  required
+                  placeholder="Enter nearby police station"
+                  value={values.policeStation}
+                  onChange={(e) => handleChange("policeStation", e.target.value)}
+                  className={`${styles.formInput} ${errors.policeStation ? styles.inputError : ""}`}
+                  aria-invalid={errors.policeStation ? "true" : undefined}
+                />
+                {errors.policeStation && (
+                  <p className={styles.formFieldError} role="alert">
+                    <AlertCircle size={13} strokeWidth={2} aria-hidden="true" />
+                    {errors.policeStation}
+                  </p>
+                )}
+              </div>
             </div>
 
             <div className={styles.formField}>
