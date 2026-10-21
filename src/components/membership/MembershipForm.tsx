@@ -13,11 +13,41 @@ import {
 } from "lucide-react";
 import styles from "./membership.module.css";
 
-const membershipTypes = [
-  "Individual Member",
-  "Community Member",
-  "Supporting Member",
+const membershipTypeGroups = [
+  {
+    group: "General Membership",
+    options: ["Individual Member", "Community Member", "Supporting Member"],
+  },
+  {
+    group: "Active Membership",
+    options: [
+      "District Active Member",
+      "State Active Member",
+      "District Unit Post",
+      "State Unit Post",
+    ],
+  },
+  {
+    group: "Letter Pad Post",
+    options: [
+      "Lion of State",
+      "Counselor of State",
+      "Ambassador of State",
+      "Hon'ble State Director",
+    ],
+  },
+  {
+    group: "National Level Post",
+    options: [
+      "National Legal Council Cell",
+      "National Minority Council Cell",
+      "National Women Council Cell",
+      "National Political Council Cell",
+    ],
+  },
 ];
+
+const allMembershipTypes = membershipTypeGroups.flatMap((g) => g.options);
 
 const genderOptions = [
   "Female",
@@ -135,11 +165,20 @@ export default function MembershipForm() {
   const [submitted, setSubmitted] = useState(false);
   const [infoOpen, setInfoOpen] = useState<number | null>(null);
 
-  /* Membership option cards preselect the type here. */
+  /* Preselect membership type from URL search params or custom event */
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const postParam = params.get("post");
+      if (postParam && allMembershipTypes.includes(postParam)) {
+        setValues((current) => ({ ...current, membershipType: postParam }));
+        setErrors((current) => ({ ...current, membershipType: undefined }));
+      }
+    }
+
     const onTypeSelected = (event: Event) => {
       const detail = (event as CustomEvent<string>).detail;
-      if (membershipTypes.includes(detail)) {
+      if (allMembershipTypes.includes(detail)) {
         setValues((current) => ({ ...current, membershipType: detail }));
         setErrors((current) => ({ ...current, membershipType: undefined }));
       }
@@ -414,10 +453,14 @@ export default function MembershipForm() {
                       aria-invalid={errors.membershipType ? true : undefined}
                     >
                       <option value="">Select membership type</option>
-                      {membershipTypes.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
+                      {membershipTypeGroups.map((group) => (
+                        <optgroup key={group.group} label={group.group}>
+                          {group.options.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </optgroup>
                       ))}
                     </select>
                     {errors.membershipType ? (

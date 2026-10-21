@@ -53,7 +53,6 @@ export default function HeroSlide({
               <Icon name="arrow" />
             </Link>
             <Link href={slide.secondaryHref} className={heroStyles.secondaryCta}>
-              <Icon name="play" />
               {slide.secondaryAction}
             </Link>
           </div>

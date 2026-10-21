@@ -21,12 +21,6 @@ const quickActions = [
     subtitle: "Support justice for all.",
     href: "/donation",
   },
-  {
-    icon: "refreshCw",
-    title: "Renew Membership",
-    subtitle: "Continue your support.",
-    href: "/membership#membership-form",
-  },
 ] as const;
 
 export default function HeroQuickActions() {
