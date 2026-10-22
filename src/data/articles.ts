@@ -104,7 +104,7 @@ export const featuredArticle: Article = {
 export const latestArticles: Article[] = [
   {
     slug: "understanding-your-right-to-information-rti",
-    image: "/images/story-6.png",
+    image: "/images/news/card-rti-v2.png",
     alt: "Village elder in Maharashtra looking hopefully into the distance",
     category: "Legal Insights",
     title: "Understanding Your Right to Information (RTI)",
@@ -153,7 +153,7 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "how-a-small-step-in-education-changed-a-community",
-    image: "/images/story-2.png",
+    image: "/images/news/card-education-v2.png",
     alt: "A young student attending class in a government school",
     category: "Success Stories",
     title: "How a Small Step in Education Changed a Community",
@@ -202,7 +202,7 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "womens-rights-progress-and-the-road-ahead",
-    image: "/images/story-3.png",
+    image: "/images/news/card-womens-rights-v2.png",
     alt: "A woman wearing a traditional headscarf in her neighbourhood",
     category: "Women's Rights",
     title: "Women's Rights: Progress and the Road Ahead",

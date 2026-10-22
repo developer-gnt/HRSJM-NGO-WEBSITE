@@ -97,8 +97,8 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
       "A practical guide to filing RTI applications and using transparency as a tool for everyday accountability.",
     date: "September 20, 2025",
     readTime: "6 min read",
-    bannerImage: "/images/news/banner-rti.png",
-    cardImage: "/images/news/card-rti.png",
+    bannerImage: "/images/news/banner-rti-v2.png",
+    cardImage: "/images/news/card-rti-v2.png",
     summaryCallout:
       "The Right to Information (RTI) empowers every citizen to ask questions, seek information held by public authorities, and hold government institutions accountable. It is a powerful law that promotes transparency, reduces corruption and strengthens democracy.",
     sections: [
@@ -174,7 +174,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "How a Small Step in Education Changed a Community",
         date: "Sep 19, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-education.png",
+        image: "/images/news/card-education-v2.png",
       },
       {
         slug: "womens-rights-progress-and-the-road-ahead",
@@ -182,7 +182,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Women's Rights: Progress and the Road Ahead",
         date: "Sep 18, 2025",
         readTime: "7 min read",
-        image: "/images/news/card-womens-rights.png",
+        image: "/images/news/card-womens-rights-v2.png",
       },
       {
         slug: "hrsjm-community-outreach-program-in-maharashtra",
@@ -190,7 +190,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/story-1.png",
+        image: "/images/news/card-maharashtra-v2.png",
       },
     ],
   },
@@ -204,8 +204,8 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
       "Discover how a simple community-led education initiative created opportunities, built confidence and transformed lives in a village.",
     date: "September 19, 2025",
     readTime: "6 min read",
-    bannerImage: "/images/news/banner-education.png",
-    cardImage: "/images/news/card-education.png",
+    bannerImage: "/images/news/banner-education-v2.png",
+    cardImage: "/images/news/card-education-v2.png",
     summaryCallout:
       "A small step in education can create a big change. This is the story of how a community came together to improve learning opportunities for children, leading to a brighter and more hopeful future for the entire village.",
     sections: [
@@ -246,14 +246,14 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         paragraphs: [],
         testimonials: [
           {
-            avatar: "/images/news/avatar-pooja.png",
+            avatar: "/images/news/avatar-pooja-v2.png",
             quote:
               "“I love going to school now. I want to become a teacher and help other children in my village.”",
             name: "Pooja",
             role: "Class 7",
           },
           {
-            avatar: "/images/news/avatar-rajesh.png",
+            avatar: "/images/news/avatar-rajesh-v2.png",
             quote:
               "“This program has given new hope to our children. We are proud to see them learning and growing.”",
             name: "Rajesh",
@@ -287,7 +287,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Understanding Your Right to Information (RTI)",
         date: "Sep 20, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-rti.png",
+        image: "/images/news/card-rti-v2.png",
       },
       {
         slug: "womens-rights-progress-and-the-road-ahead",
@@ -295,7 +295,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Women's Rights: Progress and the Road Ahead",
         date: "Sep 18, 2025",
         readTime: "7 min read",
-        image: "/images/news/card-womens-rights.png",
+        image: "/images/news/card-womens-rights-v2.png",
       },
       {
         slug: "hrsjm-community-outreach-program-in-maharashtra",
@@ -303,7 +303,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/story-1.png",
+        image: "/images/news/card-maharashtra-v2.png",
       },
     ],
   },
@@ -317,8 +317,8 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
       "Explore the progress made in women's rights in India, the key legal protections, ongoing challenges, and how we can build a safer, more equal future for every woman and girl.",
     date: "September 18, 2025",
     readTime: "7 min read",
-    bannerImage: "/images/news/banner-womens-rights.png",
-    cardImage: "/images/news/card-womens-rights.png",
+    bannerImage: "/images/news/banner-womens-rights-v2.png",
+    cardImage: "/images/news/card-womens-rights-v2.png",
     summaryCallout:
       "Women's rights are human rights. A society can truly progress when every woman and girl has the freedom, safety and opportunities to live with dignity, make choices and reach her full potential.",
     sections: [
@@ -359,16 +359,16 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         paragraphs: [],
         testimonials: [
           {
-            cardPhoto: "/images/news/story-photo-anjali.png",
-            avatar: "/images/news/avatar-anjali.png",
+            cardPhoto: "/images/news/story-photo-anjali-v2.png",
+            avatar: "/images/news/avatar-anjali-v2.png",
             quote:
               "“Education gave me confidence to dream bigger. Today, I want to support other girls in my village to do the same.”",
             name: "Anjali",
             role: "College Student",
           },
           {
-            cardPhoto: "/images/news/story-photo-sunita.png",
-            avatar: "/images/news/avatar-sunita.png",
+            cardPhoto: "/images/news/story-photo-sunita-v2.png",
+            avatar: "/images/news/avatar-sunita-v2.png",
             quote:
               "“With the support of our self-help group, I started my small business. Now I am financially independent and can support my family.”",
             name: "Sunita",
@@ -414,7 +414,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Understanding Your Right to Information (RTI)",
         date: "Sep 20, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-rti.png",
+        image: "/images/news/card-rti-v2.png",
       },
       {
         slug: "how-a-small-step-in-education-changed-a-community",
@@ -422,7 +422,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "How a Small Step in Education Changed a Community",
         date: "Sep 19, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-education.png",
+        image: "/images/news/card-education-v2.png",
       },
       {
         slug: "hrsjm-community-outreach-program-in-maharashtra",
@@ -430,7 +430,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/story-1.png",
+        image: "/images/news/card-maharashtra-v2.png",
       },
     ],
   },
@@ -444,8 +444,8 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
       "An overview of our recent awareness drive, free legal aid camps and grassroots support programs across Maharashtra.",
     date: "September 14, 2025",
     readTime: "4 min read",
-    bannerImage: "/images/news/banner-maharashtra.png",
-    cardImage: "/images/story-1.png",
+    bannerImage: "/images/news/banner-maharashtra-v2.png",
+    cardImage: "/images/news/card-maharashtra-v2.png",
     summaryCallout:
       "Grassroots empowerment happens when legal literacy meets community action. Our Maharashtra outreach initiative brings free legal aid, grievance redressal and civil rights guidance directly to vulnerable and underserved settlements.",
     sections: [
@@ -488,14 +488,14 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         paragraphs: [],
         testimonials: [
           {
-            cardPhoto: "/images/news/story-photo-rekha.png",
+            cardPhoto: "/images/news/story-photo-rekha-v2.png",
             quote:
               "“When my ration card was rejected three times, I did not know what to do. The HRSJM camp helped me file an official grievance, and within three weeks, our family got our entitlements.”",
             name: "Rekha Tai",
             role: "Self-Help Group Member",
           },
           {
-            cardPhoto: "/images/news/story-photo-ramesh.png",
+            cardPhoto: "/images/news/story-photo-ramesh-v2.png",
             quote:
               "“Having lawyers explain our rights in our own village made all the difference. We now know how to approach authorities with confidence and dignity.”",
             name: "Ramesh Patil",
@@ -542,7 +542,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Understanding Your Right to Information (RTI)",
         date: "Sep 20, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-rti.png",
+        image: "/images/news/card-rti-v2.png",
       },
       {
         slug: "womens-rights-progress-and-the-road-ahead",
@@ -550,7 +550,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Women's Rights: Progress and the Road Ahead",
         date: "Sep 18, 2025",
         readTime: "7 min read",
-        image: "/images/news/card-womens-rights.png",
+        image: "/images/news/card-womens-rights-v2.png",
       },
       {
         slug: "child-rights-building-a-safer-and-brighter-future",
@@ -558,7 +558,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Child Rights: Building a Safer and Brighter Future",
         date: "Sep 13, 2025",
         readTime: "6 min read",
-        image: "/images/story-5.png",
+        image: "/images/news/card-child-rights-v2.png",
       },
     ],
   },
@@ -572,8 +572,8 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
       "Why child protection matters, key legal frameworks under Indian law, and how communities can build safe, supportive environments for every child.",
     date: "September 13, 2025",
     readTime: "6 min read",
-    bannerImage: "/images/news/banner-child-rights.png",
-    cardImage: "/images/story-5.png",
+    bannerImage: "/images/news/banner-child-rights-v2.png",
+    cardImage: "/images/news/card-child-rights-v2.png",
     summaryCallout:
       "Every child has an inherent right to safety, nutrition, quality education, and protection from harm. Building a brighter future requires active vigilance, community awareness, and strict enforcement of child protection laws.",
     sections: [
@@ -616,14 +616,14 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         paragraphs: [],
         testimonials: [
           {
-            avatar: "/images/news/avatar-aarav.png",
+            avatar: "/images/news/avatar-aarav-v2.png",
             quote:
               "“Learning about our rights in school made us feel safe and heard. We know who to reach out to if someone needs help.”",
             name: "Aarav",
             role: "Student, Class 8",
           },
           {
-            avatar: "/images/news/avatar-meera.png",
+            avatar: "/images/news/avatar-meera-v2.png",
             quote:
               "“When parents and teachers collaborate with legal aid networks, we create an invisible shield of safety around our children.”",
             name: "Meera Sharma",
@@ -670,7 +670,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "How a Small Step in Education Changed a Community",
         date: "Sep 19, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-education.png",
+        image: "/images/news/card-education-v2.png",
       },
       {
         slug: "womens-rights-progress-and-the-road-ahead",
@@ -678,7 +678,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Women's Rights: Progress and the Road Ahead",
         date: "Sep 18, 2025",
         readTime: "7 min read",
-        image: "/images/news/card-womens-rights.png",
+        image: "/images/news/card-womens-rights-v2.png",
       },
       {
         slug: "hrsjm-community-outreach-program-in-maharashtra",
@@ -686,7 +686,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/story-1.png",
+        image: "/images/news/card-maharashtra-v2.png",
       },
     ],
   },
@@ -700,8 +700,8 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
       "A review of recent press coverage, broadcast interviews and editorial features highlighting HRSJM's legal aid drives and advocacy campaigns across India.",
     date: "September 12, 2025",
     readTime: "3 min read",
-    bannerImage: "/images/news/banner-media-coverage.png",
-    cardImage: "/images/news-hero-bg.png",
+    bannerImage: "/images/news/banner-media-coverage-v2.png",
+    cardImage: "/images/news/card-media-coverage-v2.png",
     summaryCallout:
       "Responsible journalism and public transparency are the twin pillars of a vibrant democracy. Through sustained media engagement, HRSJM amplifies grassroots human rights issues and holds public institutions accountable.",
     sections: [
@@ -744,14 +744,14 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         paragraphs: [],
         testimonials: [
           {
-            avatar: "/images/news/avatar-journalist.png",
+            avatar: "/images/news/avatar-journalist-v2.png",
             quote:
               "“Grassroots legal initiatives like HRSJM provide the verifiable field evidence that makes investigative human rights reporting both rigorous and impactful.”",
             name: "Vikram Sen",
             role: "Senior Legal Correspondent",
           },
           {
-            avatar: "/images/news/avatar-editor.png",
+            avatar: "/images/news/avatar-editor-v2.png",
             quote:
               "“When civic organizations and independent media align on public transparency, everyday citizens benefit directly through greater institutional responsiveness.”",
             name: "Shalini Joshi",
@@ -798,7 +798,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Understanding Your Right to Information (RTI)",
         date: "Sep 20, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-rti.png",
+        image: "/images/news/card-rti-v2.png",
       },
       {
         slug: "hrsjm-community-outreach-program-in-maharashtra",
@@ -806,7 +806,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/story-1.png",
+        image: "/images/news/card-maharashtra-v2.png",
       },
       {
         slug: "child-rights-building-a-safer-and-brighter-future",
@@ -814,7 +814,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Child Rights: Building a Safer and Brighter Future",
         date: "Sep 13, 2025",
         readTime: "6 min read",
-        image: "/images/story-5.png",
+        image: "/images/news/card-child-rights-v2.png",
       },
     ],
   },
@@ -870,14 +870,14 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         paragraphs: [],
         testimonials: [
           {
-            avatar: "/images/news/avatar-editor.png",
+            avatar: "/images/news/avatar-editor-v2.png",
             quote:
               "“Constitutional protections remain theoretical until ordinary citizens know how to invoke them without fear.”",
             name: "Adv. Meera Sen",
             role: "Constitutional Law Researcher",
           },
           {
-            avatar: "/images/news/avatar-journalist.png",
+            avatar: "/images/news/avatar-journalist-v2.png",
             quote:
               "“When communities understand Article 21, they begin demanding healthcare, clean water and fair wages as legal rights, not charity.”",
             name: "Ramesh Sharma",
@@ -925,7 +925,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Understanding Your Right to Information (RTI)",
         date: "Sep 20, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-rti.png",
+        image: "/images/news/card-rti-v2.png",
       },
       {
         slug: "womens-rights-progress-and-the-road-ahead",
@@ -933,7 +933,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Women's Rights: Progress and the Road Ahead",
         date: "Sep 18, 2025",
         readTime: "7 min read",
-        image: "/images/news/card-womens-rights.png",
+        image: "/images/news/card-womens-rights-v2.png",
       },
       {
         slug: "hrsjm-community-outreach-program-in-maharashtra",
@@ -941,7 +941,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/story-1.png",
+        image: "/images/news/card-maharashtra-v2.png",
       },
     ],
   },

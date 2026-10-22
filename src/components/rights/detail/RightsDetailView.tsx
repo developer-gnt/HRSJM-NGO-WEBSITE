@@ -150,14 +150,6 @@ export default function RightsDetailView({
                 <span className={styles.goldHighlight}>{data.highlightWord}</span>
               </h1>
               <p className={styles.heroSubtitle}>{data.heroSubtitle}</p>
-              <button
-                type="button"
-                onClick={() => scrollToSection("overview")}
-                className={`${styles.heroBtn} ${data.heroBgImage ? styles.heroBtnPill : ""}`}
-              >
-                Learn More
-                <ArrowRight className="w-4 h-4 ml-1" />
-              </button>
             </div>
 
             {/* Right Visual Box (only shown for non-panoramic background layouts) */}
