@@ -6,10 +6,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy)
-    url("/images/events-hero-bg.png")
-    center 36% / cover
-    no-repeat;
+  background: var(--color-navy) url("/images/events-hero-bg.png") center 36% / cover no-repeat;
   color: var(--color-white);
 }
 
@@ -20,13 +17,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.94) 0%,
-    rgba(3, 29, 56, 0.82) 32%,
-    rgba(3, 29, 56, 0.38) 58%,
-    rgba(3, 29, 56, 0.05) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.94) 0%,
+      rgba(3, 29, 56, 0.82) 32%,
+      rgba(3, 29, 56, 0.38) 58%,
+      rgba(3, 29, 56, 0.05) 100%);
 }
 
 .heroInner {
@@ -34,7 +29,7 @@
   width: min(100%, var(--container));
   margin: 0 auto;
   min-height: 480px;
-  padding: 24px var(--page-padding) 26px;
+  padding: 20px var(--page-padding) 26px;
   display: flex;
   flex-direction: column;
 }
@@ -73,7 +68,7 @@
   align-items: flex-start;
   justify-content: center;
   max-width: 560px;
-  padding: 14px 0 20px;
+  padding: 28px 0 20px;
 }
 
 .eyebrow {
@@ -216,7 +211,7 @@
 }
 
 /* Subtle separator between categories */
-.category + .category::before {
+.category+.category::before {
   content: "";
   position: absolute;
   left: -6px;
@@ -331,12 +326,10 @@
   }
 
   .hero::before {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 29, 56, 0.88) 0%,
-      rgba(3, 29, 56, 0.78) 55%,
-      rgba(3, 29, 56, 0.92) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 29, 56, 0.88) 0%,
+        rgba(3, 29, 56, 0.78) 55%,
+        rgba(3, 29, 56, 0.92) 100%);
   }
 
   .heroInner {
@@ -373,7 +366,7 @@
     flex: 0 0 auto;
   }
 
-  .category + .category::before {
+  .category+.category::before {
     display: none;
   }
 }
@@ -423,6 +416,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .armed [data-reveal],
   .armed [data-reveal-fade],
   .armed [data-reveal-item],
@@ -1050,10 +1044,7 @@
 .impactBand {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy-dark)
-    url("/images/events-impact-bg.png")
-    center right / cover
-    no-repeat;
+  background: var(--color-navy-dark) url("/images/events-impact-bg.png") center right / cover no-repeat;
   color: var(--color-white);
 }
 
@@ -1063,13 +1054,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.96) 0%,
-    rgba(3, 29, 56, 0.86) 30%,
-    rgba(3, 29, 56, 0.45) 58%,
-    rgba(3, 29, 56, 0.08) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.96) 0%,
+      rgba(3, 29, 56, 0.86) 30%,
+      rgba(3, 29, 56, 0.45) 58%,
+      rgba(3, 29, 56, 0.08) 100%);
 }
 
 .impactInner {
@@ -1205,12 +1194,10 @@
   }
 
   .impactBand::before {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 29, 56, 0.9) 0%,
-      rgba(3, 29, 56, 0.8) 55%,
-      rgba(3, 29, 56, 0.92) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 29, 56, 0.9) 0%,
+        rgba(3, 29, 56, 0.8) 55%,
+        rgba(3, 29, 56, 0.92) 100%);
   }
 
   .impactInner {
@@ -1487,10 +1474,7 @@
 .eventsCta {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy-dark)
-    url("/images/events-cta-bg.png")
-    center / cover
-    no-repeat;
+  background: var(--color-navy-dark) url("/images/events-cta-bg.png") center / cover no-repeat;
   color: var(--color-white);
   margin-bottom: clamp(48px, 6vw, 80px);
 }
@@ -1500,12 +1484,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(3, 29, 56, 0.74) 0%,
-    rgba(3, 29, 56, 0.82) 60%,
-    rgba(3, 29, 56, 0.9) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(3, 29, 56, 0.74) 0%,
+      rgba(3, 29, 56, 0.82) 60%,
+      rgba(3, 29, 56, 0.9) 100%);
 }
 
 .eventsCtaInner {
@@ -1613,12 +1595,10 @@
   }
 
   .eventsCta::before {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 29, 56, 0.82) 0%,
-      rgba(3, 29, 56, 0.88) 60%,
-      rgba(3, 29, 56, 0.94) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 29, 56, 0.82) 0%,
+        rgba(3, 29, 56, 0.88) 60%,
+        rgba(3, 29, 56, 0.94) 100%);
   }
 
   .eventsCtaInner {

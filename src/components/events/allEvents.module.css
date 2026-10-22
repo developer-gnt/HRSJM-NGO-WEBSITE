@@ -39,7 +39,7 @@
   width: min(100%, var(--container));
   margin: 0 auto;
   min-height: 440px;
-  padding: 28px var(--page-padding) 32px;
+  padding: 20px var(--page-padding) 26px;
   display: flex;
   flex-direction: column;
 }

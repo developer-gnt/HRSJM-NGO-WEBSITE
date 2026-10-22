@@ -34,13 +34,11 @@
 .heroScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.88) 0%,
-    rgba(3, 29, 56, 0.55) 30%,
-    rgba(3, 29, 56, 0.15) 54%,
-    rgba(3, 29, 56, 0) 72%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.88) 0%,
+      rgba(3, 29, 56, 0.55) 30%,
+      rgba(3, 29, 56, 0.15) 54%,
+      rgba(3, 29, 56, 0) 72%);
   pointer-events: none;
 }
 
@@ -48,13 +46,11 @@
 .heroShade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(3, 29, 56, 0.38) 0%,
-    rgba(3, 29, 56, 0) 24%,
-    rgba(3, 29, 56, 0) 70%,
-    rgba(3, 29, 56, 0.45) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(3, 29, 56, 0.38) 0%,
+      rgba(3, 29, 56, 0) 24%,
+      rgba(3, 29, 56, 0) 70%,
+      rgba(3, 29, 56, 0.45) 100%);
   pointer-events: none;
 }
 
@@ -328,6 +324,7 @@
     opacity: 0;
     transform: translateY(16px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -374,6 +371,7 @@
 
 /* Tablet — 640–1024px */
 @media (max-width: 1023px) {
+
   /* Same viewport-fit strategy as desktop with a shorter navbar */
   .hero {
     min-height: clamp(430px, calc(100vh - 118px), 500px);
@@ -401,6 +399,7 @@
 
 /* Mobile — under 640px */
 @media (max-width: 639px) {
+
   /* Content-driven height on mobile — no fixed min-height, so the
      hero is never taller than its copy needs. */
   .hero {
@@ -415,18 +414,14 @@
   /* Even coverage so heading and buttons stay readable over the photo */
   .heroScrim {
     background:
-      linear-gradient(
-        180deg,
+      linear-gradient(180deg,
         rgba(3, 29, 56, 0.5) 0%,
         rgba(3, 29, 56, 0.3) 40%,
-        rgba(3, 29, 56, 0.55) 100%
-      ),
-      linear-gradient(
-        90deg,
+        rgba(3, 29, 56, 0.55) 100%),
+      linear-gradient(90deg,
         rgba(3, 29, 56, 0.88) 0%,
         rgba(3, 29, 56, 0.55) 55%,
-        rgba(3, 29, 56, 0.28) 100%
-      );
+        rgba(3, 29, 56, 0.28) 100%);
   }
 
   .heroInner {
@@ -458,6 +453,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .breadcrumbList,
   .eyebrow,
   .heading,
@@ -707,6 +703,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .approach.armed .approachEyebrow,
   .approach.armed .approachHeading,
   .approach.armed .approachDescription,
@@ -736,12 +733,10 @@
   position: relative;
   background-color: var(--color-navy-dark);
   background-image:
-    linear-gradient(
-      180deg,
+    linear-gradient(180deg,
       rgba(3, 29, 56, 0.66) 0%,
       rgba(3, 29, 56, 0.26) 34%,
-      rgba(3, 29, 56, 0.42) 100%
-    ),
+      rgba(3, 29, 56, 0.42) 100%),
     url("/WHD-Cards/section-bg.png");
   background-size: cover;
   background-position: center;
@@ -996,6 +991,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .coreAreas.armed .coreAreasEyebrow,
   .coreAreas.armed .coreAreasHeading,
   .coreAreas.armed .coreAreasDescription,
@@ -1264,6 +1260,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .howWeWork.armed .howWeWorkEyebrow,
   .howWeWork.armed .howWeWorkHeading,
   .howWeWork.armed .howWeWorkDescription,
@@ -1320,13 +1317,11 @@
 .impactScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.6) 0%,
-    rgba(3, 29, 56, 0.3) 34%,
-    rgba(3, 29, 56, 0.05) 58%,
-    rgba(3, 29, 56, 0) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.6) 0%,
+      rgba(3, 29, 56, 0.3) 34%,
+      rgba(3, 29, 56, 0.05) 58%,
+      rgba(3, 29, 56, 0) 100%);
   pointer-events: none;
 }
 
@@ -1563,18 +1558,14 @@
 
   .impactScrim {
     background:
-      linear-gradient(
-        180deg,
+      linear-gradient(180deg,
         rgba(3, 29, 56, 0.6) 0%,
         rgba(3, 29, 56, 0.28) 45%,
-        rgba(3, 29, 56, 0.5) 100%
-      ),
-      linear-gradient(
-        90deg,
+        rgba(3, 29, 56, 0.5) 100%),
+      linear-gradient(90deg,
         rgba(3, 29, 56, 0.6) 0%,
         rgba(3, 29, 56, 0.35) 55%,
-        rgba(3, 29, 56, 0.15) 100%
-      );
+        rgba(3, 29, 56, 0.15) 100%);
   }
 
   .impactDescription {
@@ -1606,6 +1597,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .impact.armed .impactEyebrow,
   .impact.armed .impactHeading,
   .impact.armed .impactDescription,
@@ -1662,14 +1654,12 @@
 .finalCtaScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.55) 0%,
-    rgba(3, 29, 56, 0.32) 30%,
-    rgba(3, 29, 56, 0.08) 55%,
-    rgba(3, 29, 56, 0) 80%,
-    rgba(3, 29, 56, 0.22) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.55) 0%,
+      rgba(3, 29, 56, 0.32) 30%,
+      rgba(3, 29, 56, 0.08) 55%,
+      rgba(3, 29, 56, 0) 80%,
+      rgba(3, 29, 56, 0.22) 100%);
   pointer-events: none;
 }
 
@@ -1844,18 +1834,14 @@
 
   .finalCtaScrim {
     background:
-      linear-gradient(
-        180deg,
+      linear-gradient(180deg,
         rgba(3, 29, 56, 0.55) 0%,
         rgba(3, 29, 56, 0.3) 45%,
-        rgba(3, 29, 56, 0.55) 100%
-      ),
-      linear-gradient(
-        90deg,
+        rgba(3, 29, 56, 0.55) 100%),
+      linear-gradient(90deg,
         rgba(3, 29, 56, 0.6) 0%,
         rgba(3, 29, 56, 0.4) 55%,
-        rgba(3, 29, 56, 0.2) 100%
-      );
+        rgba(3, 29, 56, 0.2) 100%);
   }
 
   .finalCtaDescription {
@@ -1875,6 +1861,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .finalCta.armed .finalCtaEyebrow,
   .finalCta.armed .finalCtaHeading,
   .finalCta.armed .finalCtaDescription,

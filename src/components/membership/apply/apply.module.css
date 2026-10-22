@@ -20,9 +20,12 @@
   position: relative;
   background-color: var(--color-navy-dark);
   color: var(--color-white);
-  padding-top: 24px;
-  padding-bottom: 48px;
+  padding: 20px var(--page-padding) 26px;
   overflow: hidden;
+}
+
+.hero .container {
+  padding: 0;
 }
 
 .heroBg {
@@ -784,6 +787,109 @@
 }
 
 /* --------------------------------------------------------------------------
+   Applicant Consent & Declaration Section
+   -------------------------------------------------------------------------- */
+.consentSection {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-top: 24px;
+}
+
+.consentHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.consentHeaderIcon {
+  color: #0d7a57;
+  flex-shrink: 0;
+}
+
+.consentHeading {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.consentList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.consentItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--color-white);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  transition: all 150ms ease;
+}
+
+.consentItem:hover {
+  border-color: #cbd5e1;
+}
+
+.consentItemChecked {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.consentItemError {
+  border-color: #ef4444 !important;
+  background: #fef2f2 !important;
+}
+
+.consentCheckbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-gold);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.consentLabel {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #334155;
+  cursor: pointer;
+  user-select: none;
+}
+
+.consentLink {
+  color: var(--color-navy);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2.5px;
+  transition: color 150ms ease;
+}
+
+.consentLink:hover {
+  color: #b45309;
+}
+
+.consentNotice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #b45309;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin-top: 14px;
+}
+
+/* --------------------------------------------------------------------------
    Action Buttons (Navigation)
    -------------------------------------------------------------------------- */
 .navActions {
@@ -827,9 +933,11 @@
 }
 
 .btnGold:disabled {
-  opacity: 0.65;
+  opacity: 0.55;
   cursor: not-allowed;
+  box-shadow: none;
   transform: none;
+  filter: grayscale(0.25);
 }
 
 .btnOutline {

@@ -10,8 +10,8 @@ export default function MembershipCategoriesPage() {
       {/* Hero Section */}
       <section className={styles.hero} aria-labelledby="categories-heading">
         <Image
-          src="/membership/membership-hero.png"
-          alt=""
+          src="/membership/membership-categories-hero.jpg"
+          alt="HRSJM members and citizens advocating for human rights and social justice"
           fill
           priority
           sizes="100vw"
@@ -24,9 +24,9 @@ export default function MembershipCategoriesPage() {
             {/* Breadcrumb */}
             <nav className={styles.breadcrumb} aria-label="Breadcrumb">
               <Link href="/">Home</Link>
-              <ChevronRight size={14} strokeWidth={2.2} aria-hidden="true" />
+              <ChevronRight size={13} strokeWidth={2.2} aria-hidden="true" />
               <Link href="/membership">Membership</Link>
-              <ChevronRight size={14} strokeWidth={2.2} aria-hidden="true" />
+              <ChevronRight size={13} strokeWidth={2.2} aria-hidden="true" />
               <span className={styles.breadcrumbCurrent} aria-current="page">
                 Membership Categories
               </span>
@@ -35,7 +35,7 @@ export default function MembershipCategoriesPage() {
             {/* Hero Copy */}
             <div className={styles.heroContent}>
               <p className={styles.heroEyebrow}>
-                <span className={styles.heroEyebrowSquare} aria-hidden="true" />
+                <span className={styles.heroEyebrowDot} aria-hidden="true" />
                 MEMBERSHIP
               </p>
 
@@ -49,16 +49,16 @@ export default function MembershipCategoriesPage() {
               </p>
 
               <p className={styles.heroDescription}>
-                Join HRSJM and become a part of a larger movement for human
+                Join HRSJM and become part of a larger movement for human
                 dignity, equality and justice. Choose a membership category that
                 matches your interest and contribute towards a stronger, fairer
                 and more inclusive society.
               </p>
 
               <div className={styles.heroActions}>
-                <Link href="/membership/apply" className={styles.btnGold}>
+                <Link href="#categories" className={styles.heroBtn}>
                   Become a Member
-                  <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+                  <ArrowRight size={16} strokeWidth={2.4} aria-hidden="true" />
                 </Link>
               </div>
             </div>
@@ -68,28 +68,48 @@ export default function MembershipCategoriesPage() {
 
       {/* Main Categories Section */}
       <section
+        id="categories"
         className={styles.categoriesSection}
         aria-label="Membership categories tables"
       >
         <div className={styles.container}>
           {membershipCategorySections.map((section) => {
             const SectionIcon = section.icon;
-            const isGreen = section.headerTheme === "green";
 
             return (
-              <div key={section.id} className={styles.categoryCard}>
+              <div key={section.id} id={section.id} className={styles.categoryCard}>
                 {/* Card Header */}
                 <div className={styles.cardHeader}>
-                  <div
-                    className={styles.cardIconWrap}
-                    style={{ backgroundColor: section.iconBg }}
-                  >
-                    <SectionIcon size={24} strokeWidth={1.9} aria-hidden="true" />
+                  <div className={styles.cardHeaderLeft}>
+                    <div className={styles.cardIconWrap}>
+                      <SectionIcon size={22} strokeWidth={2.2} aria-hidden="true" />
+                    </div>
+                    <div className={styles.cardHeaderInfo}>
+                      <h2 className={styles.cardTitle}>{section.title}</h2>
+                      <p className={styles.cardSubtitle}>{section.subtitle}</p>
+                    </div>
                   </div>
-                  <div className={styles.cardHeaderInfo}>
-                    <h2 className={styles.cardTitle}>{section.title}</h2>
-                    <span className={styles.cardUnderline} aria-hidden="true" />
-                    <p className={styles.cardSubtitle}>{section.subtitle}</p>
+
+                  <div className={styles.cardHeaderRight}>
+                    {section.headerArt && (
+                      <div className={styles.headerArtWrap}>
+                        <Image
+                          src={section.headerArt}
+                          alt=""
+                          width={145}
+                          height={58}
+                          className={styles.headerArtImg}
+                        />
+                      </div>
+                    )}
+                    {section.quote && (
+                      <div className={styles.headerQuoteWrap}>
+                        <p className={styles.headerQuoteText}>
+                          &ldquo;{section.quote}&rdquo;
+                        </p>
+                        <span className={styles.headerQuoteLine} aria-hidden="true" />
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -99,45 +119,35 @@ export default function MembershipCategoriesPage() {
                     <thead>
                       <tr>
                         <th
-                          className={`${
-                            isGreen ? styles.thGreen : styles.thBlue
-                          } ${styles.thCenter}`}
+                          className={`${styles.thCell} ${styles.thCenter}`}
+                          style={{ width: "65px" }}
                         >
-                          Sr. No.
+                          No.
                         </th>
-                        <th
-                          className={isGreen ? styles.thGreen : styles.thBlue}
-                        >
+                        <th className={styles.thCell} style={{ width: "230px" }}>
                           Post
                         </th>
-                        <th
-                          className={isGreen ? styles.thGreen : styles.thBlue}
-                        >
+                        <th className={styles.thCell} style={{ width: "230px" }}>
                           Required Qualification
                         </th>
                         <th
-                          className={`${
-                            isGreen ? styles.thGreen : styles.thBlue
-                          } ${styles.thCenter}`}
+                          className={`${styles.thCell} ${styles.thCenter}`}
+                          style={{ width: "110px" }}
                         >
                           Fees (₹)
                         </th>
                         <th
-                          className={`${
-                            isGreen ? styles.thGreen : styles.thBlue
-                          } ${styles.thCenter}`}
+                          className={`${styles.thCell} ${styles.thCenter}`}
+                          style={{ width: "95px" }}
                         >
                           Validity
                         </th>
-                        <th
-                          className={isGreen ? styles.thGreen : styles.thBlue}
-                        >
+                        <th className={styles.thCell}>
                           {section.kitHeaderLabel}
                         </th>
                         <th
-                          className={`${
-                            isGreen ? styles.thGreen : styles.thBlue
-                          } ${styles.thCenter}`}
+                          className={`${styles.thCell} ${styles.thCenter}`}
+                          style={{ width: "135px" }}
                         >
                           Action
                         </th>
@@ -198,7 +208,7 @@ export default function MembershipCategoriesPage() {
         </div>
       </section>
 
-      {/* Bottom CTA Banner */}
+      {/* Bottom CTA Banner: Join HRSJM Today */}
       <section className={styles.bottomCta} aria-labelledby="bottom-cta-heading">
         <Image
           src="/membership/membership-cta.png"
@@ -210,14 +220,6 @@ export default function MembershipCategoriesPage() {
         <div className={styles.container}>
           <div className={styles.bottomCtaInner}>
             <div className={styles.bottomCtaCopy}>
-              <p className={styles.bottomCtaEyebrow}>
-                <span
-                  className={styles.heroEyebrowSquare}
-                  aria-hidden="true"
-                  style={{ width: 7, height: 7 }}
-                />
-                BE A PART OF CHANGE
-              </p>
               <h2 id="bottom-cta-heading" className={styles.bottomCtaHeading}>
                 Join{" "}
                 <span className={styles.bottomCtaHeadingGold}>
@@ -225,15 +227,15 @@ export default function MembershipCategoriesPage() {
                 </span>
               </h2>
               <p className={styles.bottomCtaSubtitle}>
-                Together we can build a more just, equal and compassionate society.
+                Be a part of the movement for human rights, equality and social justice.
               </p>
             </div>
             <Link
               href="/membership/apply"
-              className={styles.btnGold}
+              className={styles.bottomCtaBtn}
             >
               Become a Member
-              <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+              <ArrowRight size={16} strokeWidth={2.4} aria-hidden="true" />
             </Link>
           </div>
         </div>

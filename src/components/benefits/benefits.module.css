@@ -26,10 +26,14 @@
   overflow: hidden;
   background-color: var(--color-navy-dark);
   color: var(--color-white);
-  padding: clamp(40px, 5vw, 68px) 0 clamp(64px, 7vw, 92px);
+  padding: 20px var(--page-padding) 26px;
   min-height: clamp(420px, 48vw, 560px);
   display: flex;
   align-items: center;
+}
+
+.hero .container {
+  padding: 0;
 }
 
 .heroBg {
