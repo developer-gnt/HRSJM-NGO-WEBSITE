@@ -1641,6 +1641,7 @@
   overflow: hidden;
   background: var(--color-navy-dark);
   color: var(--color-white);
+  margin-top: clamp(48px, 6vw, 84px);
 }
 
 .finalCtaBg {
@@ -1680,7 +1681,7 @@
   display: flex;
   align-items: center;
   min-height: clamp(280px, 22vw, 330px);
-  padding-block: clamp(28px, 2.4vw, 35px);
+  padding-block: clamp(36px, 3.2vw, 48px);
 }
 
 .finalCtaContent {
