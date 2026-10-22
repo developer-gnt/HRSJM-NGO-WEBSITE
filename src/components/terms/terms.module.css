@@ -1,0 +1,421 @@
+/* ==========================================================================
+   HRSJM Terms & Conditions Page Styles
+   Theme: Deep Navy (#062a4f), Gold (#fad25c, #d9a928), Cream (#faf8f2), White
+   ========================================================================== */
+
+.page {
+  width: 100%;
+  background: #ffffff;
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Common Section Utilities
+   -------------------------------------------------------------------------- */
+
+.section {
+  width: 100%;
+  padding-block: clamp(48px, 5.5vw, 76px);
+}
+
+.sectionWhite {
+  background: #ffffff;
+}
+
+.sectionCream {
+  background: #faf8f2;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 40px);
+}
+
+.sectionHeading {
+  font-family: var(--font-display), Cormorant Garamond, Georgia, serif;
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.sectionUnderline {
+  width: 46px;
+  height: 3.5px;
+  background: #d9a928;
+  border-radius: 9999px;
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+
+.sectionSubtext {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 14.5px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 28px 0;
+}
+
+/* --------------------------------------------------------------------------
+   1. Hero Banner
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  background: #031d38;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: clamp(340px, 24vw, 400px);
+  }
+}
+
+.heroBgLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heroBgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+.heroGradientOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    #031d38 0%,
+    #031d38 32%,
+    rgba(3, 29, 56, 0.92) 50%,
+    rgba(3, 29, 56, 0.35) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .heroGradientOverlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(3, 29, 56, 0.95) 0%,
+      rgba(3, 29, 56, 0.84) 55%,
+      rgba(3, 29, 56, 0.95) 100%
+    );
+  }
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 48px clamp(20px, 4vw, 40px);
+}
+
+.heroContent {
+  max-width: 580px;
+}
+
+.heroEyebrowGroup {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.heroEyebrow {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #fad25c;
+  line-height: 1;
+}
+
+.heroEyebrowUnderline {
+  width: 28px;
+  height: 2.5px;
+  background: #fad25c;
+  border-radius: 9999px;
+  margin-top: 6px;
+}
+
+.heroHeading {
+  font-family: var(--font-display), Cormorant Garamond, Georgia, serif;
+  font-size: clamp(36px, 4.2vw, 54px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px 0;
+}
+
+.heroGold {
+  color: #fad25c;
+}
+
+.heroText {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: clamp(14px, 1.15vw, 16.5px);
+  color: #cbd5e1;
+  line-height: 1.6;
+  font-weight: 400;
+  margin: 0;
+  max-width: 480px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Introduction (Two-Column)
+   -------------------------------------------------------------------------- */
+
+.introGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .introGrid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(36px, 5vw, 64px);
+  }
+}
+
+.introCopy {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: clamp(14.5px, 1.05vw, 16px);
+  line-height: 1.75;
+  color: #52606d;
+  margin: 0;
+}
+
+.introImageWrap {
+  width: 100%;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e5e0d5;
+  box-shadow: 0 6px 20px rgba(6, 42, 79, 0.05);
+  background: #ffffff;
+}
+
+.introImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.introImageWrap:hover .introImage {
+  transform: scale(1.02);
+}
+
+/* --------------------------------------------------------------------------
+   3. Key Terms (4 Cards Row)
+   -------------------------------------------------------------------------- */
+
+.keyTermsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 600px) {
+  .keyTermsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .keyTermsGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+}
+
+.keyTermCard {
+  background: #ffffff;
+  border: 1px solid #e8e3d8;
+  border-radius: 14px;
+  padding: 28px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(6, 42, 79, 0.03);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.keyTermCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(6, 42, 79, 0.08);
+  border-color: #d9a928;
+}
+
+.keyTermIconWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  background: #fdf3d6;
+  border: 1px solid rgba(217, 169, 40, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b8861b;
+  margin-bottom: 16px;
+  transition: transform 220ms ease, background-color 220ms ease;
+}
+
+.keyTermCard:hover .keyTermIconWrap {
+  transform: scale(1.06);
+  background: #fae8b4;
+  color: #062a4f;
+}
+
+.keyTermTitle {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #062a4f;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.keyTermDesc {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #64748b;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. User Responsibilities (6 Slim Rows in 2 Columns)
+   -------------------------------------------------------------------------- */
+
+.responsibilitiesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 860px) {
+  .responsibilitiesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 20px;
+  }
+}
+
+.responsibilityRow {
+  background: #ffffff;
+  border: 1px solid #e8e3d8;
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 5px rgba(6, 42, 79, 0.02);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.responsibilityRow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(6, 42, 79, 0.06);
+  border-color: #d9a928;
+}
+
+.responsibilityIconWrap {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: #fdf3d6;
+  border: 1px solid rgba(217, 169, 40, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b8861b;
+  transition: transform 200ms ease;
+}
+
+.responsibilityRow:hover .responsibilityIconWrap {
+  transform: scale(1.05);
+  color: #062a4f;
+}
+
+.responsibilityText {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #1e293b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Limitation of Liability (Two-Column)
+   -------------------------------------------------------------------------- */
+
+.liabilityGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .liabilityGrid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(36px, 5vw, 64px);
+  }
+}
+
+.liabilityCopy {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: clamp(14.5px, 1.05vw, 16px);
+  line-height: 1.75;
+  color: #52606d;
+  margin: 0;
+}
+
+.liabilityImageWrap {
+  width: 100%;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e5e0d5;
+  box-shadow: 0 6px 20px rgba(6, 42, 79, 0.05);
+  background: #ffffff;
+}
+
+.liabilityImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.liabilityImageWrap:hover .liabilityImage {
+  transform: scale(1.02);
+}

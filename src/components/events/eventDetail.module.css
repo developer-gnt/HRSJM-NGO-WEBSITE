@@ -1,0 +1,257 @@
+/* ================================================================ */
+/* Event detail page — eventDetail.module.css                        */
+/* Same design system: navy + gold on cream, white card, thin border. */
+/* ================================================================ */
+
+.detail {
+  padding: 30px 0 64px;
+}
+
+/* Breadcrumb on the light background */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.breadcrumbLink {
+  transition: color 200ms ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-gold-dark);
+}
+
+.breadcrumbSeparator {
+  color: var(--color-text-muted);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-navy);
+  font-weight: 600;
+}
+
+/* Card — white shell like the event cards, scaled up */
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 48fr) minmax(0, 52fr);
+  gap: 0;
+  margin-top: 22px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-white);
+}
+
+.media {
+  position: relative;
+  min-height: 320px;
+}
+
+.media img {
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 34px 36px 36px;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.date {
+  color: var(--color-navy);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Same status recipes as events.module.css */
+.statusOpen {
+  background: rgba(34, 197, 94, 0.15);
+  color: #15803d;
+}
+
+.statusSoon {
+  background: rgba(250, 210, 92, 0.28);
+  color: var(--color-gold-dark);
+}
+
+.title {
+  margin-top: 14px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(26px, 2.8vw, 36px);
+  font-weight: var(--type-display-weight);
+  line-height: 1.12;
+  color: var(--color-navy);
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  color: var(--color-text-secondary);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.location svg {
+  color: var(--color-gold-dark);
+  flex-shrink: 0;
+}
+
+.desc {
+  margin-top: 14px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* Facts list — thin bordered rows, same treatment as cards */
+.facts {
+  margin-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.fact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 13px;
+}
+
+.factLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.factLabel svg {
+  color: var(--color-gold-dark);
+  flex-shrink: 0;
+}
+
+.factValue {
+  color: var(--color-navy);
+  font-weight: 700;
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+/* Gold primary — same recipe as the events hero .btnGold */
+.btnGold {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  background: var(--color-gold);
+  color: #062f50;
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+
+.btnGold:hover {
+  background: #fce49c;
+  transform: translateY(-1px);
+}
+
+/* Outlined secondary — same recipe as .btnLight on the events page */
+.btnLight {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 12px 22px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-white);
+  color: var(--color-navy);
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 200ms ease, border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.btnLight:hover {
+  background: var(--color-cream);
+  border-color: var(--color-gold-dark);
+  transform: translateY(-1px);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                        */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .detail {
+    padding: 26px 0 56px;
+  }
+
+  .body {
+    padding: 26px 26px 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .media {
+    min-height: 0;
+    aspect-ratio: 2.1 / 1;
+  }
+
+  .title {
+    font-size: clamp(24px, 6.4vw, 30px);
+  }
+
+  .actions .btnGold,
+  .actions .btnLight {
+    flex: 1;
+    justify-content: center;
+  }
+}

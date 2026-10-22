@@ -36,6 +36,17 @@ export default function RightsFinalCTA() {
     return () => observer.disconnect();
   }, []);
 
+  const handleScrollToRights = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const el = document.getElementById("explore-rights");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (window.location.hash !== "#explore-rights") {
+        window.history.pushState(null, "", "#explore-rights");
+      }
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -66,13 +77,17 @@ export default function RightsFinalCTA() {
           and help build a more just and equal society.
         </p>
         <div className={styles.actions}>
-          <Link href="#explore-rights" className={styles.primaryBtn}>
+          <a
+            href="#explore-rights"
+            onClick={handleScrollToRights}
+            className={styles.primaryBtn}
+          >
             Explore Your Rights
             <span className={styles.primaryBtnIcon}>
               <Icon name="arrow" width={17} height={17} strokeWidth={2} />
             </span>
-          </Link>
-          <Link href="/join-us" className={styles.secondaryBtn}>
+          </a>
+          <Link href="/membership" className={styles.secondaryBtn}>
             Join Our Movement
           </Link>
         </div>

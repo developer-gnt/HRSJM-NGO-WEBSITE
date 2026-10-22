@@ -1,0 +1,482 @@
+/* ==========================================================================
+   Membership Categories Page Styles
+   ========================================================================== */
+
+.page {
+  background-color: #f4f6fa;
+  min-height: 100vh;
+}
+
+.container {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  background-color: var(--color-navy-dark);
+  color: var(--color-white);
+  padding-top: 24px;
+  padding-bottom: 56px;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0.22;
+  mix-blend-mode: luminosity;
+  pointer-events: none;
+}
+
+.heroGradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at 80% 20%,
+      rgba(6, 42, 79, 0.4) 0%,
+      rgba(3, 29, 56, 0.92) 75%
+    ),
+    linear-gradient(180deg, rgba(3, 29, 56, 0.7) 0%, rgba(3, 29, 56, 0.98) 100%);
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 24px;
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 150ms ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-gold);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+/* Hero Content */
+.heroContent {
+  max-width: 680px;
+}
+
+.heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-gold);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.heroEyebrowSquare {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-gold);
+  border-radius: 1px;
+}
+
+.heroHeading {
+  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
+  font-size: clamp(32px, 3.6vw, 48px);
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--color-white);
+  margin-bottom: 14px;
+}
+
+.heroHeadingGold {
+  color: var(--color-gold);
+}
+
+.heroSubtitle {
+  font-size: clamp(15px, 1.25vw, 17px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+
+.heroDescription {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 24px;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.btnGold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: var(--type-button);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(250, 210, 92, 0.35);
+  transition: background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.btnGold:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(250, 210, 92, 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   Categories Content Section
+   -------------------------------------------------------------------------- */
+.categoriesSection {
+  padding: 44px 0 60px;
+}
+
+.categoryCard {
+  background: var(--color-white);
+  border: 1px solid #e1e7ee;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(6, 42, 79, 0.05);
+  margin-bottom: 32px;
+  overflow: hidden;
+  transition: box-shadow 200ms ease;
+}
+
+.categoryCard:hover {
+  box-shadow: 0 8px 28px rgba(6, 42, 79, 0.08);
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 26px 18px;
+  background: var(--color-white);
+}
+
+.cardIconWrap {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  color: var(--color-white);
+  box-shadow: 0 4px 10px rgba(6, 42, 79, 0.15);
+}
+
+.cardHeaderInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--color-navy);
+  line-height: 1.2;
+}
+
+.cardUnderline {
+  display: block;
+  width: 42px;
+  height: 3px;
+  background: var(--color-gold);
+  border-radius: 2px;
+  margin: 6px 0 5px;
+}
+
+.cardSubtitle {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+/* Table */
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 820px;
+  text-align: left;
+}
+
+.table th {
+  padding: 13px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-navy);
+  letter-spacing: 0.01em;
+  border-top: 1px solid #e5edf5;
+  border-bottom: 1px solid #e1e9f1;
+}
+
+.thBlue {
+  background-color: #ebf3fa;
+}
+
+.thGreen {
+  background-color: #eaf4ed;
+}
+
+.thCenter {
+  text-align: center;
+}
+
+.table td {
+  padding: 15px 18px;
+  font-size: 13.5px;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid #edf2f7;
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background-color: #fafbfc;
+}
+
+.tdSrNo {
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-navy);
+  width: 65px;
+}
+
+.tdPost {
+  font-weight: 700;
+  color: var(--color-navy);
+  font-size: 14px;
+}
+
+.tdQualification {
+  color: #3e4c59;
+  font-size: 13px;
+  line-height: 1.45;
+  max-width: 240px;
+}
+
+.tdFees {
+  text-align: center;
+  font-weight: 800;
+  color: var(--color-navy);
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.tdValidity {
+  text-align: center;
+  color: #3e4c59;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.tdKit {
+  font-size: 12.5px;
+  color: #3e4c59;
+  line-height: 1.45;
+  max-width: 280px;
+}
+
+.kitList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.kitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.kitBullet {
+  color: var(--color-navy);
+  font-size: 14px;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.tdAction {
+  text-align: center;
+  width: 130px;
+}
+
+.applyBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 15px;
+  border-radius: 9999px;
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(250, 210, 92, 0.3);
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.applyBtn:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   Bottom CTA Banner ("Join HRSJM Today")
+   -------------------------------------------------------------------------- */
+.bottomCta {
+  position: relative;
+  background-color: #f7f3e8;
+  border-top: 1px solid #ebd9b5;
+  border-bottom: 1px solid #ebd9b5;
+  padding: 44px 0;
+  overflow: hidden;
+}
+
+.bottomCtaBg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.bottomCtaInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.bottomCtaCopy {
+  max-width: 620px;
+}
+
+.bottomCtaEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-gold-dark);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.bottomCtaHeading {
+  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
+  font-size: clamp(26px, 2.8vw, 36px);
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 6px;
+  line-height: 1.15;
+}
+
+.bottomCtaHeadingGold {
+  color: var(--color-gold-dark);
+}
+
+.bottomCtaSubtitle {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media (max-width: 899px) {
+  .hero {
+    padding-top: 18px;
+    padding-bottom: 40px;
+  }
+
+  .cardHeader {
+    padding: 18px 20px 14px;
+  }
+
+  .bottomCtaInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 639px) {
+  .cardHeader {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .cardIconWrap {
+    width: 40px;
+    height: 40px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+  }
+
+  .cardSubtitle {
+    font-size: 12px;
+  }
+
+  .heroHeading {
+    font-size: 28px;
+  }
+}

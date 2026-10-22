@@ -1492,6 +1492,7 @@
     center / cover
     no-repeat;
   color: var(--color-white);
+  margin-bottom: clamp(48px, 6vw, 80px);
 }
 
 /* Even navy wash — content is centered over the sunset photograph */
@@ -1512,7 +1513,7 @@
   width: min(100%, var(--container));
   margin: 0 auto;
   min-height: 320px;
-  padding: 72px var(--page-padding);
+  padding: 72px var(--page-padding) 84px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1576,7 +1577,7 @@
 @media (max-width: 1023px) {
   .eventsCtaInner {
     min-height: 280px;
-    padding: 56px var(--page-padding);
+    padding: 56px var(--page-padding) 64px;
   }
 
   .eventsCtaHeading {
@@ -1594,7 +1595,7 @@
     flex-direction: column;
     align-items: flex-start;
     min-height: 0;
-    padding: 48px var(--page-padding) 40px;
+    padding: 48px var(--page-padding) 56px;
   }
 
   .ctaScriptNote {
@@ -1621,7 +1622,7 @@
   }
 
   .eventsCtaInner {
-    padding: 44px var(--page-padding) 36px;
+    padding: 44px var(--page-padding) 50px;
   }
 
   .eventsCtaDesc {

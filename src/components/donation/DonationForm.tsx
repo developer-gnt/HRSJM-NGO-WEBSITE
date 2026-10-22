@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import {
   ArrowRight,
   BookOpen,
@@ -13,13 +13,7 @@ import {
 } from "lucide-react";
 import styles from "./donation.module.css";
 
-type Frequency = "one-time" | "monthly" | "custom";
 
-const frequencies: { id: Frequency; label: string }[] = [
-  { id: "one-time", label: "One Time" },
-  { id: "monthly", label: "Monthly" },
-  { id: "custom", label: "Custom Amount" },
-];
 
 const amountOptions = [
   { value: 500, label: "₹500", description: "Supports awareness programs" },
@@ -48,39 +42,36 @@ const paymentMarks = ["UPI", "VISA", "Mastercard", "RuPay"];
 const formatINR = (value: number) =>
   `₹${new Intl.NumberFormat("en-IN").format(value)}`;
 
-const frequencyLabels: Record<Frequency, string> = {
-  "one-time": "one-time",
-  monthly: "monthly",
-  custom: "one-time",
-};
-
 export default function DonationForm() {
-  const [frequency, setFrequency] = useState<Frequency>("one-time");
   const [selectedAmount, setSelectedAmount] = useState<number | null>(5000);
-  const [customValue, setCustomValue] = useState("");
+  const [customValue, setCustomValue] = useState("5000");
   const [message, setMessage] = useState<{
     type: "error" | "info";
     text: string;
   } | null>(null);
   const customInputRef = useRef<HTMLInputElement>(null);
 
-  const selectFrequency = (next: Frequency) => {
-    setFrequency(next);
-    setMessage(null);
-    if (next === "custom") {
-      setSelectedAmount(null);
-      requestAnimationFrame(() => customInputRef.current?.focus());
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash === "#donate") {
+      const el = document.getElementById("donate");
+      if (el) {
+        const timer = setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 120);
+        return () => clearTimeout(timer);
+      }
     }
-  };
+  }, []);
 
   const selectAmount = (value: number) => {
     setSelectedAmount(value);
+    setCustomValue(String(value));
     setMessage(null);
   };
 
   const selectQuickAmount = (value: number) => {
     setSelectedAmount(value);
-    setCustomValue("");
+    setCustomValue(String(value));
     setMessage(null);
   };
 
@@ -93,7 +84,7 @@ export default function DonationForm() {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const amount = selectedAmount;
+    const amount = selectedAmount ?? (customValue ? Number(customValue) : null);
     if (!amount || amount < 10) {
       setMessage({
         type: "error",
@@ -103,7 +94,7 @@ export default function DonationForm() {
     }
     setMessage({
       type: "info",
-      text: `Your ${frequencyLabels[frequency]} donation of ${formatINR(
+      text: `Your donation of ${formatINR(
         amount
       )} is ready. Payment integration can be connected here.`,
     });
@@ -150,21 +141,6 @@ export default function DonationForm() {
             onSubmit={onSubmit}
             aria-label="Donation form"
           >
-            <div className={styles.tabs} role="group" aria-label="Donation frequency">
-              {frequencies.map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  className={styles.tab}
-                  data-active={frequency === tab.id || undefined}
-                  aria-pressed={frequency === tab.id}
-                  onClick={() => selectFrequency(tab.id)}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
             <h3 className={styles.formHeading}>Choose an Amount</h3>
             <p className={styles.formSubheading}>
               Your contribution helps us continue our mission for human rights
@@ -191,7 +167,7 @@ export default function DonationForm() {
             </div>
 
             <div className={styles.customRow}>
-              <label className={styles.customField} data-focused={frequency === "custom" || undefined}>
+              <label className={styles.customField}>
                 <span className={styles.customIcon}>
                   <HandCoins size={16} strokeWidth={1.8} aria-hidden="true" />
                 </span>

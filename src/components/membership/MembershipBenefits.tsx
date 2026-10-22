@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
@@ -84,10 +85,10 @@ export default function MembershipBenefits() {
               Membership brings you closer to the people, activities and
               initiatives working for human rights and social justice.
             </p>
-            <a href="#membership-options" className={styles.btnGold}>
+            <Link href="/membership/categories" className={styles.btnGold}>
               Become a Member
               <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
-            </a>
+            </Link>
           </div>
 
           <ol className={styles.benefitsList}>

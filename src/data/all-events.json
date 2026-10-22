@@ -1,0 +1,146 @@
+[
+  {
+    "id": "child-rights-awareness-workshop",
+    "date": "22 SEP 2026",
+    "title": "Child Rights Awareness Workshop",
+    "location": "Pune, Maharashtra",
+    "description": "Interactive session on child rights, safety and education for a brighter future.",
+    "status": "Register Open",
+    "statusType": "open",
+    "category": "Workshops",
+    "image": "/images/story-3.png",
+    "href": "/events/child-rights-awareness-workshop",
+    "action": {
+      "label": "View Details",
+      "type": "details"
+    }
+  },
+  {
+    "id": "community-tree-plantation-drive",
+    "date": "05 OCT 2026",
+    "title": "Community Tree Plantation Drive",
+    "location": "Nashik, Maharashtra",
+    "description": "Green communities for a healthier and more sustainable tomorrow.",
+    "status": "Register Open",
+    "statusType": "open",
+    "category": "Community Drives",
+    "image": "/images/story-5.png",
+    "href": "/events/community-tree-plantation-drive",
+    "action": {
+      "label": "View Details",
+      "type": "details"
+    }
+  },
+  {
+    "id": "rti-awareness-seminar",
+    "date": "12 OCT 2026",
+    "title": "RTI Awareness Seminar",
+    "location": "Delhi, India",
+    "description": "Learn how to use the Right to Information (RTI) for transparency and accountability.",
+    "status": "Registration Soon",
+    "statusType": "soon",
+    "category": "Seminars",
+    "image": "/WHD-Cards/card-3.png",
+    "href": "/events/rti-awareness-seminar",
+    "action": {
+      "label": "Notify Me",
+      "type": "notify"
+    }
+  },
+  {
+    "id": "volunteer-leadership-workshop",
+    "date": "25 OCT 2026",
+    "title": "Volunteer Leadership Workshop",
+    "location": "Nagpur, Maharashtra",
+    "description": "Hands-on training for volunteers leading community action in their own neighbourhoods.",
+    "status": "Register Open",
+    "statusType": "open",
+    "category": "Workshops",
+    "image": "/images/story-2.png",
+    "href": "/events/volunteer-leadership-workshop",
+    "action": {
+      "label": "View Details",
+      "type": "details"
+    }
+  },
+  {
+    "id": "legal-aid-awareness-seminar",
+    "date": "08 NOV 2026",
+    "title": "Free Legal Aid Awareness Seminar",
+    "location": "Jaipur, Rajasthan",
+    "description": "Meet our legal volunteers and learn how to access free legal support in your district.",
+    "status": "Register Open",
+    "statusType": "open",
+    "category": "Seminars",
+    "image": "/images/story-4.png",
+    "href": "/events/legal-aid-awareness-seminar",
+    "action": {
+      "label": "View Details",
+      "type": "details"
+    }
+  },
+  {
+    "id": "neighborhood-cleanliness-drive",
+    "date": "15 NOV 2026",
+    "title": "Neighbourhood Cleanliness Drive",
+    "location": "Indore, Madhya Pradesh",
+    "description": "Community-led clean-up of public spaces, with awareness stalls on sanitation and health.",
+    "status": "Register Open",
+    "statusType": "open",
+    "category": "Community Drives",
+    "image": "/images/activities/community-cleanliness-drive.png",
+    "href": "/events/neighborhood-cleanliness-drive",
+    "action": {
+      "label": "View Details",
+      "type": "details"
+    }
+  },
+  {
+    "id": "know-your-rights-program",
+    "date": "29 NOV 2026",
+    "title": "Know Your Rights Awareness Program",
+    "location": "Lucknow, Uttar Pradesh",
+    "description": "A grassroots program helping citizens understand their fundamental rights and duties.",
+    "status": "Registration Soon",
+    "statusType": "soon",
+    "category": "Awareness Programs",
+    "image": "/images/activities/human-rights-awareness-rally.png",
+    "href": "/events/know-your-rights-program",
+    "action": {
+      "label": "Notify Me",
+      "type": "notify"
+    }
+  },
+  {
+    "id": "digital-literacy-workshop",
+    "date": "13 DEC 2026",
+    "title": "Digital Literacy Workshop",
+    "location": "Bhopal, Madhya Pradesh",
+    "description": "Helping first-time internet users access government schemes and services safely online.",
+    "status": "Registration Soon",
+    "statusType": "soon",
+    "category": "Workshops",
+    "image": "/images/story-6.png",
+    "href": "/events/digital-literacy-workshop",
+    "action": {
+      "label": "Notify Me",
+      "type": "notify"
+    }
+  },
+  {
+    "id": "womens-safety-awareness-program",
+    "date": "20 DEC 2026",
+    "title": "Women's Safety Awareness Program",
+    "location": "Kolkata, West Bengal",
+    "description": "Community dialogue on women's safety, dignity and equal access to public spaces.",
+    "status": "Register Open",
+    "statusType": "open",
+    "category": "Awareness Programs",
+    "image": "/images/activities/womens-rights-awareness-program.png",
+    "href": "/events/womens-safety-awareness-program",
+    "action": {
+      "label": "View Details",
+      "type": "details"
+    }
+  }
+]

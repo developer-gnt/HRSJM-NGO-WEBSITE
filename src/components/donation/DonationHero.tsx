@@ -42,7 +42,7 @@ export default function DonationHero() {
 
           <p className={styles.heroDescription}>
             Your donation helps us protect human rights, support vulnerable
-            communitie and build a more just and equal society.
+            communities and build a more just and equal society.
           </p>
 
           <div className={styles.heroActions}>
@@ -50,9 +50,9 @@ export default function DonationHero() {
               Donate Now
               <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
             </a>
-            <a href="#impact" className={styles.btnOutline}>
+            <Link href="/what-hrsjm-does" className={styles.btnOutline}>
               See Our Impact
-            </a>
+            </Link>
           </div>
         </div>
       </div>

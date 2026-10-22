@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import eventsData from "@/data/upcoming-events.json";
 import EventCard, { type EventItem } from "./EventCard";
 import styles from "./events.module.css";
@@ -29,16 +29,10 @@ export default function UpcomingEvents() {
           </div>
 
           <div className={styles.upcomingControls}>
-            <Link href="#upcoming-events" className={styles.viewAll}>
+            <Link href="/events/all" className={styles.viewAll}>
               View All Events
               <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
             </Link>
-            <span className={styles.controlCircle} aria-hidden="true">
-              <Plus size={15} strokeWidth={2} />
-            </span>
-            <span className={styles.controlCircle} aria-hidden="true">
-              <ArrowRight size={15} strokeWidth={2} />
-            </span>
           </div>
         </div>
 

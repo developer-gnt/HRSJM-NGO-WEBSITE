@@ -54,13 +54,13 @@ export default function MembershipHero() {
             </p>
 
             <div className={styles.heroActions}>
-              <a href="#membership-options" className={styles.btnGold}>
+              <Link href="/membership/categories" className={styles.btnGold}>
                 Become a Member
                 <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
-              </a>
-              <a href="#why-membership" className={styles.btnOutline}>
+              </Link>
+              <Link href="/benefits" className={styles.btnOutline}>
                 Explore Member Benefits
-              </a>
+              </Link>
             </div>
 
             <div className={styles.heroFeatures}>

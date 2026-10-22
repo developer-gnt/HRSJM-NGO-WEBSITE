@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, FileText, Scale, ShieldCheck, Users } from "lucide-react";
+import { FileText, Scale, ShieldCheck, Users } from "lucide-react";
 import { useScrollReveal, revealDelay, revealStagger } from "@/hooks/useScrollReveal";
 import styles from "./complaint.module.css";
 
@@ -74,9 +74,6 @@ export default function SupportOptions() {
               </span>
               <h3 className={styles.supportCardTitle}>{title}</h3>
               <p className={styles.supportCardText}>{text}</p>
-              <span className={styles.supportCardArrow} aria-hidden="true">
-                <ArrowRight size={18} strokeWidth={2} />
-              </span>
             </article>
           ))}
         </div>

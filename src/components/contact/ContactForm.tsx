@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { AlertTriangle, ArrowRight, CircleCheck } from "lucide-react";
 import styles from "./contact.module.css";
 
@@ -35,17 +36,35 @@ const subjectOptions = [
   "Other",
 ];
 
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 function validate(values: FormValues): FormErrors {
   const errors: FormErrors = {};
 
-  if (!values.name.trim()) {
+  // Full Name: No special characters or numbers, letters and spaces only, min 2 chars
+  const trimmedName = values.name.trim();
+  if (!trimmedName) {
     errors.name = "Please enter your full name.";
+  } else if (!/^[a-zA-Z\s]+$/.test(trimmedName)) {
+    errors.name = "Full name can only contain letters and spaces (no special characters or numbers).";
+  } else if (trimmedName.length < 2) {
+    errors.name = "Full name must be at least 2 characters.";
   }
 
-  if (!values.email.trim()) {
+  // Email Address: strictly email format
+  const trimmedEmail = values.email.trim();
+  if (!trimmedEmail) {
     errors.email = "Please enter your email address.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+  } else if (!EMAIL_REGEX.test(trimmedEmail)) {
     errors.email = "Please enter a valid email address.";
+  }
+
+  // Phone Number: No alphabets allowed, strictly 10 digits
+  const trimmedPhone = values.phone.trim();
+  if (!trimmedPhone) {
+    errors.phone = "Please enter your 10-digit phone number.";
+  } else if (trimmedPhone.length !== 10) {
+    errors.phone = "Phone number must be exactly 10 digits.";
   }
 
   if (!values.subject) {
@@ -65,7 +84,7 @@ function validate(values: FormValues): FormErrors {
 
 function FieldError({ id, message }: { id: string; message: string }) {
   return (
-    <p id={id} className={styles.contactSection__error}>
+    <p id={id} className={styles.contactSection__error} role="alert">
       <AlertTriangle size={13} strokeWidth={2} aria-hidden="true" />
       {message}
     </p>
@@ -78,13 +97,42 @@ export default function ContactForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
 
+  // Full Name: No special characters or numbers allowed (letters & spaces only)
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const sanitized = event.target.value.replace(/[^a-zA-Z\s]/g, "");
+    setValues((current) => ({ ...current, name: sanitized }));
+    if (errors.name) {
+      setErrors((current) => ({ ...current, name: undefined }));
+    }
+  };
+
+  // Phone Number: No alphabets allowed, numbers only, max 10 digits
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const digits = event.target.value.replace(/\D/g, "").slice(0, 10);
+    setValues((current) => ({ ...current, phone: digits }));
+    if (errors.phone) {
+      setErrors((current) => ({ ...current, phone: undefined }));
+    }
+  };
+
+  // Email Address
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const val = event.target.value;
+    setValues((current) => ({ ...current, email: val }));
+    if (errors.email) {
+      setErrors((current) => ({ ...current, email: undefined }));
+    }
+  };
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     const target = event.target;
     const value = target.type === "checkbox" ? (target as HTMLInputElement).checked : target.value;
     setValues((current) => ({ ...current, [target.name]: value }));
-    setErrors((current) => ({ ...current, [target.name]: undefined }));
+    if (errors[target.name as keyof FormValues]) {
+      setErrors((current) => ({ ...current, [target.name]: undefined }));
+    }
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -122,6 +170,7 @@ export default function ContactForm() {
       )}
 
       <form className={styles.contactSection__formGrid} onSubmit={handleSubmit} noValidate>
+        {/* Full Name */}
         <div className={styles.contactSection__field}>
           <label htmlFor={`${uid}-name`} className={styles.contactSection__label}>
             Full Name <span aria-hidden="true">*</span>
@@ -134,7 +183,7 @@ export default function ContactForm() {
             placeholder="Enter your full name"
             className={fieldClassName(Boolean(errors.name))}
             value={values.name}
-            onChange={handleChange}
+            onChange={handleNameChange}
             aria-required="true"
             aria-invalid={errors.name ? true : undefined}
             aria-describedby={errors.name ? `${uid}-name-error` : undefined}
@@ -142,6 +191,7 @@ export default function ContactForm() {
           {errors.name && <FieldError id={`${uid}-name-error`} message={errors.name} />}
         </div>
 
+        {/* Email Address */}
         <div className={styles.contactSection__field}>
           <label htmlFor={`${uid}-email`} className={styles.contactSection__label}>
             Email Address <span aria-hidden="true">*</span>
@@ -154,7 +204,7 @@ export default function ContactForm() {
             placeholder="Enter your email address"
             className={fieldClassName(Boolean(errors.email))}
             value={values.email}
-            onChange={handleChange}
+            onChange={handleEmailChange}
             aria-required="true"
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={errors.email ? `${uid}-email-error` : undefined}
@@ -162,22 +212,37 @@ export default function ContactForm() {
           {errors.email && <FieldError id={`${uid}-email-error`} message={errors.email} />}
         </div>
 
+        {/* Phone Number */}
         <div className={styles.contactSection__field}>
           <label htmlFor={`${uid}-phone`} className={styles.contactSection__label}>
-            Phone Number
+            Phone Number <span aria-hidden="true">*</span>
           </label>
-          <input
-            id={`${uid}-phone`}
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            placeholder="Enter your phone number"
-            className={styles.contactSection__input}
-            value={values.phone}
-            onChange={handleChange}
-          />
+          <div
+            className={`${styles.contactPhoneWrap} ${
+              errors.phone ? styles.contactPhoneWrapInvalid : ""
+            }`}
+          >
+            <span className={styles.contactPhonePrefix}>+91</span>
+            <input
+              id={`${uid}-phone`}
+              name="phone"
+              type="tel"
+              inputMode="numeric"
+              maxLength={10}
+              autoComplete="tel-national"
+              placeholder="Enter 10-digit number"
+              className={styles.contactPhoneInput}
+              value={values.phone}
+              onChange={handlePhoneChange}
+              aria-required="true"
+              aria-invalid={errors.phone ? true : undefined}
+              aria-describedby={errors.phone ? `${uid}-phone-error` : undefined}
+            />
+          </div>
+          {errors.phone && <FieldError id={`${uid}-phone-error`} message={errors.phone} />}
         </div>
 
+        {/* Subject */}
         <div className={styles.contactSection__field}>
           <label htmlFor={`${uid}-subject`} className={styles.contactSection__label}>
             Subject <span aria-hidden="true">*</span>
@@ -204,6 +269,7 @@ export default function ContactForm() {
           {errors.subject && <FieldError id={`${uid}-subject-error`} message={errors.subject} />}
         </div>
 
+        {/* Your Message */}
         <div className={`${styles.contactSection__field} ${styles.contactSection__fieldFull}`}>
           <label htmlFor={`${uid}-message`} className={styles.contactSection__label}>
             Your Message <span aria-hidden="true">*</span>
@@ -225,6 +291,7 @@ export default function ContactForm() {
           )}
         </div>
 
+        {/* Terms & Conditions Checkbox */}
         <div className={`${styles.contactSection__field} ${styles.contactSection__fieldFull}`}>
           <div className={styles.contactSection__terms}>
             <input
@@ -237,13 +304,14 @@ export default function ContactForm() {
               aria-describedby={errors.agreed ? `${uid}-terms-error` : undefined}
             />
             <label htmlFor={`${uid}-terms`}>
-              I agree to the <a href="/terms-and-conditions">Terms &amp; Conditions</a> and{" "}
-              <a href="/privacy-policy">Privacy Policy</a>.
+              I agree to the <Link href="/terms">Terms &amp; Conditions</Link> and{" "}
+              <Link href="/privacy">Privacy Policy</Link>.
             </label>
           </div>
           {errors.agreed && <FieldError id={`${uid}-terms-error`} message={errors.agreed} />}
         </div>
 
+        {/* Submit */}
         <div className={`${styles.contactSection__field} ${styles.contactSection__fieldFull}`}>
           <button type="submit" className={styles.contactSection__submit}>
             Send Message

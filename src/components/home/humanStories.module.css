@@ -244,6 +244,16 @@
   color: var(--color-navy);
 }
 
+.eventsHeadingLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.eventsHeadingLink:hover {
+  color: var(--color-gold-dark);
+}
+
 .eventsLink {
   display: inline-flex;
   align-items: center;
@@ -424,12 +434,37 @@
     font-size: 34px;
   }
 
+  .slide {
+    padding-inline: 18px;
+  }
+
+  .card {
+    border-radius: 6px;
+  }
+
+  .imageWrap {
+    height: 98px;
+  }
+
+  .cardBody {
+    padding: 10px 12px;
+  }
+
+  .cardTitle {
+    font-size: 12px;
+  }
+
+  .cardQuote {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+
   .control[data-side="prev"] {
-    left: -11px;
+    left: -2px;
   }
 
   .control[data-side="next"] {
-    right: -11px;
+    right: -2px;
   }
 
   .eventsHead {

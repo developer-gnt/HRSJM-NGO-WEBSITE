@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Icon from "@/components/ui/Icon";
 import styles from "./heroQuickActions.module.css";
 
@@ -6,25 +7,19 @@ const quickActions = [
     icon: "users",
     title: "Join Membership",
     subtitle: "Be a part of the change",
-    href: "#membership",
+    href: "/membership",
   },
   {
     icon: "fileText",
     title: "File a Complaint",
     subtitle: "Get help. We are with you.",
-    href: "#complaint",
+    href: "/complaint",
   },
   {
     icon: "heart",
     title: "Make a Donation",
     subtitle: "Support justice for all.",
-    href: "#donation",
-  },
-  {
-    icon: "refreshCw",
-    title: "Renew Membership",
-    subtitle: "Continue your support.",
-    href: "#renew",
+    href: "/donation#donate",
   },
 ] as const;
 
@@ -33,7 +28,7 @@ export default function HeroQuickActions() {
     <ul className={styles.grid}>
       {quickActions.map((action) => (
         <li key={action.title}>
-          <a href={action.href} className={styles.card}>
+          <Link href={action.href} className={styles.card}>
             <span className={styles.cardIcon}>
               <Icon name={action.icon} />
             </span>
@@ -41,7 +36,7 @@ export default function HeroQuickActions() {
               <span className={styles.cardTitle}>{action.title}</span>
               <span className={styles.cardSubtitle}>{action.subtitle}</span>
             </span>
-          </a>
+          </Link>
         </li>
       ))}
     </ul>

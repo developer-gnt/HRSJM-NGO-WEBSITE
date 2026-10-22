@@ -63,14 +63,6 @@ export default function RightsResources() {
               understand your rights.
             </p>
           </div>
-
-          {/* Placeholder target — swap for the real resources route when it exists */}
-          <a href="#resources" className={styles.viewAll}>
-            View All Resources
-            <span className={styles.viewAllIcon}>
-              <Icon name="arrow" width={15} height={15} strokeWidth={2} />
-            </span>
-          </a>
         </div>
 
         <ul className={styles.grid}>

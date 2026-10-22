@@ -160,7 +160,7 @@ export default function CommunityVoices() {
           </div>
 
           <div className={styles.voicesControls}>
-            <Link href="#latest-news" className={styles.viewAll}>
+            <Link href="/success-stories" className={styles.viewAll}>
               View All Stories
               <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
             </Link>

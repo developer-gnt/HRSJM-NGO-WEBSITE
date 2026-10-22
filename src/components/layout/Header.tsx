@@ -11,6 +11,7 @@ import {
 } from "@/config/navigation";
 import Icon from "@/components/ui/Icon";
 import Logo from "./Logo";
+import { maintenanceConfig } from "@/config/maintenance";
 import styles from "./layout.module.css";
 
 interface HeaderProps {
@@ -60,11 +61,12 @@ export default function Header({ className }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    if (pathname === "/maintenance" || maintenanceConfig.enabled) return;
     const handleScroll = () => setIsScrolled(window.scrollY > 12);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -84,6 +86,10 @@ export default function Header({ className }: HeaderProps) {
     };
   }, [isMenuOpen]);
 
+  if (pathname === "/maintenance" || maintenanceConfig.enabled) {
+    return null;
+  }
+
   const closeMenu = () => setIsMenuOpen(false);
 
   const headerClassName = [styles.header, isScrolled ? styles.scrolled : "", className ?? ""]
@@ -102,9 +108,6 @@ export default function Header({ className }: HeaderProps) {
             </nav>
 
             <div className={styles.headerActions}>
-              <button className={styles.searchButton} type="button" aria-label="Search">
-                <Icon name="search" />
-              </button>
               <Link className={styles.donateButton} href="/donation">
                 <span>Donate Now</span>
                 <Icon name="arrow" />
