@@ -6,36 +6,45 @@ interface Resource {
   title: string;
   image: string;
   pdfUrl: string;
+  fileName: string;
 }
 
-/* TEMPORARY: each pdfUrl points at a public dummy PDF so the Download
-   action works today. These are NOT official HRSJM documents — replace
-   every pdfUrl with the real HRSJM file when it is finalised. */
 const resources: Resource[] = [
   {
     title: "Citizen Rights Handbook",
     image: "/Rights%20PDF%20Cards/card-1.png",
-    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    pdfUrl: "/documents/citizen-rights-handbook.pdf",
+    fileName: "citizen-rights-handbook.pdf",
   },
   {
     title: "Women's Rights Guide",
     image: "/Rights%20PDF%20Cards/card-2.png",
-    pdfUrl: "https://pdfobject.com/pdf/sample.pdf",
+    pdfUrl: "/documents/womens-rights-guide.pdf",
+    fileName: "womens-rights-guide.pdf",
   },
   {
     title: "Child Protection Guide",
     image: "/Rights%20PDF%20Cards/card-3.png",
-    pdfUrl: "https://css4.pub/2015/textbook/somatosensory.pdf",
+    pdfUrl: "/documents/child-protection-guide.pdf",
+    fileName: "child-protection-guide.pdf",
   },
   {
     title: "RTI Application Guide",
     image: "/Rights%20PDF%20Cards/card-4.png",
-    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    pdfUrl: "/documents/rti-application-guide.pdf",
+    fileName: "rti-application-guide.pdf",
   },
   {
     title: "Legal Aid Contacts",
     image: "/Rights%20PDF%20Cards/card-5.png",
-    pdfUrl: "https://pdfobject.com/pdf/sample.pdf",
+    pdfUrl: "/documents/legal-aid-contacts-guide.pdf",
+    fileName: "legal-aid-contacts-guide.pdf",
+  },
+  {
+    title: "Right to Education Guide",
+    image: "/Rights%20PDF%20Cards/card-6.png",
+    pdfUrl: "/documents/right-to-education-guide.pdf",
+    fileName: "right-to-education-guide.pdf",
   },
 ];
 
@@ -69,7 +78,13 @@ export default function RightsResources() {
           {resources.map((resource) => (
             <li key={resource.title} className={styles.cell}>
               <article className={styles.card}>
-                <div className={styles.media}>
+                <a
+                  href={resource.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.media}
+                  aria-label={`Open ${resource.title} PDF`}
+                >
                   <Image
                     src={resource.image}
                     alt={resource.title}
@@ -80,18 +95,26 @@ export default function RightsResources() {
                   <span className={styles.pdfBadge} aria-hidden="true">
                     <Icon name="fileText" width={16} height={16} strokeWidth={1.8} />
                   </span>
-                </div>
+                </a>
 
                 <div className={styles.body}>
-                  <h3 className={styles.cardTitle}>{resource.title}</h3>
+                  <h3 className={styles.cardTitle}>
+                    <a
+                      href={resource.pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.titleLink}
+                    >
+                      {resource.title}
+                    </a>
+                  </h3>
                   <p className={styles.cardType}>(PDF)</p>
 
                   <a
-                    href={resource.pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download
+                    href={`/api/download?file=${resource.fileName}`}
+                    download={resource.fileName}
                     className={styles.download}
+                    aria-label={`Download ${resource.title} PDF`}
                   >
                     <Icon name="download" width={16} height={16} strokeWidth={2} />
                     Download

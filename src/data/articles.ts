@@ -417,7 +417,7 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "hrsjm-community-outreach-program-in-maharashtra",
-    image: "/images/story-1.png",
+    image: "/images/news/card-maharashtra-v2.png",
     alt: "Community members gathered together in an urban settlement",
     category: "Events & Activities",
     title: "HRSJM Community Outreach Program in Maharashtra",
@@ -459,7 +459,7 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "child-rights-building-a-safer-and-brighter-future",
-    image: "/images/story-5.png",
+    image: "/images/news/card-child-rights-v2.png",
     alt: "A smiling child in a classroom full of students",
     category: "Children's Rights",
     title: "Child Rights: Building a Safer and Brighter Future",
@@ -508,8 +508,7 @@ export const latestArticles: Article[] = [
   },
   {
     slug: "hrsjm-in-the-news-recent-media-highlights",
-    image: "/images/news-hero-bg.png",
-    imagePosition: "center 72%",
+    image: "/images/news/card-media-coverage-v2.png",
     alt: "Newspaper front page reading Human Rights — A Stronger India",
     category: "Media Coverage",
     title: "HRSJM in the News: Recent Media Highlights",
@@ -553,5 +552,8 @@ export const latestArticles: Article[] = [
 
 /* Look up a grid article by its URL slug (e.g. "understanding-your-right-to-information-rti"). */
 export function findLatestArticleBySlug(slug: string): Article | undefined {
+  if (featuredArticle.slug === slug) {
+    return featuredArticle;
+  }
   return latestArticles.find((article) => article.slug === slug);
 }
