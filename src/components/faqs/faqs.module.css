@@ -123,10 +123,12 @@
   flex-wrap: wrap;
   gap: 10px;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .statPill {
-  display: flex;
+  display: inline-flex;
   text-decoration: none;
   align-items: center;
   gap: 8px;
@@ -138,6 +140,7 @@
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
+  box-sizing: border-box;
   transition: border-color 220ms ease, background 220ms ease, color 220ms ease,
     transform 220ms ease;
 }
@@ -170,6 +173,10 @@
 
 .statPillActive .statCount {
   background: var(--color-gold);
+}
+
+.statLabel {
+  line-height: 1.2;
 }
 
 /* ================================================================ */
@@ -469,13 +476,48 @@
 
 /* Mobile */
 @media (max-width: 639px) {
+  .heroDescription {
+    margin-bottom: 24px;
+  }
+
   .statList {
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 8px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .statList li {
+    display: flex;
+    width: 100%;
+  }
+
+  /* When an odd number of items exist, center the last item across both columns */
+  .statList li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 
   .statPill {
-    padding: 6px 12px 6px 8px;
-    font-size: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    padding: 9px 12px 9px 10px;
+    font-size: 12.5px;
+    gap: 8px;
+    white-space: nowrap;
+    border-radius: 9999px;
+  }
+
+  .statList li:last-child:nth-child(odd) .statPill {
+    justify-content: center;
+  }
+
+  .statLabel {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .accordionTrigger {
@@ -506,6 +548,25 @@
   .ctaPrimary,
   .ctaSecondary {
     justify-content: center;
+  }
+}
+
+/* Extra small mobile screens (iPhone SE, Galaxy Fold, <= 360px) */
+@media (max-width: 360px) {
+  .statList {
+    gap: 8px 6px;
+  }
+
+  .statPill {
+    padding: 7px 8px;
+    font-size: 11.5px;
+    gap: 6px;
+  }
+
+  .statCount {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
   }
 }
 
