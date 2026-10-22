@@ -82,7 +82,7 @@ export default function RightsResources() {
                     src={resource.image}
                     alt={resource.title}
                     fill
-                    sizes="(min-width: 1024px) 250px, (min-width: 640px) 33vw, calc(100vw - 48px)"
+                    sizes="(min-width: 1024px) 250px, (min-width: 640px) 33vw, calc(50vw - 14px)"
                     className={styles.mediaImg}
                   />
                   <span className={styles.pdfBadge} aria-hidden="true">
