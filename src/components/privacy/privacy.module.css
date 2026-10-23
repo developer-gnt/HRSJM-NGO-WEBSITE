@@ -126,7 +126,7 @@
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
-  padding: 48px clamp(20px, 4vw, 40px);
+  padding: 20px var(--page-padding) 26px;
 }
 
 .heroContent {

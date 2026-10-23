@@ -19,7 +19,7 @@
 .headerInner {
   width: min(100%, var(--container));
   margin: 0 auto;
-  padding: 24px var(--page-padding) 44px;
+  padding: 20px var(--page-padding) 26px;
 }
 
 /* Breadcrumb on the dark band — same recipe as the news hero */

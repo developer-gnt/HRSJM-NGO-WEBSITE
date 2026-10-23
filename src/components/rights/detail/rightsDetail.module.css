@@ -22,7 +22,7 @@
     ),
     linear-gradient(135deg, #021528 0%, #062a4f 55%, #031d38 100%);
   color: var(--color-white);
-  padding: 36px 0 52px;
+  padding: 20px var(--page-padding) 26px;
 }
 
 /* Subtle starry bokeh / particle overlay */
@@ -42,7 +42,7 @@
   position: relative;
   width: min(100%, var(--container));
   margin: 0 auto;
-  padding: 0 var(--page-padding);
+  padding: 0;
 }
 
 /* Breadcrumbs */

@@ -126,6 +126,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .btnGold,
   .btnOutline {
     transition: none;
@@ -139,6 +140,7 @@
   overflow: hidden;
   background: var(--color-navy-dark);
   min-height: 480px;
+  padding: 20px var(--page-padding) 26px;
 }
 
 .heroBackground {
@@ -151,24 +153,23 @@
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(
-    93deg,
-    rgba(3, 26, 50, 0.96) 0%,
-    rgba(3, 26, 50, 0.93) 28%,
-    rgba(3, 26, 50, 0.62) 48%,
-    rgba(3, 26, 50, 0.18) 68%,
-    rgba(3, 26, 50, 0) 100%
-  );
+  background: linear-gradient(93deg,
+      rgba(3, 26, 50, 0.96) 0%,
+      rgba(3, 26, 50, 0.93) 28%,
+      rgba(3, 26, 50, 0.62) 48%,
+      rgba(3, 26, 50, 0.18) 68%,
+      rgba(3, 26, 50, 0) 100%);
 }
 
 .hero .container {
   position: relative;
   z-index: 2;
+  padding-inline: 0;
 }
 
 .heroContent {
   max-width: 620px;
-  padding: 24px 0 20px;
+  /* padding: 24px 0 20px; */
   color: var(--color-white);
   /* Fade-up text entrance, same language as the HRSJM scroll reveals. */
   animation: heroTextIn 700ms cubic-bezier(0.45, 0.05, 0.35, 0.95) both;
@@ -179,6 +180,7 @@
     opacity: 0;
     transform: translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -319,12 +321,10 @@
   }
 
   .heroScrim {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 26, 50, 0.94) 0%,
-      rgba(3, 26, 50, 0.88) 55%,
-      rgba(3, 26, 50, 0.72) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 26, 50, 0.94) 0%,
+        rgba(3, 26, 50, 0.88) 55%,
+        rgba(3, 26, 50, 0.72) 100%);
   }
 
   .heroContent {
@@ -471,14 +471,12 @@
 .benefitsScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    #031a32 0%,
-    #031a32 14%,
-    rgba(3, 26, 50, 0.3) 26%,
-    rgba(247, 244, 236, 0.96) 40%,
-    rgba(248, 245, 238, 0.97) 100%
-  );
+  background: linear-gradient(90deg,
+      #031a32 0%,
+      #031a32 14%,
+      rgba(3, 26, 50, 0.3) 26%,
+      rgba(247, 244, 236, 0.96) 40%,
+      rgba(248, 245, 238, 0.97) 100%);
 }
 
 .benefits .container {
@@ -599,14 +597,12 @@
 /* Tablet — intro on navy above, steps on the light band below */
 @media (max-width: 1023px) {
   .benefitsScrim {
-    background: linear-gradient(
-      180deg,
-      #031a32 0%,
-      #031a32 30%,
-      rgba(3, 26, 50, 0.35) 38%,
-      rgba(247, 244, 236, 0.96) 46%,
-      rgba(248, 245, 238, 0.97) 100%
-    );
+    background: linear-gradient(180deg,
+        #031a32 0%,
+        #031a32 30%,
+        rgba(3, 26, 50, 0.35) 38%,
+        rgba(247, 244, 236, 0.96) 46%,
+        rgba(248, 245, 238, 0.97) 100%);
   }
 
   .benefitsInner {
@@ -1776,13 +1772,11 @@
 .ctaScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 26, 50, 0.93) 0%,
-    rgba(3, 26, 50, 0.84) 36%,
-    rgba(3, 26, 50, 0.48) 64%,
-    rgba(3, 26, 50, 0.24) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 26, 50, 0.93) 0%,
+      rgba(3, 26, 50, 0.84) 36%,
+      rgba(3, 26, 50, 0.48) 64%,
+      rgba(3, 26, 50, 0.24) 100%);
 }
 
 .cta .container {
@@ -1847,11 +1841,9 @@
   }
 
   .ctaScrim {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 26, 50, 0.9) 0%,
-      rgba(3, 26, 50, 0.86) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 26, 50, 0.9) 0%,
+        rgba(3, 26, 50, 0.86) 100%);
   }
 
   .ctaInner {

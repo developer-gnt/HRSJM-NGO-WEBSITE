@@ -34,7 +34,7 @@
   width: min(100%, var(--container));
   margin: 0 auto;
   min-height: 460px;
-  padding: 24px var(--page-padding) 26px;
+  padding: 20px var(--page-padding) 26px;
   display: flex;
   flex-direction: column;
 }

@@ -17,7 +17,7 @@
   position: relative;
   background: var(--color-navy);
   overflow: hidden;
-  padding: clamp(64px, 8vw, 112px) 0 clamp(48px, 6vw, 80px);
+  padding: 20px var(--page-padding) 26px;
 }
 
 /* Subtle decorative radial glow */
@@ -58,7 +58,7 @@
   z-index: 1;
   width: min(100%, var(--container));
   margin: 0 auto;
-  padding: 0 var(--page-padding);
+  padding: 0;
 }
 
 .heroEyebrow {

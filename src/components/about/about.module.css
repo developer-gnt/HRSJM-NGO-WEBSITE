@@ -75,6 +75,11 @@
   color: #ffffff;
   border-bottom: 1px solid #031d38;
   user-select: none;
+  padding: 20px var(--page-padding) 26px;
+}
+
+.hero .container {
+  padding-inline: 0;
 }
 
 .heroBg {

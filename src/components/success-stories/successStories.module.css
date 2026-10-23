@@ -42,7 +42,7 @@
   z-index: 1;
   width: min(100%, var(--container));
   margin: 0 auto;
-  padding: 34px var(--page-padding) 44px;
+  padding: 20px var(--page-padding) 26px;
 }
 
 .breadcrumb {
