@@ -84,9 +84,8 @@ export default function WhoWeAre({ onOpenStory }: WhoWeAreProps) {
                 <button
                   key={item.id}
                   onClick={() => scrollTo(item.targetId)}
-                  className={`${styles.subNavButton} ${
-                    isActive ? styles.subNavButtonActive : ""
-                  }`}
+                  className={`${styles.subNavButton} ${isActive ? styles.subNavButtonActive : ""
+                    }`}
                 >
                   {item.label}
                   {isActive && <span className={styles.subNavActiveBar} />}
@@ -133,16 +132,15 @@ export default function WhoWeAre({ onOpenStory }: WhoWeAreProps) {
 
             <div className={styles.whoCopy}>
               <p>
-                Human Rights &amp; Social Justice Mission (HRSJM) is a
-                democratic, regional network committed to human rights at
-                national and regional levels. We work for democracy, peace,
-                secularism, human security, social justice, dignity and
-                equality.
+                Human Rights and Social Justice Mission (HRSJM) is a democratic regional network with broad
+                memebership base of individual commited to addressing human right issues and promoting
+                social justice act regional,national, and community levels.
               </p>
               <p>
-                Through awareness, advocacy, training, community organising and
-                support, we empower individuals and communities to stand up for
-                their rights and build a fairer, more just society.
+                HRSJM strives to uphold the principles of Peace, Democracy, Secularism, Equality, Human
+                Dignity, and Human Security. We believe in empowering people to express their identities,
+                realize their aspirations, and participate meaningfully in building a just, inclusive, and
+                peaceful society.
               </p>
             </div>
 

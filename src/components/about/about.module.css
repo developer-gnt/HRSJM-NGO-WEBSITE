@@ -917,6 +917,50 @@
   }
 }
 
+.mvCardCta {
+  margin-top: 24px;
+}
+
+.mvCardButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: #d9a928;
+  color: #062a4f;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #d9a928;
+  text-decoration: none;
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+
+.mvCardButton:hover {
+  background: #062a4f;
+  color: #ffffff;
+  border-color: #062a4f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(6, 42, 79, 0.2);
+}
+
+.mvCardButton:active {
+  transform: translateY(0);
+}
+
+.mvCardButtonIcon {
+  width: 16px;
+  height: 16px;
+  transition: transform 200ms ease;
+}
+
+.mvCardButton:hover .mvCardButtonIcon {
+  transform: translateX(3px);
+}
+
+
 /* ---------- 4a. Values & Principles ---------- */
 
 .values {
@@ -2303,5 +2347,281 @@
   .valueCard:hover .valueCardIcon,
   .ctaHotspot:active {
     transform: none;
+  }
+}
+
+/* ============================================================
+   Our History Section Styles (matching exact reference design)
+   ============================================================ */
+
+.historySection {
+  position: relative;
+  background: #ffffff;
+  padding-block: 56px 64px;
+  border-bottom: 1px solid #ede8df;
+  scroll-margin-top: 100px;
+}
+
+@media (min-width: 640px) {
+  .historySection {
+    padding-block: 68px 76px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .historySection {
+    padding-block: 76px 88px;
+  }
+}
+
+.historyBanner {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .historyBanner {
+    grid-template-columns: 1.05fr 1.25fr;
+    gap: 48px;
+  }
+}
+
+.historyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 580px;
+}
+
+.historyEyebrowWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.historyEyebrow {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #062a4f;
+  line-height: 1;
+}
+
+.historyEyebrowBar {
+  width: 54px;
+  height: 3.5px;
+  background: #f59e0b;
+  border-radius: 9999px;
+  margin-top: 7px;
+}
+
+.historyTitle {
+  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #062a4f;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 640px) {
+  .historyTitle {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .historyTitle {
+    font-size: 46px;
+    line-height: 1.12;
+  }
+}
+
+.historyGoldText {
+  color: #e29606;
+  font-weight: inherit;
+}
+
+.historyDescription {
+  font-size: 15.5px;
+  line-height: 1.68;
+  color: #52606d;
+  margin-bottom: 28px;
+  max-width: 520px;
+}
+
+.historyDescription strong {
+  color: #062a4f;
+  font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  .historyDescription {
+    font-size: 16.5px;
+  }
+}
+
+.historyBtnWrap {
+  margin-top: 4px;
+}
+
+.historyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 28px;
+  background: #facb2b;
+  color: #062a4f;
+  border-radius: 9999px;
+  border: none;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  box-shadow: 0 4px 14px -2px rgba(250, 203, 43, 0.4);
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.historyBtn:hover {
+  background: #f5be16;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px -3px rgba(250, 203, 43, 0.55);
+}
+
+.historyBtn:active {
+  transform: translateY(0);
+}
+
+.historyBtnIcon {
+  transition: transform 220ms ease;
+}
+
+.historyBtn:hover .historyBtnIcon {
+  transform: translateX(4px);
+}
+
+.historyCollageWrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.historyCollageImg {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  display: block;
+}
+
+/* 4 Milestone Cards Grid */
+.historyCardsGrid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .historyCardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .historyCardsGrid {
+    margin-top: 52px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
+
+.historyCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(6, 42, 79, 0.03);
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.historyCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -4px rgba(6, 42, 79, 0.08);
+}
+
+.historyCardBadge {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.historyCardIcon {
+  stroke-width: 2.2px;
+}
+
+.historyCardText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.historyCardTitle {
+  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.historyCardSubtitle {
+  font-size: 13.5px;
+  color: #64748b;
+  font-weight: 500;
+  margin-top: 3px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.historyCard:first-child .historyCardTitle {
+  font-size: 22px;
+}
+
+.historyCardDivider {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .historyCardDivider {
+    display: block;
+    position: absolute;
+    right: -11px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 40px;
+    background-color: #e2ddd4;
+    pointer-events: none;
   }
 }

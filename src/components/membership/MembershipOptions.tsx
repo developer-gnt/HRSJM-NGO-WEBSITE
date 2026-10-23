@@ -13,22 +13,22 @@ import styles from "./membership.module.css";
    real plans here when the membership system is connected. */
 const plans = [
   {
-    id: "Individual Member",
-    name: "Individual Member",
+    id: "General Membership",
+    name: "General Membership",
     description:
       "For individuals who want to support HRSJM's mission.",
     icon: User,
   },
   {
-    id: "Community Member",
-    name: "Community Member",
+    id: "Letter Pad Post",
+    name: "Letter Pad Post",
     description:
       "For people who want to participate in community initiatives.",
     icon: Users,
   },
   {
-    id: "Supporting Member",
-    name: "Supporting Member",
+    id: "National Level Post",
+    name: "National Level Post",
     description:
       "For individuals who want to provide additional support to the organisation's mission.",
     icon: HeartHandshake,

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import DonationHero from "@/components/donation/DonationHero";
 import ImpactStats from "@/components/donation/ImpactStats";
 import DonationForm from "@/components/donation/DonationForm";
+import EmergencyDonationSection from "@/components/donation/EmergencyDonationSection";
 import DonationSupports from "@/components/donation/DonationSupports";
 import RealImpact from "@/components/donation/RealImpact";
 import LastingImpact from "@/components/donation/LastingImpact";
@@ -20,6 +21,7 @@ export default function DonationPage() {
       <DonationHero />
       <ImpactStats />
       <DonationForm />
+      <EmergencyDonationSection />
       <DonationSupports />
       <RealImpact />
       <LastingImpact />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Playfair_Display } from "next/font/google";
 import AboutHero from "./AboutHero";
 import WhoWeAre from "./WhoWeAre";
+import OurHistory from "./OurHistory";
 import MissionVision from "./MissionVision";
 import ValuesAndLeadership from "./ValuesAndLeadership";
 import MovementCTA from "./MovementCTA";
@@ -38,7 +39,10 @@ export default function AboutPage() {
         {/* 2. Who We Are & sub-navigation */}
         <WhoWeAre onOpenStory={() => setStoryOpen(true)} />
 
-        {/* 3. Mission & Vision */}
+        {/* 3. Our History section */}
+        <OurHistory />
+
+        {/* 4. Mission & Vision */}
         <MissionVision />
 
         {/* 4. Values, Principles & Leadership */}

@@ -173,8 +173,10 @@ export default function ValuesAndLeadership({
               <h2 className={styles.sectionHeading}>What We Believe In</h2>
 
               <p className={styles.valuesCopy}>
-                Our work is guided by core values that shape our actions,
-                programs and long-term vision for a just society.
+                We respect and promote pluralism, recognizing the diverse social, political, economic, and
+                cultural identities of different communities, including ethnic, linguistic, religious, and other
+                groups. We encourage mutual respect, equal opportunities, peaceful coexistence, and
+                constructive dialogue among all sections of society.
               </p>
             </div>
 
