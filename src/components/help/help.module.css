@@ -26,8 +26,12 @@
   overflow: hidden;
   background-color: var(--color-navy-dark);
   color: var(--color-white);
-  padding: clamp(36px, 4.5vw, 64px) 0 clamp(56px, 6.5vw, 84px);
+  padding: 20px var(--page-padding) 26px;
   border-bottom: 1px solid rgba(250, 210, 92, 0.18);
+}
+
+.hero .container {
+  padding: 0;
 }
 
 .heroBg {

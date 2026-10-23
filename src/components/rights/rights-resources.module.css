@@ -98,8 +98,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
   list-style: none;
 }
 
@@ -172,9 +172,19 @@
 
 .cardTitle {
   color: var(--color-navy);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.3;
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.titleLink:hover {
+  color: var(--color-gold-dark);
 }
 
 .cardType {
@@ -216,7 +226,14 @@
 /* Responsive                                                       */
 /* ---------------------------------------------------------------- */
 
-/* Tablet — 640–1024px: header stacks, 3 cards per row */
+/* Tablet / Laptop breakpoints */
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
 @media (max-width: 1023px) {
   .header {
     grid-template-columns: 1fr;
@@ -230,11 +247,56 @@
   }
 }
 
-/* Mobile — under 640px: one card per row */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+/* Mobile — under 640px: 2-column grid keeps cards compact */
 @media (max-width: 639px) {
   .grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  /* Cap cover image height so it never dominates the viewport.
+     The 2/3 aspect-ratio on a half-viewport card (~185px wide) naturally
+     renders ~277px — max-height adds a hard ceiling on wider phones. */
+  .media {
+    max-height: 300px;
+  }
+
+  .body {
+    padding: 18px 12px 12px;
+  }
+
+  .cardTitle {
+    font-size: 14px;
+  }
+
+  .cardType {
+    margin-top: 2px;
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .download {
+    font-size: 13px;
+    gap: 6px;
+    padding-top: 10px;
+  }
+}
+
+/* Extra-narrow phones (≤ 380px): tighten further */
+@media (max-width: 380px) {
+  .grid {
+    gap: 10px;
+  }
+
+  .media {
+    max-height: 260px;
   }
 }
 

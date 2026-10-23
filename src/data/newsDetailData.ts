@@ -190,7 +190,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/news/card-maharashtra.png",
+        image: "/images/story-1.png",
       },
     ],
   },
@@ -303,7 +303,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/news/card-maharashtra.png",
+        image: "/images/story-1.png",
       },
     ],
   },
@@ -430,7 +430,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/news/card-maharashtra.png",
+        image: "/images/story-1.png",
       },
     ],
   },
@@ -445,7 +445,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
     date: "September 14, 2025",
     readTime: "4 min read",
     bannerImage: "/images/news/banner-maharashtra.png",
-    cardImage: "/images/news/card-maharashtra.png",
+    cardImage: "/images/story-1.png",
     summaryCallout:
       "Grassroots empowerment happens when legal literacy meets community action. Our Maharashtra outreach initiative brings free legal aid, grievance redressal and civil rights guidance directly to vulnerable and underserved settlements.",
     sections: [
@@ -558,7 +558,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Child Rights: Building a Safer and Brighter Future",
         date: "Sep 13, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-child-rights.png",
+        image: "/images/story-5.png",
       },
     ],
   },
@@ -573,7 +573,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
     date: "September 13, 2025",
     readTime: "6 min read",
     bannerImage: "/images/news/banner-child-rights.png",
-    cardImage: "/images/news/card-child-rights.png",
+    cardImage: "/images/story-5.png",
     summaryCallout:
       "Every child has an inherent right to safety, nutrition, quality education, and protection from harm. Building a brighter future requires active vigilance, community awareness, and strict enforcement of child protection laws.",
     sections: [
@@ -686,7 +686,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/news/card-maharashtra.png",
+        image: "/images/story-1.png",
       },
     ],
   },
@@ -701,7 +701,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
     date: "September 12, 2025",
     readTime: "3 min read",
     bannerImage: "/images/news/banner-media-coverage.png",
-    cardImage: "/images/news/card-media-coverage.png",
+    cardImage: "/images/news-hero-bg.png",
     summaryCallout:
       "Responsible journalism and public transparency are the twin pillars of a vibrant democracy. Through sustained media engagement, HRSJM amplifies grassroots human rights issues and holds public institutions accountable.",
     sections: [
@@ -806,7 +806,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "HRSJM Community Outreach Program in Maharashtra",
         date: "Sep 14, 2025",
         readTime: "4 min read",
-        image: "/images/news/card-maharashtra.png",
+        image: "/images/story-1.png",
       },
       {
         slug: "child-rights-building-a-safer-and-brighter-future",
@@ -814,7 +814,134 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         title: "Child Rights: Building a Safer and Brighter Future",
         date: "Sep 13, 2025",
         readTime: "6 min read",
-        image: "/images/news/card-child-rights.png",
+        image: "/images/story-5.png",
+      },
+    ],
+  },
+
+  "strengthening-fundamental-rights-in-a-changing-india": {
+    slug: "strengthening-fundamental-rights-in-a-changing-india",
+    category: "Legal Insights",
+    categorySlug: "legal-insights",
+    title: "Strengthening Fundamental Rights in a Changing India",
+    subtitle:
+      "An in-depth look at recent developments in constitutional protections, judicial rulings and the importance of community-centered action.",
+    date: "September 24, 2025",
+    readTime: "8 min read",
+    bannerImage: "/images/news-featured-supreme-court.png",
+    cardImage: "/images/news-featured-supreme-court.png",
+    summaryCallout:
+      "India's Constitution opens with a promise: justice, liberty, equality and dignity for every citizen. Fundamental Rights are the backbone of that promise — guarantees that protect us in our homes, workplaces, classrooms and courtrooms.",
+    sections: [
+      {
+        id: "understanding-rights",
+        tocTitle: "Understanding Fundamental Rights",
+        heading: "1. Understanding Fundamental Rights",
+        paragraphs: [
+          "The Constitution groups Fundamental Rights into broad protections: equality before the law; freedoms of speech, expression, assembly and movement; protection from exploitation; freedom of religion; and cultural and educational rights. Standing behind them all is the right to constitutional remedies under Article 32.",
+        ],
+      },
+      {
+        id: "constitutional-protections",
+        tocTitle: "Constitutional Protections",
+        heading: "2. Key Constitutional Protections",
+        paragraphs: [
+          "Fundamental rights are enforceable guarantees directly actionable before High Courts and the Supreme Court:",
+        ],
+        steps: [
+          { number: 1, text: "Right to Equality (Articles 14–18) — Non-discrimination and equal opportunity" },
+          { number: 2, text: "Right to Freedom (Articles 19–22) — Speech, peaceful assembly, and personal liberty" },
+          { number: 3, text: "Right against Exploitation (Articles 23–24) — Prohibition of forced and child labour" },
+          { number: 4, text: "Right to Constitutional Remedies (Article 32) — Direct access to the highest court" },
+        ],
+      },
+      {
+        id: "human-rights-daily-life",
+        tocTitle: "Rights in Everyday Life",
+        heading: "3. Human Rights in Everyday Life",
+        paragraphs: [
+          "Rights matter most in ordinary moments: a child staying in school, a worker paid fairly, a family accessing public services without discrimination, and a citizen raising a question with officials and being heard with respect.",
+        ],
+      },
+      {
+        id: "stories-of-justice",
+        tocTitle: "Voices for Constitutional Dignity",
+        heading: "4. Voices for Constitutional Dignity",
+        paragraphs: [],
+        testimonials: [
+          {
+            avatar: "/images/news/avatar-editor.png",
+            quote:
+              "“Constitutional protections remain theoretical until ordinary citizens know how to invoke them without fear.”",
+            name: "Adv. Meera Sen",
+            role: "Constitutional Law Researcher",
+          },
+          {
+            avatar: "/images/news/avatar-journalist.png",
+            quote:
+              "“When communities understand Article 21, they begin demanding healthcare, clean water and fair wages as legal rights, not charity.”",
+            name: "Ramesh Sharma",
+            role: "Grassroots Activist",
+          },
+        ],
+      },
+      {
+        id: "what-citizens-can-do",
+        tocTitle: "What Citizens Can Do",
+        heading: "5. What Citizens Can Do",
+        paragraphs: [
+          "Citizens play an active role in keeping constitutional protections alive across communities:",
+        ],
+        steps: [
+          { number: 1, text: "Educate yourself and your family about basic fundamental freedoms" },
+          { number: 2, text: "Utilize statutory tools like the RTI Act and grievance redressal portals" },
+          { number: 3, text: "Support free legal aid clinics and community rights workshops" },
+          { number: 4, text: "Speak up peacefully against arbitrary actions and discrimination" },
+        ],
+      },
+      {
+        id: "the-road-ahead",
+        tocTitle: "The Road Ahead",
+        heading: "6. The Road Ahead",
+        paragraphs: [
+          "Fundamental rights are India's shared inheritance — and a shared responsibility. As society changes, the work of defending dignity, equality and justice changes with it. HRSJM remains committed to walking alongside communities across the nation.",
+        ],
+      },
+    ],
+    cta: {
+      heading: "Stand for Constitutional Justice",
+      description:
+        "Join our legal literacy and human rights advocacy initiatives to protect and strengthen constitutional freedoms.",
+      buttonText: "Get Involved",
+      buttonHref: "/get-involved",
+    },
+    sidebarQuotePoster: {
+      image: "/images/news/quote-poster-rti.png",
+    },
+    relatedArticles: [
+      {
+        slug: "understanding-your-right-to-information-rti",
+        category: "LEGAL INSIGHTS",
+        title: "Understanding Your Right to Information (RTI)",
+        date: "Sep 20, 2025",
+        readTime: "6 min read",
+        image: "/images/news/card-rti.png",
+      },
+      {
+        slug: "womens-rights-progress-and-the-road-ahead",
+        category: "WOMEN'S RIGHTS",
+        title: "Women's Rights: Progress and the Road Ahead",
+        date: "Sep 18, 2025",
+        readTime: "7 min read",
+        image: "/images/news/card-womens-rights.png",
+      },
+      {
+        slug: "hrsjm-community-outreach-program-in-maharashtra",
+        category: "EVENTS & ACTIVITIES",
+        title: "HRSJM Community Outreach Program in Maharashtra",
+        date: "Sep 14, 2025",
+        readTime: "4 min read",
+        image: "/images/story-1.png",
       },
     ],
   },

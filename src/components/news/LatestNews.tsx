@@ -12,7 +12,7 @@ export default function LatestNews() {
   const sectionRef = useScrollReveal(styles);
 
   return (
-    <section ref={sectionRef} className={styles.latest} aria-labelledby="latest-heading">
+    <section ref={sectionRef} id="latest-news" className={styles.latest} aria-labelledby="latest-heading">
       <div className={styles.sectionInner}>
         <div className={styles.latestGrid}>
           <div className={styles.latestMain}>

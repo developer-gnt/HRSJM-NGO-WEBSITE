@@ -34,7 +34,7 @@
   width: min(100%, var(--container));
   margin: 0 auto;
   min-height: 460px;
-  padding: 24px var(--page-padding) 26px;
+  padding: 20px var(--page-padding) 26px;
   display: flex;
   flex-direction: column;
 }
@@ -665,6 +665,9 @@
   border: 1px solid var(--color-border);
   border-radius: 10px;
   background: var(--color-white);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
@@ -701,13 +704,15 @@
   font-weight: var(--type-display-weight);
   line-height: 1.24;
   color: var(--color-navy);
+  transition: color 200ms ease;
 }
 
 .articleTitle a {
   transition: color 200ms ease;
 }
 
-.articleTitle a:hover {
+.articleTitle a:hover,
+.articleCard:hover .articleTitle {
   color: var(--color-gold-dark);
 }
 

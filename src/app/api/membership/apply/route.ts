@@ -16,9 +16,13 @@ export async function POST(request: Request) {
       state,
       pincode,
       country,
+      policeStation,
       idProofName,
       addressProofName,
+      qualificationName,
       photoName,
+      agreePrivacy,
+      agreeTerms,
       packageName,
       packageFee,
     } = data;
@@ -33,7 +37,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!address1 || !city || !state || !pincode || !country) {
+    if (!address1 || !city || !state || !pincode || !country || !policeStation) {
       return NextResponse.json(
         {
           success: false,
@@ -43,11 +47,21 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!idProofName || !addressProofName || !photoName) {
+    if (!idProofName || !addressProofName || !qualificationName || !photoName) {
       return NextResponse.json(
         {
           success: false,
-          error: "All 3 required documents (Identity Proof, Address Proof, Photograph) must be uploaded.",
+          error: "All 4 required documents (Identity Proof, Address Proof, Qualification, Photograph) must be uploaded.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!agreePrivacy || !agreeTerms) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "You must accept the Privacy Policy and Terms & Conditions before submitting.",
         },
         { status: 400 }
       );
