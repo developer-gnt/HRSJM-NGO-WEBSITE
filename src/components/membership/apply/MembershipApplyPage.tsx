@@ -13,6 +13,7 @@ import Step3DocumentUpload, {
   type Step3Data,
   type DocumentUploadItem,
 } from "./Step3DocumentUpload";
+import Step4Payment, { type Step4Data } from "./Step4Payment";
 import ApplicationSuccessModal from "./ApplicationSuccessModal";
 import {
   findMembershipPackage,
@@ -35,10 +36,10 @@ function MembershipApplyContent() {
     }
   }, [postParam]);
 
-  // Current Step (1, 2, or 3)
-  const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
+  // Current Step (1, 2, 3, or 4)
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
 
-  // Shared Form State across all 3 steps
+  // Step 1 State: Personal Information
   const [step1Data, setStep1Data] = useState<Step1Data>({
     photoFile: null,
     photoPreview: null,
@@ -47,8 +48,11 @@ function MembershipApplyContent() {
     gender: "",
     phone: "",
     email: "",
+    priorConviction: "No",
+    priorConvictionDetails: "",
   });
 
+  // Step 2 State: Address Details
   const [step2Data, setStep2Data] = useState<Step2Data>({
     address1: "",
     address2: "",
@@ -58,17 +62,28 @@ function MembershipApplyContent() {
     country: "India",
   });
 
+  // Step 3 State: Document Upload & Agreements
   const emptyDoc: DocumentUploadItem = { file: null, name: "", size: 0 };
   const [step3Data, setStep3Data] = useState<Step3Data>({
     idProof: emptyDoc,
     addressProof: emptyDoc,
     photograph: emptyDoc,
+    termsAgreed: false,
+    pledgeAgreed: false,
+    declarationAgreed: false,
+  });
+
+  // Step 4 State: Payment Step
+  const [step4Data, setStep4Data] = useState<Step4Data>({
+    paymentMode: "upi_bank",
+    paymentReference: "",
   });
 
   // Validation Errors
   const [step1Errors, setStep1Errors] = useState<Record<string, string>>({});
   const [step2Errors, setStep2Errors] = useState<Record<string, string>>({});
   const [step3Errors, setStep3Errors] = useState<Record<string, string>>({});
+  const [step4Errors, setStep4Errors] = useState<Record<string, string>>({});
 
   // Submission State
   const [submitting, setSubmitting] = useState(false);
@@ -80,7 +95,7 @@ function MembershipApplyContent() {
     submittedAt: string;
   } | null>(null);
 
-  // Step 1 Changes
+  // Field change handlers
   const handleStep1Change = (field: keyof Step1Data, value: any) => {
     setStep1Data((prev) => ({ ...prev, [field]: value }));
     if (step1Errors[field]) {
@@ -88,7 +103,6 @@ function MembershipApplyContent() {
     }
   };
 
-  // Step 2 Changes
   const handleStep2Change = (field: keyof Step2Data, value: string) => {
     setStep2Data((prev) => ({ ...prev, [field]: value }));
     if (step2Errors[field]) {
@@ -96,11 +110,17 @@ function MembershipApplyContent() {
     }
   };
 
-  // Step 3 Changes
-  const handleStep3Change = (field: keyof Step3Data, value: DocumentUploadItem) => {
+  const handleStep3Change = (field: keyof Step3Data, value: any) => {
     setStep3Data((prev) => ({ ...prev, [field]: value }));
     if (step3Errors[field]) {
       setStep3Errors((prev) => ({ ...prev, [field]: undefined! }));
+    }
+  };
+
+  const handleStep4Change = (field: keyof Step4Data, value: string) => {
+    setStep4Data((prev) => ({ ...prev, [field]: value }));
+    if (step4Errors[field]) {
+      setStep4Errors((prev) => ({ ...prev, [field]: undefined! }));
     }
   };
 
@@ -138,6 +158,10 @@ function MembershipApplyContent() {
       errors.email = "Please enter your email address.";
     } else if (!emailRegex.test(trimmedEmail)) {
       errors.email = "Please enter a valid email address.";
+    }
+
+    if (step1Data.priorConviction === "Yes" && !step1Data.priorConvictionDetails.trim()) {
+      errors.priorConvictionDetails = "Please provide details regarding prior conviction.";
     }
 
     setStep1Errors(errors);
@@ -185,11 +209,21 @@ function MembershipApplyContent() {
       errors.photograph = "Please upload Photograph.";
     }
 
+    if (!step3Data.termsAgreed) {
+      errors.termsAgreed = "You must review and agree to the Terms & Conditions.";
+    }
+    if (!step3Data.pledgeAgreed) {
+      errors.pledgeAgreed = "You must solemnly take the HRSJM Membership Pledge.";
+    }
+    if (!step3Data.declarationAgreed) {
+      errors.declarationAgreed = "You must accept the Self-Declaration confirming accuracy.";
+    }
+
     setStep3Errors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  // Step 1 -> Step 2
+  // Step Transitions
   const handleContinueStep1 = () => {
     if (validateStep1()) {
       setCurrentStep(2);
@@ -197,7 +231,6 @@ function MembershipApplyContent() {
     }
   };
 
-  // Step 2 -> Step 3
   const handleContinueStep2 = () => {
     if (validateStep2()) {
       setCurrentStep(3);
@@ -205,10 +238,15 @@ function MembershipApplyContent() {
     }
   };
 
-  // Step 3 -> Final Submit
-  const handleFinalSubmit = async () => {
-    if (!validateStep3()) return;
+  const handleContinueStep3 = () => {
+    if (validateStep3()) {
+      setCurrentStep(4);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+    }
+  };
 
+  // Final Submit from Step 4
+  const handleFinalSubmit = async () => {
     setSubmitting(true);
     try {
       const payload = {
@@ -217,6 +255,8 @@ function MembershipApplyContent() {
         gender: step1Data.gender,
         phone: step1Data.phone,
         email: step1Data.email,
+        priorConviction: step1Data.priorConviction,
+        priorConvictionDetails: step1Data.priorConvictionDetails,
         address1: step2Data.address1,
         address2: step2Data.address2,
         city: step2Data.city,
@@ -229,6 +269,11 @@ function MembershipApplyContent() {
         packageName: selectedPackage.item.post,
         packageFee: selectedPackage.item.fees,
         packageValidity: selectedPackage.item.validity,
+        termsAgreed: step3Data.termsAgreed,
+        pledgeAgreed: step3Data.pledgeAgreed,
+        declarationAgreed: step3Data.declarationAgreed,
+        paymentMode: step4Data.paymentMode === "upi_bank" ? "UPI / Bank Transfer" : "Online Gateway (Pending Verification)",
+        paymentReference: step4Data.paymentReference,
       };
 
       const res = await fetch("/api/membership/apply", {
@@ -274,7 +319,6 @@ function MembershipApplyContent() {
 
         <div className={styles.container}>
           <div className={styles.heroInner}>
-            {/* Breadcrumb */}
             <nav className={styles.breadcrumb} aria-label="Breadcrumb">
               <Link href="/">Home</Link>
               <ChevronRight size={14} strokeWidth={2.2} aria-hidden="true" />
@@ -285,11 +329,10 @@ function MembershipApplyContent() {
               </span>
             </nav>
 
-            {/* Hero Copy */}
             <div className={styles.heroContent}>
               <p className={styles.heroEyebrow}>
                 <span className={styles.heroEyebrowSquare} aria-hidden="true" />
-                MEMBERSHIP
+                MEMBERSHIP REGISTRATION
               </p>
 
               <h1 id="apply-heading" className={styles.heroHeading}>
@@ -299,8 +342,8 @@ function MembershipApplyContent() {
 
               <p className={styles.heroDescription}>
                 Join HRSJM and be a part of a larger movement for human dignity,
-                equality and justice. Together we can build a more just, fairer
-                and inclusive society.
+                equality and justice. Together we can build a fairer and more
+                inclusive society.
               </p>
             </div>
           </div>
@@ -311,7 +354,7 @@ function MembershipApplyContent() {
       <main className={styles.mainContent}>
         <div className={styles.container}>
           <div className={styles.cardContainer}>
-            {/* Three-Step Progress Indicator */}
+            {/* Four-Step Progress Indicator */}
             <ProgressIndicator
               currentStep={currentStep}
               onStepClick={(step) => setCurrentStep(step)}
@@ -344,15 +387,30 @@ function MembershipApplyContent() {
               />
             )}
 
-            {/* Step 3: Document Upload */}
+            {/* Step 3: Document Upload & Declarations */}
             {currentStep === 3 && (
               <Step3DocumentUpload
                 data={step3Data}
                 onChange={handleStep3Change}
                 onBack={() => setCurrentStep(2)}
+                onNext={handleContinueStep3}
+                errors={step3Errors}
+              />
+            )}
+
+            {/* Step 4: Payment Step & Application Review */}
+            {currentStep === 4 && (
+              <Step4Payment
+                data={step4Data}
+                onChange={handleStep4Change}
+                selectedPackage={selectedPackage}
+                applicantName={step1Data.fullName}
+                applicantPhone={step1Data.phone}
+                applicantEmail={step1Data.email}
+                onBack={() => setCurrentStep(3)}
                 onSubmit={handleFinalSubmit}
                 submitting={submitting}
-                errors={step3Errors}
+                errors={step4Errors}
               />
             )}
           </div>

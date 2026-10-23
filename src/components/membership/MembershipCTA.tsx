@@ -35,10 +35,10 @@ export default function MembershipCTA() {
               society.
             </p>
             <div className={styles.ctaActions}>
-              <a href="#membership-form" className={styles.btnGold}>
+              <Link href="/membership/categories" className={styles.btnGold}>
                 Become a Member
                 <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
-              </a>
+              </Link>
               <Link href="/contact" className={styles.btnOutline}>
                 Contact Us
                 <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />

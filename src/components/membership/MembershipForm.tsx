@@ -129,6 +129,8 @@ const beforeYouJoin = [
   },
 ];
 
+import Link from "next/link";
+
 interface FormValues {
   fullName: string;
   email: string;
@@ -139,9 +141,13 @@ interface FormValues {
   city: string;
   address: string;
   membershipType: string;
+  priorConviction: "No" | "Yes";
+  priorConvictionDetails: string;
   reason: string;
   contributions: string[];
-  agreed: boolean;
+  termsAgreed: boolean;
+  pledgeAgreed: boolean;
+  declarationAgreed: boolean;
 }
 
 const emptyValues: FormValues = {
@@ -154,15 +160,21 @@ const emptyValues: FormValues = {
   city: "",
   address: "",
   membershipType: "",
+  priorConviction: "No",
+  priorConvictionDetails: "",
   reason: "",
   contributions: [],
-  agreed: false,
+  termsAgreed: false,
+  pledgeAgreed: false,
+  declarationAgreed: false,
 };
 
 export default function MembershipForm() {
   const [values, setValues] = useState<FormValues>(emptyValues);
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [applicationRef, setApplicationRef] = useState<string>("");
   const [infoOpen, setInfoOpen] = useState<number | null>(null);
 
   /* Preselect membership type from URL search params or custom event */
@@ -189,7 +201,7 @@ export default function MembershipForm() {
     };
   }, []);
 
-  const setField = (field: keyof FormValues, value: string | boolean) => {
+  const setField = (field: keyof FormValues, value: any) => {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
@@ -223,18 +235,71 @@ export default function MembershipForm() {
     if (!values.membershipType) {
       next.membershipType = "Please choose a membership type.";
     }
-    if (!values.agreed) {
-      next.agreed = "Please agree to the Membership Terms and Privacy Policy.";
+    if (values.priorConviction === "Yes" && !values.priorConvictionDetails.trim()) {
+      next.priorConvictionDetails = "Please provide details regarding prior conviction.";
+    }
+    if (!values.termsAgreed) {
+      next.termsAgreed = "Please review and agree to the Terms & Conditions.";
+    }
+    if (!values.pledgeAgreed) {
+      next.pledgeAgreed = "Please solemnly take the HRSJM Membership Pledge.";
+    }
+    if (!values.declarationAgreed) {
+      next.declarationAgreed = "Please accept the Self-Declaration confirming accuracy.";
     }
     return next;
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const next = validate();
     setErrors(next);
-    if (Object.keys(next).length === 0) {
+    if (Object.keys(next).length > 0) return;
+
+    setSubmitting(true);
+    try {
+      const payload = {
+        fullName: values.fullName,
+        dob: values.dateOfBirth || "2000-01-01",
+        gender: values.gender || "Prefer not to say",
+        phone: values.phone,
+        email: values.email,
+        priorConviction: values.priorConviction,
+        priorConvictionDetails: values.priorConvictionDetails,
+        address1: values.address || values.city,
+        city: values.city,
+        state: values.state,
+        pincode: "400001",
+        country: "India",
+        idProofName: "Pending document upload / Provided in follow-up",
+        addressProofName: "Pending document upload / Provided in follow-up",
+        photoName: "Pending document upload / Provided in follow-up",
+        packageName: values.membershipType,
+        packageFee: "Registration Fee according to category",
+        termsAgreed: values.termsAgreed,
+        pledgeAgreed: values.pledgeAgreed,
+        declarationAgreed: values.declarationAgreed,
+      };
+
+      const res = await fetch("/api/membership/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        alert(data.error || "Submission failed. Please check your data and retry.");
+        return;
+      }
+
+      setApplicationRef(data.applicationRef || "HRSJM-APPLIED");
       setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      alert("Network error connecting to application server.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -242,6 +307,7 @@ export default function MembershipForm() {
     setValues(emptyValues);
     setErrors({});
     setSubmitted(false);
+    setApplicationRef("");
   };
 
   return (
@@ -276,9 +342,15 @@ export default function MembershipForm() {
                   <Check size={26} strokeWidth={2.4} aria-hidden="true" />
                 </span>
                 <h3 className={styles.successTitle}>Application Received</h3>
+                {applicationRef && (
+                  <p style={{ fontWeight: 700, color: "#0a3a6b", margin: "6px 0 10px", fontSize: 15 }}>
+                    Application Ref: {applicationRef}
+                  </p>
+                )}
                 <p className={styles.successText}>
                   Thank you for your interest in becoming an HRSJM member. Your
-                  membership application has been received.
+                  membership application has been recorded and an acknowledgment
+                  notification has been sent.
                 </p>
                 <p className={styles.successNote}>
                   Our team will contact you using the details you provided.
@@ -529,35 +601,143 @@ export default function MembershipForm() {
                     />
                   </div>
 
+                  {/* Prior Conviction Question */}
+                  <div className={`${styles.field} ${styles.fieldFull}`}>
+                    <label className={styles.label}>
+                      Have you ever been convicted, arrested, or penalised by any court of law or judicial authority? <span aria-hidden="true">*</span>
+                    </label>
+                    <p style={{ fontSize: 11.5, color: "#64748b", margin: "-2px 0 8px" }}>
+                      <em>(Note: Exact question wording and eligibility guidelines subject to confirmation by HRSJM legal / administrative committee)</em>
+                    </p>
+                    <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+                      <label style={{ display: "inline-flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 13.5 }}>
+                        <input
+                          type="radio"
+                          name="m-conviction"
+                          value="No"
+                          checked={values.priorConviction === "No"}
+                          onChange={() => setField("priorConviction", "No")}
+                        />
+                        <span>No</span>
+                      </label>
+                      <label style={{ display: "inline-flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 13.5 }}>
+                        <input
+                          type="radio"
+                          name="m-conviction"
+                          value="Yes"
+                          checked={values.priorConviction === "Yes"}
+                          onChange={() => setField("priorConviction", "Yes")}
+                        />
+                        <span>Yes</span>
+                      </label>
+                    </div>
+                    {values.priorConviction === "Yes" && (
+                      <div style={{ marginTop: 10 }}>
+                        <textarea
+                          className={styles.textarea}
+                          rows={3}
+                          placeholder="Please provide details (case reference, year, or nature of order)..."
+                          value={values.priorConvictionDetails}
+                          onChange={(e) => setField("priorConvictionDetails", e.target.value)}
+                        />
+                        {errors.priorConvictionDetails ? (
+                          <p className={styles.fieldError} role="alert">
+                            {errors.priorConvictionDetails}
+                          </p>
+                        ) : null}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Mandatory Checkbox 1: Terms & Conditions */}
                   <div className={`${styles.field} ${styles.fieldFull}`}>
                     <label className={styles.agreeRow}>
                       <input
                         type="checkbox"
                         className={styles.chipInput}
-                        checked={values.agreed}
-                        onChange={(e) => setField("agreed", e.target.checked)}
+                        checked={values.termsAgreed}
+                        onChange={(e) => setField("termsAgreed", e.target.checked)}
                         aria-required="true"
-                        aria-invalid={errors.agreed ? true : undefined}
                       />
                       <span className={styles.chipBox} aria-hidden="true">
-                        {values.agreed ? (
+                        {values.termsAgreed ? (
                           <Check size={12} strokeWidth={3} />
                         ) : null}
                       </span>
                       <span>
-                        I agree to the Membership Terms and Privacy Policy.
+                        I agree to the{" "}
+                        <Link href="/terms" target="_blank" style={{ color: "var(--color-navy)", textDecoration: "underline" }}>
+                          Terms &amp; Conditions
+                        </Link>{" "}
+                        and official Bye-Laws. <span style={{ color: "#dc2626" }}>*</span>
                       </span>
                     </label>
-                    {errors.agreed ? (
+                    {errors.termsAgreed ? (
                       <p className={styles.fieldError} role="alert">
-                        {errors.agreed}
+                        {errors.termsAgreed}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  {/* Mandatory Checkbox 2: Membership Pledge */}
+                  <div className={`${styles.field} ${styles.fieldFull}`}>
+                    <label className={styles.agreeRow}>
+                      <input
+                        type="checkbox"
+                        className={styles.chipInput}
+                        checked={values.pledgeAgreed}
+                        onChange={(e) => setField("pledgeAgreed", e.target.checked)}
+                        aria-required="true"
+                      />
+                      <span className={styles.chipBox} aria-hidden="true">
+                        {values.pledgeAgreed ? (
+                          <Check size={12} strokeWidth={3} />
+                        ) : null}
+                      </span>
+                      <span>
+                        I solemnly take the{" "}
+                        <Link href="/constitution" target="_blank" style={{ color: "var(--color-navy)", textDecoration: "underline" }}>
+                          HRSJM Membership Pledge
+                        </Link>{" "}
+                        to protect human rights. <span style={{ color: "#dc2626" }}>*</span>
+                      </span>
+                    </label>
+                    {errors.pledgeAgreed ? (
+                      <p className={styles.fieldError} role="alert">
+                        {errors.pledgeAgreed}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  {/* Mandatory Checkbox 3: Self-Declaration */}
+                  <div className={`${styles.field} ${styles.fieldFull}`}>
+                    <label className={styles.agreeRow}>
+                      <input
+                        type="checkbox"
+                        className={styles.chipInput}
+                        checked={values.declarationAgreed}
+                        onChange={(e) => setField("declarationAgreed", e.target.checked)}
+                        aria-required="true"
+                      />
+                      <span className={styles.chipBox} aria-hidden="true">
+                        {values.declarationAgreed ? (
+                          <Check size={12} strokeWidth={3} />
+                        ) : null}
+                      </span>
+                      <span>
+                        I declare that all information submitted is accurate and authentic. <span style={{ color: "#dc2626" }}>*</span>
+                      </span>
+                    </label>
+                    {errors.declarationAgreed ? (
+                      <p className={styles.fieldError} role="alert">
+                        {errors.declarationAgreed}
                       </p>
                     ) : null}
                   </div>
                 </div>
 
-                <button type="submit" className={styles.submitButton}>
-                  Submit Membership Application
+                <button type="submit" className={styles.submitButton} disabled={submitting}>
+                  {submitting ? "Submitting Application..." : "Submit Membership Application"}
                   <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
                 </button>
 

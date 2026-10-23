@@ -1,17 +1,24 @@
 import { NextResponse } from "next/server";
+import {
+  saveMembershipRecord,
+  type MembershipRecord,
+} from "@/lib/membershipStorage";
+import { sendMembershipApplicationEmail } from "@/lib/emailService";
 
 export async function POST(request: Request) {
   try {
     const data = await request.json();
 
-    // Required fields validation
     const {
       fullName,
       dob,
       gender,
       phone,
       email,
+      priorConviction,
+      priorConvictionDetails,
       address1,
+      address2,
       city,
       state,
       pincode,
@@ -21,8 +28,15 @@ export async function POST(request: Request) {
       photoName,
       packageName,
       packageFee,
+      packageValidity,
+      termsAgreed,
+      pledgeAgreed,
+      declarationAgreed,
+      paymentMode,
+      paymentReference,
     } = data;
 
+    // 1. Personal Information Validation
     if (!fullName || !phone || !email || !dob || !gender) {
       return NextResponse.json(
         {
@@ -33,6 +47,30 @@ export async function POST(request: Request) {
       );
     }
 
+    // 2. Prior Conviction Question Validation
+    if (!priorConviction || !["No", "Yes"].includes(priorConviction)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "Please answer the mandatory question regarding prior conviction/punishment.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (priorConviction === "Yes" && !priorConvictionDetails?.trim()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "Please provide details regarding your prior conviction or legal proceeding.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // 3. Address Details Validation
     if (!address1 || !city || !state || !pincode || !country) {
       return NextResponse.json(
         {
@@ -43,28 +81,105 @@ export async function POST(request: Request) {
       );
     }
 
+    // 4. Documents Validation
     if (!idProofName || !addressProofName || !photoName) {
       return NextResponse.json(
         {
           success: false,
-          error: "All 3 required documents (Identity Proof, Address Proof, Photograph) must be uploaded.",
+          error:
+            "All 3 required documents (Identity Proof, Address Proof, Photograph) must be uploaded.",
         },
         { status: 400 }
       );
     }
 
-    // Generate real application reference number
+    // 5. Mandatory Checkboxes Validation (Terms & Conditions, Membership Pledge, Declaration)
+    if (!termsAgreed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "You must review and agree to the HRSJM Terms & Conditions to proceed.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!pledgeAgreed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "You must solemnly accept the HRSJM Membership Pledge to proceed.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!declarationAgreed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "You must accept the Self-Declaration confirming accuracy of information.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // 6. Generate real application reference number
     const randomSuffix = Math.floor(100000 + Math.random() * 900000);
     const applicationRef = `HRSJM-${new Date().getFullYear()}-${randomSuffix}`;
+    const submittedAt = new Date().toISOString();
+
+    const record: MembershipRecord = {
+      applicationRef,
+      submittedAt,
+      fullName: String(fullName).trim(),
+      dob,
+      gender,
+      phone: String(phone).trim(),
+      email: String(email).trim().toLowerCase(),
+      priorConviction,
+      priorConvictionDetails: priorConvictionDetails?.trim() || undefined,
+      address1: String(address1).trim(),
+      address2: address2 ? String(address2).trim() : undefined,
+      city: String(city).trim(),
+      state,
+      pincode: String(pincode).trim(),
+      country: String(country || "India").trim(),
+      idProofName,
+      addressProofName,
+      photoName,
+      packageName: packageName || "District Active Member",
+      packageFee: packageFee || "₹800",
+      packageValidity: packageValidity || "1 Year",
+      termsAgreed: Boolean(termsAgreed),
+      pledgeAgreed: Boolean(pledgeAgreed),
+      declarationAgreed: Boolean(declarationAgreed),
+      paymentMode: paymentMode || "Pending / Offline Verification",
+      paymentReference: paymentReference?.trim() || undefined,
+      status: "pending_review",
+    };
+
+    // 7. Save application record to persistent storage
+    const storageResult = await saveMembershipRecord(record);
+    if (!storageResult.success) {
+      console.warn("Storage warning:", storageResult.error);
+    }
+
+    // 8. Send confirmation email (with fallback)
+    const emailResult = await sendMembershipApplicationEmail(record);
 
     return NextResponse.json({
       success: true,
       applicationRef,
       message: "Membership application submitted successfully.",
-      submittedAt: new Date().toISOString(),
-      applicantName: fullName,
-      packageName: packageName || "District Active Member",
-      packageFee: packageFee || "₹800",
+      submittedAt,
+      applicantName: record.fullName,
+      packageName: record.packageName,
+      packageFee: record.packageFee,
+      emailStatus: emailResult.status,
     });
   } catch (error) {
     console.error("Membership application error:", error);

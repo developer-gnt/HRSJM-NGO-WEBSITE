@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, type ChangeEvent, type FormEvent } from "react";
+import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
@@ -8,9 +9,9 @@ import {
   CheckCircle2,
   FileText,
   FileUp,
-  Loader2,
   Trash2,
   AlertCircle,
+  ShieldCheck,
 } from "lucide-react";
 import styles from "./apply.module.css";
 
@@ -24,14 +25,16 @@ export interface Step3Data {
   idProof: DocumentUploadItem;
   addressProof: DocumentUploadItem;
   photograph: DocumentUploadItem;
+  termsAgreed: boolean;
+  pledgeAgreed: boolean;
+  declarationAgreed: boolean;
 }
 
 interface Step3Props {
   data: Step3Data;
-  onChange: (field: keyof Step3Data, value: DocumentUploadItem) => void;
+  onChange: (field: keyof Step3Data, value: any) => void;
   onBack: () => void;
-  onSubmit: () => void;
-  submitting: boolean;
+  onNext: () => void;
   errors: Record<string, string>;
 }
 
@@ -39,8 +42,7 @@ export default function Step3DocumentUpload({
   data,
   onChange,
   onBack,
-  onSubmit,
-  submitting,
+  onNext,
   errors,
 }: Step3Props) {
   const browseIdRef = useRef<HTMLInputElement>(null);
@@ -53,13 +55,12 @@ export default function Step3DocumentUpload({
   const cameraPhotoRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (
-    field: keyof Step3Data,
+    field: "idProof" | "addressProof" | "photograph",
     e: ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Check size <= 5MB
     if (file.size > 5 * 1024 * 1024) {
       alert("File size exceeds 5MB limit. Please upload a smaller file.");
       return;
@@ -87,7 +88,7 @@ export default function Step3DocumentUpload({
     });
   };
 
-  const handleRemove = (field: keyof Step3Data) => {
+  const handleRemove = (field: "idProof" | "addressProof" | "photograph") => {
     onChange(field, {
       file: null,
       name: "",
@@ -103,15 +104,15 @@ export default function Step3DocumentUpload({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    onSubmit();
+    onNext();
   };
 
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className={styles.stepHeader}>
-        <h2 className={styles.sectionHeading}>Document Upload</h2>
+        <h2 className={styles.sectionHeading}>Documents &amp; Declarations</h2>
         <p className={styles.sectionSubtitle}>
-          Please upload the required documents (3 documents).
+          Upload the 3 required identity documents and accept the mandatory mission agreements.
         </p>
       </div>
 
@@ -143,7 +144,6 @@ export default function Step3DocumentUpload({
           </div>
 
           <div className={styles.docUploadBox}>
-            {/* Hidden native inputs */}
             <input
               ref={browseIdRef}
               type="file"
@@ -442,31 +442,116 @@ export default function Step3DocumentUpload({
         </div>
       </div>
 
+      {/* Mandatory Checkboxes Section */}
+      <div
+        style={{
+          background: "#ffffff",
+          border: "1px solid #e2e8f0",
+          borderRadius: 10,
+          padding: "20px 22px",
+          marginTop: 20,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+          <ShieldCheck size={20} style={{ color: "#0a3a6b" }} />
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: "var(--color-navy)", margin: 0 }}>
+            Mandatory Declarations &amp; Agreements
+          </h3>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {/* Checkbox 1: Terms & Conditions */}
+          <div>
+            <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", fontSize: 13, color: "#1e293b", lineHeight: 1.45 }}>
+              <input
+                type="checkbox"
+                checked={data.termsAgreed}
+                onChange={(e) => onChange("termsAgreed", e.target.checked)}
+                style={{ marginTop: 2 }}
+              />
+              <span>
+                I have read, understood, and agree to abide by the{" "}
+                <Link
+                  href="/terms"
+                  target="_blank"
+                  style={{ color: "#0a3a6b", fontWeight: 600, textDecoration: "underline" }}
+                >
+                  HRSJM Terms &amp; Conditions
+                </Link>{" "}
+                and official Bye-Laws. <span style={{ color: "#dc2626" }}>*</span>
+              </span>
+            </label>
+            {errors.termsAgreed && (
+              <p className={styles.fieldError} style={{ marginLeft: 24 }}>
+                <AlertCircle size={12} /> {errors.termsAgreed}
+              </p>
+            )}
+          </div>
+
+          {/* Checkbox 2: Membership Pledge */}
+          <div>
+            <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", fontSize: 13, color: "#1e293b", lineHeight: 1.45 }}>
+              <input
+                type="checkbox"
+                checked={data.pledgeAgreed}
+                onChange={(e) => onChange("pledgeAgreed", e.target.checked)}
+                style={{ marginTop: 2 }}
+              />
+              <span>
+                I solemnly take the{" "}
+                <Link
+                  href="/constitution"
+                  target="_blank"
+                  style={{ color: "#0a3a6b", fontWeight: 600, textDecoration: "underline" }}
+                >
+                  HRSJM Membership Pledge
+                </Link>{" "}
+                to promote constitutional rights, protect human dignity, and serve the community without discrimination. <span style={{ color: "#dc2626" }}>*</span>
+              </span>
+            </label>
+            {errors.pledgeAgreed && (
+              <p className={styles.fieldError} style={{ marginLeft: 24 }}>
+                <AlertCircle size={12} /> {errors.pledgeAgreed}
+              </p>
+            )}
+          </div>
+
+          {/* Checkbox 3: Declaration */}
+          <div>
+            <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", fontSize: 13, color: "#1e293b", lineHeight: 1.45 }}>
+              <input
+                type="checkbox"
+                checked={data.declarationAgreed}
+                onChange={(e) => onChange("declarationAgreed", e.target.checked)}
+                style={{ marginTop: 2 }}
+              />
+              <span>
+                I hereby declare that all information and uploaded documents provided by me are authentic, true, and correct to the best of my knowledge. I understand that any false statement or suppression of material facts will lead to immediate cancellation of membership and legal liability. <span style={{ color: "#dc2626" }}>*</span>
+              </span>
+            </label>
+            {errors.declarationAgreed && (
+              <p className={styles.fieldError} style={{ marginLeft: 24 }}>
+                <AlertCircle size={12} /> {errors.declarationAgreed}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* Navigation Actions */}
       <div className={styles.navActions}>
         <button
           type="button"
           className={styles.btnOutline}
           onClick={onBack}
-          disabled={submitting}
         >
           <ArrowLeft size={16} strokeWidth={2.4} /> Back
         </button>
         <button
           type="submit"
           className={styles.btnGold}
-          disabled={submitting}
         >
-          {submitting ? (
-            <>
-              <Loader2 size={16} className="animate-spin" /> Submitting
-              Application...
-            </>
-          ) : (
-            <>
-              Submit Application <ArrowRight size={17} strokeWidth={2.4} />
-            </>
-          )}
+          Proceed to Payment &amp; Review <ArrowRight size={17} strokeWidth={2.4} />
         </button>
       </div>
     </form>
