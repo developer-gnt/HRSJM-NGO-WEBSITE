@@ -5,11 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   AlertTriangle,
-  ArrowRight,
   Check,
   ChevronRight,
-  HelpCircle,
-  RefreshCw,
   Search,
   ShieldCheck,
 } from "lucide-react";
@@ -213,6 +210,29 @@ export default function MembershipRenewPage() {
               );
             })}
           </div>
+
+          <p
+            style={{
+              fontSize: 13,
+              color: "#64748b",
+              textAlign: "center",
+              margin: "24px auto",
+              maxWidth: 600,
+            }}
+          >
+            Please review our{" "}
+            <Link
+              href="/refund-and-cancellation-policy/"
+              style={{
+                color: "#0a3a6b",
+                fontWeight: 600,
+                textDecoration: "underline",
+              }}
+            >
+              Refund &amp; Cancellation Policy
+            </Link>{" "}
+            before completing your payment.
+          </p>
 
           {/* Member ID Lookup */}
           <div className={styles.lookupCard}>

@@ -1,0 +1,235 @@
+/* ==========================================================================
+   HRSJM About Page: Aims & Objectives Section Styles
+   Theme: Deep Navy (#062a4f), Gold (#fad25c, #d9a928), Cream (#faf8f2)
+   ========================================================================== */
+
+.aimsSection {
+  position: relative;
+  width: 100%;
+  background: #faf8f2;
+  padding-block: clamp(56px, 6vw, 92px);
+  overflow: hidden;
+  border-top: 1px solid #ebe5d8;
+  border-bottom: 1px solid #ebe5d8;
+}
+
+/* Decorative Watermarks */
+.watermarkTarget {
+  position: absolute;
+  top: 24px;
+  right: -20px;
+  width: 280px;
+  height: 280px;
+  color: #fad25c;
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.watermarkPeople {
+  position: absolute;
+  bottom: 0;
+  right: 40px;
+  width: 240px;
+  height: 180px;
+  color: #fad25c;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: min(100%, var(--container, 1200px));
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 40px);
+}
+
+.aimsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .aimsGrid {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(40px, 5vw, 64px);
+  }
+}
+
+/* Left Column */
+.aimsLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 500px;
+}
+
+.eyebrow {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #062a4f;
+  line-height: 1;
+  margin: 0;
+}
+
+.eyebrowUnderline {
+  width: 38px;
+  height: 3px;
+  background: #d9a928;
+  border-radius: 9999px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.heading {
+  font-family: var(--font-display), Cormorant Garamond, Georgia, serif;
+  font-size: clamp(32px, 3.8vw, 48px);
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px 0;
+}
+
+.goldText {
+  color: #d9a928;
+}
+
+.description {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: clamp(14.5px, 1.05vw, 16px);
+  line-height: 1.7;
+  color: #52606d;
+  margin: 0 0 28px 0;
+}
+
+.exploreButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 26px;
+  background: #f5ba31;
+  color: #062a4f;
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(217, 169, 40, 0.35);
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.exploreButton:hover {
+  background: #e6ab23;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 169, 40, 0.45);
+}
+
+.exploreButtonIcon {
+  transition: transform 180ms ease;
+}
+
+.exploreButton:hover .exploreButtonIcon {
+  transform: translateX(4px);
+}
+
+/* Right Column (2x2 Cards Grid) */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 600px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+}
+
+.aimCard {
+  background: #ffffff;
+  border: 1px solid #ebe5d8;
+  border-radius: 16px;
+  padding: 22px 20px 18px;
+  box-shadow: 0 4px 14px rgba(6, 42, 79, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.aimCard:hover {
+  transform: translateY(-3px);
+  border-color: #d9a928;
+  box-shadow: 0 10px 24px rgba(6, 42, 79, 0.08);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.iconWrap {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #fdf5df;
+  border: 1px solid rgba(217, 169, 40, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b8861b;
+  transition: transform 180ms ease;
+}
+
+.aimCard:hover .iconWrap {
+  transform: scale(1.06);
+  background: #fae8b4;
+  color: #062a4f;
+}
+
+.cardTitle {
+  font-family: var(--font-display), Cormorant Garamond, Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.cardText {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #64748b;
+  margin: 0 0 14px 0;
+  flex: 1;
+}
+
+.cardImageWrap {
+  width: 100%;
+  height: 110px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.cardImage {
+  object-fit: cover;
+  transition: transform 350ms ease;
+}
+
+.aimCard:hover .cardImage {
+  transform: scale(1.05);
+}

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { valuesList, leadershipMembers } from "./aboutData";
 import type { LeadershipMember } from "./aboutData";
+import AboutAimsSection from "./AboutAimsSection";
 import styles from "./about.module.css";
 
 interface ValuesAndLeadershipProps {
@@ -197,6 +198,9 @@ export default function ValuesAndLeadership({
         </div>
       </section>
 
+      {/* Aims & Objectives Section */}
+      <AboutAimsSection />
+
       {/* Section 2: Our Leadership */}
       <section id="leadership" className={styles.leadership}>
         <div className={styles.container}>
@@ -249,16 +253,19 @@ export default function ValuesAndLeadership({
 
                     {/* Content */}
                     <div className={styles.leaderBody}>
-                      <div>
-                        <h3 className={styles.leaderName}>{member.name}</h3>
-                        <p className={styles.leaderDesignation}>
-                          {member.designation}
-                        </p>
-                      </div>
+                      <p className={styles.leaderCategory}>{member.designation}</p>
+                      <h3 className={styles.leaderName}>{member.name}</h3>
 
                       <p className={styles.leaderQuote}>
                         “{member.quote}”
                       </p>
+
+                      <div className={styles.leaderFooter}>
+                        <span className={styles.leaderMeta}>View Profile</span>
+                        <span className={styles.leaderArrow} aria-hidden="true">
+                          <ArrowRight size={15} strokeWidth={2.2} />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 ))}

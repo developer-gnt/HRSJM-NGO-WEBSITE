@@ -98,9 +98,21 @@ export default function Footer() {
         <p>© 2026 HRSJM. All rights reserved.</p>
         <nav aria-label="Legal navigation">
           <ul>
-            {legalLinks.map((link) => (
-              <li key={link.href}><Link href={link.href}>{link.label}</Link></li>
-            ))}
+            {legalLinks.map((link) => {
+              const cleanHref = link.href.replace(/\/$/, "");
+              const cleanPath = pathname?.replace(/\/$/, "");
+              const isActive = cleanPath === cleanHref;
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={isActive ? styles.legalLinkActive : undefined}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
         <button

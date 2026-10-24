@@ -18,6 +18,7 @@ export interface ContactItem {
 export const quickLinks: FooterLink[] = [
   { label: "Home", href: "/" },
   { label: "About HRSJM", href: "/about" },
+  { label: "Aims & Objectives", href: "/aims-and-objectives" },
   { label: "Know Your Rights", href: "/rights" },
   { label: "What We Do", href: "/what-hrsjm-does" },
   { label: "Membership", href: "/membership" },
@@ -73,4 +74,6 @@ export const contactItems: ContactItem[] = [
 export const legalLinks: FooterLink[] = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms & Conditions", href: "/terms" },
+  { label: "Refund & Cancellation Policy", href: "/refund-and-cancellation-policy/" },
 ];
+
