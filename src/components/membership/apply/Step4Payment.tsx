@@ -1,17 +1,14 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { type FormEvent } from "react";
+import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
-  CheckCircle2,
   CreditCard,
-  Building2,
   QrCode,
   ShieldCheck,
-  AlertCircle,
   Loader2,
-  HelpCircle,
 } from "lucide-react";
 import type { UnifiedMembershipPackage } from "../categories/categoriesData";
 import styles from "./apply.module.css";
@@ -296,6 +293,31 @@ export default function Step4Payment({
           </div>
         )}
       </div>
+
+      <p
+        style={{
+          fontSize: 12.5,
+          color: "#64748b",
+          textAlign: "center",
+          margin: "0 0 16px 0",
+          lineHeight: 1.5,
+        }}
+      >
+        Please review our{" "}
+        <Link
+          href="/refund-and-cancellation-policy/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            color: "#0a3a6b",
+            fontWeight: 600,
+            textDecoration: "underline",
+          }}
+        >
+          Refund &amp; Cancellation Policy
+        </Link>{" "}
+        before completing your payment.
+      </p>
 
       {/* Navigation Actions */}
       <div className={styles.navActions}>

@@ -422,6 +422,11 @@
   gap: 16px;
 }
 
+.legalLinkActive {
+  color: var(--color-gold) !important;
+  font-weight: 700;
+}
+
 .backToTop {
   min-width: 92px;
   min-height: 40px;

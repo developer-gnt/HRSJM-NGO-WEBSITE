@@ -83,9 +83,7 @@ export default function Step3DocumentUpload({
     });
   };
 
-  const handleRemove = (
-    field: "idProof" | "addressProof" | "qualification" | "photograph"
-  ) => {
+  const handleRemove = (field: "idProof" | "addressProof" | "qualification" | "photograph") => {
     onChange(field, {
       file: null,
       name: "",

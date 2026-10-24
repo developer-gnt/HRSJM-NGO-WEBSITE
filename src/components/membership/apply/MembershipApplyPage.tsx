@@ -278,6 +278,9 @@ function MembershipApplyContent() {
         packageName: selectedPackage.item.post,
         packageFee: selectedPackage.item.fees,
         packageValidity: selectedPackage.item.validity,
+        termsAgreed: step3Data.agreeTerms,
+        pledgeAgreed: step3Data.agreeTerms,
+        declarationAgreed: step3Data.agreePrivacy,
         paymentMode: step4Data.paymentMode === "upi_bank" ? "UPI / Bank Transfer" : "Online Gateway (Pending Verification)",
         paymentReference: step4Data.paymentReference,
       };

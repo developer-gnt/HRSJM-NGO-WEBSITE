@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
@@ -368,6 +369,14 @@ export default function DonationForm() {
                 </div>
               </div>
             )}
+
+            <p className={styles.policyNotice}>
+              Please review our{" "}
+              <Link href="/refund-and-cancellation-policy/" className={styles.policyNoticeLink}>
+                Refund &amp; Cancellation Policy
+              </Link>{" "}
+              before completing your payment.
+            </p>
 
             {message ? (
               <p
