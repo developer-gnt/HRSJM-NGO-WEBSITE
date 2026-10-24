@@ -1736,16 +1736,17 @@
    EMERGENCY & HUMANITARIAN ASSISTANCE SECTION
    ============================================================ */
 .emergencySection {
-  padding-block: 72px 84px;
-  background-color: #fbf9f4;
-  border-top: 1px solid #ede8df;
-  border-bottom: 1px solid #ede8df;
+  scroll-margin-top: 130px;
+  padding-block: clamp(64px, 7vw, 100px);
+  background-color: var(--color-cream);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   position: relative;
 }
 
 @media (min-width: 1024px) {
   .emergencySection {
-    padding-block: 84px 96px;
+    padding-block: clamp(76px, 8vw, 110px);
   }
 }
 
@@ -1780,40 +1781,42 @@
 }
 
 .emergencyEyebrowBar {
-  width: 34px;
+  width: 32px;
   height: 3px;
-  background-color: #f59e0b;
-  border-radius: 2px;
+  background-color: var(--color-gold-dark);
+  border-radius: 9999px;
 }
 
 .emergencyEyebrow {
-  font-size: 13px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #0c2340;
+  color: var(--color-gold-dark);
   line-height: 1;
 }
 
 .emergencyMainHeading {
-  font-family: var(--font-display), "Georgia", "Times New Roman", serif;
-  font-size: clamp(2.2rem, 3.4vw, 3.4rem);
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(32px, 3.8vw, 50px);
   font-weight: 700;
-  line-height: 1.12;
-  color: #0c2340;
+  line-height: 1.15;
+  color: var(--color-navy);
   margin: 0 0 18px 0;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
 }
 
 .emergencyGoldText {
-  color: #e59819;
+  color: var(--color-gold-dark);
   font-weight: 700;
 }
 
 .emergencyDescription {
+  font-family: var(--font-body), "Manrope", sans-serif;
   font-size: clamp(14.5px, 1.1vw, 16px);
-  line-height: 1.6;
-  color: #4a5568;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
   margin: 0 0 28px 0;
   max-width: 530px;
 }
@@ -1822,21 +1825,23 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #f5b726;
-  color: #0c2340;
-  padding: 13px 26px;
-  border-radius: 9999px;
-  font-weight: 700;
+  min-height: 48px;
+  padding: 12px 26px;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(100deg, var(--color-gold) 0%, #ffd97e 100%);
+  color: var(--color-navy-dark);
+  font-family: var(--font-body), "Manrope", sans-serif;
   font-size: 15px;
+  font-weight: 700;
   text-decoration: none;
-  transition: all 180ms ease;
-  box-shadow: 0 4px 14px rgba(245, 183, 38, 0.35);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  box-shadow: 0 6px 18px rgba(6, 42, 79, 0.16);
 }
 
 .btnExploreEmergency:hover {
-  background: #e5a818;
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(245, 183, 38, 0.45);
+  box-shadow: 0 10px 24px rgba(6, 42, 79, 0.22);
 }
 
 .emergencyHeroMedia {
@@ -1848,11 +1853,12 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10.3;
-  min-height: 300px;
-  border-radius: 18px;
+  min-height: 280px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px -6px rgba(12, 35, 64, 0.12);
-  background: #fbf9f4;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 12px 32px rgba(6, 42, 79, 0.08);
+  background: var(--color-white);
 }
 
 .emergencyMontageImg {
@@ -1865,8 +1871,8 @@
 .emergencyCardsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 22px;
-  margin-bottom: 52px;
+  gap: 20px;
+  margin-bottom: 50px;
 }
 
 @media (min-width: 640px) {
@@ -1879,7 +1885,7 @@
   .emergencyCardsGrid {
     grid-template-columns: repeat(4, 1fr);
     gap: 18px;
-    margin-bottom: 60px;
+    margin-bottom: 56px;
   }
 }
 
@@ -1889,40 +1895,31 @@
   }
 }
 
-.emergencyCard {
+/* Unified luxury white card styled to match global design system */
+.emergencyCard,
+.cardMedical,
+.cardEducation,
+.cardDisaster,
+.cardHousing {
   display: flex;
   flex-direction: column;
-  padding: 22px 20px 20px;
-  border-radius: 16px;
-  border: 1px solid;
-  transition: transform 220ms ease, box-shadow 220ms ease;
+  padding: 24px 22px 22px;
+  border-radius: 14px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 18px rgba(6, 42, 79, 0.05);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
   height: 100%;
-  background: #ffffff;
 }
 
-.emergencyCard:hover {
+.emergencyCard:hover,
+.cardMedical:hover,
+.cardEducation:hover,
+.cardDisaster:hover,
+.cardHousing:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px -4px rgba(12, 35, 64, 0.1);
-}
-
-.cardMedical {
-  background: #f0f7ff;
-  border-color: #dbeafe;
-}
-
-.cardEducation {
-  background: #f0fdf4;
-  border-color: #dcfce7;
-}
-
-.cardDisaster {
-  background: #fff7ed;
-  border-color: #ffedd5;
-}
-
-.cardHousing {
-  background: #faf5ff;
-  border-color: #f3e8ff;
+  border-color: rgba(184, 137, 22, 0.45);
+  box-shadow: 0 16px 36px rgba(6, 42, 79, 0.1);
 }
 
 .cardHeaderTop {
@@ -1933,46 +1930,42 @@
   margin-bottom: 12px;
 }
 
+/* Refined icon wrap matching global navy and gold themes */
 .iconWrapMedical,
 .iconWrapEducation,
 .iconWrapDisaster,
-.iconWrapHousing {
-  width: 48px;
-  height: 48px;
+.iconWrapHousing,
+.cardIconWrap {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #ffffff;
+  background: rgba(250, 210, 92, 0.2);
+  border: 1px solid rgba(184, 137, 22, 0.35);
+  color: var(--color-gold-dark);
+  transition: transform 200ms ease, background-color 200ms ease, color 200ms ease;
 }
 
-.iconWrapMedical {
-  background: #0058b8;
-  box-shadow: 0 4px 10px rgba(0, 88, 184, 0.25);
-}
-
-.iconWrapEducation {
-  background: #04783b;
-  box-shadow: 0 4px 10px rgba(4, 120, 59, 0.25);
-}
-
-.iconWrapDisaster {
-  background: #e65100;
-  box-shadow: 0 4px 10px rgba(230, 81, 0, 0.25);
-}
-
-.iconWrapHousing {
-  background: #6b21a8;
-  box-shadow: 0 4px 10px rgba(107, 33, 168, 0.25);
+.emergencyCard:hover .iconWrapMedical,
+.emergencyCard:hover .iconWrapEducation,
+.emergencyCard:hover .iconWrapDisaster,
+.emergencyCard:hover .iconWrapHousing,
+.emergencyCard:hover .cardIconWrap {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-gold);
+  transform: scale(1.05);
 }
 
 .cardTitle {
-  font-family: var(--font-display), "Georgia", serif;
-  font-size: 18px;
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 20px;
   font-weight: 700;
-  color: #0c2340;
-  line-height: 1.22;
+  color: var(--color-navy);
+  line-height: 1.25;
   margin: 0;
   flex: 1;
   text-align: left;
@@ -1981,56 +1974,40 @@
 .arrowCircleMedical,
 .arrowCircleEducation,
 .arrowCircleDisaster,
-.arrowCircleHousing {
-  width: 28px;
-  height: 28px;
+.arrowCircleHousing,
+.cardArrowCircle {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid;
+  border: 1px solid var(--color-border);
+  background: rgba(6, 42, 79, 0.03);
+  color: var(--color-navy);
   text-decoration: none;
-  transition: transform 150ms ease, background 150ms ease;
+  transition: transform 160ms ease, background-color 160ms ease, color 160ms ease, border-color 160ms ease;
   flex-shrink: 0;
 }
 
 .arrowCircleMedical:hover,
 .arrowCircleEducation:hover,
 .arrowCircleDisaster:hover,
-.arrowCircleHousing:hover {
+.arrowCircleHousing:hover,
+.cardArrowCircle:hover {
   transform: translateX(2px);
-}
-
-.arrowCircleMedical {
-  border-color: #bfdbfe;
-  color: #0058b8;
-  background: #ffffff;
-}
-
-.arrowCircleEducation {
-  border-color: #bbf7d0;
-  color: #04783b;
-  background: #ffffff;
-}
-
-.arrowCircleDisaster {
-  border-color: #fed7aa;
-  color: #e65100;
-  background: #ffffff;
-}
-
-.arrowCircleHousing {
-  border-color: #e9d5ff;
-  color: #6b21a8;
-  background: #ffffff;
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-navy-dark);
 }
 
 .cardDesc {
+  font-family: var(--font-body), "Manrope", sans-serif;
   font-size: 13.5px;
-  line-height: 1.5;
-  color: #4a5568;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
   margin: 0 0 16px 0;
-  min-height: 58px;
+  min-height: 60px;
   text-align: left;
 }
 
@@ -2038,10 +2015,11 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9.5;
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
   margin-bottom: 18px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 3px 10px rgba(6, 42, 79, 0.05);
 }
 
 .cardImg {
@@ -2050,66 +2028,55 @@
   display: block;
 }
 
+/* Card Action Button — High-End Navy Button matching global UI (no rainbow buttons) */
 .btnCardMedical,
 .btnCardEducation,
 .btnCardDisaster,
-.btnCardHousing {
+.btnCardHousing,
+.btnCardAction {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: 100%;
   min-height: 44px;
-  border-radius: 9999px;
-  font-size: 14.5px;
+  border-radius: 8px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 14px;
   font-weight: 700;
-  color: #ffffff;
+  background: var(--color-navy);
+  color: var(--color-white);
   text-decoration: none;
   transition: all 180ms ease;
   margin-top: auto;
+  box-shadow: 0 4px 14px rgba(6, 42, 79, 0.15);
 }
 
 .btnCardMedical:hover,
 .btnCardEducation:hover,
 .btnCardDisaster:hover,
-.btnCardHousing:hover {
+.btnCardHousing:hover,
+.btnCardAction:hover {
+  background: var(--color-navy-dark);
+  color: var(--color-gold);
   transform: translateY(-1px);
-  filter: brightness(1.08);
-}
-
-.btnCardMedical {
-  background: #0058b8;
-  box-shadow: 0 4px 12px rgba(0, 88, 184, 0.28);
-}
-
-.btnCardEducation {
-  background: #04783b;
-  box-shadow: 0 4px 12px rgba(4, 120, 59, 0.28);
-}
-
-.btnCardDisaster {
-  background: #e65100;
-  box-shadow: 0 4px 12px rgba(230, 81, 0, 0.28);
-}
-
-.btnCardHousing {
-  background: #6b21a8;
-  box-shadow: 0 4px 12px rgba(107, 33, 168, 0.28);
+  box-shadow: 0 8px 22px rgba(6, 42, 79, 0.24);
+  filter: none;
 }
 
 /* Bottom Trust & Impact Strip */
 .emergencyTrustCard {
-  background: #ffffff;
-  border-radius: 18px;
-  border: 1px solid #ede8df;
-  padding: 26px 30px;
-  box-shadow: 0 8px 24px -4px rgba(12, 35, 64, 0.05);
+  background: var(--color-white);
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  padding: 24px 28px;
+  box-shadow: 0 8px 24px rgba(6, 42, 79, 0.05);
 }
 
 .emergencyTrustGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 22px;
+  gap: 20px;
   align-items: center;
 }
 
@@ -2122,48 +2089,55 @@
 @media (min-width: 1024px) {
   .emergencyTrustGrid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
+    gap: 24px;
   }
 }
 
 .trustItem {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 14px;
 }
 
 .trustBadgeNavy,
 .trustBadgeGold,
 .trustBadgeBlue,
-.trustBadgeAmber {
-  width: 50px;
-  height: 50px;
+.trustBadgeAmber,
+.trustBadge {
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #ffffff;
+  background: rgba(250, 210, 92, 0.2);
+  border: 1px solid rgba(184, 137, 22, 0.35);
+  color: var(--color-gold-dark);
 }
 
 .trustBadgeNavy {
-  background: #0c2340;
-  box-shadow: 0 4px 12px rgba(12, 35, 64, 0.2);
+  background: var(--color-navy);
+  color: var(--color-gold);
+  border: 1px solid var(--color-navy);
 }
 
 .trustBadgeGold {
-  background: #f5b726;
-  box-shadow: 0 4px 12px rgba(245, 183, 38, 0.25);
+  background: linear-gradient(135deg, var(--color-gold) 0%, #ffe08a 100%);
+  color: var(--color-navy-dark);
+  border: 0;
 }
 
 .trustBadgeBlue {
-  background: #0058b8;
-  box-shadow: 0 4px 12px rgba(0, 88, 184, 0.22);
+  background: rgba(6, 42, 79, 0.08);
+  border: 1px solid rgba(6, 42, 79, 0.15);
+  color: var(--color-navy);
 }
 
 .trustBadgeAmber {
-  background: #e59819;
-  box-shadow: 0 4px 12px rgba(229, 152, 25, 0.22);
+  background: rgba(184, 137, 22, 0.16);
+  border: 1px solid rgba(184, 137, 22, 0.3);
+  color: var(--color-gold-dark);
 }
 
 .trustText {
@@ -2173,17 +2147,18 @@
 }
 
 .trustTitle {
-  font-family: var(--font-display), "Georgia", serif;
-  font-size: 16.5px;
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 16px;
   font-weight: 700;
-  color: #0c2340;
+  color: var(--color-navy);
   margin: 0 0 2px 0;
   line-height: 1.25;
 }
 
 .trustDesc {
+  font-family: var(--font-body), "Manrope", sans-serif;
   font-size: 12.5px;
-  color: #52606d;
+  color: var(--color-text-secondary);
   line-height: 1.4;
   margin: 0;
 }
