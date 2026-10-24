@@ -12,16 +12,15 @@
   color: var(--color-white);
   display: flex;
   flex-direction: column;
-  /* Compact cinematic height (430–500px): the page continues straight
-     below the hero, so it stays inside the first viewport without
-     dominating it. */
-  min-height: clamp(430px, calc(100vh - 128px), 500px);
+  min-height: clamp(500px, 64vh, 660px);
 }
 
 /* Background image + readability scrims */
 .heroBg {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .heroImg {
@@ -29,16 +28,17 @@
   object-position: center;
 }
 
-/* Left scrim only — deep navy where the copy sits, easing out so the
+/* Left scrim — deep navy where the copy sits, easing out so the
    woman/community composition on the right keeps its golden light. */
 .heroScrim {
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg,
-      rgba(3, 29, 56, 0.88) 0%,
-      rgba(3, 29, 56, 0.55) 30%,
-      rgba(3, 29, 56, 0.15) 54%,
-      rgba(3, 29, 56, 0) 72%);
+      rgba(3, 29, 56, 0.94) 0%,
+      rgba(3, 29, 56, 0.88) 32%,
+      rgba(3, 29, 56, 0.45) 55%,
+      rgba(3, 29, 56, 0.1) 75%,
+      transparent 100%);
   pointer-events: none;
 }
 
@@ -47,25 +47,29 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg,
-      rgba(3, 29, 56, 0.38) 0%,
+      rgba(3, 29, 56, 0.5) 0%,
       rgba(3, 29, 56, 0) 24%,
       rgba(3, 29, 56, 0) 70%,
-      rgba(3, 29, 56, 0.45) 100%);
+      rgba(3, 29, 56, 0.5) 100%);
   pointer-events: none;
 }
 
 .heroInner {
   position: relative;
+  z-index: 2;
   flex: 1;
-  width: min(100%, var(--container));
+  width: min(100%, var(--container, 1440px));
   margin: 0 auto;
-  padding: 20px var(--page-padding) 26px;
+  padding: clamp(36px, 4.5vw, 60px) var(--page-padding, 32px);
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .heroContent {
-  max-width: 47%;
+  position: relative;
+  z-index: 3;
+  max-width: clamp(520px, 52%, 680px);
   margin-block: auto;
 }
 
@@ -232,6 +236,7 @@
   position: absolute;
   top: clamp(22px, 5vw, 64px);
   right: clamp(24px, 5vw, 76px);
+  z-index: 3;
   pointer-events: none;
 }
 
@@ -250,6 +255,7 @@
   position: absolute;
   right: calc(var(--page-padding) + 12px);
   bottom: 26px;
+  z-index: 4;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -372,13 +378,12 @@
 /* Tablet — 640–1024px */
 @media (max-width: 1023px) {
 
-  /* Same viewport-fit strategy as desktop with a shorter navbar */
   .hero {
-    min-height: clamp(430px, calc(100vh - 118px), 500px);
+    min-height: 520px;
   }
 
   .heroContent {
-    max-width: 62%;
+    max-width: 72%;
   }
 
   .heroImg {
@@ -1877,3 +1882,385 @@
     transition: none;
   }
 }
+
+/* ---------------------------------------------------------------- */
+/* Section — What We Do (Programs & Key Action Sectors)             */
+/* ---------------------------------------------------------------- */
+
+.whatWeDoSection {
+  background: var(--color-white, #ffffff);
+  border-bottom: 1px solid var(--color-border, #e5e0d5);
+  padding: clamp(64px, 7vw, 96px) 0;
+  position: relative;
+}
+
+.whatWeDoInner {
+  width: min(100%, var(--container, 1440px));
+  margin: 0 auto;
+  padding-inline: var(--page-padding, 32px);
+}
+
+.whatWeDoHeader {
+  max-width: 780px;
+  margin-bottom: 48px;
+}
+
+.whatWeDoEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-gold-dark, #b88916);
+  margin-bottom: 12px;
+}
+
+.whatWeDoEyebrowDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--color-gold-dark, #b88916);
+}
+
+.whatWeDoHeading {
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(32px, 3.8vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-navy, #062a4f);
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.whatWeDoHeadingLine {
+  display: block;
+  color: var(--color-gold-dark, #b88916);
+}
+
+.whatWeDoDescription {
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 15.5px;
+  line-height: 1.68;
+  color: var(--color-text-secondary, #52606d);
+}
+
+.whatWeDoGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+@media (min-width: 640px) {
+  .whatWeDoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .whatWeDoGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+.whatWeDoCard {
+  background: var(--color-cream, #f7f4ec);
+  border: 1px solid var(--color-border, #e5e0d5);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+  box-shadow: 0 4px 14px rgba(6, 42, 79, 0.04);
+}
+
+.whatWeDoCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(6, 42, 79, 0.12);
+  border-color: rgba(184, 137, 22, 0.45);
+}
+
+.whatWeDoCardMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.whatWeDoCardImg {
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+
+.whatWeDoCard:hover .whatWeDoCardImg {
+  transform: scale(1.05);
+}
+
+.whatWeDoCardBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--color-navy, #062a4f);
+  color: var(--color-gold, #fad25c);
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.whatWeDoCardBody {
+  padding: 22px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.whatWeDoCardHead {
+  margin-bottom: 10px;
+}
+
+.whatWeDoCardTitle {
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--color-navy, #062a4f);
+  line-height: 1.25;
+}
+
+.whatWeDoCardSubtitle {
+  display: block;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gold-dark, #b88916);
+  margin-top: 3px;
+}
+
+.whatWeDoCardText {
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--color-text-secondary, #52606d);
+  margin-bottom: 16px;
+}
+
+.whatWeDoHighlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--color-border, #e5e0d5);
+}
+
+.whatWeDoHighlightItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-text-primary, #102a43);
+}
+
+.whatWeDoHighlightIcon {
+  color: var(--color-gold-dark, #b88916);
+  flex-shrink: 0;
+  margin-top: 1.5px;
+}
+
+.whatWeDoCardCta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-navy, #062a4f);
+  text-decoration: none;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.whatWeDoCardCta:hover {
+  color: var(--color-gold-dark, #b88916);
+}
+
+.whatWeDoCardCtaArrow {
+  transition: transform 200ms ease;
+}
+
+.whatWeDoCardCta:hover .whatWeDoCardCtaArrow {
+  transform: translateX(4px);
+}
+
+/* Action Domains Callout Strip */
+
+.whatWeDoDomainsStrip {
+  background: var(--color-navy, #062a4f);
+  color: var(--color-white, #ffffff);
+  border-radius: 14px;
+  padding: 26px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 12px 32px rgba(6, 42, 79, 0.16);
+}
+
+@media (min-width: 900px) {
+  .whatWeDoDomainsStrip {
+    flex-direction: row;
+    gap: 32px;
+  }
+}
+
+.whatWeDoDomainsIntro {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.whatWeDoDomainsTag {
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-gold, #fad25c);
+  margin-bottom: 4px;
+}
+
+.whatWeDoDomainsTitle {
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-white, #ffffff);
+  white-space: nowrap;
+}
+
+.whatWeDoDomainsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.whatWeDoDomainPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-white, #ffffff);
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.whatWeDoDomainPill:hover {
+  background: rgba(250, 210, 92, 0.2);
+  border-color: var(--color-gold, #fad25c);
+  color: var(--color-gold, #fad25c);
+}
+
+.domainDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--color-gold, #fad25c);
+}
+
+.whatWeDoDomainsBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(100deg, var(--color-gold, #fad25c) 0%, #ffd97e 100%);
+  color: var(--color-navy-dark, #031d38);
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 200ms ease;
+  box-shadow: 0 4px 14px rgba(6, 42, 79, 0.18);
+}
+
+.whatWeDoDomainsBtn:hover {
+  background: var(--color-gold-light, #e8bc3f);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(6, 42, 79, 0.26);
+}
+
+/* Scroll-reveal animations for What We Do */
+.whatWeDoSection.armed .whatWeDoEyebrow,
+.whatWeDoSection.armed .whatWeDoHeading,
+.whatWeDoSection.armed .whatWeDoDescription,
+.whatWeDoSection.armed .whatWeDoCard,
+.whatWeDoSection.armed .whatWeDoDomainsStrip {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.whatWeDoSection.armed.revealed .whatWeDoEyebrow,
+.whatWeDoSection.armed.revealed .whatWeDoHeading,
+.whatWeDoSection.armed.revealed .whatWeDoDescription,
+.whatWeDoSection.armed.revealed .whatWeDoCard,
+.whatWeDoSection.armed.revealed .whatWeDoDomainsStrip {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.whatWeDoSection.armed.revealed .whatWeDoHeading {
+  transition-delay: 80ms;
+}
+
+.whatWeDoSection.armed.revealed .whatWeDoDescription {
+  transition-delay: 160ms;
+}
+
+.whatWeDoSection.armed.revealed .whatWeDoCard {
+  transition-delay: calc(220ms + var(--stagger, 0) * 80ms);
+}
+
+.whatWeDoSection.armed.revealed .whatWeDoDomainsStrip {
+  transition-delay: 560ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatWeDoSection.armed .whatWeDoEyebrow,
+  .whatWeDoSection.armed .whatWeDoHeading,
+  .whatWeDoSection.armed .whatWeDoDescription,
+  .whatWeDoSection.armed .whatWeDoCard,
+  .whatWeDoSection.armed .whatWeDoDomainsStrip,
+  .whatWeDoSection.armed.revealed .whatWeDoEyebrow,
+  .whatWeDoSection.armed.revealed .whatWeDoHeading,
+  .whatWeDoSection.armed.revealed .whatWeDoDescription,
+  .whatWeDoSection.armed.revealed .whatWeDoCard,
+  .whatWeDoSection.armed.revealed .whatWeDoDomainsStrip {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
