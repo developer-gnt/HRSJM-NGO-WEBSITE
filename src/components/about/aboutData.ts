@@ -23,7 +23,7 @@ export interface SubNavItem {
 
 export const subNavItems: SubNavItem[] = [
   { id: "who-we-are", label: "Who We Are", targetId: "who-we-are" },
-  { id: "our-beliefs", label: "Our Beliefs", targetId: "our-beliefs" },
+  { id: "our-history", label: "Our History", targetId: "our-history" },
   { id: "mission-vision", label: "Mission & Vision", targetId: "mission-vision" },
   { id: "values-principles", label: "Values & Principles", targetId: "values-principles" },
   { id: "leadership", label: "Leadership", targetId: "leadership" },

@@ -1,7 +1,18 @@
-import { Target, Eye } from "lucide-react";
+import Link from "next/link";
+import { Target, Eye, ArrowRight } from "lucide-react";
 import styles from "./about.module.css";
 
-export default function MissionVision() {
+interface MissionVisionProps {
+  visionButtonText?: string;
+  visionButtonHref?: string;
+  onVisionClick?: () => void;
+}
+
+export default function MissionVision({
+  visionButtonText = "Learn More",
+  visionButtonHref = "/our-vision",
+  onVisionClick,
+}: MissionVisionProps) {
   return (
     <section id="mission-vision" className={styles.missionVision}>
       <div className={styles.container}>
@@ -35,9 +46,9 @@ export default function MissionVision() {
                 </div>
                 <div className={styles.mvCardBar} />
                 <p className={styles.mvCardText}>
-                  To protect and promote human rights through awareness,
-                  advocacy, capacity building and community action, creating a
-                  just, inclusive and equitable society.
+                  Our mission is to stand for human rights, work for social justice, raise awareness about
+                  violations of fundamental rights, and encourage collective action for the welfare and
+                  empowerment of vulnerable and disadvantaged communities.
                 </p>
               </div>
             </div>
@@ -53,10 +64,31 @@ export default function MissionVision() {
                 </div>
                 <div className={styles.mvCardBar} />
                 <p className={styles.mvCardText}>
-                  A democratic, peaceful and equal society where every person
-                  lives with dignity, has access to justice and can realise
-                  their full potential.
+                  Our Vision: A society where every individual enjoys
+                  equality, dignity, freedom, justice, and
+                  security, irrespective of background or identity.
                 </p>
+              </div>
+
+              <div className={styles.mvCardCta}>
+                {onVisionClick ? (
+                  <button
+                    type="button"
+                    onClick={onVisionClick}
+                    className={styles.mvCardButton}
+                  >
+                    <span>{visionButtonText}</span>
+                    <ArrowRight className={styles.mvCardButtonIcon} size={16} />
+                  </button>
+                ) : (
+                  <Link
+                    href={visionButtonHref}
+                    className={styles.mvCardButton}
+                  >
+                    <span>{visionButtonText}</span>
+                    <ArrowRight className={styles.mvCardButtonIcon} size={16} />
+                  </Link>
+                )}
               </div>
             </div>
           </div>

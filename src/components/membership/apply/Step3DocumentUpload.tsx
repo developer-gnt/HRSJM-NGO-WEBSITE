@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useRef, type ChangeEvent, type FormEvent } from "react";
+import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
   FileText,
   FileUp,
-  Loader2,
   Trash2,
   AlertCircle,
   ShieldCheck,
@@ -34,8 +34,7 @@ interface Step3Props {
   data: Step3Data;
   onChange: (field: keyof Step3Data, value: any) => void;
   onBack: () => void;
-  onSubmit: () => void;
-  submitting: boolean;
+  onNext: () => void;
   errors: Record<string, string>;
 }
 
@@ -43,8 +42,7 @@ export default function Step3DocumentUpload({
   data,
   onChange,
   onBack,
-  onSubmit,
-  submitting,
+  onNext,
   errors,
 }: Step3Props) {
   const browseIdRef = useRef<HTMLInputElement>(null);
@@ -53,13 +51,12 @@ export default function Step3DocumentUpload({
   const browsePhotoRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (
-    field: keyof Step3Data,
+    field: "idProof" | "addressProof" | "photograph",
     e: ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Check size <= 5MB
     if (file.size > 5 * 1024 * 1024) {
       alert("File size exceeds 5MB limit. Please upload a smaller file.");
       return;
@@ -87,7 +84,7 @@ export default function Step3DocumentUpload({
     });
   };
 
-  const handleRemove = (field: keyof Step3Data) => {
+  const handleRemove = (field: "idProof" | "addressProof" | "photograph") => {
     onChange(field, {
       file: null,
       name: "",
@@ -112,7 +109,7 @@ export default function Step3DocumentUpload({
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className={styles.stepHeader}>
-        <h2 className={styles.sectionHeading}>Document Upload</h2>
+        <h2 className={styles.sectionHeading}>Documents &amp; Declarations</h2>
         <p className={styles.sectionSubtitle}>
           Please upload the required documents (4 documents).
         </p>
@@ -584,7 +581,6 @@ export default function Step3DocumentUpload({
           type="button"
           className={styles.btnOutline}
           onClick={onBack}
-          disabled={submitting}
         >
           <ArrowLeft size={16} strokeWidth={2.4} /> Back
         </button>
@@ -598,16 +594,7 @@ export default function Step3DocumentUpload({
               : undefined
           }
         >
-          {submitting ? (
-            <>
-              <Loader2 size={16} className="animate-spin" /> Submitting
-              Application...
-            </>
-          ) : (
-            <>
-              Submit Application <ArrowRight size={17} strokeWidth={2.4} />
-            </>
-          )}
+          Proceed to Payment &amp; Review <ArrowRight size={17} strokeWidth={2.4} />
         </button>
       </div>
     </form>

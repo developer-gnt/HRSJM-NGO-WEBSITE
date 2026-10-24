@@ -29,13 +29,13 @@ export default function MembershipHero() {
       <div className={styles.heroScrim} aria-hidden="true" />
 
       <div className={styles.container}>
-        <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-          <Link href="/">Home</Link>
-          <ChevronRight size={14} strokeWidth={2.2} aria-hidden="true" />
-          <span aria-current="page">Membership</span>
-        </nav>
-
         <div className={styles.heroInner}>
+          <nav className={styles.breadcrumb} aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <ChevronRight size={14} strokeWidth={2.2} aria-hidden="true" />
+            <span className={styles.breadcrumbCurrent} aria-current="page">Membership</span>
+          </nav>
+
           <div className={styles.heroContent}>
             <p className={styles.heroEyebrow}>
               <span className={styles.heroEyebrowDot} aria-hidden="true" />

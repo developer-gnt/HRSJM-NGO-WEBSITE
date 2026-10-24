@@ -129,6 +129,8 @@ const beforeYouJoin = [
   },
 ];
 
+import Link from "next/link";
+
 interface FormValues {
   fullName: string;
   email: string;
@@ -139,9 +141,13 @@ interface FormValues {
   city: string;
   address: string;
   membershipType: string;
+  priorConviction: "No" | "Yes";
+  priorConvictionDetails: string;
   reason: string;
   contributions: string[];
-  agreed: boolean;
+  termsAgreed: boolean;
+  pledgeAgreed: boolean;
+  declarationAgreed: boolean;
 }
 
 const emptyValues: FormValues = {
@@ -154,15 +160,21 @@ const emptyValues: FormValues = {
   city: "",
   address: "",
   membershipType: "",
+  priorConviction: "No",
+  priorConvictionDetails: "",
   reason: "",
   contributions: [],
-  agreed: false,
+  termsAgreed: false,
+  pledgeAgreed: false,
+  declarationAgreed: false,
 };
 
 export default function MembershipForm() {
   const [values, setValues] = useState<FormValues>(emptyValues);
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [applicationRef, setApplicationRef] = useState<string>("");
   const [infoOpen, setInfoOpen] = useState<number | null>(null);
 
   /* Preselect membership type from URL search params or custom event */
@@ -189,7 +201,7 @@ export default function MembershipForm() {
     };
   }, []);
 
-  const setField = (field: keyof FormValues, value: string | boolean) => {
+  const setField = (field: keyof FormValues, value: any) => {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
@@ -223,18 +235,71 @@ export default function MembershipForm() {
     if (!values.membershipType) {
       next.membershipType = "Please choose a membership type.";
     }
-    if (!values.agreed) {
-      next.agreed = "Please agree to the Membership Terms and Privacy Policy.";
+    if (values.priorConviction === "Yes" && !values.priorConvictionDetails.trim()) {
+      next.priorConvictionDetails = "Please provide details regarding prior conviction.";
+    }
+    if (!values.termsAgreed) {
+      next.termsAgreed = "Please review and agree to the Terms & Conditions.";
+    }
+    if (!values.pledgeAgreed) {
+      next.pledgeAgreed = "Please solemnly take the HRSJM Membership Pledge.";
+    }
+    if (!values.declarationAgreed) {
+      next.declarationAgreed = "Please accept the Self-Declaration confirming accuracy.";
     }
     return next;
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const next = validate();
     setErrors(next);
-    if (Object.keys(next).length === 0) {
+    if (Object.keys(next).length > 0) return;
+
+    setSubmitting(true);
+    try {
+      const payload = {
+        fullName: values.fullName,
+        dob: values.dateOfBirth || "2000-01-01",
+        gender: values.gender || "Prefer not to say",
+        phone: values.phone,
+        email: values.email,
+        priorConviction: values.priorConviction,
+        priorConvictionDetails: values.priorConvictionDetails,
+        address1: values.address || values.city,
+        city: values.city,
+        state: values.state,
+        pincode: "400001",
+        country: "India",
+        idProofName: "Pending document upload / Provided in follow-up",
+        addressProofName: "Pending document upload / Provided in follow-up",
+        photoName: "Pending document upload / Provided in follow-up",
+        packageName: values.membershipType,
+        packageFee: "Registration Fee according to category",
+        termsAgreed: values.termsAgreed,
+        pledgeAgreed: values.pledgeAgreed,
+        declarationAgreed: values.declarationAgreed,
+      };
+
+      const res = await fetch("/api/membership/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        alert(data.error || "Submission failed. Please check your data and retry.");
+        return;
+      }
+
+      setApplicationRef(data.applicationRef || "HRSJM-APPLIED");
       setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      alert("Network error connecting to application server.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -242,6 +307,7 @@ export default function MembershipForm() {
     setValues(emptyValues);
     setErrors({});
     setSubmitted(false);
+    setApplicationRef("");
   };
 
   return null;
