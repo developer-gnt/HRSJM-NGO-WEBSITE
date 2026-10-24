@@ -216,15 +216,38 @@ export default function ComplaintForm() {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [complaintRef, setComplaintRef] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validate()) {
       setSubmitted(false);
       return;
     }
-    setSubmitted(true);
-    setValues(initialValues);
-    setErrors({});
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/complaint", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setSubmitError(data.error || "Failed to submit complaint. Please retry.");
+        return;
+      }
+      setSubmitted(true);
+      setComplaintRef(data.complaintRef);
+      setValues(initialValues);
+      setErrors({});
+    } catch (err: any) {
+      setSubmitError("Network error. Unable to connect to server. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -438,17 +461,50 @@ export default function ComplaintForm() {
               )}
             </div>
 
-            <button type="submit" className={styles.formSubmit}>
-              Submit Complaint
+            <button
+              type="submit"
+              className={styles.formSubmit}
+              disabled={submitting}
+              style={{ opacity: submitting ? 0.7 : 1, cursor: submitting ? "not-allowed" : "pointer" }}
+            >
+              {submitting ? "Submitting to Backend..." : "Submit Complaint"}
               <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
             </button>
 
-            {submitted ? (
-              <p className={styles.formNote} role="status">
-                <CircleCheck size={14} strokeWidth={2} aria-hidden="true" />
-                Thank you! Your complaint has been submitted successfully. Our
-                team will get back to you soon.
+            {submitError && (
+              <p className={styles.formFieldError} style={{ marginTop: "12px", color: "#dc2626" }} role="alert">
+                <AlertCircle size={14} strokeWidth={2} aria-hidden="true" />
+                {submitError}
               </p>
+            )}
+
+            {submitted ? (
+              <div
+                className={styles.formNote}
+                role="status"
+                style={{
+                  background: "#f0fdf4",
+                  border: "1px solid #bbf7d0",
+                  color: "#166534",
+                  padding: "14px 16px",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "10px",
+                }}
+              >
+                <CircleCheck size={18} strokeWidth={2.4} style={{ color: "#16a34a", flexShrink: 0, marginTop: "2px" }} aria-hidden="true" />
+                <div>
+                  <p style={{ margin: 0, fontWeight: 700, fontSize: "14px" }}>
+                    Complaint Registered Successfully with HRSJM Backend!
+                  </p>
+                  {complaintRef && (
+                    <p style={{ margin: "4px 0 0", fontSize: "13px" }}>
+                      Reference ID: <strong style={{ color: "#14532d" }}>{complaintRef}</strong>. Our human rights grievance team will review your case.
+                    </p>
+                  )}
+                </div>
+              </div>
             ) : (
               <p className={styles.formNote}>
                 <Lock size={13} strokeWidth={2} aria-hidden="true" />

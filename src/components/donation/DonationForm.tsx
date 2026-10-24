@@ -45,6 +45,17 @@ const formatINR = (value: number) =>
 export default function DonationForm() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(5000);
   const [customValue, setCustomValue] = useState("5000");
+  const [donorName, setDonorName] = useState("");
+  const [donorPhone, setDonorPhone] = useState("");
+  const [donorEmail, setDonorEmail] = useState("");
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [donationSuccess, setDonationSuccess] = useState<{
+    donationRef: string;
+    amount: number;
+    donorName: string;
+    cashfreeOrder?: any;
+  } | null>(null);
   const [message, setMessage] = useState<{
     type: "error" | "info";
     text: string;
@@ -82,7 +93,7 @@ export default function DonationForm() {
     setMessage(null);
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const amount = selectedAmount ?? (customValue ? Number(customValue) : null);
     if (!amount || amount < 10) {
@@ -92,12 +103,52 @@ export default function DonationForm() {
       });
       return;
     }
-    setMessage({
-      type: "info",
-      text: `Your donation of ${formatINR(
-        amount
-      )} is ready. Payment integration can be connected here.`,
-    });
+
+    setSubmitting(true);
+    setMessage(null);
+
+    try {
+      const res = await fetch("/api/donation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount,
+          donorName: isAnonymous ? "Anonymous Donor" : donorName.trim() || "Kind Supporter",
+          donorMobile: donorPhone.trim() || undefined,
+          donorEmail: donorEmail.trim() || undefined,
+          isAnonymous,
+          cause: "Human Rights Protection & Legal Aid",
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setMessage({
+          type: "error",
+          text: data.error || "Failed to process donation. Please try again.",
+        });
+        return;
+      }
+
+      setDonationSuccess({
+        donationRef: data.donationRef,
+        amount: data.amount,
+        donorName: data.donorName,
+        cashfreeOrder: data.cashfreeOrder,
+      });
+
+      setMessage({
+        type: "info",
+        text: `Donation registered with backend! Reference ID: ${data.donationRef}. Thank you for standing up for human rights.`,
+      });
+    } catch (err: any) {
+      setMessage({
+        type: "error",
+        text: "Network error. Unable to connect to backend server. Please retry.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -202,10 +253,121 @@ export default function DonationForm() {
               </div>
             </div>
 
-            <button type="submit" className={styles.donateButton}>
-              Donate Now
+            {/* Donor Information */}
+            <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "12px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "var(--color-navy)", marginBottom: "4px" }}>
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    disabled={isAnonymous}
+                    placeholder={isAnonymous ? "Anonymous" : "Enter your full name"}
+                    value={donorName}
+                    onChange={(e) => setDonorName(e.target.value)}
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      border: "1px solid var(--color-border)",
+                      borderRadius: "8px",
+                      background: isAnonymous ? "#f1f5f9" : "var(--color-white)",
+                      fontSize: "14px",
+                      color: "var(--color-navy)",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "var(--color-navy)", marginBottom: "4px" }}>
+                    Mobile Number
+                  </label>
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    maxLength={10}
+                    placeholder="10-digit mobile"
+                    value={donorPhone}
+                    onChange={(e) => setDonorPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      border: "1px solid var(--color-border)",
+                      borderRadius: "8px",
+                      background: "var(--color-white)",
+                      fontSize: "14px",
+                      color: "var(--color-navy)",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "var(--color-navy)", marginBottom: "4px" }}>
+                  Email Address (for Tax Receipt)
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter email address (optional)"
+                  value={donorEmail}
+                  onChange={(e) => setDonorEmail(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "10px 14px",
+                    border: "1px solid var(--color-border)",
+                    borderRadius: "8px",
+                    background: "var(--color-white)",
+                    fontSize: "14px",
+                    color: "var(--color-navy)",
+                    outline: "none",
+                  }}
+                />
+              </div>
+
+              <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", fontSize: "13px", color: "var(--color-text-secondary)" }}>
+                <input
+                  type="checkbox"
+                  checked={isAnonymous}
+                  onChange={(e) => setIsAnonymous(e.target.checked)}
+                  style={{ accentColor: "var(--color-gold)", width: "16px", height: "16px" }}
+                />
+                Keep my donation anonymous on public recognition lists
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className={styles.donateButton}
+              disabled={submitting}
+              style={{ opacity: submitting ? 0.75 : 1, cursor: submitting ? "not-allowed" : "pointer" }}
+            >
+              {submitting ? "Connecting to Gateway..." : "Donate Now"}
               <ArrowRight size={17} strokeWidth={2.2} aria-hidden="true" />
             </button>
+
+            {donationSuccess && (
+              <div
+                style={{
+                  marginTop: "16px",
+                  padding: "16px",
+                  background: "#f0fdf4",
+                  border: "1px solid #bbf7d0",
+                  borderRadius: "10px",
+                  color: "#166534",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", fontWeight: 700, fontSize: "15px" }}>
+                  <span>🛡️</span> Donation Registered with HRSJM!
+                </div>
+                <div style={{ marginTop: "6px", fontSize: "13px", lineHeight: "1.6" }}>
+                  Official Ref: <strong style={{ color: "#14532d" }}>{donationSuccess.donationRef}</strong><br />
+                  Amount: <strong>₹{donationSuccess.amount.toLocaleString("en-IN")}</strong><br />
+                  Donor: <strong>{donationSuccess.donorName}</strong>
+                </div>
+              </div>
+            )}
 
             {message ? (
               <p
