@@ -60,6 +60,7 @@ function MembershipApplyContent() {
     state: "",
     pincode: "",
     country: "India",
+    policeStation: "",
   });
 
   // Step 3 State: Document Upload & Agreements
@@ -67,13 +68,13 @@ function MembershipApplyContent() {
   const [step3Data, setStep3Data] = useState<Step3Data>({
     idProof: emptyDoc,
     addressProof: emptyDoc,
+    qualification: emptyDoc,
     photograph: emptyDoc,
-    termsAgreed: false,
-    pledgeAgreed: false,
-    declarationAgreed: false,
+    agreePrivacy: false,
+    agreeTerms: false,
   });
 
-  // Step 4 State: Payment Step
+  // Step 4 State: Payment
   const [step4Data, setStep4Data] = useState<Step4Data>({
     paymentMode: "upi_bank",
     paymentReference: "",
@@ -110,6 +111,7 @@ function MembershipApplyContent() {
     }
   };
 
+  // Step 3 Changes
   const handleStep3Change = (field: keyof Step3Data, value: any) => {
     setStep3Data((prev) => ({ ...prev, [field]: value }));
     if (step3Errors[field]) {
@@ -191,6 +193,10 @@ function MembershipApplyContent() {
       errors.pincode = "Pincode must be 6 digits.";
     }
 
+    if (!step2Data.policeStation.trim()) {
+      errors.policeStation = "Please enter nearby police station.";
+    }
+
     setStep2Errors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -205,18 +211,17 @@ function MembershipApplyContent() {
     if (!step3Data.addressProof.file) {
       errors.addressProof = "Please upload Address Proof.";
     }
+    if (!step3Data.qualification.file) {
+      errors.qualification = "Please upload Qualification Certificate.";
+    }
     if (!step3Data.photograph.file) {
       errors.photograph = "Please upload Photograph.";
     }
-
-    if (!step3Data.termsAgreed) {
-      errors.termsAgreed = "You must review and agree to the Terms & Conditions.";
+    if (!step3Data.agreePrivacy) {
+      errors.agreePrivacy = "Please agree to the Privacy Policy.";
     }
-    if (!step3Data.pledgeAgreed) {
-      errors.pledgeAgreed = "You must solemnly take the HRSJM Membership Pledge.";
-    }
-    if (!step3Data.declarationAgreed) {
-      errors.declarationAgreed = "You must accept the Self-Declaration confirming accuracy.";
+    if (!step3Data.agreeTerms) {
+      errors.agreeTerms = "Please accept the Terms & Conditions.";
     }
 
     setStep3Errors(errors);
@@ -263,15 +268,19 @@ function MembershipApplyContent() {
         state: step2Data.state,
         pincode: step2Data.pincode,
         country: step2Data.country,
+        policeStation: step2Data.policeStation,
         idProofName: step3Data.idProof.name,
         addressProofName: step3Data.addressProof.name,
+        qualificationName: step3Data.qualification.name,
         photoName: step3Data.photograph.name,
+        agreePrivacy: step3Data.agreePrivacy,
+        agreeTerms: step3Data.agreeTerms,
         packageName: selectedPackage.item.post,
         packageFee: selectedPackage.item.fees,
         packageValidity: selectedPackage.item.validity,
-        termsAgreed: step3Data.termsAgreed,
-        pledgeAgreed: step3Data.pledgeAgreed,
-        declarationAgreed: step3Data.declarationAgreed,
+        termsAgreed: step3Data.agreeTerms,
+        pledgeAgreed: step3Data.agreeTerms,
+        declarationAgreed: step3Data.agreePrivacy,
         paymentMode: step4Data.paymentMode === "upi_bank" ? "UPI / Bank Transfer" : "Online Gateway (Pending Verification)",
         paymentReference: step4Data.paymentReference,
       };

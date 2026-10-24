@@ -49,12 +49,23 @@
 
 @media (max-width: 899px) {
   .hero {
-    min-height: 512px;
+    min-height: 520px;
   }
 
   .frameInner {
     flex-direction: column;
     align-items: stretch;
-    gap: 14px;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero {
+    min-height: 540px;
+  }
+
+  .frameInner {
+    padding-bottom: 14px;
+    gap: 0;
   }
 }

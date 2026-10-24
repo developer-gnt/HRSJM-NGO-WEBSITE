@@ -1,6 +1,4 @@
-import Link from "next/link";
 import {
-  ArrowRight,
   HeartHandshake,
   Megaphone,
   Scale,
@@ -68,13 +66,6 @@ export default function WhyMembership() {
                 </span>
                 <h3 className={styles.whyTitle}>{reason.title}</h3>
                 <p className={styles.whyDescription}>{reason.description}</p>
-                <Link
-                  href="#membership-options"
-                  className={styles.whyArrow}
-                  aria-label={`Become a member to ${reason.title.toLowerCase()}`}
-                >
-                  <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
-                </Link>
               </li>
             );
           })}

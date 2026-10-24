@@ -8,7 +8,7 @@ import { subNavItems } from "./aboutData";
 import styles from "./about.module.css";
 
 interface WhoWeAreProps {
-  onOpenStory: () => void;
+  onOpenStory?: () => void;
 }
 
 export default function WhoWeAre({ onOpenStory }: WhoWeAreProps) {
@@ -58,19 +58,15 @@ export default function WhoWeAre({ onOpenStory }: WhoWeAreProps) {
         <div className={styles.subNavRow}>
           {/* Breadcrumb left */}
           <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
-            <ol className={styles.breadcrumbList}>
-              <li>
-                <Link href="/" className={styles.breadcrumbLink}>
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden="true">
-                <ChevronRight className={styles.breadcrumbChevron} size={14} />
-              </li>
-              <li className={styles.breadcrumbCurrent} aria-current="page">
-                About HRSJM
-              </li>
-            </ol>
+            <Link href="/" className={styles.breadcrumbLink}>
+              Home
+            </Link>
+            <span className={styles.breadcrumbSeparator} aria-hidden="true">
+              <ChevronRight className={styles.breadcrumbChevron} size={13} strokeWidth={2.2} />
+            </span>
+            <span className={styles.breadcrumbCurrent} aria-current="page">
+              About HRSJM
+            </span>
           </nav>
 
           {/* Sub navigation — scrollable on mobile */}
@@ -145,10 +141,10 @@ export default function WhoWeAre({ onOpenStory }: WhoWeAreProps) {
             </div>
 
             <div className={styles.whoCtaWrap}>
-              <button onClick={onOpenStory} className={styles.storyButton}>
+              <Link href="/what-hrsjm-does" className={styles.storyButton}>
                 <span>Our Story</span>
                 <ArrowRight className={styles.storyButtonIcon} size={16} />
-              </button>
+              </Link>
             </div>
           </div>
 

@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import styles from "./membership.module.css";
 
 /* Contact values mirror src/config/footer.ts (placeholders there — update
@@ -9,15 +8,11 @@ const channels = [
     title: "Helpline",
     lines: ["+91 98765 43210", "Mon - Sat, 10:00 AM - 6:00 PM"],
     icon: Phone,
-    href: "tel:+919876543210",
-    linkLabel: "Call our helpline",
   },
   {
     title: "Email Support",
     lines: ["help@hrsjm.org", "We usually respond within 24 - 48 hours"],
     icon: Mail,
-    href: "mailto:help@hrsjm.org",
-    linkLabel: "Email our support team",
   },
   {
     title: "Office Address",
@@ -27,8 +22,6 @@ const channels = [
       "Mumbai, Maharashtra 400059, India",
     ],
     icon: MapPin,
-    href: "https://www.google.com/maps/search/?api=1&query=Human+Rights+and+Social+Justice+Mission+Marol+Naka+Andheri+East+Mumbai+400059",
-    linkLabel: "Get directions to the office",
   },
 ];
 
@@ -76,13 +69,6 @@ export default function MembershipSupport() {
                       {line}
                     </p>
                   ))}
-                  <Link
-                    href={channel.href}
-                    className={styles.supportLink}
-                    aria-label={channel.linkLabel}
-                  >
-                    <ArrowRight size={13} strokeWidth={2} aria-hidden="true" />
-                  </Link>
                 </div>
               </li>
             );

@@ -34,7 +34,7 @@
   width: min(100%, var(--container));
   margin: 0 auto;
   min-height: 460px;
-  padding: 24px var(--page-padding) 26px;
+  padding: 20px var(--page-padding) 26px;
   display: flex;
   flex-direction: column;
 }
@@ -748,12 +748,21 @@
   border: 1.5px solid rgba(250, 210, 92, 0.9);
   border-radius: 50%;
   color: var(--color-gold-dark);
-  transition: background-color 200ms ease, color 200ms ease;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
 }
 
-.articleCard:hover .articleArrow {
+.articleCard:hover .articleArrow,
+.articleArrow:hover {
   background: var(--color-gold);
   color: var(--color-navy);
+  transform: scale(1.06);
+}
+
+.articleArrow:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
 }
 
 /* Sidebar — trending + newsletter */

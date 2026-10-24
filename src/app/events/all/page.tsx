@@ -4,7 +4,7 @@ import AllEventsListing from "@/components/events/AllEventsListing";
 import AllEventsCTA from "@/components/events/AllEventsCTA";
 
 export const metadata: Metadata = {
-  title: "All Events",
+  title: "Upcoming Events | Events & Activities",
   description:
     "Browse every upcoming HRSJM workshop, seminar, community drive and awareness program across India, and register for the ones you want to join.",
 };

@@ -19,7 +19,7 @@ const quickActions = [
     icon: "heart",
     title: "Make a Donation",
     subtitle: "Support justice for all.",
-    href: "/donation",
+    href: "/donation#donate",
   },
 ] as const;
 

@@ -23,9 +23,13 @@ export async function POST(request: Request) {
       state,
       pincode,
       country,
+      policeStation,
       idProofName,
       addressProofName,
+      qualificationName,
       photoName,
+      agreePrivacy,
+      agreeTerms,
       packageName,
       packageFee,
       packageValidity,
@@ -47,31 +51,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Prior Conviction Question Validation
-    if (!priorConviction || !["No", "Yes"].includes(priorConviction)) {
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "Please answer the mandatory question regarding prior conviction/punishment.",
-        },
-        { status: 400 }
-      );
-    }
-
-    if (priorConviction === "Yes" && !priorConvictionDetails?.trim()) {
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "Please provide details regarding your prior conviction or legal proceeding.",
-        },
-        { status: 400 }
-      );
-    }
-
-    // 3. Address Details Validation
-    if (!address1 || !city || !state || !pincode || !country) {
+    if (!address1 || !city || !state || !pincode || !country || !policeStation) {
       return NextResponse.json(
         {
           success: false,
@@ -81,25 +61,21 @@ export async function POST(request: Request) {
       );
     }
 
-    // 4. Documents Validation
-    if (!idProofName || !addressProofName || !photoName) {
+    if (!idProofName || !addressProofName || !qualificationName || !photoName) {
       return NextResponse.json(
         {
           success: false,
-          error:
-            "All 3 required documents (Identity Proof, Address Proof, Photograph) must be uploaded.",
+          error: "All 4 required documents (Identity Proof, Address Proof, Qualification, Photograph) must be uploaded.",
         },
         { status: 400 }
       );
     }
 
-    // 5. Mandatory Checkboxes Validation (Terms & Conditions, Membership Pledge, Declaration)
-    if (!termsAgreed) {
+    if (!agreePrivacy || !agreeTerms) {
       return NextResponse.json(
         {
           success: false,
-          error:
-            "You must review and agree to the HRSJM Terms & Conditions to proceed.",
+          error: "You must accept the Privacy Policy and Terms & Conditions before submitting.",
         },
         { status: 400 }
       );

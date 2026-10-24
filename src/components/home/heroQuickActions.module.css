@@ -76,19 +76,62 @@
 }
 
 @media (max-width: 639px) {
+  /* Mobile: show all three cards in one row */
   .grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
   }
 
   .card {
-    min-height: 58px;
-    padding: 9px 12px 9px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 0;
+    min-height: 90px;
+    padding: 12px 5px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    gap: 0;
+    background: var(--color-white);
+    box-shadow: 0 4px 14px rgba(3, 29, 56, 0.16);
+  }
+
+  .cardIcon {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .cardIcon svg {
-    width: 23px;
-    height: 23px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .cardText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .cardTitle {
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 700;
+    color: var(--color-navy);
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .cardSubtitle {
+    display: none;
   }
 }
 

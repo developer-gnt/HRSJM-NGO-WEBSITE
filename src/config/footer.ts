@@ -31,6 +31,7 @@ export const quickLinks: FooterLink[] = [
 
 export const usefulLinks: FooterLink[] = [
   { label: "Join Us", href: "/membership" },
+  { label: "Membership Benefits", href: "/benefits" },
   { label: "Membership Categories", href: "/membership/categories" },
   { label: "Apply for Membership", href: "/membership/apply" },
   { label: "Make a Donation", href: "/donation" },
@@ -38,6 +39,7 @@ export const usefulLinks: FooterLink[] = [
   { label: "Member Login", href: "/membership/login" },
   { label: "Our Constitution", href: "/constitution" },
   { label: "FAQs", href: "/faqs" },
+  { label: "Help Centre", href: "/help" },
 ];
 
 export const socialLinks: SocialLink[] = [

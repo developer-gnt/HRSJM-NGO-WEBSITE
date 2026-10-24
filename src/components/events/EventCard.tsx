@@ -19,18 +19,15 @@ export type EventItem = {
   };
 };
 
-const actionHrefs: Record<string, string> = {
-  details: "#featured-event",
-  notify: "#events-newsletter",
-};
-
 export default function EventCard({ event }: { event: EventItem }) {
   const statusClass =
     event.statusType === "open" ? styles.statusOpen : styles.statusSoon;
 
+  const eventHref = event.href || `/events/${event.id}`;
+
   return (
     <article className={styles.eventCard}>
-      <div className={styles.eventMedia}>
+      <Link href={eventHref} className={styles.eventMedia}>
         <Image
           src={event.image}
           alt={event.title}
@@ -38,7 +35,7 @@ export default function EventCard({ event }: { event: EventItem }) {
           sizes="(min-width: 1024px) 432px, (min-width: 640px) 50vw, 100vw"
           style={{ objectFit: "cover" }}
         />
-      </div>
+      </Link>
       <div className={styles.eventBody}>
         <div className={styles.eventTop}>
           <span className={styles.eventDate}>{event.date}</span>
@@ -46,14 +43,18 @@ export default function EventCard({ event }: { event: EventItem }) {
             {event.status}
           </span>
         </div>
-        <h3 className={styles.eventTitle}>{event.title}</h3>
+        <h3 className={styles.eventTitle}>
+          <Link href={eventHref} style={{ color: "inherit", textDecoration: "none" }}>
+            {event.title}
+          </Link>
+        </h3>
         <p className={styles.eventLocation}>
           <MapPin size={14} strokeWidth={2} aria-hidden="true" />
           {event.location}
         </p>
         <p className={styles.eventDesc}>{event.description}</p>
         <Link
-          href={event.href ?? actionHrefs[event.action.type] ?? "#event-details"}
+          href={eventHref}
           className={styles.eventCta}
         >
           {event.action.label}

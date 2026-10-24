@@ -51,7 +51,7 @@ export const heroSlides: HeroSlideData[] = [
     description:
       "Every voice matters. Every person deserves dignity, equality, security and access to justice.",
     primaryAction: "Take Action",
-    primaryHref: "#take-action",
+    primaryHref: "/complaint",
     secondaryAction: "Learn More",
     secondaryHref: "/about",
   },

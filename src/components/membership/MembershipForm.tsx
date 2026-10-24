@@ -310,517 +310,405 @@ export default function MembershipForm() {
     setApplicationRef("");
   };
 
-  return (
-    <section
-      id="membership-form"
-      className={styles.apply}
-      aria-labelledby="membership-form-heading"
-    >
-      <div className={styles.container}>
-        <div className={styles.applyLayout}>
-          <div className={styles.applyMain}>
-            <p className={styles.applyEyebrow}>
-              <CircleDot size={15} strokeWidth={2} aria-hidden="true" />
-              Join HRSJM
-            </p>
-            <h2
-              id="membership-form-heading"
-              className={styles.applyHeading}
-            >
-              Become a Member
-              <br />
-              With Us
-            </h2>
-            <p className={styles.applyIntroText}>
-              Fill in your details below and our team will review it and get
-              back to you. Your information is confidential and secure.
-            </p>
+  return null;
 
-            {submitted ? (
-              <div className={styles.successCard} role="status">
-                <span className={styles.successIcon}>
-                  <Check size={26} strokeWidth={2.4} aria-hidden="true" />
-                </span>
-                <h3 className={styles.successTitle}>Application Received</h3>
-                {applicationRef && (
-                  <p style={{ fontWeight: 700, color: "#0a3a6b", margin: "6px 0 10px", fontSize: 15 }}>
-                    Application Ref: {applicationRef}
-                  </p>
-                )}
-                <p className={styles.successText}>
-                  Thank you for your interest in becoming an HRSJM member. Your
-                  membership application has been recorded and an acknowledgment
-                  notification has been sent.
-                </p>
-                <p className={styles.successNote}>
-                  Our team will contact you using the details you provided.
-                </p>
-                <button
-                  type="button"
-                  className={styles.successReset}
-                  onClick={resetForm}
-                >
-                  Submit another application
-                </button>
-              </div>
-            ) : (
-              <form className={styles.formBlock} onSubmit={onSubmit} noValidate>
-                <div className={styles.formGrid}>
-                  <div className={styles.field}>
-                    <label className={styles.label} htmlFor="m-fullName">
-                      Full Name <span aria-hidden="true">*</span>
-                    </label>
-                    <input
-                      id="m-fullName"
-                      className={styles.input}
-                      type="text"
-                      placeholder="Enter your full name"
-                      value={values.fullName}
-                      onChange={(e) => setField("fullName", e.target.value)}
-                      aria-required="true"
-                      aria-invalid={errors.fullName ? true : undefined}
-                    />
-                    {errors.fullName ? (
-                      <p className={styles.fieldError} role="alert">
-                        {errors.fullName}
-                      </p>
-                    ) : null}
-                  </div>
+  // return (
+  //   <section
+  //     id="membership-form"
+  //     className={styles.apply}
+  //     aria-labelledby="membership-form-heading"
+  //   >
+  //     <div className={styles.container}>
+  //       <div className={styles.applyLayout}>
+  //         <div className={styles.applyMain}>
+  //           <p className={styles.applyEyebrow}>
+  //             <CircleDot size={15} strokeWidth={2} aria-hidden="true" />
+  //             Join HRSJM
+  //           </p>
+  //           <h2
+  //             id="membership-form-heading"
+  //             className={styles.applyHeading}
+  //           >
+  //             Become a Member
+  //             <br />
+  //             With Us
+  //           </h2>
+  //           <p className={styles.applyIntroText}>
+  //             Fill in your details below and our team will review it and get
+  //             back to you. Your information is confidential and secure.
+  //           </p>
 
-                  <div className={styles.field}>
-                    <label className={styles.label} htmlFor="m-email">
-                      Email Address <span aria-hidden="true">*</span>
-                    </label>
-                    <input
-                      id="m-email"
-                      className={styles.input}
-                      type="email"
-                      placeholder="Enter your email"
-                      value={values.email}
-                      onChange={(e) => setField("email", e.target.value)}
-                      aria-required="true"
-                      aria-invalid={errors.email ? true : undefined}
-                    />
-                    {errors.email ? (
-                      <p className={styles.fieldError} role="alert">
-                        {errors.email}
-                      </p>
-                    ) : null}
-                  </div>
+  //           {submitted ? (
+  //             <div className={styles.successCard} role="status">
+  //               <span className={styles.successIcon}>
+  //                 <Check size={26} strokeWidth={2.4} aria-hidden="true" />
+  //               </span>
+  //               <h3 className={styles.successTitle}>Application Received</h3>
+  //               <p className={styles.successText}>
+  //                 Thank you for your interest in becoming an HRSJM member. Your
+  //                 membership application has been received.
+  //               </p>
+  //               <p className={styles.successNote}>
+  //                 Our team will contact you using the details you provided.
+  //               </p>
+  //               <button
+  //                 type="button"
+  //                 className={styles.successReset}
+  //                 onClick={resetForm}
+  //               >
+  //                 Submit another application
+  //               </button>
+  //             </div>
+  //           ) : (
+  //             <form className={styles.formBlock} onSubmit={onSubmit} noValidate>
+  //               <div className={styles.formGrid}>
+  //                 <div className={styles.field}>
+  //                   <label className={styles.label} htmlFor="m-fullName">
+  //                     Full Name <span aria-hidden="true">*</span>
+  //                   </label>
+  //                   <input
+  //                     id="m-fullName"
+  //                     className={styles.input}
+  //                     type="text"
+  //                     placeholder="Enter your full name"
+  //                     value={values.fullName}
+  //                     onChange={(e) => setField("fullName", e.target.value)}
+  //                     aria-required="true"
+  //                     aria-invalid={errors.fullName ? true : undefined}
+  //                   />
+  //                   {errors.fullName ? (
+  //                     <p className={styles.fieldError} role="alert">
+  //                       {errors.fullName}
+  //                     </p>
+  //                   ) : null}
+  //                 </div>
 
-                  <div className={styles.field}>
-                    <label className={styles.label} htmlFor="m-phone">
-                      Phone Number <span aria-hidden="true">*</span>
-                    </label>
-                    <div className={styles.phoneWrap}>
-                      <span className={styles.phoneCode}>+91</span>
-                      <input
-                        id="m-phone"
-                        className={styles.input}
-                        type="tel"
-                        inputMode="numeric"
-                        placeholder="Enter your phone number"
-                        value={values.phone}
-                        onChange={onPhoneChange}
-                        aria-required="true"
-                        aria-invalid={errors.phone ? true : undefined}
-                      />
-                    </div>
-                    {errors.phone ? (
-                      <p className={styles.fieldError} role="alert">
-                        {errors.phone}
-                      </p>
-                    ) : null}
-                  </div>
+  //                 <div className={styles.field}>
+  //                   <label className={styles.label} htmlFor="m-email">
+  //                     Email Address <span aria-hidden="true">*</span>
+  //                   </label>
+  //                   <input
+  //                     id="m-email"
+  //                     className={styles.input}
+  //                     type="email"
+  //                     placeholder="Enter your email"
+  //                     value={values.email}
+  //                     onChange={(e) => setField("email", e.target.value)}
+  //                     aria-required="true"
+  //                     aria-invalid={errors.email ? true : undefined}
+  //                   />
+  //                   {errors.email ? (
+  //                     <p className={styles.fieldError} role="alert">
+  //                       {errors.email}
+  //                     </p>
+  //                   ) : null}
+  //                 </div>
 
-                  <div className={styles.field}>
-                    <label className={styles.label} htmlFor="m-state">
-                      State <span aria-hidden="true">*</span>
-                    </label>
-                    <select
-                      id="m-state"
-                      className={styles.select}
-                      value={values.state}
-                      onChange={(e) => setField("state", e.target.value)}
-                      aria-required="true"
-                      aria-invalid={errors.state ? true : undefined}
-                    >
-                      <option value="">Select your state</option>
-                      {indianStates.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.state ? (
-                      <p className={styles.fieldError} role="alert">
-                        {errors.state}
-                      </p>
-                    ) : null}
-                  </div>
+  //                 <div className={styles.field}>
+  //                   <label className={styles.label} htmlFor="m-phone">
+  //                     Phone Number <span aria-hidden="true">*</span>
+  //                   </label>
+  //                   <div className={styles.phoneWrap}>
+  //                     <span className={styles.phoneCode}>+91</span>
+  //                     <input
+  //                       id="m-phone"
+  //                       className={styles.input}
+  //                       type="tel"
+  //                       inputMode="numeric"
+  //                       placeholder="Enter your phone number"
+  //                       value={values.phone}
+  //                       onChange={onPhoneChange}
+  //                       aria-required="true"
+  //                       aria-invalid={errors.phone ? true : undefined}
+  //                     />
+  //                   </div>
+  //                   {errors.phone ? (
+  //                     <p className={styles.fieldError} role="alert">
+  //                       {errors.phone}
+  //                     </p>
+  //                   ) : null}
+  //                 </div>
 
-                  <div className={styles.field}>
-                    <label className={styles.label} htmlFor="m-dob">
-                      Date of Birth
-                    </label>
-                    <input
-                      id="m-dob"
-                      className={styles.input}
-                      type="date"
-                      value={values.dateOfBirth}
-                      onChange={(e) => setField("dateOfBirth", e.target.value)}
-                    />
-                  </div>
+  //                 <div className={styles.field}>
+  //                   <label className={styles.label} htmlFor="m-state">
+  //                     State <span aria-hidden="true">*</span>
+  //                   </label>
+  //                   <select
+  //                     id="m-state"
+  //                     className={styles.select}
+  //                     value={values.state}
+  //                     onChange={(e) => setField("state", e.target.value)}
+  //                     aria-required="true"
+  //                     aria-invalid={errors.state ? true : undefined}
+  //                   >
+  //                     <option value="">Select your state</option>
+  //                     {indianStates.map((option) => (
+  //                       <option key={option} value={option}>
+  //                         {option}
+  //                       </option>
+  //                     ))}
+  //                   </select>
+  //                   {errors.state ? (
+  //                     <p className={styles.fieldError} role="alert">
+  //                       {errors.state}
+  //                     </p>
+  //                   ) : null}
+  //                 </div>
 
-                  <div className={styles.field}>
-                    <label className={styles.label} htmlFor="m-gender">
-                      Gender
-                    </label>
-                    <select
-                      id="m-gender"
-                      className={styles.select}
-                      value={values.gender}
-                      onChange={(e) => setField("gender", e.target.value)}
-                    >
-                      <option value="">Select gender</option>
-                      {genderOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+  //                 <div className={styles.field}>
+  //                   <label className={styles.label} htmlFor="m-dob">
+  //                     Date of Birth
+  //                   </label>
+  //                   <input
+  //                     id="m-dob"
+  //                     className={styles.input}
+  //                     type="date"
+  //                     value={values.dateOfBirth}
+  //                     onChange={(e) => setField("dateOfBirth", e.target.value)}
+  //                   />
+  //                 </div>
 
-                  <div className={styles.field}>
-                    <label className={styles.label} htmlFor="m-city">
-                      City <span aria-hidden="true">*</span>
-                    </label>
-                    <input
-                      id="m-city"
-                      className={styles.input}
-                      type="text"
-                      placeholder="Enter your city"
-                      value={values.city}
-                      onChange={(e) => setField("city", e.target.value)}
-                      aria-required="true"
-                      aria-invalid={errors.city ? true : undefined}
-                    />
-                    {errors.city ? (
-                      <p className={styles.fieldError} role="alert">
-                        {errors.city}
-                      </p>
-                    ) : null}
-                  </div>
+  //                 <div className={styles.field}>
+  //                   <label className={styles.label} htmlFor="m-gender">
+  //                     Gender
+  //                   </label>
+  //                   <select
+  //                     id="m-gender"
+  //                     className={styles.select}
+  //                     value={values.gender}
+  //                     onChange={(e) => setField("gender", e.target.value)}
+  //                   >
+  //                     <option value="">Select gender</option>
+  //                     {genderOptions.map((option) => (
+  //                       <option key={option} value={option}>
+  //                         {option}
+  //                       </option>
+  //                     ))}
+  //                   </select>
+  //                 </div>
 
-                  <div className={styles.field}>
-                    <label className={styles.label} htmlFor="m-type">
-                      Membership Type <span aria-hidden="true">*</span>
-                    </label>
-                    <select
-                      id="m-type"
-                      className={styles.select}
-                      value={values.membershipType}
-                      onChange={(e) => setField("membershipType", e.target.value)}
-                      aria-required="true"
-                      aria-invalid={errors.membershipType ? true : undefined}
-                    >
-                      <option value="">Select membership type</option>
-                      {membershipTypeGroups.map((group) => (
-                        <optgroup key={group.group} label={group.group}>
-                          {group.options.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </optgroup>
-                      ))}
-                    </select>
-                    {errors.membershipType ? (
-                      <p className={styles.fieldError} role="alert">
-                        {errors.membershipType}
-                      </p>
-                    ) : null}
-                  </div>
+  //                 <div className={styles.field}>
+  //                   <label className={styles.label} htmlFor="m-city">
+  //                     City <span aria-hidden="true">*</span>
+  //                   </label>
+  //                   <input
+  //                     id="m-city"
+  //                     className={styles.input}
+  //                     type="text"
+  //                     placeholder="Enter your city"
+  //                     value={values.city}
+  //                     onChange={(e) => setField("city", e.target.value)}
+  //                     aria-required="true"
+  //                     aria-invalid={errors.city ? true : undefined}
+  //                   />
+  //                   {errors.city ? (
+  //                     <p className={styles.fieldError} role="alert">
+  //                       {errors.city}
+  //                     </p>
+  //                   ) : null}
+  //                 </div>
 
-                  <div className={`${styles.field} ${styles.fieldFull}`}>
-                    <label className={styles.label} htmlFor="m-address">
-                      Address
-                    </label>
-                    <input
-                      id="m-address"
-                      className={styles.input}
-                      type="text"
-                      placeholder="Enter your address"
-                      value={values.address}
-                      onChange={(e) => setField("address", e.target.value)}
-                    />
-                  </div>
+  //                 <div className={styles.field}>
+  //                   <label className={styles.label} htmlFor="m-type">
+  //                     Membership Type <span aria-hidden="true">*</span>
+  //                   </label>
+  //                   <select
+  //                     id="m-type"
+  //                     className={styles.select}
+  //                     value={values.membershipType}
+  //                     onChange={(e) => setField("membershipType", e.target.value)}
+  //                     aria-required="true"
+  //                     aria-invalid={errors.membershipType ? true : undefined}
+  //                   >
+  //                     <option value="">Select membership type</option>
+  //                     {membershipTypeGroups.map((group) => (
+  //                       <optgroup key={group.group} label={group.group}>
+  //                         {group.options.map((option) => (
+  //                           <option key={option} value={option}>
+  //                             {option}
+  //                           </option>
+  //                         ))}
+  //                       </optgroup>
+  //                     ))}
+  //                   </select>
+  //                   {errors.membershipType ? (
+  //                     <p className={styles.fieldError} role="alert">
+  //                       {errors.membershipType}
+  //                     </p>
+  //                   ) : null}
+  //                 </div>
 
-                  <div className={`${styles.field} ${styles.fieldFull}`}>
-                    <span className={styles.label} id="m-contributions-label">
-                      How would you like to contribute?
-                    </span>
-                    <div
-                      className={styles.chipGrid}
-                      role="group"
-                      aria-labelledby="m-contributions-label"
-                    >
-                      {contributionOptions.map((option) => {
-                        const checked = values.contributions.includes(option);
-                        return (
-                          <label key={option} className={styles.chip}>
-                            <input
-                              type="checkbox"
-                              className={styles.chipInput}
-                              checked={checked}
-                              onChange={() => toggleContribution(option)}
-                            />
-                            <span className={styles.chipBox} aria-hidden="true">
-                              {checked ? (
-                                <Check size={12} strokeWidth={3} />
-                              ) : null}
-                            </span>
-                            {option}
-                          </label>
-                        );
-                      })}
-                    </div>
-                  </div>
+  //                 <div className={`${styles.field} ${styles.fieldFull}`}>
+  //                   <label className={styles.label} htmlFor="m-address">
+  //                     Address
+  //                   </label>
+  //                   <input
+  //                     id="m-address"
+  //                     className={styles.input}
+  //                     type="text"
+  //                     placeholder="Enter your address"
+  //                     value={values.address}
+  //                     onChange={(e) => setField("address", e.target.value)}
+  //                   />
+  //                 </div>
 
-                  <div className={`${styles.field} ${styles.fieldFull}`}>
-                    <label className={styles.label} htmlFor="m-reason">
-                      Why would you like to join HRSJM?
-                    </label>
-                    <textarea
-                      id="m-reason"
-                      className={styles.textarea}
-                      rows={4}
-                      placeholder="Tell us briefly what motivates you..."
-                      value={values.reason}
-                      onChange={(e) => setField("reason", e.target.value)}
-                    />
-                  </div>
+  //                 <div className={`${styles.field} ${styles.fieldFull}`}>
+  //                   <span className={styles.label} id="m-contributions-label">
+  //                     How would you like to contribute?
+  //                   </span>
+  //                   <div
+  //                     className={styles.chipGrid}
+  //                     role="group"
+  //                     aria-labelledby="m-contributions-label"
+  //                   >
+  //                     {contributionOptions.map((option) => {
+  //                       const checked = values.contributions.includes(option);
+  //                       return (
+  //                         <label key={option} className={styles.chip}>
+  //                           <input
+  //                             type="checkbox"
+  //                             className={styles.chipInput}
+  //                             checked={checked}
+  //                             onChange={() => toggleContribution(option)}
+  //                           />
+  //                           <span className={styles.chipBox} aria-hidden="true">
+  //                             {checked ? (
+  //                               <Check size={12} strokeWidth={3} />
+  //                             ) : null}
+  //                           </span>
+  //                           {option}
+  //                         </label>
+  //                       );
+  //                     })}
+  //                   </div>
+  //                 </div>
 
-                  {/* Prior Conviction Question */}
-                  <div className={`${styles.field} ${styles.fieldFull}`}>
-                    <label className={styles.label}>
-                      Have you ever been convicted, arrested, or penalised by any court of law or judicial authority? <span aria-hidden="true">*</span>
-                    </label>
-                    <p style={{ fontSize: 11.5, color: "#64748b", margin: "-2px 0 8px" }}>
-                      <em>(Note: Exact question wording and eligibility guidelines subject to confirmation by HRSJM legal / administrative committee)</em>
-                    </p>
-                    <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
-                      <label style={{ display: "inline-flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 13.5 }}>
-                        <input
-                          type="radio"
-                          name="m-conviction"
-                          value="No"
-                          checked={values.priorConviction === "No"}
-                          onChange={() => setField("priorConviction", "No")}
-                        />
-                        <span>No</span>
-                      </label>
-                      <label style={{ display: "inline-flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 13.5 }}>
-                        <input
-                          type="radio"
-                          name="m-conviction"
-                          value="Yes"
-                          checked={values.priorConviction === "Yes"}
-                          onChange={() => setField("priorConviction", "Yes")}
-                        />
-                        <span>Yes</span>
-                      </label>
-                    </div>
-                    {values.priorConviction === "Yes" && (
-                      <div style={{ marginTop: 10 }}>
-                        <textarea
-                          className={styles.textarea}
-                          rows={3}
-                          placeholder="Please provide details (case reference, year, or nature of order)..."
-                          value={values.priorConvictionDetails}
-                          onChange={(e) => setField("priorConvictionDetails", e.target.value)}
-                        />
-                        {errors.priorConvictionDetails ? (
-                          <p className={styles.fieldError} role="alert">
-                            {errors.priorConvictionDetails}
-                          </p>
-                        ) : null}
-                      </div>
-                    )}
-                  </div>
+  //                 <div className={`${styles.field} ${styles.fieldFull}`}>
+  //                   <label className={styles.label} htmlFor="m-reason">
+  //                     Why would you like to join HRSJM?
+  //                   </label>
+  //                   <textarea
+  //                     id="m-reason"
+  //                     className={styles.textarea}
+  //                     rows={4}
+  //                     placeholder="Tell us briefly what motivates you..."
+  //                     value={values.reason}
+  //                     onChange={(e) => setField("reason", e.target.value)}
+  //                   />
+  //                 </div>
 
-                  {/* Mandatory Checkbox 1: Terms & Conditions */}
-                  <div className={`${styles.field} ${styles.fieldFull}`}>
-                    <label className={styles.agreeRow}>
-                      <input
-                        type="checkbox"
-                        className={styles.chipInput}
-                        checked={values.termsAgreed}
-                        onChange={(e) => setField("termsAgreed", e.target.checked)}
-                        aria-required="true"
-                      />
-                      <span className={styles.chipBox} aria-hidden="true">
-                        {values.termsAgreed ? (
-                          <Check size={12} strokeWidth={3} />
-                        ) : null}
-                      </span>
-                      <span>
-                        I agree to the{" "}
-                        <Link href="/terms" target="_blank" style={{ color: "var(--color-navy)", textDecoration: "underline" }}>
-                          Terms &amp; Conditions
-                        </Link>{" "}
-                        and official Bye-Laws. <span style={{ color: "#dc2626" }}>*</span>
-                      </span>
-                    </label>
-                    {errors.termsAgreed ? (
-                      <p className={styles.fieldError} role="alert">
-                        {errors.termsAgreed}
-                      </p>
-                    ) : null}
-                  </div>
+  //                 <div className={`${styles.field} ${styles.fieldFull}`}>
+  //                   <label className={styles.agreeRow}>
+  //                     <input
+  //                       type="checkbox"
+  //                       className={styles.chipInput}
+  //                       checked={values.agreed}
+  //                       onChange={(e) => setField("agreed", e.target.checked)}
+  //                       aria-required="true"
+  //                       aria-invalid={errors.agreed ? true : undefined}
+  //                     />
+  //                     <span className={styles.chipBox} aria-hidden="true">
+  //                       {values.agreed ? (
+  //                         <Check size={12} strokeWidth={3} />
+  //                       ) : null}
+  //                     </span>
+  //                     <span>
+  //                       I agree to the Membership Terms and Privacy Policy.
+  //                     </span>
+  //                   </label>
+  //                   {errors.agreed ? (
+  //                     <p className={styles.fieldError} role="alert">
+  //                       {errors.agreed}
+  //                     </p>
+  //                   ) : null}
+  //                 </div>
+  //               </div>
 
-                  {/* Mandatory Checkbox 2: Membership Pledge */}
-                  <div className={`${styles.field} ${styles.fieldFull}`}>
-                    <label className={styles.agreeRow}>
-                      <input
-                        type="checkbox"
-                        className={styles.chipInput}
-                        checked={values.pledgeAgreed}
-                        onChange={(e) => setField("pledgeAgreed", e.target.checked)}
-                        aria-required="true"
-                      />
-                      <span className={styles.chipBox} aria-hidden="true">
-                        {values.pledgeAgreed ? (
-                          <Check size={12} strokeWidth={3} />
-                        ) : null}
-                      </span>
-                      <span>
-                        I solemnly take the{" "}
-                        <Link href="/constitution" target="_blank" style={{ color: "var(--color-navy)", textDecoration: "underline" }}>
-                          HRSJM Membership Pledge
-                        </Link>{" "}
-                        to protect human rights. <span style={{ color: "#dc2626" }}>*</span>
-                      </span>
-                    </label>
-                    {errors.pledgeAgreed ? (
-                      <p className={styles.fieldError} role="alert">
-                        {errors.pledgeAgreed}
-                      </p>
-                    ) : null}
-                  </div>
+  //               <button type="submit" className={styles.submitButton}>
+  //                 Submit Membership Application
+  //                 <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+  //               </button>
 
-                  {/* Mandatory Checkbox 3: Self-Declaration */}
-                  <div className={`${styles.field} ${styles.fieldFull}`}>
-                    <label className={styles.agreeRow}>
-                      <input
-                        type="checkbox"
-                        className={styles.chipInput}
-                        checked={values.declarationAgreed}
-                        onChange={(e) => setField("declarationAgreed", e.target.checked)}
-                        aria-required="true"
-                      />
-                      <span className={styles.chipBox} aria-hidden="true">
-                        {values.declarationAgreed ? (
-                          <Check size={12} strokeWidth={3} />
-                        ) : null}
-                      </span>
-                      <span>
-                        I declare that all information submitted is accurate and authentic. <span style={{ color: "#dc2626" }}>*</span>
-                      </span>
-                    </label>
-                    {errors.declarationAgreed ? (
-                      <p className={styles.fieldError} role="alert">
-                        {errors.declarationAgreed}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
+  //               <p className={styles.formFootnote}>
+  //                 <Lock size={13} strokeWidth={2} aria-hidden="true" />
+  //                 Your information is confidential and will only be used to
+  //                 provide support.
+  //               </p>
+  //             </form>
+  //           )}
+  //         </div>
 
-                <button type="submit" className={styles.submitButton} disabled={submitting}>
-                  {submitting ? "Submitting Application..." : "Submit Membership Application"}
-                  <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
-                </button>
+  //         <aside className={styles.applySide}>
+  //           <div className={styles.applyImageWrap}>
+  //             <Image
+  //               src="/membership/membership-form-side.png"
+  //               alt="An HRSJM team member speaking with community members."
+  //               fill
+  //               sizes="(max-width: 1023px) 100vw, 40vw"
+  //               className={styles.applyImage}
+  //             />
+  //           </div>
 
-                <p className={styles.formFootnote}>
-                  <Lock size={13} strokeWidth={2} aria-hidden="true" />
-                  Your information is confidential and will only be used to
-                  provide support.
-                </p>
-              </form>
-            )}
-          </div>
+  //           <p className={styles.applySideEyebrow}>
+  //             <CircleDot size={15} strokeWidth={2} aria-hidden="true" />
+  //             Important Information
+  //           </p>
+  //           <h3 className={styles.applySideHeading}>Before You Join</h3>
+  //           <p className={styles.applySideText}>
+  //             Please read the following to help you understand the membership
+  //             process better.
+  //           </p>
 
-          <aside className={styles.applySide}>
-            <div className={styles.applyImageWrap}>
-              <Image
-                src="/membership/membership-form-side.png"
-                alt="An HRSJM team member speaking with community members."
-                fill
-                sizes="(max-width: 1023px) 100vw, 40vw"
-                className={styles.applyImage}
-              />
-            </div>
+  //           <div className={styles.faqList}>
+  //             {beforeYouJoin.map((item, index) => {
+  //               const isOpen = infoOpen === index;
+  //               return (
+  //                 <div key={item.question} className={styles.faqItem}>
+  //                   <h4>
+  //                     <button
+  //                       type="button"
+  //                       className={styles.faqQuestion}
+  //                       aria-expanded={isOpen}
+  //                       aria-controls={`join-info-panel-${index}`}
+  //                       id={`join-info-button-${index}`}
+  //                       onClick={() => setInfoOpen(isOpen ? null : index)}
+  //                     >
+  //                       <span>{item.question}</span>
+  //                       <span
+  //                         className={styles.faqToggleIcon}
+  //                         aria-hidden="true"
+  //                       >
+  //                         {isOpen ? (
+  //                           <Minus size={16} strokeWidth={2.2} />
+  //                         ) : (
+  //                           <Plus size={16} strokeWidth={2.2} />
+  //                         )}
+  //                       </span>
+  //                     </button>
+  //                   </h4>
+  //                   <div
+  //                     id={`join-info-panel-${index}`}
+  //                     role="region"
+  //                     aria-labelledby={`join-info-button-${index}`}
+  //                     className={styles.faqPanel}
+  //                     data-open={isOpen || undefined}
+  //                   >
+  //                     <div className={styles.faqPanelInner}>
+  //                       <p className={styles.faqAnswer}>{item.answer}</p>
+  //                     </div>
+  //                   </div>
+  //                 </div>
+  //               );
+  //             })}
+  //           </div>
 
-            <p className={styles.applySideEyebrow}>
-              <CircleDot size={15} strokeWidth={2} aria-hidden="true" />
-              Important Information
-            </p>
-            <h3 className={styles.applySideHeading}>Before You Join</h3>
-            <p className={styles.applySideText}>
-              Please read the following to help you understand the membership
-              process better.
-            </p>
-
-            <div className={styles.faqList}>
-              {beforeYouJoin.map((item, index) => {
-                const isOpen = infoOpen === index;
-                return (
-                  <div key={item.question} className={styles.faqItem}>
-                    <h4>
-                      <button
-                        type="button"
-                        className={styles.faqQuestion}
-                        aria-expanded={isOpen}
-                        aria-controls={`join-info-panel-${index}`}
-                        id={`join-info-button-${index}`}
-                        onClick={() => setInfoOpen(isOpen ? null : index)}
-                      >
-                        <span>{item.question}</span>
-                        <span
-                          className={styles.faqToggleIcon}
-                          aria-hidden="true"
-                        >
-                          {isOpen ? (
-                            <Minus size={16} strokeWidth={2.2} />
-                          ) : (
-                            <Plus size={16} strokeWidth={2.2} />
-                          )}
-                        </span>
-                      </button>
-                    </h4>
-                    <div
-                      id={`join-info-panel-${index}`}
-                      role="region"
-                      aria-labelledby={`join-info-button-${index}`}
-                      className={styles.faqPanel}
-                      data-open={isOpen || undefined}
-                    >
-                      <div className={styles.faqPanelInner}>
-                        <p className={styles.faqAnswer}>{item.answer}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <p className={styles.applySideFootnote}>
-              <ShieldCheck size={14} strokeWidth={2} aria-hidden="true" />
-              Every application is reviewed personally by our team.
-            </p>
-          </aside>
-        </div>
-      </div>
-    </section>
-  );
+  //           <p className={styles.applySideFootnote}>
+  //             <ShieldCheck size={14} strokeWidth={2} aria-hidden="true" />
+  //             Every application is reviewed personally by our team.
+  //           </p>
+  //         </aside>
+  //       </div>
+  //     </div>
+  //   </section>
+  // );
 }
