@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRef, type ChangeEvent, type FormEvent } from "react";
-import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
@@ -51,7 +50,7 @@ export default function Step3DocumentUpload({
   const browsePhotoRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (
-    field: "idProof" | "addressProof" | "photograph",
+    field: "idProof" | "addressProof" | "qualification" | "photograph",
     e: ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
@@ -84,7 +83,9 @@ export default function Step3DocumentUpload({
     });
   };
 
-  const handleRemove = (field: "idProof" | "addressProof" | "photograph") => {
+  const handleRemove = (
+    field: "idProof" | "addressProof" | "qualification" | "photograph"
+  ) => {
     onChange(field, {
       file: null,
       name: "",
@@ -103,7 +104,7 @@ export default function Step3DocumentUpload({
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!isConsentChecked) return;
-    onSubmit();
+    onNext();
   };
 
   return (
@@ -587,7 +588,7 @@ export default function Step3DocumentUpload({
         <button
           type="submit"
           className={styles.btnGold}
-          disabled={submitting || !isConsentChecked}
+          disabled={!isConsentChecked}
           title={
             !isConsentChecked
               ? "Please agree to the Privacy Policy and Terms & Conditions to submit"

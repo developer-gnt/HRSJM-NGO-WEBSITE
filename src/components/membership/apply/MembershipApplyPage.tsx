@@ -74,6 +74,12 @@ function MembershipApplyContent() {
     agreeTerms: false,
   });
 
+  // Step 4 State: Payment & Verification
+  const [step4Data, setStep4Data] = useState<Step4Data>({
+    paymentMode: "upi_bank",
+    paymentReference: "",
+  });
+
   // Validation Errors
   const [step1Errors, setStep1Errors] = useState<Record<string, string>>({});
   const [step2Errors, setStep2Errors] = useState<Record<string, string>>({});
@@ -218,16 +224,6 @@ function MembershipApplyContent() {
       errors.agreeTerms = "Please accept the Terms & Conditions.";
     }
 
-    if (!step3Data.termsAgreed) {
-      errors.termsAgreed = "You must review and agree to the Terms & Conditions.";
-    }
-    if (!step3Data.pledgeAgreed) {
-      errors.pledgeAgreed = "You must solemnly take the HRSJM Membership Pledge.";
-    }
-    if (!step3Data.declarationAgreed) {
-      errors.declarationAgreed = "You must accept the Self-Declaration confirming accuracy.";
-    }
-
     setStep3Errors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -282,9 +278,6 @@ function MembershipApplyContent() {
         packageName: selectedPackage.item.post,
         packageFee: selectedPackage.item.fees,
         packageValidity: selectedPackage.item.validity,
-        termsAgreed: step3Data.termsAgreed,
-        pledgeAgreed: step3Data.pledgeAgreed,
-        declarationAgreed: step3Data.declarationAgreed,
         paymentMode: step4Data.paymentMode === "upi_bank" ? "UPI / Bank Transfer" : "Online Gateway (Pending Verification)",
         paymentReference: step4Data.paymentReference,
       };
