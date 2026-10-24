@@ -49,7 +49,7 @@ export default function DonationFAQ() {
               Find answers to common questions about how your donation helps
               and how it is used.
             </p>
-            <Link href="/faqs#donation" className={styles.faqViewAll}>
+            <Link href="/faqs" className={styles.faqViewAll}>
               View All FAQs
               <ArrowRight size={15} strokeWidth={2.4} aria-hidden="true" />
             </Link>

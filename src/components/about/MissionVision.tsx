@@ -15,9 +15,6 @@ export default function MissionVision({
 }: MissionVisionProps) {
   return (
     <section id="mission-vision" className={styles.missionVision}>
-      {/* Decorative background radial blur */}
-      <div className={styles.mvBlob} />
-
       <div className={styles.container}>
         <div className={styles.mvGrid}>
           {/* Left column */}

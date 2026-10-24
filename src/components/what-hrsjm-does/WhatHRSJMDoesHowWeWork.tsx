@@ -3,8 +3,6 @@
 import { useEffect, useRef } from "react";
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import Icon from "@/components/ui/Icon";
 import styles from "./what-hrsjm-does.module.css";
 
 interface WorkStep {
@@ -95,13 +93,6 @@ export default function WhatHRSJMDoesHowWeWork() {
             approach is rooted in participation, collaboration and long-term
             empowerment.
           </p>
-
-          <Link href="#impact" className={styles.howWeWorkCta}>
-            Our Working Model
-            <span className={styles.howWeWorkCtaIcon}>
-              <Icon name="arrow" width={17} height={17} strokeWidth={2} />
-            </span>
-          </Link>
         </div>
 
         <div className={styles.howWeWorkMedia}>

@@ -34,13 +34,11 @@
 .heroScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.78) 0%,
-    rgba(3, 29, 56, 0.42) 30%,
-    rgba(3, 29, 56, 0.05) 58%,
-    rgba(3, 29, 56, 0) 74%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.78) 0%,
+      rgba(3, 29, 56, 0.42) 30%,
+      rgba(3, 29, 56, 0.05) 58%,
+      rgba(3, 29, 56, 0) 74%);
   pointer-events: none;
 }
 
@@ -48,13 +46,11 @@
 .heroShade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(3, 29, 56, 0.42) 0%,
-    rgba(3, 29, 56, 0) 22%,
-    rgba(3, 29, 56, 0) 68%,
-    rgba(3, 29, 56, 0.52) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(3, 29, 56, 0.42) 0%,
+      rgba(3, 29, 56, 0) 22%,
+      rgba(3, 29, 56, 0) 68%,
+      rgba(3, 29, 56, 0.52) 100%);
   pointer-events: none;
 }
 
@@ -63,7 +59,7 @@
   flex: 1;
   width: min(100%, var(--container));
   margin: 0 auto;
-  padding: 20px var(--page-padding) 24px;
+  padding: 20px var(--page-padding) 26px;
   display: flex;
   flex-direction: column;
 }
@@ -109,7 +105,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 18px;
+  margin-top: 29px;
   color: var(--color-white);
   font-size: var(--type-caption);
   font-weight: 700;
@@ -310,6 +306,7 @@
     opacity: 0;
     transform: translateY(16px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -356,6 +353,7 @@
 
 /* Tablet — 640–1024px */
 @media (max-width: 1023px) {
+
   /* Same viewport-fit strategy as desktop with a shorter navbar */
   .hero {
     min-height: clamp(480px, calc(100vh - 118px), 560px);
@@ -381,6 +379,7 @@
 
 /* Mobile — under 640px */
 @media (max-width: 639px) {
+
   /* Content-driven height on mobile — no fixed min-height, so the
      hero is never taller than its copy needs. */
   .hero {
@@ -394,18 +393,14 @@
   /* Even coverage so heading, note and strip all stay readable */
   .heroScrim {
     background:
-      linear-gradient(
-        180deg,
+      linear-gradient(180deg,
         rgba(3, 29, 56, 0.5) 0%,
         rgba(3, 29, 56, 0.3) 40%,
-        rgba(3, 29, 56, 0.55) 100%
-      ),
-      linear-gradient(
-        90deg,
+        rgba(3, 29, 56, 0.55) 100%),
+      linear-gradient(90deg,
         rgba(3, 29, 56, 0.88) 0%,
         rgba(3, 29, 56, 0.55) 55%,
-        rgba(3, 29, 56, 0.28) 100%
-      );
+        rgba(3, 29, 56, 0.28) 100%);
   }
 
   .heroInner {
@@ -470,7 +465,7 @@
     gap: 10px;
   }
 
-  .featureItem > span:last-child {
+  .featureItem>span:last-child {
     min-width: 0;
   }
 
@@ -494,6 +489,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .breadcrumbList,
   .eyebrow,
   .heading,
@@ -513,11 +509,9 @@
 .videoSection {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(
-    180deg,
-    var(--color-navy) 0%,
-    var(--color-navy-dark) 100%
-  );
+  background: linear-gradient(180deg,
+      var(--color-navy) 0%,
+      var(--color-navy-dark) 100%);
   color: var(--color-white);
   padding: clamp(45px, 4.8vw, 68px) 0;
   /* Anchor target of the hero "Watch Video" CTA */
@@ -657,6 +651,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .videoEyebrow,
   .videoHeading,
   .videoDescription,

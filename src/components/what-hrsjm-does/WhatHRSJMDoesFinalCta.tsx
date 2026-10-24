@@ -68,7 +68,7 @@ export default function WhatHRSJMDoesFinalCta() {
             lasting impact.
           </p>
           <div className={styles.finalCtaActions}>
-            <Link href="/donation" className={styles.primaryBtn}>
+            <Link href="/donation#donate" className={styles.primaryBtn}>
               Make a Donation
               <span className={styles.primaryBtnIcon} aria-hidden="true">
                 <Icon name="arrow" width={17} height={17} strokeWidth={2} />

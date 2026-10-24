@@ -27,7 +27,7 @@ export default function KnowledgeBanner() {
             India.
           </p>
           <div className={styles.knowledgeAction} data-reveal style={revealDelay(3)}>
-            <Link href="#latest-news" className={styles.btnGold}>
+            <Link href="/articles" className={styles.btnGold}>
               Explore All Articles
               <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
             </Link>

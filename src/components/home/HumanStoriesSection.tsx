@@ -299,8 +299,12 @@ export default function HumanStoriesSection() {
 
           <div className={styles.events}>
             <div className={styles.eventsHead} data-reveal>
-              <h3 className={styles.eventsHeading}>Events &amp; Activities</h3>
-              <Link href="/events/all" className={styles.eventsLink}>
+              <h3 className={styles.eventsHeading}>
+                <Link href="/events" className={styles.eventsHeadingLink}>
+                  Events &amp; Activities
+                </Link>
+              </h3>
+              <Link href="/events" className={styles.eventsLink}>
                 View All Events
                 <Icon name="arrow" width={14} height={14} />
               </Link>

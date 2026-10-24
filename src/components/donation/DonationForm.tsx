@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import {
   ArrowRight,
   BookOpen,
@@ -44,21 +44,34 @@ const formatINR = (value: number) =>
 
 export default function DonationForm() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(5000);
-  const [customValue, setCustomValue] = useState("");
+  const [customValue, setCustomValue] = useState("5000");
   const [message, setMessage] = useState<{
     type: "error" | "info";
     text: string;
   } | null>(null);
   const customInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash === "#donate") {
+      const el = document.getElementById("donate");
+      if (el) {
+        const timer = setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 120);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
+
   const selectAmount = (value: number) => {
     setSelectedAmount(value);
+    setCustomValue(String(value));
     setMessage(null);
   };
 
   const selectQuickAmount = (value: number) => {
     setSelectedAmount(value);
-    setCustomValue("");
+    setCustomValue(String(value));
     setMessage(null);
   };
 
@@ -71,7 +84,7 @@ export default function DonationForm() {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const amount = selectedAmount;
+    const amount = selectedAmount ?? (customValue ? Number(customValue) : null);
     if (!amount || amount < 10) {
       setMessage({
         type: "error",

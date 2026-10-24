@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   CalendarDays,
+  ChevronRight,
   Clock,
   MapPin,
   Tag,
@@ -59,15 +60,15 @@ export default async function EventDetailPage({
           <Link href="/" className={styles.breadcrumbLink}>
             Home
           </Link>
-          <span className={styles.breadcrumbSeparator} aria-hidden="true">
-            /
-          </span>
-          <Link href="/events/all" className={styles.breadcrumbLink}>
-            All Events
+          <ChevronRight size={13} strokeWidth={2} className={styles.breadcrumbSeparator} aria-hidden="true" />
+          <Link href="/events" className={styles.breadcrumbLink}>
+            Events &amp; Activities
           </Link>
-          <span className={styles.breadcrumbSeparator} aria-hidden="true">
-            /
-          </span>
+          <ChevronRight size={13} strokeWidth={2} className={styles.breadcrumbSeparator} aria-hidden="true" />
+          <Link href="/events/all" className={styles.breadcrumbLink}>
+            Upcoming Events
+          </Link>
+          <ChevronRight size={13} strokeWidth={2} className={styles.breadcrumbSeparator} aria-hidden="true" />
           <span className={styles.breadcrumbCurrent}>{event.title}</span>
         </nav>
 

@@ -72,13 +72,6 @@ export default function RightsResources() {
               understand your rights.
             </p>
           </div>
-
-          <a href="#resources" className={styles.viewAll}>
-            View All Resources
-            <span className={styles.viewAllIcon}>
-              <Icon name="arrow" width={15} height={15} strokeWidth={2} />
-            </span>
-          </a>
         </div>
 
         <ul className={styles.grid}>
@@ -96,7 +89,7 @@ export default function RightsResources() {
                     src={resource.image}
                     alt={resource.title}
                     fill
-                    sizes="(min-width: 1200px) 180px, (min-width: 640px) 33vw, calc(100vw - 48px)"
+                    sizes="(min-width: 1024px) 250px, (min-width: 640px) 33vw, calc(50vw - 14px)"
                     className={styles.mediaImg}
                   />
                   <span className={styles.pdfBadge} aria-hidden="true">

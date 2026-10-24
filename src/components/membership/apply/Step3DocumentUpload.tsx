@@ -1,11 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, type ChangeEvent, type FormEvent } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
-  Camera,
   CheckCircle2,
   FileText,
   FileUp,
@@ -24,10 +24,10 @@ export interface DocumentUploadItem {
 export interface Step3Data {
   idProof: DocumentUploadItem;
   addressProof: DocumentUploadItem;
+  qualification: DocumentUploadItem;
   photograph: DocumentUploadItem;
-  termsAgreed: boolean;
-  pledgeAgreed: boolean;
-  declarationAgreed: boolean;
+  agreePrivacy: boolean;
+  agreeTerms: boolean;
 }
 
 interface Step3Props {
@@ -46,13 +46,9 @@ export default function Step3DocumentUpload({
   errors,
 }: Step3Props) {
   const browseIdRef = useRef<HTMLInputElement>(null);
-  const cameraIdRef = useRef<HTMLInputElement>(null);
-
   const browseAddrRef = useRef<HTMLInputElement>(null);
-  const cameraAddrRef = useRef<HTMLInputElement>(null);
-
+  const browseQualRef = useRef<HTMLInputElement>(null);
   const browsePhotoRef = useRef<HTMLInputElement>(null);
-  const cameraPhotoRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (
     field: "idProof" | "addressProof" | "photograph",
@@ -102,9 +98,12 @@ export default function Step3DocumentUpload({
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
+  const isConsentChecked = Boolean(data.agreePrivacy && data.agreeTerms);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    onNext();
+    if (!isConsentChecked) return;
+    onSubmit();
   };
 
   return (
@@ -112,7 +111,7 @@ export default function Step3DocumentUpload({
       <div className={styles.stepHeader}>
         <h2 className={styles.sectionHeading}>Documents &amp; Declarations</h2>
         <p className={styles.sectionSubtitle}>
-          Upload the 3 required identity documents and accept the mandatory mission agreements.
+          Please upload the required documents (4 documents).
         </p>
       </div>
 
@@ -148,14 +147,6 @@ export default function Step3DocumentUpload({
               ref={browseIdRef}
               type="file"
               accept=".pdf,.jpg,.jpeg,.png"
-              style={{ display: "none" }}
-              onChange={(e) => handleFile("idProof", e)}
-            />
-            <input
-              ref={cameraIdRef}
-              type="file"
-              accept="image/*"
-              capture="environment"
               style={{ display: "none" }}
               onChange={(e) => handleFile("idProof", e)}
             />
@@ -208,13 +199,6 @@ export default function Step3DocumentUpload({
                   <button
                     type="button"
                     className={styles.docActionBtn}
-                    onClick={() => cameraIdRef.current?.click()}
-                  >
-                    <Camera size={14} /> Camera Scan
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.docActionBtn}
                     onClick={() => browseIdRef.current?.click()}
                   >
                     <FileText size={14} /> Browse Files
@@ -256,14 +240,6 @@ export default function Step3DocumentUpload({
               ref={browseAddrRef}
               type="file"
               accept=".pdf,.jpg,.jpeg,.png"
-              style={{ display: "none" }}
-              onChange={(e) => handleFile("addressProof", e)}
-            />
-            <input
-              ref={cameraAddrRef}
-              type="file"
-              accept="image/*"
-              capture="environment"
               style={{ display: "none" }}
               onChange={(e) => handleFile("addressProof", e)}
             />
@@ -316,13 +292,6 @@ export default function Step3DocumentUpload({
                   <button
                     type="button"
                     className={styles.docActionBtn}
-                    onClick={() => cameraAddrRef.current?.click()}
-                  >
-                    <Camera size={14} /> Camera Scan
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.docActionBtn}
                     onClick={() => browseAddrRef.current?.click()}
                   >
                     <FileText size={14} /> Browse Files
@@ -333,7 +302,100 @@ export default function Step3DocumentUpload({
           </div>
         </div>
 
-        {/* Document 3: Photograph */}
+        {/* Document 3: Qualification */}
+        <div
+          className={`${styles.docCard} ${
+            errors.qualification ? styles.docCardError : ""
+          }`}
+        >
+          <div className={styles.docCardMeta}>
+            <span className={styles.docNumberBadge} aria-hidden="true">
+              3
+            </span>
+            <div className={styles.docMetaText}>
+              <h3 className={styles.docTitle}>
+                Qualification <span className={styles.fieldRequired}>*</span>
+              </h3>
+              <p className={styles.docSubtitle}>
+                Marksheet, Degree or Certificate
+              </p>
+              {errors.qualification && (
+                <p className={styles.fieldError} role="alert">
+                  <AlertCircle size={12} strokeWidth={2} />
+                  {errors.qualification}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.docUploadBox}>
+            <input
+              ref={browseQualRef}
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png"
+              style={{ display: "none" }}
+              onChange={(e) => handleFile("qualification", e)}
+            />
+
+            {data.qualification.file ? (
+              <div className={styles.docUploadedState}>
+                <div className={styles.docUploadedFile}>
+                  <CheckCircle2 size={20} className={styles.docCheckIcon} />
+                  <div>
+                    <span className={styles.docUploadedFileName}>
+                      {data.qualification.name}
+                    </span>
+                    <span className={styles.docUploadedFileSize}>
+                      ({formatSize(data.qualification.size)})
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className={styles.photoRemoveBtn}
+                  onClick={() => handleRemove("qualification")}
+                  title="Remove document"
+                >
+                  <Trash2 size={16} /> Remove
+                </button>
+              </div>
+            ) : (
+              <>
+                <div
+                  className={styles.docUploadPrompt}
+                  onClick={() => browseQualRef.current?.click()}
+                  role="button"
+                  tabIndex={0}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className={styles.docUploadIcon} aria-hidden="true">
+                    <FileUp size={18} strokeWidth={2.2} />
+                  </div>
+                  <div className={styles.docUploadInfo}>
+                    <span className={styles.docUploadHeadline}>
+                      Tap to choose document
+                    </span>
+                    <span className={styles.docUploadSub}>
+                      PDF, JPG or PNG (Max 5MB)
+                    </span>
+                  </div>
+                </div>
+
+                <div className={styles.docActions}>
+                  <button
+                    type="button"
+                    className={styles.docActionBtn}
+                    onClick={() => browseQualRef.current?.click()}
+                  >
+                    <FileText size={14} /> Browse Files
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Document 4: Photograph */}
         <div
           className={`${styles.docCard} ${
             errors.photograph ? styles.docCardError : ""
@@ -341,7 +403,7 @@ export default function Step3DocumentUpload({
         >
           <div className={styles.docCardMeta}>
             <span className={styles.docNumberBadge} aria-hidden="true">
-              3
+              4
             </span>
             <div className={styles.docMetaText}>
               <h3 className={styles.docTitle}>
@@ -364,14 +426,6 @@ export default function Step3DocumentUpload({
               ref={browsePhotoRef}
               type="file"
               accept=".jpg,.jpeg,.png"
-              style={{ display: "none" }}
-              onChange={(e) => handleFile("photograph", e)}
-            />
-            <input
-              ref={cameraPhotoRef}
-              type="file"
-              accept="image/*"
-              capture="environment"
               style={{ display: "none" }}
               onChange={(e) => handleFile("photograph", e)}
             />
@@ -424,13 +478,6 @@ export default function Step3DocumentUpload({
                   <button
                     type="button"
                     className={styles.docActionBtn}
-                    onClick={() => cameraPhotoRef.current?.click()}
-                  >
-                    <Camera size={14} /> Camera Scan
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.docActionBtn}
                     onClick={() => browsePhotoRef.current?.click()}
                   >
                     <FileText size={14} /> Browse Files
@@ -442,100 +489,90 @@ export default function Step3DocumentUpload({
         </div>
       </div>
 
-      {/* Mandatory Checkboxes Section */}
-      <div
-        style={{
-          background: "#ffffff",
-          border: "1px solid #e2e8f0",
-          borderRadius: 10,
-          padding: "20px 22px",
-          marginTop: 20,
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-          <ShieldCheck size={20} style={{ color: "#0a3a6b" }} />
-          <h3 style={{ fontSize: 15, fontWeight: 700, color: "var(--color-navy)", margin: 0 }}>
-            Mandatory Declarations &amp; Agreements
-          </h3>
+      {/* Declarations & Consents */}
+      <div className={styles.consentSection}>
+        <div className={styles.consentHeader}>
+          <ShieldCheck size={18} className={styles.consentHeaderIcon} />
+          <h4 className={styles.consentHeading}>Applicant Declarations &amp; Consents</h4>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          {/* Checkbox 1: Terms & Conditions */}
-          <div>
-            <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", fontSize: 13, color: "#1e293b", lineHeight: 1.45 }}>
-              <input
-                type="checkbox"
-                checked={data.termsAgreed}
-                onChange={(e) => onChange("termsAgreed", e.target.checked)}
-                style={{ marginTop: 2 }}
-              />
-              <span>
-                I have read, understood, and agree to abide by the{" "}
-                <Link
-                  href="/terms"
-                  target="_blank"
-                  style={{ color: "#0a3a6b", fontWeight: 600, textDecoration: "underline" }}
-                >
-                  HRSJM Terms &amp; Conditions
-                </Link>{" "}
-                and official Bye-Laws. <span style={{ color: "#dc2626" }}>*</span>
-              </span>
+        <div className={styles.consentList}>
+          {/* 1. Privacy Policy Consent */}
+          <div
+            className={`${styles.consentItem} ${
+              data.agreePrivacy ? styles.consentItemChecked : ""
+            } ${errors.agreePrivacy ? styles.consentItemError : ""}`}
+          >
+            <input
+              id="consent-privacy"
+              type="checkbox"
+              checked={data.agreePrivacy}
+              onChange={(e) => onChange("agreePrivacy", e.target.checked)}
+              className={styles.consentCheckbox}
+            />
+            <label htmlFor="consent-privacy" className={styles.consentLabel}>
+              I have read and agree to the{" "}
+              <Link
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.consentLink}
+              >
+                Privacy Policy
+              </Link>
+              . I consent to the collection, verification, and processing of my personal
+              information and uploaded documents by HRSJM. <span className={styles.fieldRequired}>*</span>
             </label>
-            {errors.termsAgreed && (
-              <p className={styles.fieldError} style={{ marginLeft: 24 }}>
-                <AlertCircle size={12} /> {errors.termsAgreed}
-              </p>
-            )}
           </div>
+          {errors.agreePrivacy && (
+            <p className={styles.fieldError} role="alert">
+              <AlertCircle size={12} strokeWidth={2} />
+              {errors.agreePrivacy}
+            </p>
+          )}
 
-          {/* Checkbox 2: Membership Pledge */}
-          <div>
-            <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", fontSize: 13, color: "#1e293b", lineHeight: 1.45 }}>
-              <input
-                type="checkbox"
-                checked={data.pledgeAgreed}
-                onChange={(e) => onChange("pledgeAgreed", e.target.checked)}
-                style={{ marginTop: 2 }}
-              />
-              <span>
-                I solemnly take the{" "}
-                <Link
-                  href="/constitution"
-                  target="_blank"
-                  style={{ color: "#0a3a6b", fontWeight: 600, textDecoration: "underline" }}
-                >
-                  HRSJM Membership Pledge
-                </Link>{" "}
-                to promote constitutional rights, protect human dignity, and serve the community without discrimination. <span style={{ color: "#dc2626" }}>*</span>
-              </span>
+          {/* 2. Terms & Conditions Consent */}
+          <div
+            className={`${styles.consentItem} ${
+              data.agreeTerms ? styles.consentItemChecked : ""
+            } ${errors.agreeTerms ? styles.consentItemError : ""}`}
+          >
+            <input
+              id="consent-terms"
+              type="checkbox"
+              checked={data.agreeTerms}
+              onChange={(e) => onChange("agreeTerms", e.target.checked)}
+              className={styles.consentCheckbox}
+            />
+            <label htmlFor="consent-terms" className={styles.consentLabel}>
+              I have read and accept the{" "}
+              <Link
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.consentLink}
+              >
+                Terms &amp; Conditions
+              </Link>{" "}
+              of Human Rights &amp; Social Justice Mission, and agree to abide by the
+              rules, aims, and code of conduct of the organization.{" "}
+              <span className={styles.fieldRequired}>*</span>
             </label>
-            {errors.pledgeAgreed && (
-              <p className={styles.fieldError} style={{ marginLeft: 24 }}>
-                <AlertCircle size={12} /> {errors.pledgeAgreed}
-              </p>
-            )}
           </div>
-
-          {/* Checkbox 3: Declaration */}
-          <div>
-            <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer", fontSize: 13, color: "#1e293b", lineHeight: 1.45 }}>
-              <input
-                type="checkbox"
-                checked={data.declarationAgreed}
-                onChange={(e) => onChange("declarationAgreed", e.target.checked)}
-                style={{ marginTop: 2 }}
-              />
-              <span>
-                I hereby declare that all information and uploaded documents provided by me are authentic, true, and correct to the best of my knowledge. I understand that any false statement or suppression of material facts will lead to immediate cancellation of membership and legal liability. <span style={{ color: "#dc2626" }}>*</span>
-              </span>
-            </label>
-            {errors.declarationAgreed && (
-              <p className={styles.fieldError} style={{ marginLeft: 24 }}>
-                <AlertCircle size={12} /> {errors.declarationAgreed}
-              </p>
-            )}
-          </div>
+          {errors.agreeTerms && (
+            <p className={styles.fieldError} role="alert">
+              <AlertCircle size={12} strokeWidth={2} />
+              {errors.agreeTerms}
+            </p>
+          )}
         </div>
+
+        {!isConsentChecked && (
+          <div className={styles.consentNotice} role="status">
+            <AlertCircle size={14} />
+            <span>Please check both consent boxes above to enable application submission.</span>
+          </div>
+        )}
       </div>
 
       {/* Navigation Actions */}
@@ -550,6 +587,12 @@ export default function Step3DocumentUpload({
         <button
           type="submit"
           className={styles.btnGold}
+          disabled={submitting || !isConsentChecked}
+          title={
+            !isConsentChecked
+              ? "Please agree to the Privacy Policy and Terms & Conditions to submit"
+              : undefined
+          }
         >
           Proceed to Payment &amp; Review <ArrowRight size={17} strokeWidth={2.4} />
         </button>

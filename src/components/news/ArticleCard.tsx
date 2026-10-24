@@ -52,9 +52,19 @@ export default function ArticleCard({
           <span className={styles.articleMeta}>
             {date} &bull; {readTime}
           </span>
-          <span className={styles.articleArrow}>
-            <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
-          </span>
+          {href ? (
+            <Link
+              href={href}
+              className={styles.articleArrow}
+              aria-label={`Read article: ${title}`}
+            >
+              <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
+          ) : (
+            <span className={styles.articleArrow} aria-hidden="true">
+              <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+            </span>
+          )}
         </div>
       </div>
     </article>

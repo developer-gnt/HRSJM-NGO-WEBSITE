@@ -9,6 +9,7 @@ import {
   Globe,
   MapPin,
   AlertCircle,
+  Shield,
 } from "lucide-react";
 import { indianStates } from "@/components/complaint/ComplaintForm";
 import styles from "./apply.module.css";
@@ -20,6 +21,7 @@ export interface Step2Data {
   state: string;
   pincode: string;
   country: string;
+  policeStation: string;
 }
 
 interface Step2Props {
@@ -58,7 +60,7 @@ export default function Step2AddressDetails({
 
       <div className={styles.formGrid}>
         {/* Address Line 1 */}
-        <div className={`${styles.formField} ${styles.formFieldFull}`}>
+        <div className={styles.formField}>
           <label htmlFor="app-address1" className={styles.fieldLabel}>
             Address Line 1 <span className={styles.fieldRequired}>*</span>
           </label>
@@ -92,7 +94,7 @@ export default function Step2AddressDetails({
         </div>
 
         {/* Address Line 2 */}
-        <div className={`${styles.formField} ${styles.formFieldFull}`}>
+        <div className={styles.formField}>
           <label htmlFor="app-address2" className={styles.fieldLabel}>
             Address Line 2
           </label>
@@ -232,6 +234,39 @@ export default function Step2AddressDetails({
             </select>
             <ChevronDown size={16} className={styles.selectArrow} />
           </div>
+        </div>
+
+        {/* Nearby Police Station */}
+        <div className={`${styles.formField} ${styles.formFieldFull}`}>
+          <label htmlFor="app-policeStation" className={styles.fieldLabel}>
+            Nearby Police Station <span className={styles.fieldRequired}>*</span>
+          </label>
+          <div
+            className={`${styles.inputWrapper} ${
+              errors.policeStation ? styles.inputWrapperError : ""
+            }`}
+          >
+            <span className={styles.inputIcon} aria-hidden="true">
+              <Shield size={17} strokeWidth={2} />
+            </span>
+            <input
+              id="app-policeStation"
+              type="text"
+              placeholder="Enter nearby police station"
+              value={data.policeStation}
+              onChange={(e) => onChange("policeStation", e.target.value)}
+              className={styles.inputField}
+            />
+          </div>
+          <span className={styles.fieldHelper}>
+            Nearest police station for jurisdiction and verification
+          </span>
+          {errors.policeStation && (
+            <p className={styles.fieldError} role="alert">
+              <AlertCircle size={13} strokeWidth={2} />
+              {errors.policeStation}
+            </p>
+          )}
         </div>
       </div>
 

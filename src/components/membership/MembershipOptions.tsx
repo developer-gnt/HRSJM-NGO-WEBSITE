@@ -44,12 +44,6 @@ const categories = [
 ];
 
 export default function MembershipOptions() {
-  const choosePlan = (planId: string) => {
-    window.dispatchEvent(
-      new CustomEvent("hrsjm:membership-type", { detail: planId })
-    );
-  };
-
   return (
     <section
       id="membership-options"
@@ -83,48 +77,15 @@ export default function MembershipOptions() {
                 <span className={styles.planIcon}>
                   <CatIcon size={22} strokeWidth={1.8} aria-hidden="true" />
                 </span>
-                <div style={{ marginBottom: 6 }}>
-                  <span
-                    style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      color: "#166534",
-                      background: "#dcfce7",
-                      padding: "2px 8px",
-                      borderRadius: 4,
-                    }}
-                  >
-                    {cat.fee}
-                  </span>
-                </div>
-                <h3 className={styles.planName}>{cat.name}</h3>
-                <p className={styles.planDescription}>{cat.description}</p>
-                <div style={{ display: "flex", gap: 10, marginTop: "auto", paddingTop: 14 }}>
-                  <Link
-                    href={`/membership/apply?post=${encodeURIComponent(cat.defaultPost)}`}
-                    className={styles.planButton}
-                    onClick={() => choosePlan(cat.id)}
-                  >
-                    Apply Now
-                    <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
-                  </Link>
-                  <Link
-                    href="/membership/categories"
-                    style={{
-                      fontSize: 12.5,
-                      fontWeight: 600,
-                      color: "var(--color-navy)",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      padding: "8px 12px",
-                      borderRadius: 6,
-                      border: "1px solid #dce4ec",
-                      textDecoration: "none",
-                    }}
-                  >
-                    View Posts
-                  </Link>
-                </div>
+                <h3 className={styles.planName}>{plan.name}</h3>
+                <p className={styles.planDescription}>{plan.description}</p>
+                <Link
+                  href="/membership/categories"
+                  className={styles.planButton}
+                >
+                  Join Now
+                  <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+                </Link>
               </li>
             );
           })}

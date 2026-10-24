@@ -8,6 +8,7 @@
     "status": "Register Open",
     "statusType": "open",
     "image": "/images/story-3.png",
+    "href": "/events/child-rights-awareness-workshop",
     "action": {
       "label": "View Details",
       "type": "details"
@@ -22,6 +23,7 @@
     "status": "Register Open",
     "statusType": "open",
     "image": "/images/story-5.png",
+    "href": "/events/community-tree-plantation-drive",
     "action": {
       "label": "View Details",
       "type": "details"
@@ -36,9 +38,10 @@
     "status": "Registration Soon",
     "statusType": "soon",
     "image": "/WHD-Cards/card-3.png",
+    "href": "/events/rti-awareness-seminar",
     "action": {
-      "label": "Notify Me",
-      "type": "notify"
+      "label": "View Details",
+      "type": "details"
     }
   }
 ]

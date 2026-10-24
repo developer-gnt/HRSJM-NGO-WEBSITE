@@ -103,6 +103,172 @@ export const featuredArticle: Article = {
    a real detail page — all views read from this single source. */
 export const latestArticles: Article[] = [
   {
+    slug: "annual-national-human-rights-conference-2026-registration",
+    image: "/images/news-knowledge-bg.png",
+    alt: "Delegates and human rights advocates gathered at the national conference hall",
+    category: "Announcements",
+    title: "Annual National Human Rights Conference 2026: Delegate Registration Now Open",
+    description:
+      "Registrations are officially open for delegates, legal professionals, and student fellows to participate in the National Human Rights Conference in New Delhi.",
+    author: "HRSJM National Secretariat",
+    date: "Oct 14, 2026",
+    readTime: "4 min read",
+    sections: [
+      {
+        heading: "Conference Theme & National Scope",
+        paragraphs: [
+          "The Human Rights and Social Justice Mission is proud to convene the Annual National Human Rights Conference 2026 at the India Habitat Centre, New Delhi, scheduled for November 28–29, 2026. This year's central theme, 'Strengthening Constitutional Protections in a Changing Democracy,' brings together jurists, grassroots organizers, academics, and youth delegates from across 22 states and union territories.",
+          "Over two intensive days, the plenary sessions will examine practical strategies for safeguarding fundamental freedoms, addressing systemic socio-economic inequalities, and expanding community-driven access to judicial institutions.",
+        ],
+      },
+      {
+        heading: "Keynote Addresses and Thematic Tracks",
+        paragraphs: [
+          "Distinguished luminaries from the judiciary, senior advocates of the Supreme Court of India, and representatives from statutory commissions will deliver keynote addresses. Four specialized working tracks will run concurrently: Digital Privacy & Civic Freedoms, Women's Land and Labour Rights, Protection of Vulnerable Minorities, and Grassroots Legal Literacy Innovations.",
+          "Delegates will also have the opportunity to engage in roundtable consultations with policymakers and submit policy memoranda on pending judicial and administrative reforms.",
+        ],
+      },
+      {
+        heading: "Delegate Categories & Eligibility",
+        paragraphs: [
+          "Registration is open to practicing advocates, NGO representatives, law students, academic researchers, and grassroots rights defenders. To ensure nationwide equitable representation, subsidized delegate seats are reserved for applicants from rural, tribal, and economically disadvantaged backgrounds.",
+          "Institutional delegations (up to 5 members per registered organisation or university law clinic) are encouraged to apply early to secure credentials and delegate conference kits.",
+        ],
+      },
+      {
+        heading: "Registration Deadlines & Submission Protocol",
+        paragraphs: [
+          "Early-bird registrations will close on November 5, 2026, and regular registrations will conclude on November 18, 2026. Every verified delegate will receive an official accreditation badge, access to all plenary and breakout tracks, conference documentation packs, and a verified Certificate of Participation.",
+          "For institutional queries or group registrations, state coordinators can contact the conference secretariat via conference@hrsjm.org or call the national outreach desk.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "launch-of-statewide-toll-free-legal-aid-helpline",
+    image: "/images/story-4.png",
+    alt: "HRSJM legal counsellors and helpline volunteers responding to community distress calls",
+    category: "Announcements",
+    title: "Launch of Statewide Toll-Free Legal Aid & Human Rights Helpline",
+    description:
+      "HRSJM introduces a dedicated toll-free legal helpline offering free counsel, complaint drafting assistance, and immediate guidance for victims of rights violations.",
+    author: "HRSJM Legal Support Cell",
+    date: "Oct 08, 2026",
+    readTime: "5 min read",
+    sections: [
+      {
+        heading: "A Direct Lifeline for Justice",
+        paragraphs: [
+          "In our continuing mission to dismantle financial and geographical barriers to justice, HRSJM officially inaugurates its 24/7 Toll-Free Legal Aid & Human Rights Helpline (1800-HRSJM-AID / 1800-477-562). This initiative provides citizens—especially those from underserved, rural, and vulnerable backgrounds—with direct, immediate access to qualified legal counsel.",
+          "Too often, victims of unlawful detention, workplace exploitation, domestic violence, or administrative neglect suffer in silence because professional legal assistance is unaffordable or geographically out of reach. The new helpline bridges this gap with compassion and legal precision.",
+        ],
+      },
+      {
+        heading: "Services Provided by the Helpline Desk",
+        paragraphs: [
+          "Callers to the helpline can receive free, confidential assistance across several key areas: initial legal counseling and assessment of rights violations; step-by-step assistance in drafting complaints for local police stations and municipal authorities; guidance on filing Right to Information (RTI) petitions; and direct referrals to district legal services authorities (DLSA) for free court representation.",
+          "For urgent distress situations involving child welfare or domestic violence, helpline operators will immediately coordinate with local protection officers and emergency state hotlines.",
+        ],
+      },
+      {
+        heading: "Multi-Language Support & Operating Standards",
+        paragraphs: [
+          "To ensure every citizen is heard without linguistic barriers, the call centre is staffed by paralegals and multilingual counselors fluent in Hindi, Marathi, Bengali, Tamil, Telugu, and English. Calls are answered within three rings, and comprehensive case notes are maintained in an encrypted, privacy-compliant management system.",
+          "Standard counseling lines operate from 8:00 AM to 10:00 PM every day, while an automated distress intake system functions 24 hours a day with scheduled priority callbacks for urgent emergencies.",
+        ],
+      },
+      {
+        heading: "Confidentiality & Community Commitment",
+        paragraphs: [
+          "Caller confidentiality is strictly guarded in accordance with our national privacy policy. No caller details are ever disclosed to third parties without express written consent. HRSJM urges citizens, volunteers, and local panchayat members to circulate the toll-free number widely throughout their communities and neighborhood centres.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "call-for-applications-community-rights-fellowship-2026",
+    image: "/images/take-action-bg.png",
+    alt: "Young community leaders and fellows collaborating in a grassroots workshop session",
+    category: "Announcements",
+    title: "Call for Applications: HRSJM Community Rights Fellowship 2026–2027",
+    description:
+      "Inviting grassroots activists, law graduates, and community organizers for a 12-month paid fellowship working directly with marginalized communities.",
+    author: "HRSJM Youth & Fellowship Directorate",
+    date: "Sep 30, 2026",
+    readTime: "6 min read",
+    sections: [
+      {
+        heading: "Empowering the Next Generation of Defenders",
+        paragraphs: [
+          "The HRSJM Community Rights Fellowship is our flagship capacity-building initiative designed to nurture young advocates, grassroots activists, social work professionals, and law graduates dedicated to constitutional justice. Applications are now formally invited for the 2026–2027 cohort.",
+          "This 12-month, fully funded fellowship places 30 selected fellows at the frontlines of human rights defense across 12 high-priority districts. Fellows work alongside seasoned legal advocates, local civil society organizations, and village councils to document violations, run legal literacy clinics, and empower marginalized citizens.",
+        ],
+      },
+      {
+        heading: "Fellowship Structure & Field Deployments",
+        paragraphs: [
+          "The fellowship is structured into three phases: an intensive two-week residential induction camp in human rights jurisprudence and field documentation in New Delhi; a nine-month field deployment embedded with HRSJM regional project teams; and a final phase focused on policy synthesis, strategic litigation support, and publishing research monographs.",
+          "Focus areas include forest rights and tribal land entitlements, protection of informal laborers from wage theft, monitoring midday meal schemes in government schools, and organizing women's legal empowerment circles.",
+        ],
+      },
+      {
+        heading: "Financial Support & Mentorship",
+        paragraphs: [
+          "Every fellow receives a monthly stipend of Rs. 35,000, along with comprehensive field travel allowances, health insurance coverage, and a technology grant. Each fellow is paired with an eminent senior advocate or veteran human rights defender who provides monthly 1-on-1 mentorship and clinical guidance.",
+          "Upon successful completion, fellows join the prestigious HRSJM Alumni Network and receive priority consideration for permanent program coordinator and legal officer positions within the organization.",
+        ],
+      },
+      {
+        heading: "Eligibility and Application Guidelines",
+        paragraphs: [
+          "Candidates must hold a bachelor's degree in Law, Social Sciences, Public Policy, Journalism, or related disciplines, and demonstrate a track record of community involvement or student leadership. Candidates with demonstrable proficiency in regional languages and those originating from underprivileged backgrounds will be prioritized.",
+          "Applications must be submitted through the HRSJM online portal by November 15, 2026. The application requires a curriculum vitae, a 500-word statement of purpose, and one letter of recommendation.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "hrsjm-national-governing-council-election-results-notice",
+    image: "/images/news-cta-bg.png",
+    alt: "National Governing Council members presiding over the HRSJM annual general meeting",
+    category: "Announcements",
+    title: "HRSJM National Governing Council: New Executive Committee Notice",
+    description:
+      "Official notification regarding the newly elected Executive Committee members and state chapter directors for the 2026–2028 administrative term.",
+    author: "HRSJM Returning Officer & Board",
+    date: "Sep 22, 2026",
+    readTime: "3 min read",
+    sections: [
+      {
+        heading: "Official Election Declaration",
+        paragraphs: [
+          "In accordance with Article 14 of the Constitution and By-Laws of the Human Rights and Social Justice Mission (HRSJM), the Office of the Returning Officer is pleased to issue this official notice announcing the successful conclusion of internal elections for the National Governing Council and State Chapter Executive Committees for the 2026–2028 term.",
+          "Voting was conducted across all registered state chapters under the supervision of independent observers, adhering to principles of absolute transparency, democratic participation, and gender representation.",
+        ],
+      },
+      {
+        heading: "Elected Leadership and State Directors",
+        paragraphs: [
+          "The newly constituted Executive Committee includes veteran civil rights advocates, former judicial officers, public health specialists, and grassroots organizers. A total of 15 executive members were elected to the central council, with women constituting over 40 percent of the governing leadership.",
+          "State Chapter Directors have been confirmed for Maharashtra, Uttar Pradesh, Bihar, West Bengal, Tamil Nadu, and Rajasthan, tasked with expanding district legal cells and strengthening local grievance redressal machinery.",
+        ],
+      },
+      {
+        heading: "Key Mandates for the 2026–2028 Term",
+        paragraphs: [
+          "The newly ratified Governing Council has outlined three strategic priorities for the upcoming biennial mandate: scaling digital human rights literacy to reach one million citizens; establishing ten new permanent community legal aid centres; and expanding institutional advocacy on migrant workers' rights.",
+          "The Council also confirmed the appointment of the National Disciplinary and Grievance Committee to uphold ethical integrity, transparency, and accountability across all organizational activities.",
+        ],
+      },
+      {
+        heading: "Message of Gratitude to Members",
+        paragraphs: [
+          "The Returning Officer and the Board of Trustees express their sincere gratitude to all active members, state delegates, and volunteers who participated enthusiastically in the electoral process. Together, we reaffirm our collective pledge to protect the dignity and constitutional liberties of every citizen.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "understanding-your-right-to-information-rti",
     image: "/images/news/card-rti-v2.png",
     alt: "Village elder in Maharashtra looking hopefully into the distance",
