@@ -1,0 +1,348 @@
+/* ==========================================================================
+   HRSJM Member Login / Portal Styles
+   ========================================================================== */
+
+.page {
+  background-color: #f7f9fc;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+.container {
+  width: min(100%, 1160px);
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  background-color: var(--color-navy-dark);
+  color: var(--color-white);
+  padding-top: 24px;
+  padding-bottom: 48px;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0.22;
+  mix-blend-mode: luminosity;
+  pointer-events: none;
+}
+
+.heroGradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at 85% 20%,
+      rgba(6, 42, 79, 0.45) 0%,
+      rgba(3, 29, 56, 0.94) 75%
+    ),
+    linear-gradient(180deg, rgba(3, 29, 56, 0.75) 0%, rgba(3, 29, 56, 0.98) 100%);
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 22px;
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 150ms ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-gold);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+.heroContent {
+  max-width: 660px;
+}
+
+.heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-gold);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.heroEyebrowSquare {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background-color: var(--color-gold);
+  border-radius: 1px;
+}
+
+.heroHeading {
+  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 3.8vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-white);
+  margin-bottom: 12px;
+}
+
+.heroHeadingGold {
+  color: var(--color-gold);
+}
+
+.heroDescription {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 540px;
+}
+
+/* Main Login Content */
+.mainContent {
+  margin-top: -30px;
+  position: relative;
+  z-index: 10;
+}
+
+.cardContainer {
+  background: var(--color-white);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(6, 42, 79, 0.08);
+  border: 1px solid #e8eef5;
+  padding: 36px 32px;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.loginHeader {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.shieldIconWrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #fef3c7;
+  color: #b45309;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 14px;
+}
+
+.loginTitle {
+  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.loginSubtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.securityNotice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 24px;
+  font-size: 12px;
+  color: #166534;
+  line-height: 1.45;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-navy);
+  margin-bottom: 6px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-white);
+  border: 1px solid #dce4ec;
+  border-radius: 8px;
+  transition: all 160ms ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(250, 210, 92, 0.3);
+}
+
+.inputWrapperError {
+  border-color: #ef4444 !important;
+}
+
+.inputIcon {
+  display: grid;
+  place-items: center;
+  padding-left: 14px;
+  color: #d97706;
+}
+
+.inputField {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--color-navy);
+  outline: none;
+}
+
+.methodSelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.methodBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: var(--color-navy);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.methodBtnActive {
+  background: #0a3a6b;
+  color: var(--color-white);
+  border-color: #0a3a6b;
+}
+
+.btnGold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(250, 210, 92, 0.35);
+  transition: all 180ms ease;
+}
+
+.btnGold:hover:not(:disabled) {
+  background: var(--color-gold-light);
+  transform: translateY(-1px);
+}
+
+.btnGold:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.fieldError {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #dc2626;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.loginFooter {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.loginFooter a {
+  color: #0a3a6b;
+  font-weight: 600;
+  text-decoration: underline;
+  margin-left: 4px;
+}
+
+.portalCard {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.portalCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #166534;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.portalDetailRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.portalDetailLabel {
+  color: #64748b;
+}
+
+.portalDetailValue {
+  font-weight: 600;
+  color: var(--color-navy);
+}

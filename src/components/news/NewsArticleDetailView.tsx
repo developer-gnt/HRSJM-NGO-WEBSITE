@@ -258,7 +258,7 @@ export default function NewsArticleDetailView({ data }: Props) {
                               alt={t.name}
                               fill
                               sizes="(max-width: 639px) 100vw, 360px"
-                              style={{ objectFit: "cover" }}
+                              style={{ objectFit: "cover", objectPosition: "center" }}
                             />
                           </div>
                           <div className={styles.storyCardBody}>

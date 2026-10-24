@@ -2,8 +2,8 @@ import { Check } from "lucide-react";
 import styles from "./apply.module.css";
 
 interface ProgressIndicatorProps {
-  currentStep: 1 | 2 | 3;
-  onStepClick?: (step: 1 | 2 | 3) => void;
+  currentStep: 1 | 2 | 3 | 4;
+  onStepClick?: (step: 1 | 2 | 3 | 4) => void;
 }
 
 export default function ProgressIndicator({
@@ -14,6 +14,7 @@ export default function ProgressIndicator({
     { number: 1, label: "Personal\nInformation" },
     { number: 2, label: "Address\nDetails" },
     { number: 3, label: "Document\nUpload" },
+    { number: 4, label: "Payment &\nReview" },
   ] as const;
 
   return (
@@ -30,17 +31,7 @@ export default function ProgressIndicator({
             ? styles.stepActive
             : styles.stepUpcoming;
 
-          // Connector lines:
-          // Line after Step 1 (connector to Step 2):
-          // In reference image: golden yellow on Step 1, Step 2, and Step 3!
-          // Line after Step 2 (connector to Step 3):
-          // Golden yellow when currentStep === 3
-          const isConnectorActive =
-            index === 0
-              ? currentStep >= 1
-              : index === 1
-              ? currentStep >= 3
-              : false;
+          const isConnectorActive = currentStep > step.number;
 
           return (
             <li key={step.number} className={`${styles.progressItem} ${stateClass}`}>
@@ -57,9 +48,8 @@ export default function ProgressIndicator({
                 type="button"
                 className={styles.stepNode}
                 onClick={() => {
-                  // Only allow clicking to go backwards or if already completed
                   if (onStepClick && step.number < currentStep) {
-                    onStepClick(step.number as 1 | 2 | 3);
+                    onStepClick(step.number as 1 | 2 | 3 | 4);
                   }
                 }}
                 disabled={step.number > currentStep}

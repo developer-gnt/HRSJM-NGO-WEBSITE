@@ -3,36 +3,43 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  HeartHandshake,
-  User,
+  FileText,
+  Landmark,
+  ShieldCheck,
   Users,
 } from "lucide-react";
 import styles from "./membership.module.css";
 
-/* No official HRSJM membership plans or pricing exist in the project yet,
-   so these are configurable placeholders without invented prices — wire
-   real plans here when the membership system is connected. */
-const plans = [
+const categories = [
   {
-    id: "Individual Member",
-    name: "Individual Member",
+    id: "Active Membership",
+    name: "Active Membership",
+    fee: "From ₹800 / year",
     description:
-      "For individuals who want to support HRSJM's mission.",
-    icon: User,
-  },
-  {
-    id: "Community Member",
-    name: "Community Member",
-    description:
-      "For people who want to participate in community initiatives.",
+      "Contribute at the district and state level. Includes official appointment letter, certificate, and membership identity kit.",
     icon: Users,
+    targetCategory: "active-membership",
+    defaultPost: "District Active Member",
   },
   {
-    id: "Supporting Member",
-    name: "Supporting Member",
+    id: "Letter Pad Post",
+    name: "Letter Pad Post",
+    fee: "From ₹5,000 / 5 Years",
     description:
-      "For individuals who want to provide additional support to the organisation's mission.",
-    icon: HeartHandshake,
+      "Designated state-level positions authorized with official HRSJM letter pad to represent the mission in human rights causes.",
+    icon: FileText,
+    targetCategory: "letter-pad-post",
+    defaultPost: "Lion of State",
+  },
+  {
+    id: "National Level Post",
+    name: "National Level Post",
+    fee: "₹10,000 / 10 Years",
+    description:
+      "National leadership posts across specialized council cells: Legal, Minority, Women, and Political advisory cells.",
+    icon: Landmark,
+    targetCategory: "national-level-post",
+    defaultPost: "National Legal Council Cell",
   },
 ];
 
@@ -46,29 +53,29 @@ export default function MembershipOptions() {
       <div className={styles.container}>
         <div className={styles.sectionHead}>
           <div>
-            <p className={styles.eyebrowGold}>Choose Your Membership</p>
+            <p className={styles.eyebrowGold}>Official Membership Categories</p>
             <h2
               id="membership-options-heading"
               className={styles.sectionHeading}
             >
-              Find Your Way
+              Choose Your Membership
               <br />
-              to Participate
+              Tier &amp; Post
             </h2>
           </div>
           <p className={styles.sectionDescription}>
-            Choose the membership option that best matches how you want to
-            contribute to the HRSJM community.
+            Select the membership category that matches your qualifications and
+            how you want to contribute to the HRSJM human rights mission across India.
           </p>
         </div>
 
         <ul className={styles.plansGrid}>
-          {plans.map((plan) => {
-            const PlanIcon = plan.icon;
+          {categories.map((cat) => {
+            const CatIcon = cat.icon;
             return (
-              <li key={plan.id} className={styles.plan}>
+              <li key={cat.id} className={styles.plan}>
                 <span className={styles.planIcon}>
-                  <PlanIcon size={22} strokeWidth={1.7} aria-hidden="true" />
+                  <CatIcon size={22} strokeWidth={1.8} aria-hidden="true" />
                 </span>
                 <h3 className={styles.planName}>{plan.name}</h3>
                 <p className={styles.planDescription}>{plan.description}</p>
@@ -84,10 +91,16 @@ export default function MembershipOptions() {
           })}
         </ul>
 
-        <p className={styles.plansNote}>
-          Membership details and benefits are being finalised by HRSJM. Apply
-          now and our team will guide you through the next steps.
-        </p>
+        <div style={{ textAlign: "center", marginTop: 32 }}>
+          <Link
+            href="/membership/categories"
+            className={styles.btnGold}
+            style={{ display: "inline-flex" }}
+          >
+            Explore All 12 Membership Posts &amp; Qualifications Table
+            <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+          </Link>
+        </div>
       </div>
     </section>
   );

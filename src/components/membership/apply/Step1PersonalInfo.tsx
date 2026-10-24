@@ -12,6 +12,8 @@ import {
   Trash2,
   User,
   AlertCircle,
+  HelpCircle,
+  Scale,
 } from "lucide-react";
 import styles from "./apply.module.css";
 
@@ -23,6 +25,8 @@ export interface Step1Data {
   gender: string;
   phone: string;
   email: string;
+  priorConviction: "No" | "Yes";
+  priorConvictionDetails: string;
 }
 
 interface Step1Props {
@@ -69,13 +73,11 @@ export default function Step1PersonalInfo({
   };
 
   const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // Only letters and spaces allowed
     const sanitized = e.target.value.replace(/[^a-zA-Z\s]/g, "");
     onChange("fullName", sanitized);
   };
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // Only numeric digits, max 10
     const digits = e.target.value.replace(/\D/g, "").slice(0, 10);
     onChange("phone", digits);
   };
@@ -313,6 +315,65 @@ export default function Step1PersonalInfo({
               <AlertCircle size={13} strokeWidth={2} />
               {errors.email}
             </p>
+          )}
+        </div>
+
+        {/* Additional Question: Prior Conviction or Judicial Punishment */}
+        <div className={`${styles.formField} ${styles.formFieldFull}`}>
+          <label className={styles.fieldLabel}>
+            <Scale size={15} style={{ color: "#d97706" }} />
+            Have you ever been convicted, arrested, or penalised by any court of
+            law or judicial authority? <span className={styles.fieldRequired}>*</span>
+          </label>
+          <span className={styles.fieldHelper} style={{ marginBottom: 10 }}>
+            <em>(Note: Exact question wording and eligibility guidelines subject to confirmation by HRSJM legal / administrative committee)</em>
+          </span>
+
+          <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+            <label style={{ display: "inline-flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 14 }}>
+              <input
+                type="radio"
+                name="priorConviction"
+                value="No"
+                checked={data.priorConviction === "No"}
+                onChange={() => onChange("priorConviction", "No")}
+              />
+              <span>No</span>
+            </label>
+            <label style={{ display: "inline-flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 14 }}>
+              <input
+                type="radio"
+                name="priorConviction"
+                value="Yes"
+                checked={data.priorConviction === "Yes"}
+                onChange={() => onChange("priorConviction", "Yes")}
+              />
+              <span>Yes</span>
+            </label>
+          </div>
+
+          {data.priorConviction === "Yes" && (
+            <div style={{ marginTop: 12 }}>
+              <textarea
+                rows={3}
+                placeholder="Please provide details (case reference, year, or nature of order)..."
+                value={data.priorConvictionDetails}
+                onChange={(e) => onChange("priorConvictionDetails", e.target.value)}
+                className={styles.inputField}
+                style={{
+                  border: "1px solid #dce4ec",
+                  borderRadius: 8,
+                  padding: 10,
+                  width: "100%",
+                }}
+              />
+              {errors.priorConvictionDetails && (
+                <p className={styles.fieldError} role="alert">
+                  <AlertCircle size={13} strokeWidth={2} />
+                  {errors.priorConvictionDetails}
+                </p>
+              )}
+            </div>
           )}
         </div>
       </div>

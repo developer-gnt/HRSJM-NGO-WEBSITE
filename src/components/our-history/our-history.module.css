@@ -1,0 +1,1151 @@
+/* ============================================================
+   Our History Page Styles
+   Matching exact visual reference with rich aesthetics & responsiveness
+   ============================================================ */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #102a43;
+  font-family: var(--font-body), Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1360px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-inline: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: 48px;
+  }
+}
+
+/* ------------------------------------------------------------
+   1. HERO SECTION (FULL-SIZE PANORAMIC BANNER)
+   ------------------------------------------------------------ */
+.heroSection {
+  position: relative;
+  width: 100%;
+  min-height: 480px;
+  background-color: #012550;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #031d38;
+}
+
+@media (min-width: 1024px) {
+  .heroSection {
+    min-height: 530px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .heroSection {
+    min-height: 560px;
+  }
+}
+
+.heroBgWrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heroBgImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  display: block;
+}
+
+/* Responsive Gradient Overlay: guarantees 100% text contrast across viewports */
+.heroGradientOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(1, 37, 80, 0.98) 0%,
+    rgba(1, 37, 80, 0.94) 400px,
+    rgba(1, 37, 80, 0.5) 660px,
+    transparent 960px
+  );
+}
+
+@media (max-width: 768px) {
+  .heroGradientOverlay {
+    background: linear-gradient(
+      180deg,
+      rgba(1, 37, 80, 0.97) 0%,
+      rgba(1, 37, 80, 0.92) 75%,
+      rgba(1, 37, 80, 0.8) 100%
+    );
+  }
+}
+
+.heroContentWrapper {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  padding-block: 44px;
+}
+
+@media (min-width: 1024px) {
+  .heroContentWrapper {
+    padding-block: 52px;
+  }
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: minmax(480px, 580px) 1fr;
+    gap: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .heroGrid {
+    grid-template-columns: minmax(540px, 640px) 1fr;
+    gap: 60px;
+  }
+}
+
+/* Left Column Typography */
+.heroLeftCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 620px;
+}
+
+.heroBreadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #a8c7ea;
+}
+
+.breadcrumbLink {
+  color: #a8c7ea;
+  text-decoration: none;
+  transition: color 150ms ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumbLink:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.breadcrumbSep {
+  color: #6a92bd;
+  flex-shrink: 0;
+}
+
+.breadcrumbCurrent {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.heroEyebrowWrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.heroEyebrow {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f8be28;
+  line-height: 1;
+}
+
+.heroEyebrowBar {
+  width: 78px;
+  height: 3px;
+  background-color: #f8be28;
+  border-radius: 2px;
+  margin-top: 6px;
+}
+
+.heroHeading {
+  font-family: "Georgia", "Times New Roman", var(--font-display), serif;
+  font-size: clamp(2.15rem, 3.3vw, 3.35rem);
+  font-weight: 700;
+  line-height: 1.14;
+  color: #ffffff;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.goldText {
+  color: #f8be28;
+  font-weight: 700;
+}
+
+.heroSubBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 22px;
+}
+
+.heroSubEstablished {
+  font-size: clamp(16px, 1.2vw, 19px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+}
+
+.heroSubTagline {
+  font-size: clamp(14px, 1.05vw, 16px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.45;
+}
+
+.heroSlogan {
+  font-family: "Georgia", var(--font-display), serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.25vw, 18.5px);
+  font-weight: 400;
+  color: #f0f4f9;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 540px;
+  opacity: 0.95;
+}
+
+/* Right Column: Sky Motto */
+.heroRightCol {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .heroRightCol {
+    display: block;
+    position: relative;
+    height: 100%;
+    min-height: 320px;
+  }
+
+  .heroSkyMotto {
+    position: absolute;
+    top: -10px;
+    right: clamp(10px, 8vw, 90px);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transform: rotate(-3deg);
+    text-align: left;
+    user-select: none;
+    z-index: 6;
+  }
+}
+
+.heroSkyMottoText {
+  font-family: "Georgia", var(--font-display), serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(23px, 2.1vw, 32px);
+  line-height: 1.15;
+  color: #0c3364;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(255, 255, 255, 0.5);
+  margin: 0 0 6px 0;
+}
+
+.heroSkyMottoSub {
+  display: block;
+  font-size: clamp(21px, 1.9vw, 29px);
+  font-weight: 700;
+  margin-top: 2px;
+  line-height: 1.15;
+}
+
+.heroTricolorLine {
+  width: 140px;
+  height: 16px;
+  margin-top: 2px;
+}
+
+.tricolorSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------
+   2. OUR BEGINNING
+   ------------------------------------------------------------ */
+.beginningSection {
+  background: #ffffff;
+  padding-block: 56px 64px;
+  border-bottom: 1px solid #f1ece4;
+}
+
+@media (min-width: 1024px) {
+  .beginningSection {
+    padding-block: 72px 80px;
+  }
+}
+
+.beginningGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .beginningGrid {
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .beginningGrid {
+    grid-template-columns: 280px 1fr;
+    gap: 56px;
+  }
+}
+
+.beginningImgWrap {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px -4px rgba(6, 42, 79, 0.12);
+}
+
+.beginningImg {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.beginningContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionEyebrowRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.eyebrowIcon {
+  color: #062a4f;
+}
+
+.sectionEyebrowText {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #062a4f;
+}
+
+.sectionHeading {
+  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+}
+
+@media (min-width: 640px) {
+  .sectionHeading {
+    font-size: 34px;
+  }
+}
+
+.bodyCopy {
+  font-size: 15.5px;
+  line-height: 1.68;
+  color: #52606d;
+}
+
+.bodyCopy + .bodyCopy {
+  margin-top: 14px;
+}
+
+.bodyCopy strong {
+  color: #062a4f;
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   3. NATIONWIDE MISSION
+   ------------------------------------------------------------ */
+.nationwideSection {
+  background: #fbfbf9;
+  padding-block: 56px 64px;
+  border-bottom: 1px solid #ede8df;
+}
+
+@media (min-width: 1024px) {
+  .nationwideSection {
+    padding-block: 72px 80px;
+  }
+}
+
+.nationwideGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .nationwideGrid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+  }
+}
+
+.nationwideContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.nationwideMapWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.nationwideMapImg {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 28px -4px rgba(6, 42, 79, 0.1);
+  display: block;
+}
+
+.nationwideQuote {
+  margin-top: 10px;
+  font-family: var(--font-playfair), cursive, serif;
+  font-style: italic;
+  font-size: 15px;
+  font-weight: 700;
+  color: #062a4f;
+  text-align: right;
+}
+
+/* ------------------------------------------------------------
+   4. OUR JOURNEY OF SERVICE (7 CARDS)
+   ------------------------------------------------------------ */
+.serviceSection {
+  background: #ffffff;
+  padding-block: 56px 64px;
+  border-bottom: 1px solid #ede8df;
+}
+
+@media (min-width: 1024px) {
+  .serviceSection {
+    padding-block: 72px 80px;
+  }
+}
+
+.serviceHeader {
+  margin-bottom: 36px;
+}
+
+.serviceSubtitle {
+  font-size: 15.5px;
+  color: #52606d;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .serviceGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .serviceGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .serviceGrid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 14px;
+  }
+}
+
+.serviceCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 16px 20px;
+  border-radius: 12px;
+  border: 1px solid;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  height: 100%;
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -4px rgba(6, 42, 79, 0.08);
+}
+
+.serviceCardIconWrap {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.serviceCardTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.serviceCardText {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #52606d;
+}
+
+/* ------------------------------------------------------------
+   5. OUR PHILOSOPHY (FULL-WIDTH CINEMATIC BANNER)
+   ------------------------------------------------------------ */
+.philosophySection {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  background-color: #012550;
+  overflow: hidden;
+  border-bottom: 1px solid #031d38;
+  display: flex;
+  align-items: center;
+}
+
+.philosophyPhotoWrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 32%;
+  max-width: 440px;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+@media (max-width: 1023px) {
+  .philosophyPhotoWrap {
+    width: 100%;
+    max-width: none;
+    opacity: 0.18;
+  }
+}
+
+.philosophyPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.philosophyPhotoFade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 55%, #012550 100%),
+              linear-gradient(to bottom, rgba(1, 37, 80, 0.3) 0%, rgba(1, 37, 80, 0.5) 100%);
+}
+
+.philosophyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+  padding-block: 40px;
+}
+
+@media (min-width: 1024px) {
+  .philosophyGrid {
+    grid-template-columns: 240px 1fr 210px;
+    gap: 36px;
+    padding-block: 44px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .philosophyGrid {
+    grid-template-columns: 290px 1fr 240px;
+    gap: 48px;
+    padding-block: 50px;
+  }
+}
+
+.philosophyPhotoSpacer {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .philosophyPhotoSpacer {
+    display: block;
+    height: 100%;
+  }
+}
+
+.philosophyContentCol {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.philosophyHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.philosophyIconWrap {
+  color: #f8be28;
+  flex-shrink: 0;
+  margin-top: 4px;
+  filter: drop-shadow(0 2px 8px rgba(248, 190, 40, 0.4));
+}
+
+.philosophyTitleBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.philosophyEyebrow {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f8be28;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.philosophyHeading {
+  font-family: "Georgia", "Times New Roman", var(--font-display), serif;
+  font-size: clamp(1.6rem, 2.2vw, 2.25rem);
+  font-weight: 700;
+  color: #fad25c;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.philosophyBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: clamp(14px, 1.05vw, 15.5px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.philosophyQuoteCol {
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (min-width: 1024px) {
+  .philosophyQuoteCol {
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.philosophyMottoBox {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transform: rotate(-3deg);
+  user-select: none;
+}
+
+.philosophyMottoText {
+  font-family: "Georgia", var(--font-display), serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(23px, 2.1vw, 30px);
+  line-height: 1.16;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  margin: 0 0 4px 0;
+}
+
+.philosophyGoldLine {
+  width: 135px;
+  height: 12px;
+  margin-top: 2px;
+}
+
+.goldLineSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ------------------------------------------------------------
+   6. FUTURE VISION (FULL-WIDTH CINEMATIC BANNER)
+   ------------------------------------------------------------ */
+.futureVisionSection {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  background-color: #f8fafd;
+  overflow: hidden;
+  border-bottom: 1px solid #ede8df;
+  display: flex;
+  align-items: center;
+}
+
+.futureVisionPhotoWrap {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 44%;
+  max-width: 620px;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+@media (max-width: 1023px) {
+  .futureVisionPhotoWrap {
+    width: 100%;
+    max-width: none;
+    opacity: 0.22;
+  }
+}
+
+.futureVisionPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.futureVisionPhotoFade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, transparent 60%, #f8fafd 100%),
+              linear-gradient(to right, #f8fafd 0%, transparent 20%);
+}
+
+.futureVisionGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+  padding-block: 40px;
+}
+
+@media (min-width: 1024px) {
+  .futureVisionGrid {
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    padding-block: 44px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .futureVisionGrid {
+    grid-template-columns: 1fr 400px;
+    gap: 52px;
+    padding-block: 50px;
+  }
+}
+
+.futureVisionContentCol {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  max-width: 760px;
+}
+
+.futureVisionHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.futureVisionIconWrap {
+  color: #062a4f;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.futureVisionTitleBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.futureVisionEyebrow {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #062a4f;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.futureVisionHeading {
+  font-family: "Georgia", "Times New Roman", var(--font-display), serif;
+  font-size: clamp(1.6rem, 2.2vw, 2.25rem);
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.futureVisionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: clamp(14px, 1.05vw, 15.5px);
+  line-height: 1.55;
+  color: #1e3a5f;
+}
+
+.futureVisionCallout {
+  font-weight: 600;
+  color: #062a4f;
+  margin-top: 2px;
+}
+
+.futureVisionQuoteCol {
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (min-width: 1024px) {
+  .futureVisionQuoteCol {
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 20px;
+  }
+}
+
+.futureVisionMottoBox {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transform: rotate(-3.5deg);
+  user-select: none;
+}
+
+.futureVisionMottoText {
+  font-family: "Georgia", var(--font-display), serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(23px, 2.1vw, 30px);
+  line-height: 1.16;
+  color: #083260;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95), 0 2px 4px rgba(255, 255, 255, 0.7);
+  margin: 0 0 4px 0;
+}
+
+.futureVisionTricolorLine {
+  width: 140px;
+  height: 16px;
+  margin-top: 2px;
+}
+
+.futureTricolorSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ------------------------------------------------------------
+   7. MOVEMENT CTA
+   ------------------------------------------------------------ */
+.ctaSection {
+  background: #062a4f;
+  color: #ffffff;
+  padding-block: 48px 52px;
+  border-bottom: 1px solid #031d38;
+}
+
+.ctaGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .ctaGrid {
+    grid-template-columns: 70px 1.2fr auto auto;
+    gap: 28px;
+  }
+}
+
+.ctaIconWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(250, 203, 43, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #facb2b;
+}
+
+.ctaContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.ctaEyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #facb2b;
+  margin-bottom: 6px;
+}
+
+.ctaTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 640px) {
+  .ctaTitle {
+    font-size: 30px;
+  }
+}
+
+.ctaSubtitle {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #cbd5e1;
+}
+
+.ctaButtons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ctaPrimaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  background: #facb2b;
+  color: #062a4f;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 200ms ease;
+  box-shadow: 0 4px 14px rgba(250, 203, 43, 0.35);
+}
+
+.ctaPrimaryBtn:hover {
+  background: #f5be16;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(250, 203, 43, 0.5);
+}
+
+.ctaSecondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.ctaSecondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+.ctaQuoteCallout {
+  font-family: var(--font-playfair), cursive, serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.35;
+  color: #cbd5e1;
+  text-align: right;
+  border-left: 2px solid #facb2b;
+  padding-left: 14px;
+}
+
+/* ------------------------------------------------------------
+   8. CONTACT STRIP & BADGE
+   ------------------------------------------------------------ */
+.contactStrip {
+  background: #ffffff;
+  padding-block: 20px;
+  border-bottom: 1px solid #ede8df;
+}
+
+.contactStripRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .contactStripRow {
+    flex-direction: row;
+  }
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: #062a4f;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 150ms ease;
+}
+
+.contactLink:hover {
+  opacity: 0.8;
+}
+
+.contactLink strong {
+  font-weight: 700;
+  color: #062a4f;
+}
+
+.contactLinkValueBlue {
+  color: #0284c7;
+  font-weight: 600;
+}
+
+.contactLinkValueGreen {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.contactIconBlue {
+  color: #0284c7;
+}
+
+.contactIconGreen {
+  color: #16a34a;
+}
+
+.badgePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  background: #062a4f;
+  color: #ffffff;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(6, 42, 79, 0.2);
+}
+
+.badgeLaurel {
+  color: #10b981;
+}

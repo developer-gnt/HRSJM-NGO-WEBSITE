@@ -1599,7 +1599,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       description2:
         "They encompass bodily autonomy, privacy, freedom of peaceful assembly without weapons (Article 19(1)(b)), protection against unlawful arrest (Article 22), the writ of Habeas Corpus, and the freedom of movement throughout the nation.",
       quote: "“Civil liberties give people the space to think, choose, express and live freely. A society that protects civil liberties builds a stronger, fairer and more democratic India.”",
-      image: "/images/rights/civil-liberties-collage.png",
+      image: "/images/rights/civil-liberties-overview-hd.jpg",
       extendedPoints: [
         "Fundamental Right to Privacy recognized under the landmark Puttaswamy judgment.",
         "Protection against unlawful detention through the constitutional writ of Habeas Corpus.",
@@ -1625,13 +1625,13 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“Freedom is not the absence of all restrictions, but the protection of what truly matters.”",
         source: "— Civil Liberties Principle",
         iconType: "constitution",
-        image: "/images/rights/civil-liberties-sidecard.png",
+        image: "/images/rights/civil-liberties-sidecard-hd.jpg",
     }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Indian Laws Related to Civil Liberties",
-      centerImage: "/images/rights/civil-liberties-laws.png",
+      centerImage: "/images/rights/civil-liberties-laws-hd.jpg",
       items: [
         {
           title: "Constitution of India – Article 19 (Fundamental Freedoms)",
@@ -1752,7 +1752,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Civil Liberties",
-      centerImage: "/images/rights/civil-liberties-faq.png",
+      centerImage: "/images/rights/civil-liberties-faq-hd.jpg",
       centerQuote: "“A society that respects civil liberties empowers every individual to reach their potential.”",
       items: [
         {
@@ -1818,7 +1818,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       description2:
         "Guaranteed under Article 19(1)(a) of the Indian Constitution, this fundamental right protects independent journalism, artistic creativity, political debate, and the right to peacefully dissent.",
       quote: "“A free voice strengthens democracy, inspires change and gives every citizen the power to build a better and more just India.”",
-      image: "/images/rights/freedom-of-speech-collage.png",
+      image: "/images/rights/freedom-of-speech-overview-hd.jpg",
       extendedPoints: [
         "Guaranteed to all citizens under Article 19(1)(a) of the Constitution of India.",
         "Includes freedom of the press, investigative journalism, and artistic creations.",
@@ -1844,13 +1844,13 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“Voices of the people more transparent and accountable democracy.”",
         source: "— Democratic Freedom Principle",
         iconType: "shield",
-        image: "/images/rights/freedom-of-speech-sidecard.png",
+        image: "/images/rights/freedom-of-speech-sidecard-hd.jpg",
     }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Indian Laws for Freedom of Speech",
-      centerImage: "/images/rights/freedom-of-speech-laws.png",
+      centerImage: "/images/rights/freedom-of-speech-laws-hd.jpg",
       items: [
         {
           title: "Constitution of India – Article 19(1)(a)",
@@ -1975,7 +1975,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Freedom of Speech",
-      centerImage: "/images/rights/freedom-of-speech-faq.png",
+      centerImage: "/images/rights/freedom-of-speech-faq-hd.jpg",
       centerQuote: "“More open dialogue, more ideas, more progress for a stronger India.”",
       items: [
         {
@@ -2041,7 +2041,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       description2:
         "Derived from Article 19(1)(a), this law requires government bodies to respond within 30 days, or within 48 hours for matters concerning life and liberty, transforming citizen-state interaction.",
       quote: "“Information is power. An informed citizen can build a more transparent, accountable and stronger democracy for a better India.”",
-      image: "/images/rights/right-to-information-collage.png",
+      image: "/images/rights/right-to-information-overview-hd.jpg",
       extendedPoints: [
         "Enacted in 2005 to foster transparency and accountability in governance.",
         "Mandatory 30-day response timeline (48 hours for matters of life and liberty).",
@@ -2067,13 +2067,13 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“A transparent government builds a stronger nation.”",
         source: "— RTI Principle",
         iconType: "scales",
-        image: "/images/rights/right-to-information-sidecard.png",
+        image: "/images/rights/right-to-information-sidecard-hd.jpg",
     }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Laws Related to Right to Information",
-      centerImage: "/images/rights/right-to-information-laws.png",
+      centerImage: "/images/rights/right-to-information-laws-hd.jpg",
       items: [
         {
           title: "The Right to Information Act, 2005",
@@ -2190,7 +2190,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Right to Information",
-      centerImage: "/images/rights/right-to-information-faq.png",
+      centerImage: "/images/rights/right-to-information-faq-hd.jpg",
       centerQuote: "“An informed citizen is a stronger citizen. Information empowers people to shape a better India.”",
       items: [
         {
@@ -2289,7 +2289,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Indian Laws for Minority Rights",
-      centerImage: "/images/rights/minority-rights-laws.png",
+      centerImage: "/images/rights/minority-rights-laws-hd.jpg",
       items: [
         {
           title: "The Constitution of India (Articles 14, 15, 25, 26, 29, 30)",
@@ -2398,7 +2398,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Minority Rights",
-      centerImage: "/images/rights/minority-rights-faq.png",
+      centerImage: "/images/rights/minority-rights-faq-hd.jpg",
       centerQuote: "“United in diversity, stronger as a nation.”",
       items: [
         {
@@ -2464,7 +2464,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       description2:
         "Enacted through Article 21A and the RTE Act 2009, this fundamental right guarantees 8 years of free elementary schooling, reserves 25% of seats in private schools for economically weaker sections, and bans corporal punishment.",
       quote: "“Education is not just a right, but a powerful tool to break the cycle of poverty, promote equality and create a brighter future for every child.”",
-      image: "/images/rights/right-to-education-collage.png",
+      image: "/images/rights/right-to-education-overview-hd.jpg",
       extendedPoints: [
         "Enshrined in Article 21A through the historic 86th Constitutional Amendment Act, 2002.",
         "Compulsory schooling from Class 1 to Class 8 without school fees or book charges.",
@@ -2490,13 +2490,13 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“Educate a child today for a stronger, fairer and more equal India tomorrow.”",
         source: "— Education Empowerment Charter",
         iconType: "shield",
-        image: "/images/rights/right-to-education-sidecard.png",
+        image: "/images/rights/right-to-education-sidecard-hd.jpg",
     }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
       heading: "Key Indian Laws for Right to Education",
-      centerImage: "/images/rights/right-to-education-laws.png",
+      centerImage: "/images/rights/right-to-education-laws-hd.jpg",
       items: [
         {
           title: "The Right of Children to Free and Compulsory Education Act, 2009",
@@ -2615,7 +2615,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     faqsSection: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       heading: "Common Questions on Right to Education",
-      centerImage: "/images/rights/right-to-education-faq.png",
+      centerImage: "/images/rights/right-to-education-faq-hd.jpg",
       centerQuote: "“Every child in school, every dream within reach.”",
       items: [
         {
