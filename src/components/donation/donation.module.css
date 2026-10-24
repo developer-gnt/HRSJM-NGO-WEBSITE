@@ -2028,7 +2028,7 @@
   display: block;
 }
 
-/* Card Action Button — High-End Navy Button matching global UI (no rainbow buttons) */
+/* Card Action Button — Signature Brand Gold/Yellow Button matching the theme */
 .btnCardMedical,
 .btnCardEducation,
 .btnCardDisaster,
@@ -2044,12 +2044,13 @@
   font-family: var(--font-body), "Manrope", sans-serif;
   font-size: 14px;
   font-weight: 700;
-  background: var(--color-navy);
-  color: var(--color-white);
+  background: linear-gradient(100deg, var(--color-gold) 0%, #ffd97e 100%);
+  color: var(--color-navy-dark);
   text-decoration: none;
   transition: all 180ms ease;
   margin-top: auto;
-  box-shadow: 0 4px 14px rgba(6, 42, 79, 0.15);
+  box-shadow: 0 4px 14px rgba(6, 42, 79, 0.12);
+  border: 1px solid rgba(184, 137, 22, 0.25);
 }
 
 .btnCardMedical:hover,
@@ -2057,10 +2058,11 @@
 .btnCardDisaster:hover,
 .btnCardHousing:hover,
 .btnCardAction:hover {
-  background: var(--color-navy-dark);
-  color: var(--color-gold);
+  background: var(--color-gold-light);
+  color: var(--color-navy-dark);
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(6, 42, 79, 0.24);
+  box-shadow: 0 8px 22px rgba(6, 42, 79, 0.2);
+  border-color: var(--color-gold-dark);
   filter: none;
 }
 

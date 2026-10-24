@@ -625,8 +625,8 @@
   gap: 8px;
   width: 100%;
   min-height: 42px;
-  background: var(--color-navy, #062a4f);
-  color: var(--color-white, #ffffff);
+  background: linear-gradient(100deg, var(--color-gold, #fad25c) 0%, #ffd97e 100%);
+  color: var(--color-navy-dark, #031d38);
   border-radius: 8px;
   font-family: var(--font-body), "Manrope", sans-serif;
   font-size: 14px;
@@ -634,13 +634,16 @@
   text-decoration: none;
   transition: all 180ms ease;
   margin-top: auto;
-  box-shadow: 0 4px 12px rgba(6, 42, 79, 0.12);
+  box-shadow: 0 4px 14px rgba(6, 42, 79, 0.12);
+  border: 1px solid rgba(184, 137, 22, 0.25);
 }
 
 .btnDonateCase:hover {
-  background: var(--color-navy-dark, #031d38);
-  color: var(--color-gold, #fad25c);
+  background: var(--color-gold-light, #e8bc3f);
+  color: var(--color-navy-dark, #031d38);
   transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(6, 42, 79, 0.2);
+  border-color: var(--color-gold-dark, #b88916);
 }
 
 /* ------------------------------------------------------------
