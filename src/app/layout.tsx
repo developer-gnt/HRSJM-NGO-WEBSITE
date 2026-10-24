@@ -4,7 +4,10 @@ import Footer from "@/components/layout/Footer";
 import TestingPhaseModal from "@/components/ui/TestingPhaseModal";
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hrsjm.org";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "HRSJM | Human Rights & Social Justice Mission",
     template: "%s | HRSJM",
