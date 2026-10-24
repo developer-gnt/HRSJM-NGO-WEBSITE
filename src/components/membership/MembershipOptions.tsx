@@ -77,8 +77,8 @@ export default function MembershipOptions() {
                 <span className={styles.planIcon}>
                   <CatIcon size={22} strokeWidth={1.8} aria-hidden="true" />
                 </span>
-                <h3 className={styles.planName}>{plan.name}</h3>
-                <p className={styles.planDescription}>{plan.description}</p>
+                <h3 className={styles.planName}>{cat.name}</h3>
+                <p className={styles.planDescription}>{cat.description}</p>
                 <Link
                   href="/membership/categories"
                   className={styles.planButton}
