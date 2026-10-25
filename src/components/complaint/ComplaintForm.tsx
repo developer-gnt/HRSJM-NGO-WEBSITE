@@ -496,11 +496,11 @@ export default function ComplaintForm() {
                 <CircleCheck size={18} strokeWidth={2.4} style={{ color: "#16a34a", flexShrink: 0, marginTop: "2px" }} aria-hidden="true" />
                 <div>
                   <p style={{ margin: 0, fontWeight: 700, fontSize: "14px" }}>
-                    Complaint Registered Successfully with HRSJM Backend!
+                    Complaint Registered Successfully with HRSJM!
                   </p>
                   {complaintRef && (
-                    <p style={{ margin: "4px 0 0", fontSize: "13px" }}>
-                      Reference ID: <strong style={{ color: "#14532d" }}>{complaintRef}</strong>. Our human rights grievance team will review your case.
+                    <p style={{ margin: "4px 0 0", fontSize: "13px", lineHeight: "1.5" }}>
+                      Complaint ID / Ticket Reference: <strong style={{ color: "#14532d" }}>{complaintRef}</strong>. A confirmation email has been sent to your registered email address. Our human rights grievance team will review your case.
                     </p>
                   )}
                 </div>
