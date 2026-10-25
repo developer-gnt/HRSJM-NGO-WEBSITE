@@ -8,6 +8,7 @@ import {
   createBackendMembership,
   resolveBackendCategoryId,
   createCashfreeOrder,
+  verifyCashfreeOrder,
 } from "@/lib/backendApi";
 
 export async function POST(request: Request) {
@@ -43,6 +44,8 @@ export async function POST(request: Request) {
       declarationAgreed,
       paymentMode,
       paymentReference,
+      orderId,
+      password,
     } = data;
 
     // 1. Personal Information Validation
@@ -51,6 +54,34 @@ export async function POST(request: Request) {
         {
           success: false,
           error: "Please complete all required Personal Information fields.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Minimum age 18 years check and future date prevention
+    const dobDate = new Date(dob);
+    const today = new Date();
+    if (isNaN(dobDate.getTime()) || dobDate > today) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Future date of birth is not allowed. Please select a valid date of birth.",
+        },
+        { status: 400 }
+      );
+    }
+
+    let age = today.getFullYear() - dobDate.getFullYear();
+    const monthDiff = today.getMonth() - dobDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+      age--;
+    }
+    if (age < 18) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Applicant must be at least 18 years old to apply for membership.",
         },
         { status: 400 }
       );
@@ -165,6 +196,52 @@ export async function POST(request: Request) {
       country: String(country || "India").trim(),
     };
 
+    const isOnlinePayment = paymentMode !== "UPI / Bank Transfer" && paymentMode !== "upi_bank";
+    let verifiedPaymentInfo: any = null;
+
+    if (isOnlinePayment) {
+      if (!orderId) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Payment order ID is required to verify transaction before submission.",
+          },
+          { status: 400 }
+        );
+      }
+
+      // 4. Verify payment with Cashfree via Central Backend
+      let verifyRes: any = null;
+      try {
+        verifyRes = await verifyCashfreeOrder(orderId);
+      } catch (err: any) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: err.message || "Failed to communicate with payment gateway verification.",
+          },
+          { status: 400 }
+        );
+      }
+
+      if (verifyRes?.status !== "SUCCESS") {
+        const failureReason =
+          verifyRes?.latest_message ||
+          verifyRes?.message ||
+          (verifyRes?.latest_status ? `Gateway reported status: ${verifyRes.latest_status}` : "Payment not confirmed or pending");
+        return NextResponse.json(
+          {
+            success: false,
+            error: `Payment is not confirmed: ${failureReason}. The application has not been submitted.`,
+            paymentStatus: verifyRes?.latest_status || verifyRes?.status || "PENDING",
+          },
+          { status: 400 }
+        );
+      }
+
+      verifiedPaymentInfo = verifyRes;
+    }
+
     const applicationData = {
       personal_details: personalDetails,
       full_name: String(fullName).trim(),
@@ -184,12 +261,15 @@ export async function POST(request: Request) {
       terms_agreed: Boolean(termsAgreed || agreeTerms),
       pledge_agreed: Boolean(pledgeAgreed),
       declaration_agreed: Boolean(declarationAgreed),
-      payment_mode: paymentMode || "Pending / Offline Verification",
-      payment_reference: paymentReference?.trim() || undefined,
+      payment_mode: isOnlinePayment ? "Online Gateway (Cashfree Confirmed)" : "UPI / Bank Transfer",
+      payment_reference: isOnlinePayment ? orderId : paymentReference?.trim() || undefined,
+      payment_order_id: orderId || undefined,
+      gateway_payment_id: verifiedPaymentInfo?.payment?.gateway_payment_id || undefined,
+      payment_verified: isOnlinePayment ? true : false,
       submitted_via: "HRSJM-NGO-WEBSITE",
     };
 
-    // 4. Submit to live NestJS Central API
+    // 5. Submit to live NestJS Central API (Status will be PENDING / Applied)
     let backendMembership: any = null;
     let applicationRef = `HRSJM-${new Date().getFullYear()}-${Math.floor(
       100000 + Math.random() * 900000
@@ -201,6 +281,7 @@ export async function POST(request: Request) {
         fullName: String(fullName).trim(),
         mobile: String(phone).trim(),
         email: String(email).trim().toLowerCase(),
+        password: password ? String(password).trim() : undefined,
         policeStation: String(policeStation).trim(),
         personalDetails,
         applicationData,
@@ -227,34 +308,16 @@ export async function POST(request: Request) {
           { status: 409 }
         );
       }
-      // If server is unreachable or generic, still proceed with fallback reference
+      return NextResponse.json(
+        {
+          success: false,
+          error: apiErr.message || "Unable to save application to database. Please contact support.",
+        },
+        { status: 500 }
+      );
     }
 
     const submittedAt = new Date().toISOString();
-
-    // 5. If Online Gateway selected, attempt to initiate Cashfree order
-    let cashfreeOrder = null;
-    const isOnlineGateway =
-      String(paymentMode).toLowerCase().includes("gateway") ||
-      String(paymentMode).toLowerCase().includes("online");
-
-    if (isOnlineGateway) {
-      const cleanFee = String(packageFee).replace(/[^0-9]/g, "");
-      const feeAmount = parseInt(cleanFee, 10) || 3000;
-      try {
-        cashfreeOrder = await createCashfreeOrder({
-          purpose: "membership",
-          amount: feeAmount,
-          customerName: String(fullName).trim(),
-          customerPhone: String(phone).trim(),
-          customerEmail: String(email).trim().toLowerCase(),
-          orderNote: `Membership: ${packageName || "District Unit"} - ${applicationRef}`,
-          referenceId: backendMembership?.id || applicationRef,
-        });
-      } catch (cfErr) {
-        console.warn("Cashfree order creation notice:", cfErr);
-      }
-    }
 
     const record: MembershipRecord = {
       applicationRef,
@@ -281,8 +344,8 @@ export async function POST(request: Request) {
       termsAgreed: Boolean(termsAgreed || agreeTerms),
       pledgeAgreed: Boolean(pledgeAgreed),
       declarationAgreed: Boolean(declarationAgreed),
-      paymentMode: paymentMode || "Pending / Offline Verification",
-      paymentReference: paymentReference?.trim() || undefined,
+      paymentMode: isOnlinePayment ? "Online Gateway (Cashfree Confirmed)" : (paymentMode || "Pending / Offline Verification"),
+      paymentReference: isOnlinePayment ? orderId : (paymentReference?.trim() || undefined),
       status: "pending_review",
     };
 
@@ -303,7 +366,7 @@ export async function POST(request: Request) {
       packageName: record.packageName,
       packageFee: record.packageFee,
       emailStatus: emailResult.status,
-      cashfreeOrder,
+      orderId: orderId || undefined,
       backendId: backendMembership?.id,
     });
   } catch (error: any) {

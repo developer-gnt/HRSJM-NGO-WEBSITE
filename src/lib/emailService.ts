@@ -19,27 +19,35 @@ export async function sendMembershipApplicationEmail(
   const recipient = record.email;
   const applicationRef = record.applicationRef;
 
-  const emailSubject = `HRSJM Membership Application Received — Ref: ${applicationRef}`;
+  const emailSubject = `Payment Successful: HRSJM Membership Application Received (${applicationRef})`;
   const emailContent = `
 Dear ${record.fullName},
 
-Thank you for applying for membership with Human Rights & Social Justice Mission (HRSJM).
+Thank you for completing your registration payment for membership with Human Rights & Social Justice Mission (HRSJM).
+Your payment has been successfully confirmed and your application is now under review.
 
-Your application details:
-- Reference Number: ${applicationRef}
-- Post / Category: ${record.packageName}
-- Registration Fee: ${record.packageFee}
-- Date Submitted: ${new Date(record.submittedAt).toLocaleDateString("en-IN")}
-- Status: Under Review
+APPLICATION & PAYMENT DETAILS:
+- Application Reference No : ${applicationRef}
+- Registered Email         : ${recipient}
+- Registered Mobile        : ${record.phone}
+- Post / Category          : ${record.packageName}
+- Amount Paid              : ${record.packageFee}
+- Payment Mode             : ${record.paymentMode || "Online (Cashfree Gateway)"}
+- Transaction / Order ID   : ${record.paymentReference || "Confirmed"}
+- Date & Time              : ${new Date(record.submittedAt).toLocaleString("en-IN")}
+- Current Status           : Under Review (Pending Verification)
 
-Our administration committee will review your submitted documents and verify your eligibility against the official HRSJM Bye-Laws. You will receive further notification regarding verification and issuance of your membership credentials.
+WHAT HAPPENS NEXT:
+1. Document & Eligibility Verification: Our administrative committee will review your application and documents against official NGO norms.
+2. Membership Activation: Upon administrative approval, your official Membership Number will be assigned.
+3. Login Access: Once approved, you can log in to the HRSJM Member Portal / Mobile App using your registered mobile number and password.
 
-For any queries regarding your application, please reach out to our office with your reference number.
+For support or questions, quote your Reference Number (${applicationRef}) and contact support@hrsjm.org.
 
 Warm regards,
 Membership Committee
 Human Rights & Social Justice Mission (HRSJM)
-National Office: Mumbai, Maharashtra
+National Headquarters, New Delhi, India
 Website: https://hrsjm.org
 `.trim();
 

@@ -162,7 +162,56 @@ export default function Step4Payment({
             gap: 14,
           }}
         >
-          {/* Method 1: UPI / Bank Transfer */}
+          {/* Method 1: Online Payment Gateway (Cashfree - Recommended) */}
+          <div
+            onClick={() => onChange("paymentMode", "online_gateway")}
+            style={{
+              border: `2px solid ${
+                data.paymentMode === "online_gateway" ? "#0a3a6b" : "#e2e8f0"
+              }`,
+              borderRadius: 10,
+              padding: 18,
+              cursor: "pointer",
+              background:
+                data.paymentMode === "online_gateway" ? "#f0f7ff" : "#ffffff",
+              boxShadow:
+                data.paymentMode === "online_gateway"
+                  ? "0 4px 14px rgba(10, 58, 107, 0.12)"
+                  : "none",
+              transition: "all 160ms ease",
+              position: "relative",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: -10,
+                right: 12,
+                background: "#0d7a57",
+                color: "#ffffff",
+                fontSize: 10,
+                fontWeight: 800,
+                padding: "2px 8px",
+                borderRadius: 10,
+                letterSpacing: 0.4,
+              }}
+            >
+              RECOMMENDED / INSTANT
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <CreditCard size={22} style={{ color: "#0a3a6b" }} />
+              <div>
+                <strong style={{ fontSize: 14, display: "block", color: "var(--color-navy)" }}>
+                  Online Payment Gateway
+                </strong>
+                <span style={{ fontSize: 12, color: "#64748b" }}>
+                  UPI (GPay, PhonePe, QR), Cards, Netbanking
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Method 2: Offline UPI / Bank Transfer */}
           <div
             onClick={() => onChange("paymentMode", "upi_bank")}
             style={{
@@ -180,38 +229,10 @@ export default function Step4Payment({
               <QrCode size={22} style={{ color: "#0a3a6b" }} />
               <div>
                 <strong style={{ fontSize: 14, display: "block", color: "var(--color-navy)" }}>
-                  UPI / Bank Transfer
+                  Direct Bank Transfer / NEFT
                 </strong>
                 <span style={{ fontSize: 12, color: "#64748b" }}>
-                  Pay via QR code, GPay, PhonePe, or NEFT
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Method 2: Online Payment Gateway */}
-          <div
-            onClick={() => onChange("paymentMode", "online_gateway")}
-            style={{
-              border: `2px solid ${
-                data.paymentMode === "online_gateway" ? "#0a3a6b" : "#e2e8f0"
-              }`,
-              borderRadius: 10,
-              padding: 18,
-              cursor: "pointer",
-              background:
-                data.paymentMode === "online_gateway" ? "#f8fafc" : "#ffffff",
-              transition: "all 160ms ease",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <CreditCard size={22} style={{ color: "#0a3a6b" }} />
-              <div>
-                <strong style={{ fontSize: 14, display: "block", color: "var(--color-navy)" }}>
-                  Online Payment Gateway
-                </strong>
-                <span style={{ fontSize: 12, color: "#64748b" }}>
-                  Debit/Credit Card, Netbanking
+                  Official Trust Account (Manual verification)
                 </span>
               </div>
             </div>
@@ -283,13 +304,12 @@ export default function Step4Payment({
               lineHeight: 1.5,
             }}
           >
-            <div style={{ fontWeight: 700, marginBottom: 4 }}>
-              Online Payment Gateway Integration Notice:
+            <div style={{ fontWeight: 700, marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
+              <span>🛡️</span> Cashfree Web Checkout Active:
             </div>
-            Automated online merchant checkout (Razorpay / PayU / Cashfree) will be
-            active once the client configures their merchant keys. Submitting your
-            application will register your record securely, and you will receive
-            payment verification confirmation via email and SMS.
+            When you proceed, the secure Cashfree Web Checkout modal will open automatically.
+            You can complete your registration fee securely using UPI (QR Code, GPay, PhonePe),
+            Debit/Credit Cards, or Netbanking. Your application receipt will be generated instantly.
           </div>
         )}
       </div>
@@ -336,8 +356,11 @@ export default function Step4Payment({
         >
           {submitting ? (
             <>
-              <Loader2 size={16} className="animate-spin" /> Submitting
-              Application...
+              <Loader2 size={16} className="animate-spin" /> Connecting to Cashfree Gateway...
+            </>
+          ) : data.paymentMode === "online_gateway" ? (
+            <>
+              Pay {selectedPackage.item.fees} via Cashfree Gateway <ArrowRight size={17} strokeWidth={2.4} />
             </>
           ) : (
             <>

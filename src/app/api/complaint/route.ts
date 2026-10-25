@@ -36,26 +36,21 @@ export async function POST(request: Request) {
     }
 
     // Submit to central backend
-    let backendResult: any = null;
-    let complaintRef = `HRSJM-CMP-${Date.now().toString(36).toUpperCase()}`;
+    const backendResult = await createBackendComplaint({
+      fullName: String(fullName).trim(),
+      phone: String(phone).trim(),
+      email: email ? String(email).trim().toLowerCase() : undefined,
+      state: String(state).trim(),
+      policeStation: String(policeStation).trim(),
+      complaintType: String(complaintType).trim(),
+      details: String(details).trim(),
+    });
 
-    try {
-      backendResult = await createBackendComplaint({
-        fullName: String(fullName).trim(),
-        phone: String(phone).trim(),
-        email: email ? String(email).trim().toLowerCase() : undefined,
-        state: String(state).trim(),
-        policeStation: String(policeStation).trim(),
-        complaintType: String(complaintType).trim(),
-        details: String(details).trim(),
-      });
-
-      if (backendResult?.id) {
-        complaintRef = `HRSJM-CMP-${backendResult.id.slice(0, 8).toUpperCase()}`;
-      }
-    } catch (err: any) {
-      console.warn("Backend complaint submission notice:", err.message);
-    }
+    const complaintRef =
+      backendResult?.ticketId ||
+      (backendResult?.id
+        ? `HRSJM-CMP-${backendResult.id.slice(0, 8).toUpperCase()}`
+        : `HRSJM-CMP-${Date.now().toString(36).toUpperCase()}`);
 
     return NextResponse.json({
       success: true,

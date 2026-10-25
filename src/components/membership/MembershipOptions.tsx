@@ -12,13 +12,13 @@ import styles from "./membership.module.css";
 
 const categories = [
   {
-    id: "Active Membership",
-    name: "Active Membership",
+    id: "General Membership",
+    name: "General Membership",
     fee: "From ₹800 / year",
     description:
       "Contribute at the district and state level. Includes official appointment letter, certificate, and membership identity kit.",
     icon: Users,
-    targetCategory: "active-membership",
+    targetCategory: "general-membership",
     defaultPost: "District Active Member",
   },
   {

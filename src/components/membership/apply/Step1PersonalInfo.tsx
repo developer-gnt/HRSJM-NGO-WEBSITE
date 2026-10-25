@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ChangeEvent, type FormEvent } from "react";
+import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import Image from "next/image";
 import {
   ArrowRight,
@@ -14,6 +14,10 @@ import {
   AlertCircle,
   HelpCircle,
   Scale,
+  Loader2,
+  Lock,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import styles from "./apply.module.css";
 
@@ -25,6 +29,7 @@ export interface Step1Data {
   gender: string;
   phone: string;
   email: string;
+  password?: string;
   priorConviction: "No" | "Yes";
   priorConvictionDetails: string;
 }
@@ -34,6 +39,7 @@ interface Step1Props {
   onChange: (field: keyof Step1Data, value: any) => void;
   onNext: () => void;
   errors: Record<string, string>;
+  checkingDuplicate?: boolean;
 }
 
 export default function Step1PersonalInfo({
@@ -41,8 +47,17 @@ export default function Step1PersonalInfo({
   onChange,
   onNext,
   errors,
+  checkingDuplicate = false,
 }: Step1Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Maximum allowed DOB is exactly 18 years ago from today (no future dates, minimum 18 years old)
+  const maxDobDate = (() => {
+    const today = new Date();
+    const d = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    return d.toISOString().split("T")[0];
+  })();
 
   const handlePhotoUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -207,6 +222,7 @@ export default function Step1PersonalInfo({
               type="date"
               placeholder="Select date of birth"
               value={data.dob}
+              max={maxDobDate}
               onChange={(e) => onChange("dob", e.target.value)}
               className={styles.inputField}
             />
@@ -288,7 +304,7 @@ export default function Step1PersonalInfo({
         </div>
 
         {/* Email Address */}
-        <div className={`${styles.formField} ${styles.formFieldFull}`}>
+        <div className={styles.formField}>
           <label htmlFor="app-email" className={styles.fieldLabel}>
             Email Address <span className={styles.fieldRequired}>*</span>
           </label>
@@ -315,6 +331,58 @@ export default function Step1PersonalInfo({
               <AlertCircle size={13} strokeWidth={2} />
               {errors.email}
             </p>
+          )}
+        </div>
+
+        {/* Account Password */}
+        <div className={styles.formField}>
+          <label htmlFor="app-password" className={styles.fieldLabel}>
+            Create Login Password <span className={styles.fieldRequired}>*</span>
+          </label>
+          <div
+            className={`${styles.inputWrapper} ${
+              errors.password ? styles.inputWrapperError : ""
+            }`}
+          >
+            <span className={styles.inputIcon} aria-hidden="true">
+              <Lock size={17} strokeWidth={2} />
+            </span>
+            <input
+              id="app-password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Create password (min. 6 chars)"
+              value={data.password || ""}
+              onChange={(e) => onChange("password", e.target.value)}
+              className={styles.inputField}
+              autoComplete="new-password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                padding: "0 10px",
+                display: "flex",
+                alignItems: "center",
+                color: "#64748b",
+              }}
+              title={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
+          {errors.password ? (
+            <p className={styles.fieldError} role="alert">
+              <AlertCircle size={13} strokeWidth={2} />
+              {errors.password}
+            </p>
+          ) : (
+            <span style={{ fontSize: "11.5px", color: "#64748b", marginTop: "4px", display: "block" }}>
+              Remember this password to log in to the portal / mobile app after membership approval.
+            </span>
           )}
         </div>
 
@@ -380,8 +448,20 @@ export default function Step1PersonalInfo({
 
       {/* Continue Action */}
       <div className={styles.navActions}>
-        <button type="submit" className={`${styles.btnGold} ${styles.btnFull}`}>
-          Continue <ArrowRight size={17} strokeWidth={2.4} />
+        <button
+          type="submit"
+          className={`${styles.btnGold} ${styles.btnFull}`}
+          disabled={checkingDuplicate}
+        >
+          {checkingDuplicate ? (
+            <>
+              <Loader2 size={16} className="animate-spin" /> Verifying details...
+            </>
+          ) : (
+            <>
+              Continue <ArrowRight size={17} strokeWidth={2.4} />
+            </>
+          )}
         </button>
       </div>
     </form>

@@ -1,10 +1,20 @@
-const DEFAULT_BACKEND_URL = "http://194.164.151.17:3000/api/v1";
+const LOCAL_BACKEND_URL = "http://localhost:3000/api/v1";
+const PROD_BACKEND_URL = "http://194.164.151.17:3000/api/v1";
 
 export function getBackendApiUrl(): string {
-  if (typeof window === "undefined") {
-    return process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || DEFAULT_BACKEND_URL;
+  // 1. Check explicit URL from environment
+  const envUrl =
+    typeof window === "undefined"
+      ? process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL
+      : process.env.NEXT_PUBLIC_API_URL;
+
+  if (envUrl && envUrl.trim().length > 0) {
+    return envUrl.trim();
   }
-  return process.env.NEXT_PUBLIC_API_URL || DEFAULT_BACKEND_URL;
+
+  // 2. Fallback based on NEXT_PUBLIC_APP_ENV ('local' | 'production')
+  const appEnv = (process.env.NEXT_PUBLIC_APP_ENV || process.env.APP_ENV || "local").toLowerCase();
+  return appEnv === "production" ? PROD_BACKEND_URL : LOCAL_BACKEND_URL;
 }
 
 export interface BackendCategory {
@@ -149,12 +159,13 @@ export async function createBackendMembership(payload: {
   fullName: string;
   mobile: string;
   email: string;
+  password?: string;
   policeStation: string;
   personalDetails: Record<string, any>;
   applicationData: Record<string, any>;
 }): Promise<BackendMembershipResponse> {
   const url = `${getBackendApiUrl()}/memberships`;
-  const body = {
+  const body: Record<string, any> = {
     category_id: payload.categoryId,
     full_name: payload.fullName.trim(),
     mobile_number: payload.mobile.trim(),
@@ -163,6 +174,10 @@ export async function createBackendMembership(payload: {
     personal_details: payload.personalDetails,
     application_data: payload.applicationData,
   };
+
+  if (payload.password && payload.password.trim().length >= 6) {
+    body.password = payload.password.trim();
+  }
 
   const res = await fetch(url, {
     method: "POST",
@@ -220,6 +235,26 @@ export async function createCashfreeOrder(payload: {
 }
 
 /**
+ * Verify a Cashfree Payment Order attempt with backend
+ */
+export async function verifyCashfreeOrder(orderId: string): Promise<any> {
+  const url = `${getBackendApiUrl()}/payments/cashfree/orders/${encodeURIComponent(orderId)}/verify`;
+  const res = await fetch(url, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    cache: "no-store",
+  });
+
+  const json = await res.json();
+  if (!res.ok || json.success === false) {
+    const errMsg = json.message || json.error || "Failed to verify Cashfree payment";
+    throw new Error(errMsg);
+  }
+
+  return json.data || json;
+}
+
+/**
  * Submit Donation intent / record to live backend
  */
 export async function createBackendDonation(payload: {
@@ -258,7 +293,7 @@ export async function createBackendDonation(payload: {
 }
 
 /**
- * Submit Citizen Complaint / Assistance Request to live backend
+ * Submit Citizen Complaint / Support Ticket to live backend
  */
 export async function createBackendComplaint(payload: {
   fullName: string;
@@ -269,27 +304,102 @@ export async function createBackendComplaint(payload: {
   policeStation: string;
   details: string;
 }): Promise<any> {
-  const url = `${getBackendApiUrl()}/assistance-requests`;
+  const publicTicketUrl = `${getBackendApiUrl()}/support-tickets/public`;
   const body = {
+    fullName: payload.fullName.trim(),
+    phone: payload.phone.trim(),
+    email: payload.email?.trim().toLowerCase() || undefined,
+    state: payload.state.trim(),
+    policeStation: payload.policeStation.trim(),
+    complaintType: payload.complaintType.trim(),
+    details: payload.details.trim(),
+  };
+
+  try {
+    const res = await fetch(publicTicketUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    const json = await res.json();
+    if (res.ok && json.success !== false) {
+      return json.data || json;
+    }
+    if (res.status !== 404) {
+      throw new Error(json.message || json.error || "Failed to submit complaint");
+    }
+  } catch (err: any) {
+    if (err.message && !err.message.includes("404")) {
+      throw err;
+    }
+  }
+
+  // Fallback to assistance-requests if running on older backend
+  const fallbackUrl = `${getBackendApiUrl()}/assistance-requests`;
+  const fallbackBody = {
     full_name: payload.fullName.trim(),
     mobile: payload.phone.trim(),
     email: payload.email?.trim().toLowerCase() || undefined,
-    requested_amount: 1, // Nominal amount required by DTO validator
+    requested_amount: 1,
     reason: `[Complaint: ${payload.complaintType}] ${payload.details.slice(0, 100)}`,
     description: `Citizen Complaint / Grievance Details:\n- Category: ${payload.complaintType}\n- State: ${payload.state}\n- Nearby Police Station: ${payload.policeStation}\n- Description:\n${payload.details}`,
   };
 
-  const res = await fetch(url, {
+  const fallbackRes = await fetch(fallbackUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: JSON.stringify(fallbackBody),
   });
 
-  const json = await res.json();
-  if (!res.ok || json.success === false) {
-    const errMsg = json.message || json.error || "Failed to submit complaint";
-    throw new Error(errMsg);
+  const fallbackJson = await fallbackRes.json();
+  if (!fallbackRes.ok || fallbackJson.success === false) {
+    throw new Error(fallbackJson.message || fallbackJson.error || "Failed to submit complaint");
   }
 
-  return json.data || json;
+  const data = fallbackJson.data || fallbackJson;
+  return {
+    ...data,
+    ticketId: `HRSJM-CMP-${(data.id || Date.now().toString(36)).slice(0, 8).toUpperCase()}`,
+  };
 }
+
+export interface DuplicateCheckResult {
+  isDuplicate: boolean;
+  field?: "email" | "phone" | "both";
+  message?: string;
+  existingStatus?: string;
+  membershipNumber?: string;
+}
+
+/**
+ * Check if a mobile number or email already exists in membership / users database
+ */
+export async function checkDuplicateMembership(
+  email?: string,
+  phone?: string
+): Promise<DuplicateCheckResult> {
+  const params = new URLSearchParams();
+  if (email) params.append("email", email.trim());
+  if (phone) params.append("phone", phone.trim());
+
+  const url = `${getBackendApiUrl()}/memberships/check-duplicate?${params.toString()}`;
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return { isDuplicate: false };
+    }
+
+    const json = await res.json();
+    return json?.data || json;
+  } catch (err) {
+    console.warn("Duplicate check API warning:", err);
+    return { isDuplicate: false };
+  }
+}
+

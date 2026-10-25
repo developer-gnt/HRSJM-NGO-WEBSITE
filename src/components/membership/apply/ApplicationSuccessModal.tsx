@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Check, CheckCircle2, Home, Printer } from "lucide-react";
+import { Check, CreditCard, Home, Printer } from "lucide-react";
+import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
 import styles from "./apply.module.css";
 
 interface SuccessModalProps {
@@ -8,6 +9,7 @@ interface SuccessModalProps {
   packageName: string;
   packageFee: string;
   submittedAt: string;
+  paymentSessionId?: string;
 }
 
 export default function ApplicationSuccessModal({
@@ -16,9 +18,22 @@ export default function ApplicationSuccessModal({
   packageName,
   packageFee,
   submittedAt,
+  paymentSessionId,
 }: SuccessModalProps) {
   const handlePrint = () => {
     window.print();
+  };
+
+  const handlePayOnline = async () => {
+    if (!paymentSessionId) return;
+    try {
+      await launchCashfreeCheckout({
+        paymentSessionId,
+        redirectTarget: "_self",
+      });
+    } catch (err) {
+      console.error("Cashfree checkout trigger failed:", err);
+    }
   };
 
   const formattedDate = new Date(submittedAt).toLocaleString("en-IN", {
@@ -67,12 +82,24 @@ export default function ApplicationSuccessModal({
             <span className={styles.receiptValue}>{packageFee}</span>
           </div>
           <div className={styles.receiptRow}>
+            <span className={styles.receiptLabel}>Payment Status:</span>
+            <span className={styles.receiptValue} style={{ color: "#166534", fontWeight: 700 }}>
+              ✓ Confirmed Paid
+            </span>
+          </div>
+          <div className={styles.receiptRow}>
+            <span className={styles.receiptLabel}>Application Status:</span>
+            <span className={styles.receiptValue} style={{ color: "#d97706", fontWeight: 700 }}>
+              Applied (Pending Review)
+            </span>
+          </div>
+          <div className={styles.receiptRow}>
             <span className={styles.receiptLabel}>Submitted On:</span>
             <span className={styles.receiptValue}>{formattedDate}</span>
           </div>
         </div>
 
-        <div className={styles.successActions}>
+        <div className={styles.successActions} style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center" }}>
           <button
             type="button"
             className={styles.btnOutline}

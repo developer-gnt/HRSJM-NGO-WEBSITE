@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,12 +13,42 @@ import {
   Users,
   Heart,
   Handshake,
+  X,
+  Lock,
+  Loader2,
+  UserCheck,
 } from "lucide-react";
+import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
 import styles from "./donation.module.css";
 
-const emergencyCategories = [
+interface CauseStats {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+  themeClass: string;
+  btnClass: string;
+  iconWrapClass: string;
+  arrowClass: string;
+  icon: any;
+  btnText: string;
+  accentColor: string;
+  badgeBg?: string;
+  badgeBorder?: string;
+  gradient?: string;
+  goal: number;
+  raised: number;
+  donorCount: number;
+  seekerName: string;
+  seekerStory: string;
+}
+
+const initialEmergencyCategories: CauseStats[] = [
   {
     id: "medical",
+    category: "Medical Assistance",
     title: "Medical Assistance",
     description:
       "Support for hospitalisation, major operations, critical illnesses and emergency medical treatment.",
@@ -28,11 +59,20 @@ const emergencyCategories = [
     iconWrapClass: styles.iconWrapMedical,
     arrowClass: styles.arrowCircleMedical,
     icon: HeartPulse,
-    btnText: "View Medical Cases",
-    href: "/donation/emergency#featured-cases",
+    btnText: "Donate to Medical",
+    accentColor: "#dc2626",
+    badgeBg: "#fef2f2",
+    badgeBorder: "#fecaca",
+    gradient: "linear-gradient(90deg, #dc2626 0%, #ef4444 100%)",
+    goal: 500000,
+    raised: 320000,
+    donorCount: 14,
+    seekerName: "Suresh Sharma",
+    seekerStory: "Heart Surgery for a 7-year-old Child in critical pediatric care",
   },
   {
     id: "education",
+    category: "Educational Assistance",
     title: "Educational Assistance",
     description:
       "Help for school fees, college admissions, uniforms, books, stationery and other learning needs.",
@@ -43,11 +83,20 @@ const emergencyCategories = [
     iconWrapClass: styles.iconWrapEducation,
     arrowClass: styles.arrowCircleEducation,
     icon: GraduationCap,
-    btnText: "View Education Cases",
-    href: "/donation/emergency#featured-cases",
+    btnText: "Donate to Education",
+    accentColor: "#2563eb",
+    badgeBg: "#eff6ff",
+    badgeBorder: "#dbeafe",
+    gradient: "linear-gradient(90deg, #2563eb 0%, #3b82f6 100%)",
+    goal: 100000,
+    raised: 45000,
+    donorCount: 9,
+    seekerName: "Amina Khatun",
+    seekerStory: "Annual School Fees, Uniforms & Books for underprivileged students",
   },
   {
     id: "disaster",
+    category: "Disaster Relief",
     title: "Disaster Relief",
     description:
       "Emergency support during floods, storms, heavy rainfall, fires and other natural or accidental disasters.",
@@ -58,11 +107,20 @@ const emergencyCategories = [
     iconWrapClass: styles.iconWrapDisaster,
     arrowClass: styles.arrowCircleDisaster,
     icon: CloudLightning,
-    btnText: "View Relief Cases",
-    href: "/donation/emergency#featured-cases",
+    btnText: "Donate to Disaster Relief",
+    accentColor: "#d97706",
+    badgeBg: "#fffbeb",
+    badgeBorder: "#fde68a",
+    gradient: "linear-gradient(90deg, #d97706 0%, #f59e0b 100%)",
+    goal: 500000,
+    raised: 210000,
+    donorCount: 18,
+    seekerName: "Ramesh Patil",
+    seekerStory: "Relief food kits, clean water & emergency support for flood-hit families",
   },
   {
     id: "housing",
+    category: "Housing & Rehabilitation",
     title: "Housing & Rehabilitation",
     description:
       "Assistance for house damage, building collapse and rehabilitation of affected families.",
@@ -73,8 +131,16 @@ const emergencyCategories = [
     iconWrapClass: styles.iconWrapHousing,
     arrowClass: styles.arrowCircleHousing,
     icon: Home,
-    btnText: "View Housing Cases",
-    href: "/donation/emergency#featured-cases",
+    btnText: "Donate to Housing",
+    accentColor: "#059669",
+    badgeBg: "#ecfdf5",
+    badgeBorder: "#a7f3d0",
+    gradient: "linear-gradient(90deg, #059669 0%, #10b981 100%)",
+    goal: 400000,
+    raised: 180000,
+    donorCount: 11,
+    seekerName: "Sunita Kamble",
+    seekerStory: "Structural rebuilding assistance for home collapsed in heavy rainfall",
   },
 ];
 
@@ -105,7 +171,142 @@ const trustPillars = [
   },
 ];
 
+const quickPills = [500, 1000, 2500, 5000, 10000];
+
+const formatINR = (val: number) =>
+  `₹${new Intl.NumberFormat("en-IN").format(Math.max(0, val))}`;
+
 export default function EmergencyDonationSection() {
+  const [categories, setCategories] = useState<CauseStats[]>(initialEmergencyCategories);
+  const [activeModalCause, setActiveModalCause] = useState<CauseStats | null>(null);
+
+  // Modal Form State
+  const [modalAmount, setModalAmount] = useState<number>(1000);
+  const [modalCustomAmount, setModalCustomAmount] = useState<string>("1000");
+  const [donorName, setDonorName] = useState("");
+  const [donorPhone, setDonorPhone] = useState("");
+  const [donorEmail, setDonorEmail] = useState("");
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // 1. Fetch live database values from backend for each cause
+  useEffect(() => {
+    fetch("/api/donation/causes")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.success && Array.isArray(data.items) && data.items.length > 0) {
+          setCategories((prev) =>
+            prev.map((cat) => {
+              const dbItem = data.items.find(
+                (item: any) =>
+                  item.reason?.toLowerCase() === cat.category.toLowerCase() ||
+                  item.reason?.toLowerCase().includes(cat.category.toLowerCase()) ||
+                  cat.category.toLowerCase().includes(item.reason?.toLowerCase() || "")
+              );
+              if (dbItem) {
+                const goalNum = Number(dbItem.requested_amount) || cat.goal;
+                const dbRaised = Number(dbItem.raised_amount) || 0;
+                return {
+                  ...cat,
+                  goal: goalNum,
+                  raised: dbRaised > 0 ? dbRaised : cat.raised,
+                  donorCount: Number(dbItem.donor_count) || cat.donorCount,
+                  seekerName: dbItem.full_name || cat.seekerName,
+                  seekerStory: dbItem.description || cat.seekerStory,
+                };
+              }
+              return cat;
+            })
+          );
+        }
+      })
+      .catch((err) => console.warn("Could not sync live causes from backend:", err));
+  }, []);
+
+  const openDonateModal = (cause: CauseStats) => {
+    setActiveModalCause(cause);
+    setModalAmount(1000);
+    setModalCustomAmount("1000");
+    setErrorMessage(null);
+  };
+
+  const closeDonateModal = () => {
+    setActiveModalCause(null);
+    setErrorMessage(null);
+    setIsSubmitting(false);
+  };
+
+  const handleAmountSelect = (val: number) => {
+    setModalAmount(val);
+    setModalCustomAmount(String(val));
+    setErrorMessage(null);
+  };
+
+  const handleCustomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const clean = e.target.value.replace(/\D/g, "").slice(0, 8);
+    setModalCustomAmount(clean);
+    setModalAmount(clean ? Number(clean) : 0);
+    setErrorMessage(null);
+  };
+
+  const handleModalDonate = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!activeModalCause) return;
+
+    const finalAmount = modalAmount || Number(modalCustomAmount);
+    if (!finalAmount || finalAmount < 10) {
+      setErrorMessage("Please enter a valid donation amount of at least ₹10.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    const resolvedName = isAnonymous
+      ? "Anonymous Donor"
+      : donorName.trim() || "Kind Supporter";
+
+    const specificCause = `${activeModalCause.title}: ${activeModalCause.seekerStory} (Seeker: ${activeModalCause.seekerName})`;
+
+    try {
+      const res = await fetch("/api/donation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: finalAmount,
+          donorName: resolvedName,
+          donorMobile: donorPhone.trim() || undefined,
+          donorEmail: donorEmail.trim() || undefined,
+          isAnonymous,
+          cause: specificCause,
+          remark: `Donation from Website - ${activeModalCause.title}`,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setErrorMessage(data.error || "Failed to process donation. Please retry.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (data.cashfreeOrder?.payment_session_id) {
+        await launchCashfreeCheckout({
+          paymentSessionId: data.cashfreeOrder.payment_session_id,
+          redirectTarget: "_self",
+        });
+      } else {
+        setErrorMessage("Payment session could not be created. Please try again.");
+        setIsSubmitting(false);
+      }
+    } catch (err: any) {
+      console.error("Cause donation error:", err);
+      setErrorMessage(err?.message || "Failed to initiate Cashfree payment gateway.");
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section
       id="emergency-support"
@@ -161,15 +362,18 @@ export default function EmergencyDonationSection() {
         </div>
 
         {/* ============================================================
-            2. THE 4 EMERGENCY CATEGORY CARDS
+            2. THE 4 EMERGENCY CATEGORY CARDS WITH SEPARATE DONATION & PROGRESS
             ============================================================ */}
         <div id="emergency-categories" className={styles.emergencyCardsGrid}>
-          {emergencyCategories.map((cat) => {
+          {categories.map((cat) => {
             const Icon = cat.icon;
+            const percent = Math.min(100, Math.round((cat.raised / (cat.goal || 1)) * 100));
+
             return (
               <div
                 key={cat.id}
                 className={`${styles.emergencyCard} ${cat.themeClass}`}
+                style={{ display: "flex", flexDirection: "column" }}
               >
                 {/* Card Top: Icon, Title, and Small Arrow */}
                 <div className={styles.cardHeaderTop}>
@@ -177,13 +381,15 @@ export default function EmergencyDonationSection() {
                     <Icon size={24} strokeWidth={2.2} />
                   </div>
                   <h3 className={styles.cardTitle}>{cat.title}</h3>
-                  <Link
-                    href={cat.href}
+                  <button
+                    type="button"
+                    onClick={() => openDonateModal(cat)}
                     className={cat.arrowClass}
-                    aria-label={`Learn more about ${cat.title}`}
+                    aria-label={`Donate to ${cat.title}`}
+                    style={{ border: "none", cursor: "pointer" }}
                   >
                     <ArrowRight size={14} strokeWidth={2.6} />
-                  </Link>
+                  </button>
                 </div>
 
                 {/* Card Description */}
@@ -200,11 +406,118 @@ export default function EmergencyDonationSection() {
                   />
                 </div>
 
-                {/* Card Action Button */}
-                <Link href={cat.href} className={cat.btnClass}>
+                {/* ====================================================
+                    LIVE DATABASE PROGRESS BAR FOR THIS SPECIFIC CAUSE
+                    ==================================================== */}
+                <div
+                  style={{
+                    background: "#f8fafc",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "10px",
+                    padding: "12px 14px",
+                    marginBottom: "16px",
+                  }}
+                >
+                  {/* Seeker / Beneficiary Tag & % Funded Badge */}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        fontSize: "11px",
+                        fontWeight: 700,
+                        color: "#0f172a",
+                      }}
+                    >
+                      <UserCheck size={13} color={cat.accentColor} />
+                      {cat.seekerName}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "10.5px",
+                        fontWeight: 800,
+                        color: cat.accentColor,
+                        background: cat.badgeBg || "#ecfdf5",
+                        border: `1px solid ${cat.badgeBorder || "#a7f3d0"}`,
+                        padding: "2px 7px",
+                        borderRadius: "12px",
+                      }}
+                    >
+                      {percent}% Funded
+                    </span>
+                  </div>
+
+                  {/* Progress Bar Track */}
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "8px",
+                      background: "#e2e8f0",
+                      borderRadius: "999px",
+                      overflow: "hidden",
+                      margin: "6px 0",
+                      boxShadow: "inset 0 1px 2px rgba(0,0,0,0.06)",
+                    }}
+                    role="progressbar"
+                    aria-valuenow={percent}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  >
+                    <div
+                      style={{
+                        width: `${percent}%`,
+                        height: "100%",
+                        background: cat.gradient || cat.accentColor,
+                        borderRadius: "999px",
+                        transition: "width 500ms ease",
+                        boxShadow: `0 1px 6px ${cat.accentColor}40`,
+                      }}
+                    />
+                  </div>
+
+                  {/* Raised vs Goal */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      fontSize: "11.5px",
+                      marginTop: "6px",
+                    }}
+                  >
+                    <span style={{ fontWeight: 800, color: "#0f172a" }}>
+                      <span style={{ color: cat.accentColor }}>{formatINR(cat.raised)}</span>{" "}
+                      <span style={{ fontWeight: 500, color: "#64748b" }}>raised</span>
+                    </span>
+                    <span style={{ color: "#64748b", fontWeight: 600 }}>
+                      Goal: {formatINR(cat.goal)}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Separate Payment Gateway Trigger Button for this specific cause */}
+                <button
+                  type="button"
+                  onClick={() => openDonateModal(cat)}
+                  className={cat.btnClass}
+                  style={{
+                    border: "none",
+                    cursor: "pointer",
+                    marginTop: "auto",
+                    width: "100%",
+                  }}
+                >
                   {cat.btnText}
                   <ArrowRight size={16} strokeWidth={2.4} aria-hidden="true" />
-                </Link>
+                </button>
               </div>
             );
           })}
@@ -232,6 +545,309 @@ export default function EmergencyDonationSection() {
           </div>
         </div>
       </div>
+
+      {/* ============================================================
+          4. DEDICATED SEPARATE CAUSE PAYMENT MODAL (CASHFREE INTEGRATED)
+          ============================================================ */}
+      {activeModalCause && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            backgroundColor: "rgba(6, 42, 79, 0.65)",
+            backdropFilter: "blur(5px)",
+            display: "grid",
+            placeItems: "center",
+            padding: "16px",
+          }}
+          onClick={closeDonateModal}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "520px",
+              background: "#ffffff",
+              borderRadius: "16px",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.35)",
+              overflow: "hidden",
+              border: "1px solid #e2e8f0",
+              animation: "fadeIn 200ms ease",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div
+              style={{
+                background: "linear-gradient(135deg, #0b2545 0%, #133a6b 100%)",
+                color: "#ffffff",
+                padding: "20px 24px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+              }}
+            >
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+                  <span
+                    style={{
+                      background: "rgba(250, 210, 92, 0.2)",
+                      color: "#ffd97e",
+                      padding: "2px 8px",
+                      borderRadius: "6px",
+                      fontSize: "11px",
+                      fontWeight: 800,
+                      letterSpacing: "0.5px",
+                    }}
+                  >
+                    {activeModalCause.category.toUpperCase()}
+                  </span>
+                  <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.75)" }}>
+                    Verified Seeker Need
+                  </span>
+                </div>
+                <h3 style={{ margin: 0, fontSize: "20px", fontWeight: 700, color: "#ffffff" }}>
+                  {activeModalCause.title}
+                </h3>
+                <p style={{ margin: "4px 0 0 0", fontSize: "12.5px", color: "rgba(255,255,255,0.85)" }}>
+                  Beneficiary: <strong>{activeModalCause.seekerName}</strong> · {activeModalCause.seekerStory}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={closeDonateModal}
+                style={{
+                  background: "rgba(255,255,255,0.12)",
+                  border: "none",
+                  borderRadius: "50%",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#ffffff",
+                  cursor: "pointer",
+                }}
+                aria-label="Close donation modal"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <form onSubmit={handleModalDonate} style={{ padding: "20px 24px" }}>
+              {/* Progress Bar Summary in Modal */}
+              <div
+                style={{
+                  background: "#f8fafc",
+                  borderRadius: "10px",
+                  padding: "12px 16px",
+                  marginBottom: "20px",
+                  border: "1px solid #e2e8f0",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12.5px", fontWeight: 700, color: "#0f172a" }}>
+                  <span>Raised: {formatINR(activeModalCause.raised)}</span>
+                  <span>Goal: {formatINR(activeModalCause.goal)}</span>
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    height: "6px",
+                    background: "#e2e8f0",
+                    borderRadius: "999px",
+                    overflow: "hidden",
+                    margin: "8px 0 4px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: `${Math.min(100, Math.round((activeModalCause.raised / (activeModalCause.goal || 1)) * 100))}%`,
+                      height: "100%",
+                      background: activeModalCause.gradient || activeModalCause.accentColor,
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Amount Selection */}
+              <label style={{ display: "block", fontSize: "13px", fontWeight: 700, color: "#0f172a", marginBottom: "8px" }}>
+                Select Donation Amount
+              </label>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "8px", marginBottom: "12px" }}>
+                {quickPills.map((val) => (
+                  <button
+                    key={val}
+                    type="button"
+                    onClick={() => handleAmountSelect(val)}
+                    style={{
+                      padding: "8px 4px",
+                      borderRadius: "8px",
+                      border: modalAmount === val ? `2px solid ${activeModalCause.accentColor}` : "1px solid #cbd5e1",
+                      background: modalAmount === val ? (activeModalCause.badgeBg || "#fef3c7") : "#ffffff",
+                      color: modalAmount === val ? activeModalCause.accentColor : "#1e293b",
+                      fontWeight: 700,
+                      fontSize: "13px",
+                      cursor: "pointer",
+                      textAlign: "center",
+                    }}
+                  >
+                    ₹{val}
+                  </button>
+                ))}
+              </div>
+
+              {/* Custom Amount */}
+              <div style={{ marginBottom: "18px" }}>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="Or enter custom amount in ₹"
+                  value={modalCustomAmount}
+                  onChange={handleCustomChange}
+                  style={{
+                    width: "100%",
+                    padding: "10px 14px",
+                    borderRadius: "8px",
+                    border: "1.5px solid #cbd5e1",
+                    fontSize: "14px",
+                    color: "#0f172a",
+                    fontWeight: 600,
+                    outline: "none",
+                  }}
+                />
+              </div>
+
+              {/* Donor Inputs */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "#0f172a", marginBottom: "4px" }}>
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    disabled={isAnonymous}
+                    placeholder={isAnonymous ? "Anonymous" : "Your name"}
+                    value={donorName}
+                    onChange={(e) => setDonorName(e.target.value)}
+                    style={{
+                      width: "100%",
+                      padding: "9px 12px",
+                      borderRadius: "8px",
+                      border: "1px solid #cbd5e1",
+                      fontSize: "13px",
+                      background: isAnonymous ? "#f1f5f9" : "#ffffff",
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "#0f172a", marginBottom: "4px" }}>
+                    Mobile Number
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="10-digit mobile"
+                    value={donorPhone}
+                    onChange={(e) => setDonorPhone(e.target.value)}
+                    style={{
+                      width: "100%",
+                      padding: "9px 12px",
+                      borderRadius: "8px",
+                      border: "1px solid #cbd5e1",
+                      fontSize: "13px",
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div style={{ marginBottom: "14px" }}>
+                <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "#0f172a", marginBottom: "4px" }}>
+                  Email Address (For Tax Receipt)
+                </label>
+                <input
+                  type="email"
+                  placeholder="name@example.com"
+                  value={donorEmail}
+                  onChange={(e) => setDonorEmail(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "9px 12px",
+                    borderRadius: "8px",
+                    border: "1px solid #cbd5e1",
+                    fontSize: "13px",
+                  }}
+                />
+              </div>
+
+              <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12.5px", color: "#475569", marginBottom: "18px", cursor: "pointer" }}>
+                <input
+                  type="checkbox"
+                  checked={isAnonymous}
+                  onChange={(e) => setIsAnonymous(e.target.checked)}
+                />
+                Keep donation anonymous on public lists
+              </label>
+
+              {errorMessage && (
+                <div
+                  style={{
+                    padding: "10px 14px",
+                    borderRadius: "8px",
+                    background: "#fef2f2",
+                    border: "1px solid #fecaca",
+                    color: "#b91c1c",
+                    fontSize: "12.5px",
+                    marginBottom: "16px",
+                  }}
+                >
+                  {errorMessage}
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                style={{
+                  width: "100%",
+                  minHeight: "48px",
+                  borderRadius: "8px",
+                  background: "linear-gradient(100deg, #b88916 0%, #ffd97e 100%)",
+                  color: "#0b2545",
+                  fontSize: "15px",
+                  fontWeight: 800,
+                  border: "none",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  boxShadow: "0 6px 18px rgba(184, 137, 22, 0.35)",
+                }}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    Connecting to Cashfree...
+                  </>
+                ) : (
+                  <>
+                    <Lock size={16} />
+                    Donate {formatINR(modalAmount || 0)} with Cashfree Secure Checkout
+                  </>
+                )}
+              </button>
+
+              <div style={{ textAlign: "center", marginTop: "12px", fontSize: "11px", color: "#64748b" }}>
+                🔒 256-Bit SSL Encrypted · Instant 80G Receipt Voucher Generated
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

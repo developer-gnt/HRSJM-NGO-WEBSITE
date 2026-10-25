@@ -53,14 +53,16 @@ export async function POST(request: Request) {
     // 2. Create Cashfree checkout session order
     let cashfreeOrder = null;
     try {
+      const origin = request.headers.get("origin") || "http://localhost:3001";
       cashfreeOrder = await createCashfreeOrder({
         purpose: "donation",
         amount: numAmount,
         customerName: resolvedName,
         customerPhone: donorMobile?.trim() || "9999999999",
-        customerEmail: donorEmail?.trim() || "donor@hrsjm.org",
+        customerEmail: donorEmail?.trim() || undefined,
         orderNote: `Donation: ${cause || "Human Rights & Social Justice"} (${donationRef})`,
         referenceId: backendDonation?.id || donationRef,
+        returnUrl: `${origin}/payments/callback?order_id={order_id}`,
       });
     } catch (cfErr: any) {
       console.warn("Cashfree order creation notice for donation:", cfErr.message);

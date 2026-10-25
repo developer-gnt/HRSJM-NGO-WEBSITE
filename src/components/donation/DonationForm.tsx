@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
+  CreditCard,
   HandCoins,
   Landmark,
   Lock,
@@ -12,6 +13,7 @@ import {
   Scale,
   Users,
 } from "lucide-react";
+import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
 import styles from "./donation.module.css";
 
 
@@ -119,6 +121,7 @@ export default function DonationForm() {
           donorEmail: donorEmail.trim() || undefined,
           isAnonymous,
           cause: "Human Rights Protection & Legal Aid",
+          remark: "Donation from Website - NGO General Support",
         }),
       });
 
@@ -138,10 +141,25 @@ export default function DonationForm() {
         cashfreeOrder: data.cashfreeOrder,
       });
 
-      setMessage({
-        type: "info",
-        text: `Donation registered with backend! Reference ID: ${data.donationRef}. Thank you for standing up for human rights.`,
-      });
+      if (data.cashfreeOrder?.payment_session_id) {
+        setMessage({
+          type: "info",
+          text: `Redirecting to Cashfree secure checkout...`,
+        });
+        try {
+          await launchCashfreeCheckout({
+            paymentSessionId: data.cashfreeOrder.payment_session_id,
+            redirectTarget: "_self",
+          });
+        } catch (sdkErr: any) {
+          console.warn("Cashfree checkout notice:", sdkErr);
+        }
+      } else {
+        setMessage({
+          type: "info",
+          text: `Donation registered with backend! Reference ID: ${data.donationRef}. Thank you for standing up for human rights.`,
+        });
+      }
     } catch (err: any) {
       setMessage({
         type: "error",
@@ -367,6 +385,31 @@ export default function DonationForm() {
                   Amount: <strong>₹{donationSuccess.amount.toLocaleString("en-IN")}</strong><br />
                   Donor: <strong>{donationSuccess.donorName}</strong>
                 </div>
+                {donationSuccess.cashfreeOrder?.payment_session_id && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      launchCashfreeCheckout({
+                        paymentSessionId: donationSuccess.cashfreeOrder.payment_session_id,
+                        redirectTarget: "_self",
+                      });
+                    }}
+                    style={{
+                      marginTop: "12px",
+                      width: "100%",
+                      padding: "10px 16px",
+                      background: "var(--color-navy)",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "8px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      fontSize: "14px",
+                    }}
+                  >
+                    Proceed to Cashfree Checkout →
+                  </button>
+                )}
               </div>
             )}
 
