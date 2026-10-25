@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     template: "%s | HRSJM",
   },
   description: "Human Rights & Social Justice Mission",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
