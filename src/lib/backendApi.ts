@@ -238,7 +238,11 @@ export async function createCashfreeOrder(payload: {
  * Verify a Cashfree Payment Order attempt with backend
  */
 export async function verifyCashfreeOrder(orderId: string): Promise<any> {
-  const url = `${getBackendApiUrl()}/payments/cashfree/orders/${encodeURIComponent(orderId)}/verify`;
+  const isBrowser = typeof window !== "undefined";
+  const url = isBrowser
+    ? `/api/payments/verify?order_id=${encodeURIComponent(orderId)}`
+    : `${getBackendApiUrl()}/payments/cashfree/orders/${encodeURIComponent(orderId)}/verify`;
+
   const res = await fetch(url, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
@@ -247,7 +251,7 @@ export async function verifyCashfreeOrder(orderId: string): Promise<any> {
 
   const json = await res.json();
   if (!res.ok || json.success === false) {
-    const errMsg = json.message || json.error || "Failed to verify Cashfree payment";
+    const errMsg = json.error || json.message || "Failed to verify Cashfree payment";
     throw new Error(errMsg);
   }
 
