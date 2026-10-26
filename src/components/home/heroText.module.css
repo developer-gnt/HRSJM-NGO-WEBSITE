@@ -138,6 +138,35 @@
   }
 }
 
+@media (max-width: 480px) {
+  .heading {
+    font-size: clamp(24px, 7.5vw, 30px);
+    line-height: 1.12;
+  }
+
+  .description {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 360px) {
+  .heading {
+    font-size: 22px;
+  }
+
+  .eyebrow {
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    font-size: 12px;
+    padding: 0 6px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .primaryCta,
   .secondaryCta {

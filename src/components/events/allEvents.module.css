@@ -723,6 +723,34 @@
     padding: 32px 0 48px;
   }
 
+  .categories {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    padding-bottom: 6px;
+    margin-inline: calc(-1 * var(--page-padding));
+    padding-inline: var(--page-padding);
+  }
+
+  .categories::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category {
+    min-width: max-content;
+    flex: 0 0 auto;
+    padding: 10px 14px;
+  }
+
+  .categoryTitle,
+  .categorySub {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+
   .eventsCtaAction .btnGold,
   .eventsCtaAction .btnGhost {
     width: 100%;

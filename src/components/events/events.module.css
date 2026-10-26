@@ -366,6 +366,13 @@
     flex: 0 0 auto;
   }
 
+  .categoryTitle,
+  .categorySub {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+
   .category+.category::before {
     display: none;
   }
