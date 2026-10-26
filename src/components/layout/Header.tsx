@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import {
   primaryNavigation,
   secondaryNavigation,
-  mainNavigation,
   type NavigationItem,
 } from "@/config/navigation";
 import Icon from "@/components/ui/Icon";
@@ -136,23 +135,57 @@ export default function Header({ className }: HeaderProps) {
 
       <div className={`${styles.mobilePanel} ${isMenuOpen ? styles.mobilePanelOpen : ""}`}>
         <nav id="mobile-navigation" aria-label="Mobile navigation">
-          <ul>
-            {mainNavigation.map((item) => (
-              <li key={item.href}>
-                <Link
-                  className={`${styles.mobileNavLink} ${isActiveRoute(pathname, item) ? styles.active : ""}`}
-                  href={item.href}
-                  aria-current={isActiveRoute(pathname, item) ? "page" : undefined}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <Link className={styles.mobileDonateButton} href="/donation" onClick={closeMenu}>
-            Donate Now <Icon name="arrow" />
-          </Link>
+          <div className={styles.mobileNavSection}>
+            <span className={styles.mobileSectionLabel}>Mission &amp; Rights</span>
+            <ul>
+              {primaryNavigation.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    className={`${styles.mobileNavLink} ${isActiveRoute(pathname, item) ? styles.active : ""}`}
+                    href={item.href}
+                    aria-current={isActiveRoute(pathname, item) ? "page" : undefined}
+                    onClick={closeMenu}
+                  >
+                    <span>{item.label}</span>
+                    <Icon name="arrow" className={styles.mobileNavArrow} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.mobileNavSection}>
+            <span className={styles.mobileSectionLabel}>Programs &amp; Get Involved</span>
+            <ul>
+              {secondaryNavigation.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    className={`${styles.mobileNavLink} ${isActiveRoute(pathname, item) ? styles.active : ""}`}
+                    href={item.href}
+                    aria-current={isActiveRoute(pathname, item) ? "page" : undefined}
+                    onClick={closeMenu}
+                  >
+                    <span>{item.label}</span>
+                    <Icon name="arrow" className={styles.mobileNavArrow} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.mobileActionsGroup}>
+            <Link className={styles.mobileDonateButton} href="/donation" onClick={closeMenu}>
+              Donate Now <Icon name="arrow" />
+            </Link>
+            <div className={styles.mobileSubActions}>
+              <Link className={styles.mobileSubBtn} href="/complaint" onClick={closeMenu}>
+                File a Complaint
+              </Link>
+              <Link className={styles.mobileSubBtn} href="/membership" onClick={closeMenu}>
+                Join Membership
+              </Link>
+            </div>
+          </div>
         </nav>
       </div>
     </header>

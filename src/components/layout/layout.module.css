@@ -523,31 +523,104 @@
 
   .mobilePanel nav {
     width: min(100%, var(--container));
-    padding: 10px var(--page-padding) 28px;
+    padding: 14px var(--page-padding) 32px;
     margin: 0 auto;
   }
 
+  .mobileNavSection {
+    margin-bottom: 18px;
+  }
+
+  .mobileSectionLabel {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-gold-dark);
+    margin-bottom: 6px;
+    padding-left: 2px;
+  }
+
   .mobileNavLink {
-    min-height: 48px;
+    min-height: 46px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid var(--color-border);
-    color: var(--color-text-primary);
-    font-size: 14px;
-    font-weight: 700;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(229, 224, 213, 0.7);
+    color: var(--color-navy);
+    font-size: 14.5px;
+    font-weight: 600;
+    padding: 0 4px;
+    transition: color 180ms ease, padding-left 180ms ease;
+  }
+
+  .mobileNavLink:hover {
+    color: var(--color-navy-dark);
+    padding-left: 6px;
   }
 
   .mobileNavLink.active {
     color: var(--color-navy);
+    font-weight: 700;
     border-bottom-color: var(--color-gold);
+  }
+
+  .mobileNavArrow {
+    width: 14px;
+    height: 14px;
+    color: var(--color-text-muted);
+    transition: transform 180ms ease, color 180ms ease;
+  }
+
+  .mobileNavLink:hover .mobileNavArrow,
+  .mobileNavLink.active .mobileNavArrow {
+    color: var(--color-gold-dark);
+    transform: translateX(3px);
+  }
+
+  .mobileActionsGroup {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .mobileDonateButton {
     width: 100%;
     min-height: 48px;
-    margin-top: 20px;
     border-radius: var(--radius-sm);
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 3px 10px rgba(250, 210, 92, 0.35);
+  }
+
+  .mobileSubActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .mobileSubBtn {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: #fbf9f4;
+    color: var(--color-navy);
+    font-size: 12.5px;
+    font-weight: 700;
+    text-align: center;
+    transition: all 180ms ease;
+  }
+
+  .mobileSubBtn:hover {
+    background: var(--color-white);
+    border-color: var(--color-gold);
+    color: var(--color-navy-dark);
   }
 }
 
@@ -555,8 +628,8 @@
   .headerInner,
   .footerMain,
   .footerBottom {
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: var(--page-padding);
+    padding-left: var(--page-padding);
   }
 
   .logoCopy strong {
@@ -609,6 +682,66 @@
   .backToTop {
     align-self: flex-end;
     margin-top: -42px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topRowInner {
+    min-height: 64px;
+    gap: 8px;
+  }
+
+  .logo {
+    gap: 8px;
+  }
+
+  .logoMark {
+    height: 34px;
+  }
+
+  .logoCopy strong {
+    font-size: 19px;
+  }
+
+  .logoCopy small {
+    font-size: 6.5px;
+    letter-spacing: 0.03em;
+  }
+
+  .logoHindi {
+    font-size: 8.5px;
+  }
+
+  .footerMain {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 360px) {
+  .topRowInner {
+    min-height: 60px;
+    gap: 6px;
+  }
+
+  .logo {
+    gap: 6px;
+  }
+
+  .logoMark {
+    height: 30px;
+  }
+
+  .logoCopy strong {
+    font-size: 17.5px;
+  }
+
+  .logoCopy small {
+    font-size: 6px;
+  }
+
+  .logoHindi {
+    font-size: 8px;
   }
 }
 
