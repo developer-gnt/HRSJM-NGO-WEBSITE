@@ -307,17 +307,27 @@ export async function createBackendComplaint(payload: {
   state: string;
   policeStation: string;
   details: string;
+  aadhaarFileName?: string;
+  aadhaarFileUri?: string;
+  handwrittenFileName?: string;
+  handwrittenFileUri?: string;
+  reportedToOtherDept?: boolean;
+  otherDeptName?: string;
+  otherDeptFileName?: string;
+  otherDeptFileUri?: string;
 }): Promise<any> {
   const publicTicketUrl = `${getBackendApiUrl()}/support-tickets/public`;
-  const body = {
+  const body: Record<string, any> = {
     fullName: payload.fullName.trim(),
     phone: payload.phone.trim(),
-    email: payload.email?.trim().toLowerCase() || undefined,
     state: payload.state.trim(),
     policeStation: payload.policeStation.trim(),
     complaintType: payload.complaintType.trim(),
     details: payload.details.trim(),
   };
+  if (payload.email && payload.email.trim()) {
+    body.email = payload.email.trim().toLowerCase();
+  }
 
   try {
     const res = await fetch(publicTicketUrl, {
@@ -331,7 +341,17 @@ export async function createBackendComplaint(payload: {
       return json.data || json;
     }
     if (res.status !== 404) {
-      throw new Error(json.message || json.error || "Failed to submit complaint");
+      let errMsg = "Failed to submit complaint";
+      if (Array.isArray(json.message)) {
+        errMsg = json.message.join(", ");
+      } else if (json.error?.details && Array.isArray(json.error.details)) {
+        errMsg = json.error.details.join(", ");
+      } else if (json.message) {
+        errMsg = json.message;
+      } else if (json.error) {
+        errMsg = typeof json.error === "string" ? json.error : JSON.stringify(json.error);
+      }
+      throw new Error(errMsg);
     }
   } catch (err: any) {
     if (err.message && !err.message.includes("404")) {
@@ -347,7 +367,7 @@ export async function createBackendComplaint(payload: {
     email: payload.email?.trim().toLowerCase() || undefined,
     requested_amount: 1,
     reason: `[Complaint: ${payload.complaintType}] ${payload.details.slice(0, 100)}`,
-    description: `Citizen Complaint / Grievance Details:\n- Category: ${payload.complaintType}\n- State: ${payload.state}\n- Nearby Police Station: ${payload.policeStation}\n- Description:\n${payload.details}`,
+    description: `Citizen Complaint / Grievance Details:\n- Source: Website\n- Category: ${payload.complaintType}\n- State: ${payload.state}\n- Nearby Police Station: ${payload.policeStation}\n- Description:\n${payload.details}`,
   };
 
   const fallbackRes = await fetch(fallbackUrl, {

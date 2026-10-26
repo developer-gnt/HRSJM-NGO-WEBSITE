@@ -31,9 +31,14 @@ export async function POST(request: Request) {
       country,
       policeStation,
       idProofName,
+      idProofUri,
       addressProofName,
+      addressProofUri,
       qualificationName,
+      qualificationUri,
       photoName,
+      photoUri,
+      avatarUrl,
       agreePrivacy,
       agreeTerms,
       packageName,
@@ -154,6 +159,7 @@ export async function POST(request: Request) {
         fileName: idProofName,
         fileSize: "1.5 MB",
         type: "ID_PROOF",
+        uri: idProofUri || undefined,
       },
       {
         id: "address-proof",
@@ -161,6 +167,7 @@ export async function POST(request: Request) {
         fileName: addressProofName,
         fileSize: "1.8 MB",
         type: "ADDRESS_PROOF",
+        uri: addressProofUri || undefined,
       },
       {
         id: "qualification",
@@ -168,6 +175,7 @@ export async function POST(request: Request) {
         fileName: qualificationName,
         fileSize: "1.2 MB",
         type: "QUALIFICATION",
+        uri: qualificationUri || undefined,
       },
       {
         id: "photograph",
@@ -175,6 +183,7 @@ export async function POST(request: Request) {
         fileName: photoName,
         fileSize: "850 KB",
         type: "PHOTOGRAPH",
+        uri: photoUri || avatarUrl || undefined,
       },
     ];
 
@@ -194,6 +203,8 @@ export async function POST(request: Request) {
       state: String(state).trim(),
       pincode: String(pincode).trim(),
       country: String(country || "India").trim(),
+      avatar: avatarUrl || photoUri || undefined,
+      avatar_url: avatarUrl || photoUri || undefined,
     };
 
     const isOnlinePayment = paymentMode !== "UPI / Bank Transfer" && paymentMode !== "upi_bank";
@@ -254,6 +265,9 @@ export async function POST(request: Request) {
       state: String(state).trim(),
       pincode: String(pincode).trim(),
       country: String(country || "India").trim(),
+      avatar: avatarUrl || photoUri || undefined,
+      avatar_url: avatarUrl || photoUri || undefined,
+      avatarUrl: avatarUrl || photoUri || undefined,
       documents,
       package_name: packageName || "District Unit",
       package_fee: packageFee || "₹3,000",

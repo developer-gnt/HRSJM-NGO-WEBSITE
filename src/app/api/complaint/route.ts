@@ -12,6 +12,14 @@ export async function POST(request: Request) {
       policeStation,
       complaintType,
       details,
+      aadhaarFileName,
+      aadhaarFileUri,
+      handwrittenFileName,
+      handwrittenFileUri,
+      reportedToOtherDept,
+      otherDeptName,
+      otherDeptFileName,
+      otherDeptFileUri,
     } = body;
 
     // Validation
@@ -35,6 +43,50 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!aadhaarFileName) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Please upload your Aadhaar card for citizen identification and verification.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!handwrittenFileName) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Please upload a clear copy of your signed handwritten complaint.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (reportedToOtherDept && !otherDeptName?.trim()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Please specify the name of the department or authority where the issue was previously reported.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Prepare enriched details
+    let enrichedDetails = String(details).trim();
+    enrichedDetails += `\n\n--- Verified Documents & Submissions ---`;
+    enrichedDetails += `\n- Aadhaar Card Attached: ${aadhaarFileName || "Not Provided"}`;
+    enrichedDetails += `\n- Handwritten Complaint Attached: ${handwrittenFileName || "Not Provided"}`;
+    if (reportedToOtherDept) {
+      enrichedDetails += `\n- Previously Reported to Other Dept: Yes (${otherDeptName?.trim() || "Specified"})`;
+      if (otherDeptFileName) {
+        enrichedDetails += `\n- Prior Report / Acknowledgment Copy: ${otherDeptFileName}`;
+      }
+    } else {
+      enrichedDetails += `\n- Previously Reported to Other Dept: No (First-time filing)`;
+    }
+
     // Submit to central backend
     const backendResult = await createBackendComplaint({
       fullName: String(fullName).trim(),
@@ -43,7 +95,15 @@ export async function POST(request: Request) {
       state: String(state).trim(),
       policeStation: String(policeStation).trim(),
       complaintType: String(complaintType).trim(),
-      details: String(details).trim(),
+      details: enrichedDetails,
+      aadhaarFileName: aadhaarFileName || undefined,
+      aadhaarFileUri: aadhaarFileUri || undefined,
+      handwrittenFileName: handwrittenFileName || undefined,
+      handwrittenFileUri: handwrittenFileUri || undefined,
+      reportedToOtherDept: Boolean(reportedToOtherDept),
+      otherDeptName: otherDeptName?.trim() || undefined,
+      otherDeptFileName: otherDeptFileName || undefined,
+      otherDeptFileUri: otherDeptFileUri || undefined,
     });
 
     const complaintRef =
@@ -56,10 +116,19 @@ export async function POST(request: Request) {
       success: true,
       complaintRef,
       complaintId: backendResult?.id,
-      fullName,
-      complaintType,
+      fullName: String(fullName).trim(),
+      phone: String(phone).trim(),
+      email: email ? String(email).trim().toLowerCase() : undefined,
+      state: String(state).trim(),
+      policeStation: String(policeStation).trim(),
+      complaintType: String(complaintType).trim(),
+      aadhaarFileName,
+      handwrittenFileName,
+      reportedToOtherDept: Boolean(reportedToOtherDept),
+      otherDeptName: otherDeptName?.trim() || null,
+      otherDeptFileName: otherDeptFileName || null,
       message:
-        "Your complaint has been registered with HRSJM. Our human rights verification team will review your case and reach out shortly.",
+        "Your complaint has been formally registered with Human Rights & Social Justice Mission (HRSJM). Our grievance verification and legal advocacy cell has recorded your case for statutory review.",
       submittedAt: new Date().toISOString(),
     });
   } catch (error: any) {

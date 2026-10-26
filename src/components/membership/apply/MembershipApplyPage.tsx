@@ -74,6 +74,7 @@ function MembershipApplyContent() {
     photograph: emptyDoc,
     agreePrivacy: false,
     agreeTerms: false,
+    agreePledge: false,
   });
 
   // Step 4 State: Payment & Verification (Default to Online Cashfree Gateway)
@@ -247,6 +248,9 @@ function MembershipApplyContent() {
     if (!step3Data.agreeTerms) {
       errors.agreeTerms = "Please accept the Terms & Conditions.";
     }
+    if (!step3Data.agreePledge) {
+      errors.agreePledge = "Please take the HRSJM Member Pledge.";
+    }
 
     setStep3Errors(errors);
     return Object.keys(errors).length === 0;
@@ -331,18 +335,23 @@ function MembershipApplyContent() {
         state: step2Data.state,
         pincode: step2Data.pincode,
         country: step2Data.country,
-        policeStation: step2Data.policeStation,
         idProofName: step3Data.idProof.name,
+        idProofUri: step3Data.idProof.dataUrl,
         addressProofName: step3Data.addressProof.name,
+        addressProofUri: step3Data.addressProof.dataUrl,
         qualificationName: step3Data.qualification.name,
-        photoName: step3Data.photograph.name,
+        qualificationUri: step3Data.qualification.dataUrl,
+        photoName: step3Data.photograph.name || (step1Data.photoFile ? step1Data.photoFile.name : "photograph.png"),
+        photoUri: step3Data.photograph.dataUrl || step1Data.photoPreview || undefined,
+        avatarUrl: step3Data.photograph.dataUrl || step1Data.photoPreview || undefined,
         agreePrivacy: step3Data.agreePrivacy,
         agreeTerms: step3Data.agreeTerms,
+        agreePledge: step3Data.agreePledge,
         packageName: selectedPackage.item.post,
         packageFee: selectedPackage.item.fees,
         packageValidity: selectedPackage.item.validity,
         termsAgreed: step3Data.agreeTerms,
-        pledgeAgreed: step3Data.agreeTerms,
+        pledgeAgreed: step3Data.agreePledge,
         declarationAgreed: step3Data.agreePrivacy,
         paymentMode: step4Data.paymentMode === "upi_bank" ? "UPI / Bank Transfer" : "Online Gateway",
         paymentReference: step4Data.paymentReference,

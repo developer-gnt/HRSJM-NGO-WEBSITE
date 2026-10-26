@@ -52,6 +52,7 @@ export default function DonationForm() {
   const [donorPhone, setDonorPhone] = useState("");
   const [donorEmail, setDonorEmail] = useState("");
   const [isAnonymous, setIsAnonymous] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [donationSuccess, setDonationSuccess] = useState<{
     donationRef: string;
@@ -66,13 +67,32 @@ export default function DonationForm() {
   const customInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.location.hash === "#donate") {
-      const el = document.getElementById("donate");
-      if (el) {
-        const timer = setTimeout(() => {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 120);
-        return () => clearTimeout(timer);
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      const paramAmount = searchParams.get("amount");
+      const paramName = searchParams.get("name");
+      const paramPhone = searchParams.get("phone");
+      const paramEmail = searchParams.get("email");
+
+      if (paramAmount) {
+        const parsed = parseInt(paramAmount, 10);
+        if (!isNaN(parsed) && parsed > 0) {
+          setSelectedAmount(parsed);
+          setCustomValue(String(parsed));
+        }
+      }
+      if (paramName) setDonorName(paramName);
+      if (paramPhone) setDonorPhone(paramPhone);
+      if (paramEmail) setDonorEmail(paramEmail);
+
+      if (window.location.hash === "#donate" || paramAmount) {
+        const el = document.getElementById("donate");
+        if (el) {
+          const timer = setTimeout(() => {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 120);
+          return () => clearTimeout(timer);
+        }
       }
     }
   }, []);
@@ -107,6 +127,14 @@ export default function DonationForm() {
       return;
     }
 
+    if (!agreeTerms) {
+      setMessage({
+        type: "error",
+        text: "Please accept the Terms & Conditions to proceed with the donation.",
+      });
+      return;
+    }
+
     setSubmitting(true);
     setMessage(null);
 
@@ -116,7 +144,7 @@ export default function DonationForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           amount,
-          donorName: isAnonymous ? "Anonymous Donor" : donorName.trim() || "Kind Supporter",
+          donorName: isAnonymous ? "Anonymous Donation from Website" : donorName.trim() || "Anonymous Donation from Website",
           donorMobile: donorPhone.trim() || undefined,
           donorEmail: donorEmail.trim() || undefined,
           isAnonymous,
@@ -354,13 +382,29 @@ export default function DonationForm() {
                 />
                 Keep my donation anonymous on public recognition lists
               </label>
+
+              <label style={{ display: "flex", alignItems: "flex-start", gap: "10px", margin: "14px 0 6px", cursor: "pointer", fontSize: "13px", lineHeight: "1.5", color: "var(--color-navy)" }}>
+                <input
+                  type="checkbox"
+                  checked={agreeTerms}
+                  onChange={(e) => {
+                    setAgreeTerms(e.target.checked);
+                    if (message?.type === "error") setMessage(null);
+                  }}
+                  style={{ marginTop: "3px", accentColor: "var(--color-gold)", width: "16px", height: "16px", flexShrink: 0 }}
+                  required
+                />
+                <span>
+                  I agree to the <Link href="/terms" target="_blank" style={{ color: "var(--color-gold)", fontWeight: 600, textDecoration: "underline" }}>Terms &amp; Conditions</Link> (including voluntary &amp; non-refundable donation terms). <span style={{ color: "#dc2626" }}>*</span>
+                </span>
+              </label>
             </div>
 
             <button
               type="submit"
               className={styles.donateButton}
-              disabled={submitting}
-              style={{ opacity: submitting ? 0.75 : 1, cursor: submitting ? "not-allowed" : "pointer" }}
+              disabled={submitting || !agreeTerms}
+              style={{ opacity: submitting || !agreeTerms ? 0.75 : 1, cursor: submitting || !agreeTerms ? "not-allowed" : "pointer" }}
             >
               {submitting ? "Connecting to Gateway..." : "Donate Now"}
               <ArrowRight size={17} strokeWidth={2.2} aria-hidden="true" />

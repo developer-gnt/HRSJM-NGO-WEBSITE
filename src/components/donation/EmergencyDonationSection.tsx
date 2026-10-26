@@ -53,7 +53,7 @@ const initialEmergencyCategories: CauseStats[] = [
     description:
       "Support for hospitalisation, major operations, critical illnesses and emergency medical treatment.",
     image: "/images/donation/emergency/emergency-medical.jpg",
-    alt: "Child in hospital bed receiving life-saving medical care",
+    alt: "Medical assistance fund for life-saving critical care",
     themeClass: styles.cardMedical,
     btnClass: styles.btnCardMedical,
     iconWrapClass: styles.iconWrapMedical,
@@ -65,10 +65,10 @@ const initialEmergencyCategories: CauseStats[] = [
     badgeBorder: "#fecaca",
     gradient: "linear-gradient(90deg, #dc2626 0%, #ef4444 100%)",
     goal: 500000,
-    raised: 320000,
-    donorCount: 14,
-    seekerName: "Suresh Sharma",
-    seekerStory: "Heart Surgery for a 7-year-old Child in critical pediatric care",
+    raised: 0,
+    donorCount: 0,
+    seekerName: "HRSJM Medical Emergency Fund",
+    seekerStory: "Emergency critical medical care and surgery aid for underprivileged citizens",
   },
   {
     id: "education",
@@ -77,7 +77,7 @@ const initialEmergencyCategories: CauseStats[] = [
     description:
       "Help for school fees, college admissions, uniforms, books, stationery and other learning needs.",
     image: "/images/donation/emergency/emergency-education.jpg",
-    alt: "Smiling school students in uniforms receiving education support",
+    alt: "Students receiving educational sponsorship and supplies",
     themeClass: styles.cardEducation,
     btnClass: styles.btnCardEducation,
     iconWrapClass: styles.iconWrapEducation,
@@ -88,11 +88,11 @@ const initialEmergencyCategories: CauseStats[] = [
     badgeBg: "#eff6ff",
     badgeBorder: "#dbeafe",
     gradient: "linear-gradient(90deg, #2563eb 0%, #3b82f6 100%)",
-    goal: 100000,
-    raised: 45000,
-    donorCount: 9,
-    seekerName: "Amina Khatun",
-    seekerStory: "Annual School Fees, Uniforms & Books for underprivileged students",
+    goal: 500000,
+    raised: 0,
+    donorCount: 0,
+    seekerName: "HRSJM Educational Support Fund",
+    seekerStory: "Sponsorship for fees, uniforms, and educational supplies for underprivileged students",
   },
   {
     id: "disaster",
@@ -101,7 +101,7 @@ const initialEmergencyCategories: CauseStats[] = [
     description:
       "Emergency support during floods, storms, heavy rainfall, fires and other natural or accidental disasters.",
     image: "/images/donation/emergency/emergency-disaster.jpg",
-    alt: "Emergency rescue team in flood waters saving affected families",
+    alt: "Emergency disaster relief and victim rehabilitation",
     themeClass: styles.cardDisaster,
     btnClass: styles.btnCardDisaster,
     iconWrapClass: styles.iconWrapDisaster,
@@ -113,10 +113,10 @@ const initialEmergencyCategories: CauseStats[] = [
     badgeBorder: "#fde68a",
     gradient: "linear-gradient(90deg, #d97706 0%, #f59e0b 100%)",
     goal: 500000,
-    raised: 210000,
-    donorCount: 18,
-    seekerName: "Ramesh Patil",
-    seekerStory: "Relief food kits, clean water & emergency support for flood-hit families",
+    raised: 0,
+    donorCount: 0,
+    seekerName: "HRSJM Disaster Relief Fund",
+    seekerStory: "Emergency food kits, clean water, and rehabilitation for disaster-hit communities",
   },
   {
     id: "housing",
@@ -136,11 +136,11 @@ const initialEmergencyCategories: CauseStats[] = [
     badgeBg: "#ecfdf5",
     badgeBorder: "#a7f3d0",
     gradient: "linear-gradient(90deg, #059669 0%, #10b981 100%)",
-    goal: 400000,
-    raised: 180000,
-    donorCount: 11,
-    seekerName: "Sunita Kamble",
-    seekerStory: "Structural rebuilding assistance for home collapsed in heavy rainfall",
+    goal: 500000,
+    raised: 0,
+    donorCount: 0,
+    seekerName: "HRSJM Housing Assistance Fund",
+    seekerStory: "Shelter rebuilding and rehabilitation assistance for displaced and vulnerable families",
   },
 ];
 
@@ -264,8 +264,8 @@ export default function EmergencyDonationSection() {
     setErrorMessage(null);
 
     const resolvedName = isAnonymous
-      ? "Anonymous Donor"
-      : donorName.trim() || "Kind Supporter";
+      ? "Anonymous Donation from Website"
+      : donorName.trim() || "Anonymous Donation from Website";
 
     const specificCause = `${activeModalCause.title}: ${activeModalCause.seekerStory} (Seeker: ${activeModalCause.seekerName})`;
 

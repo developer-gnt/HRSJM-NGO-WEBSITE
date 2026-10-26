@@ -18,6 +18,7 @@ export interface DocumentUploadItem {
   file: File | null;
   name: string;
   size: number;
+  dataUrl?: string;
 }
 
 export interface Step3Data {
@@ -27,6 +28,7 @@ export interface Step3Data {
   photograph: DocumentUploadItem;
   agreePrivacy: boolean;
   agreeTerms: boolean;
+  agreePledge: boolean;
 }
 
 interface Step3Props {
@@ -76,11 +78,16 @@ export default function Step3DocumentUpload({
       return;
     }
 
-    onChange(field, {
-      file,
-      name: file.name,
-      size: file.size,
-    });
+    const reader = new FileReader();
+    reader.onload = () => {
+      onChange(field, {
+        file,
+        name: file.name,
+        size: file.size,
+        dataUrl: reader.result as string,
+      });
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleRemove = (field: "idProof" | "addressProof" | "qualification" | "photograph") => {
@@ -88,6 +95,7 @@ export default function Step3DocumentUpload({
       file: null,
       name: "",
       size: 0,
+      dataUrl: undefined,
     });
   };
 
@@ -97,7 +105,9 @@ export default function Step3DocumentUpload({
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
-  const isConsentChecked = Boolean(data.agreePrivacy && data.agreeTerms);
+  const isConsentChecked = Boolean(
+    data.agreePrivacy && data.agreeTerms && data.agreePledge
+  );
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -554,7 +564,7 @@ export default function Step3DocumentUpload({
                 Terms &amp; Conditions
               </Link>{" "}
               of Human Rights &amp; Social Justice Mission, and agree to abide by the
-              rules, aims, and code of conduct of the organization.{" "}
+              rules, aims, and constitution of the organization.{" "}
               <span className={styles.fieldRequired}>*</span>
             </label>
           </div>
@@ -564,12 +574,39 @@ export default function Step3DocumentUpload({
               {errors.agreeTerms}
             </p>
           )}
+
+          {/* 3. HRSJM Member Pledge */}
+          <div
+            className={`${styles.consentItem} ${
+              data.agreePledge ? styles.consentItemChecked : ""
+            } ${errors.agreePledge ? styles.consentItemError : ""}`}
+          >
+            <input
+              id="consent-pledge"
+              type="checkbox"
+              checked={data.agreePledge}
+              onChange={(e) => onChange("agreePledge", e.target.checked)}
+              className={styles.consentCheckbox}
+            />
+            <label htmlFor="consent-pledge" className={styles.consentLabel}>
+              <strong>Solemn Member Pledge:</strong> I solemnly take the HRSJM Membership Pledge:
+              I pledge to dedicate myself to the protection of human rights, observe the NGO&apos;s
+              Code of Conduct, refrain from corrupt or anti-social activities, and certify that all
+              documents and information provided are genuine. <span className={styles.fieldRequired}>*</span>
+            </label>
+          </div>
+          {errors.agreePledge && (
+            <p className={styles.fieldError} role="alert">
+              <AlertCircle size={12} strokeWidth={2} />
+              {errors.agreePledge}
+            </p>
+          )}
         </div>
 
         {!isConsentChecked && (
           <div className={styles.consentNotice} role="status">
             <AlertCircle size={14} />
-            <span>Please check both consent boxes above to enable application submission.</span>
+            <span>Please check all three consent boxes (Privacy Policy, Terms &amp; Conditions, and Member Pledge) above to proceed.</span>
           </div>
         )}
       </div>

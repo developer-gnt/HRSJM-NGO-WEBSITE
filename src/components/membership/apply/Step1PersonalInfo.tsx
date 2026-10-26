@@ -73,9 +73,12 @@ export default function Step1PersonalInfo({
       return;
     }
 
-    const previewUrl = URL.createObjectURL(file);
     onChange("photoFile", file);
-    onChange("photoPreview", previewUrl);
+    const reader = new FileReader();
+    reader.onload = () => {
+      onChange("photoPreview", reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleRemovePhoto = (e: React.MouseEvent) => {

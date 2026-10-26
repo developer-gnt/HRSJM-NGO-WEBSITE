@@ -15,39 +15,10 @@ export async function GET() {
       items,
     });
   } catch (error: any) {
-    console.warn("Could not fetch approved assistance causes, returning standard categories:", error.message);
+    console.warn("Could not fetch approved assistance causes:", error.message);
     return NextResponse.json({
       success: true,
-      items: [
-        {
-          id: "medical",
-          reason: "Medical Assistance",
-          full_name: "Suresh Sharma",
-          description: "Support for Heart Surgery for a 7-year-old Child",
-          requested_amount: 500000,
-        },
-        {
-          id: "education",
-          reason: "Educational Assistance",
-          full_name: "Amina Khatun",
-          description: "Help for School Fees and Uniforms",
-          requested_amount: 100000,
-        },
-        {
-          id: "disaster",
-          reason: "Disaster Relief",
-          full_name: "Ramesh Patil",
-          description: "Relief Support for Flood Affected Families",
-          requested_amount: 500000,
-        },
-        {
-          id: "housing",
-          reason: "Housing & Rehabilitation",
-          full_name: "Sunita Kamble",
-          description: "Rebuild a Home After Building Collapse",
-          requested_amount: 400000,
-        },
-      ],
+      items: [],
     });
   }
 }
