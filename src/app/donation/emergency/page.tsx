@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import EmergencyPage from "@/components/emergency/EmergencyPage";
 
 export const metadata: Metadata = {
-  title: "Emergency & Humanitarian Assistance | HRSJM",
+  title: "Explore Emergency Cases | Human Rights & Social Justice Mission",
   description:
-    "Support individuals and families facing urgent medical, educational, disaster-related and housing emergencies. Verified cases, transparent fund use, and real impact.",
+    "Browse verified emergency cases and support people who need urgent medical, educational, disaster relief and rehabilitation help. Verified by HRSJM.",
 };
 
 export default function Page() {

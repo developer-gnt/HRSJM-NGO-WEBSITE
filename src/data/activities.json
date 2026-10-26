@@ -1,34 +1,51 @@
 [
   {
-    "id": "human-rights-awareness-rally",
-    "title": "Human Rights Awareness Rally",
-    "date": "12 AUG 2026",
-    "location": "Mumbai",
+    "id": "human-rights-social-justice-mission",
+    "title": "HUMAN RIGHTS & SOCIAL JUSTICE MISSION (HRSJM)",
+    "subtitle": "JUSTICE. EQUALITY. DIGNITY. HUMANITY.",
+    "date": "14 Years Journey",
+    "location": "Nationwide",
     "category": "Awareness",
-    "image": "/images/activities/human-rights-awareness-rally.png"
+    "image": "/images/activities/hrsjm-org-banner-card.jpg"
   },
   {
-    "id": "free-legal-aid-camp",
-    "title": "Free Legal Aid Camp",
-    "date": "26 JUL 2026",
-    "location": "Thane",
-    "category": "Legal Aid",
-    "image": "/images/activities/free-legal-aid-camp.png"
-  },
-  {
-    "id": "womens-rights-awareness-program",
-    "title": "Women's Rights Awareness Program",
-    "date": "18 JUL 2026",
-    "location": "Nagpur",
+    "id": "human-rights-social-justice-mission-14-years-journey",
+    "title": "HUMAN RIGHTS & SOCIAL JUSTICE MISSION – 14 years journey.",
+    "date": "14 Years Journey",
+    "location": "Nationwide",
     "category": "Awareness",
-    "image": "/images/activities/womens-rights-awareness-program.png"
+    "image": "/images/activities/hrsjm-14-years-journey.jpg"
   },
   {
-    "id": "community-cleanliness-drive",
-    "title": "Community Cleanliness Drive",
-    "date": "02 JUL 2026",
-    "location": "Pune",
-    "category": "Community Outreach",
-    "image": "/images/activities/community-cleanliness-drive.png"
+    "id": "human-rights-social-justice-mission-history-vision-social-contribution",
+    "title": "Human Rights & Social Justice Mission: History, Vision and Social Contribution",
+    "date": "History & Vision",
+    "location": "Nationwide",
+    "category": "Awareness",
+    "image": "/images/activities/hrsjm-history-vision-social-contribution.jpg"
+  },
+  {
+    "id": "international-day-for-the-eradication-of-poverty-17-october",
+    "title": "🌍 INTERNATIONAL DAY FOR THE ERADICATION OF POVERTY | 17 OCTOBER 🌍",
+    "date": "17 OCT 2026",
+    "location": "Nationwide",
+    "category": "Awareness",
+    "image": "/images/activities/eradication-of-poverty.jpg"
+  },
+  {
+    "id": "advancing-human-rights-and-social-justice-in-india",
+    "title": "ADVANCING HUMAN RIGHTS AND SOCIAL JUSTICE IN INDIA: MISSIONS FOR EQUALITY, DIGNITY, AND OPPORTUNITY",
+    "date": "Mission & Action",
+    "location": "Nationwide",
+    "category": "Awareness",
+    "image": "/images/activities/advancing-human-rights-social-justice.jpg"
+  },
+  {
+    "id": "world-food-day-human-rights-and-social-justice-mission",
+    "title": "🌍 WORLD FOOD DAY HUMAN RIGHTS & SOCIAL JUSTICE MISSION (HRSJM)",
+    "date": "16 OCT 2026",
+    "location": "Nationwide",
+    "category": "Awareness",
+    "image": "/images/activities/world-food-day.jpg"
   }
 ]

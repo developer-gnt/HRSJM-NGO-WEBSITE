@@ -922,8 +922,18 @@
 .pastGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 20px;
   margin-top: 24px;
+}
+
+.activityCardLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .activityCard {
@@ -934,6 +944,9 @@
   border-radius: 10px;
   background: var(--color-white);
   transition: transform 200ms ease, box-shadow 200ms ease;
+  height: 100%;
+  width: 100%;
+  min-height: 353px;
 }
 
 .activityCard:hover {
@@ -944,6 +957,8 @@
 .activityMedia {
   position: relative;
   aspect-ratio: 5 / 3;
+  width: 100%;
+  flex-shrink: 0;
 }
 
 .activityBody {
@@ -955,10 +970,24 @@
 
 .activityTitle {
   font-family: var(--font-body), Arial, sans-serif;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.35;
   color: var(--color-text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.activitySubtitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold-dark);
+  margin-top: 4px;
+  line-height: 1.35;
 }
 
 .activityMeta {
@@ -966,7 +995,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 6px 14px;
-  margin-top: 10px;
+  margin-top: auto;
+  padding-top: 14px;
   color: var(--color-text-secondary);
   font-size: 12px;
   font-weight: 500;
@@ -981,6 +1011,27 @@
 .activityMetaItem svg {
   color: var(--color-gold-dark);
   flex-shrink: 0;
+}
+
+.activityCardLink:hover .activityTitle {
+  color: var(--color-navy);
+}
+
+.activityAction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(6, 42, 79, 0.08);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-navy);
+  transition: color 150ms ease;
+}
+
+.activityCardLink:hover .activityAction {
+  color: var(--color-gold-dark);
 }
 
 /* Clean empty state when a category has no activities yet */
@@ -1034,6 +1085,10 @@
 
   .activityTitle {
     font-size: 14.5px;
+  }
+
+  .activityCard {
+    min-height: auto;
   }
 }
 
