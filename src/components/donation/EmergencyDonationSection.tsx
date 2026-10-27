@@ -362,6 +362,7 @@ export default function EmergencyDonationSection() {
         </div>
 
         {/* ============================================================
+<<<<<<< HEAD
             2. THE 4 EMERGENCY CATEGORY CARDS WITH SEPARATE DONATION & PROGRESS
             ============================================================ */}
         <div id="emergency-categories" className={styles.emergencyCardsGrid}>
