@@ -1,0 +1,639 @@
+/* ===================================================================
+   HRSJM Official Membership Application Receipt Styles
+   Compact 1-Page A4 Printable Letterhead Layout
+   =================================================================== */
+
+.receiptModalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(11, 37, 69, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 16px;
+  overflow-y: auto;
+}
+
+.receiptToolbar {
+  width: 100%;
+  max-width: 780px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  background: #ffffff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.toolbarTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0b2545;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btnPrint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #c68a2c 0%, #dfa544 100%);
+  color: #0b2545;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 7px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(198, 138, 44, 0.3);
+}
+
+.btnPrint:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.btnClose {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 7px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnClose:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* ===================================================================
+   Receipt Paper Container (Single A4 Page Fits Exactly)
+   =================================================================== */
+
+.receiptPaper {
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 4px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  padding: 24px 30px 18px 30px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Top-Right Decorative Geometric Corner */
+.topCornerAccent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 76px;
+  height: 76px;
+  background: linear-gradient(135deg, #dfa544 0%, #c68a2c 100%);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  pointer-events: none;
+}
+
+/* ===================================================================
+   Header Section
+   =================================================================== */
+
+.receiptHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.logoWrap {
+  flex-shrink: 0;
+}
+
+.logoImg {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.orgTitles {
+  display: flex;
+  flex-direction: column;
+}
+
+.orgNameEnglish {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0b2545;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.orgNameHindi {
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  margin: 2px 0 0 0;
+  line-height: 1.3;
+}
+
+.goldDivider {
+  height: 2.5px;
+  background: #c68a2c;
+  margin: 10px 0 14px 0;
+  border: none;
+}
+
+.receiptTitleWrap {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.receiptMainTitle {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+}
+
+.titleNavy {
+  color: #0b2545;
+}
+
+.titleGold {
+  color: #c68a2c;
+  margin-left: 5px;
+}
+
+.receiptSubtitle {
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.4;
+  margin: 0 auto;
+  max-width: 620px;
+}
+
+/* ===================================================================
+   Success Confirmation Banner
+   =================================================================== */
+
+.successBanner {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 6px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.successCheckIcon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: #059669;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.successTextGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.successHeading {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #047857;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin: 0 0 1px 0;
+}
+
+.successSubtext {
+  font-size: 11.5px;
+  color: #065f46;
+  margin: 0;
+}
+
+/* ===================================================================
+   Reference & Date Row
+   =================================================================== */
+
+.metaRow {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.metaItemLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.metaLabel {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.metaRefValue {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0b2545;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.metaItemRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calendarIconWrap {
+  color: #0b2545;
+}
+
+.metaDateGroup {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.metaDateValue {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0b2545;
+  margin: 0;
+}
+
+/* ===================================================================
+   Details Cards (Applicant & Membership)
+   =================================================================== */
+
+.detailsCard {
+  margin-bottom: 12px;
+}
+
+.cardHeaderBar {
+  background: #0b2545;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 5px 5px 0 0;
+  font-weight: 700;
+  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  letter-spacing: 0.2px;
+}
+
+.headerBarIcon {
+  color: #f59e0b;
+}
+
+.tableBody {
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  padding: 2px 14px;
+  background: #ffffff;
+}
+
+.tableRow {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 12px;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.rowLabel {
+  width: 155px;
+  flex-shrink: 0;
+  color: #475569;
+  font-weight: 500;
+}
+
+.rowColon {
+  width: 20px;
+  flex-shrink: 0;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.rowValue {
+  flex: 1;
+  color: #0f172a;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.valueBold {
+  font-weight: 800;
+  color: #0b2545;
+}
+
+.badgePaid {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  border: 1px solid #bbf7d0;
+}
+
+.badgePending {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #fef3c7;
+  color: #b45309;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  border: 1px solid #fde68a;
+}
+
+/* ===================================================================
+   Bottom Notes Grid
+   =================================================================== */
+
+.notesGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.nextStepsBox {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.boxHeaderNavy {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0b2545;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.2px;
+}
+
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11.5px;
+  color: #334155;
+  line-height: 1.35;
+}
+
+.stepNumber {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  background: #1e3a8a;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noteBox {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.boxHeaderGold {
+  font-size: 12px;
+  font-weight: 800;
+  color: #b45309;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.2px;
+}
+
+.noteText {
+  font-size: 11px;
+  color: #78350f;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ===================================================================
+   Receipt Footer
+   =================================================================== */
+
+.footerSection {
+  margin-top: 6px;
+}
+
+.footerGoldLine {
+  height: 2px;
+  background: #c68a2c;
+  margin: 0 0 8px 0;
+  border: none;
+}
+
+.footerContactsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerOrgBrand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footerLogoImg {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.footerOrgNames {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerOrgEng {
+  font-size: 11px;
+  font-weight: 800;
+  color: #0b2545;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.footerOrgHin {
+  font-size: 10px;
+  font-weight: 700;
+  color: #475569;
+  margin: 1px 0 0 0;
+}
+
+.footerContactList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footerContactItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.contactIcon {
+  color: #0b2545;
+}
+
+.footerBottomBar {
+  background: #0b2545;
+  color: #cbd5e1;
+  padding: 5px 12px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  margin-top: 8px;
+}
+
+.footerBarRight {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ===================================================================
+   Print Optimization (@media print) - Single 1-Page Layout
+   =================================================================== */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 4mm 6mm !important;
+  }
+
+  :global(body) {
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .receiptModalOverlay {
+    position: static !important;
+    background: none !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  .receiptToolbar {
+    display: none !important;
+  }
+
+  .receiptPaper {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 8px 14px 4px 14px !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-before: avoid !important;
+    break-after: avoid !important;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .topCornerAccent {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cardHeaderBar,
+  .successBanner,
+  .nextStepsBox,
+  .noteBox,
+  .footerBottomBar,
+  .badgePaid,
+  .badgePending,
+  .metaRow {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

@@ -290,8 +290,9 @@
   }
 
   .heroInner {
-    min-height: 520px;
-    padding-top: 20px;
+    min-height: auto;
+    padding-top: 16px;
+    padding-bottom: 20px;
   }
 
   .heroMain {
@@ -1463,6 +1464,32 @@
     opacity 460ms cubic-bezier(0.33, 0.1, 0.25, 1),
     transform 460ms cubic-bezier(0.33, 0.1, 0.25, 1);
   transition-delay: calc(var(--stagger, 0) * 70ms);
+}
+
+@media (max-width: 768px) {
+  .revealed [data-reveal],
+  .revealed [data-reveal-fade] {
+    transition:
+      opacity 200ms ease-out,
+      transform 200ms ease-out !important;
+    transition-delay: 0ms !important;
+  }
+
+  .revealed [data-reveal-item] {
+    transition:
+      opacity 180ms ease-out,
+      transform 180ms ease-out !important;
+    transition-delay: 0ms !important;
+  }
+
+  .armed [data-reveal] {
+    transform: translateY(6px);
+  }
+
+  .armed [data-reveal-fade],
+  .armed [data-reveal-item] {
+    transform: translateY(4px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

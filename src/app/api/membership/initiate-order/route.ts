@@ -48,10 +48,15 @@ export async function POST(request: Request) {
     });
   } catch (error: any) {
     console.error("Initiate membership order error:", error);
+    const friendlyMessage =
+      error.message === "fetch failed"
+        ? "Unable to reach the payment service. Please verify your internet connection or backend server status."
+        : error.message || "Failed to create payment session with gateway.";
+
     return NextResponse.json(
       {
         success: false,
-        error: error.message || "Failed to create payment session with gateway.",
+        error: friendlyMessage,
       },
       { status: 500 }
     );

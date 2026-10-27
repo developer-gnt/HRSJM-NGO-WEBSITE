@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -94,11 +94,35 @@ function MembershipApplyContent() {
   const [submissionResult, setSubmissionResult] = useState<{
     applicationRef: string;
     applicantName: string;
+    applicantEmail?: string;
+    applicantPhone?: string;
+    applicantAddress?: string;
     packageName: string;
     packageFee: string;
     submittedAt: string;
+    paymentStatus?: string;
+    applicationStatus?: string;
     paymentSessionId?: string;
   } | null>(null);
+
+  // Keep track of active paid Cashfree order so user does not get double-charged on retry
+  const completedOrderIdRef = useRef<string | null>(null);
+
+  const parseResponseSafely = async (res: Response, context: string) => {
+    const text = await res.text();
+    if (res.status === 413 || text.includes("Request Entity Too Large") || text.includes("Payload Too Large")) {
+      throw new Error(
+        "Uploaded documents exceed server size limit (413 Request Entity Too Large). Please upload smaller or compressed document files."
+      );
+    }
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new Error(
+        `Server returned unexpected response (${res.status}) while ${context}. Please try again.`
+      );
+    }
+  };
 
   // Field change handlers
   const handleStep1Change = (field: keyof Step1Data, value: any) => {
@@ -335,6 +359,7 @@ function MembershipApplyContent() {
         state: step2Data.state,
         pincode: step2Data.pincode,
         country: step2Data.country,
+        policeStation: step2Data.policeStation,
         idProofName: step3Data.idProof.name,
         idProofUri: step3Data.idProof.dataUrl,
         addressProofName: step3Data.addressProof.name,
@@ -357,36 +382,54 @@ function MembershipApplyContent() {
         paymentReference: step4Data.paymentReference,
       };
 
+      // Safeguard: Ensure total request payload does not exceed Vercel's 4.5MB serverless limit
+      const payloadString = JSON.stringify(payload);
+      if (payloadString.length > 3.8 * 1024 * 1024) {
+        alert(
+          "Total document upload size is too large (exceeds 3.8MB server limit). Please upload compressed images or smaller documents and try again."
+        );
+        return;
+      }
+
       if (step4Data.paymentMode !== "upi_bank") {
-        // Step 1: Request Cashfree payment session WITHOUT creating DB record
-        const orderRes = await fetch("/api/membership/initiate-order", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            amount: selectedPackage.item.fees,
-            packageName: selectedPackage.item.post,
-            fullName: step1Data.fullName,
-            phone: step1Data.phone,
-            email: step1Data.email,
-          }),
-        });
+        let orderId = completedOrderIdRef.current;
+        let paymentSessionId: string | undefined = undefined;
 
-        const orderJson = await orderRes.json();
-        if (!orderRes.ok || !orderJson.success) {
-          alert(orderJson.error || "Failed to initiate payment session. Please try again.");
-          return;
-        }
-
-        const { orderId, paymentSessionId } = orderJson;
-
-        // Step 2: Open Cashfree checkout popup
-        try {
-          await launchCashfreeCheckout({
-            paymentSessionId,
-            redirectTarget: "_modal",
+        // Only create a new Cashfree session if we don't already have a paid order from this session
+        if (!orderId) {
+          // Step 1: Request Cashfree payment session WITHOUT creating DB record
+          const orderRes = await fetch("/api/membership/initiate-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              amount: selectedPackage.item.fees,
+              packageName: selectedPackage.item.post,
+              fullName: step1Data.fullName,
+              phone: step1Data.phone,
+              email: step1Data.email,
+            }),
           });
-        } catch (cfErr) {
-          console.warn("Cashfree checkout interaction:", cfErr);
+
+          const orderJson = await parseResponseSafely(orderRes, "initiating payment session");
+          if (!orderRes.ok || !orderJson.success) {
+            alert(orderJson.error || "Failed to initiate payment session. Please try again.");
+            return;
+          }
+
+          orderId = orderJson.orderId;
+          paymentSessionId = orderJson.paymentSessionId;
+
+          // Step 2: Open Cashfree checkout popup
+          try {
+            await launchCashfreeCheckout({
+              paymentSessionId: paymentSessionId!,
+              redirectTarget: "_modal",
+            });
+            // Record orderId so that if verification or network fails, user can retry without double paying
+            completedOrderIdRef.current = orderId;
+          } catch (cfErr) {
+            console.warn("Cashfree checkout interaction:", cfErr);
+          }
         }
 
         // Step 3: Cashfree checkout completed or closed. Verify payment with gateway before saving!
@@ -400,8 +443,12 @@ function MembershipApplyContent() {
           }),
         });
 
-        const verifyJson = await verifyRes.json();
+        const verifyJson = await parseResponseSafely(verifyRes, "verifying payment and submitting application");
         if (!verifyRes.ok || !verifyJson.success) {
+          // If payment was not completed or failed on gateway, clear saved order so user can retry checkout
+          if (verifyJson.paymentStatus && verifyJson.paymentStatus !== "SUCCESS") {
+            completedOrderIdRef.current = null;
+          }
           alert(
             verifyJson.error ||
             "Payment was not completed or failed. Your membership application has not been submitted. Please try again."
@@ -409,13 +456,29 @@ function MembershipApplyContent() {
           return;
         }
 
+        // Successfully verified and created! Reset completed order ID
+        completedOrderIdRef.current = null;
+
+        // Address summary for receipt
+        const fullAddress = [
+          step2Data.address1,
+          step2Data.city,
+          step2Data.state,
+          step2Data.country,
+        ].filter(Boolean).join(", ") || "Mumbai, Maharashtra, India";
+
         // Step 4: Payment confirmed! Database record saved with status PENDING (Applied). Show success modal.
         setSubmissionResult({
           applicationRef: verifyJson.applicationRef,
-          applicantName: verifyJson.applicantName,
-          packageName: verifyJson.packageName,
-          packageFee: verifyJson.packageFee,
-          submittedAt: verifyJson.submittedAt,
+          applicantName: verifyJson.applicantName || step1Data.fullName,
+          applicantEmail: step1Data.email,
+          applicantPhone: step1Data.phone,
+          applicantAddress: fullAddress,
+          packageName: verifyJson.packageName || selectedPackage.item.post,
+          packageFee: String(verifyJson.packageFee || selectedPackage.item.fees),
+          submittedAt: verifyJson.submittedAt || new Date().toISOString(),
+          paymentStatus: "Confirmed Paid",
+          applicationStatus: "Applied (Pending Review)",
           paymentSessionId,
         });
       } else {
@@ -429,23 +492,39 @@ function MembershipApplyContent() {
           }),
         });
 
-        const json = await res.json();
+        const json = await parseResponseSafely(res, "submitting membership application");
         if (!res.ok || !json.success) {
           alert(json.error || "Submission failed. Please check your data and retry.");
           return;
         }
 
+        const fullAddress = [
+          step2Data.address1,
+          step2Data.city,
+          step2Data.state,
+          step2Data.country,
+        ].filter(Boolean).join(", ") || "Mumbai, Maharashtra, India";
+
         setSubmissionResult({
           applicationRef: json.applicationRef,
-          applicantName: json.applicantName,
-          packageName: json.packageName,
-          packageFee: json.packageFee,
-          submittedAt: json.submittedAt,
+          applicantName: json.applicantName || step1Data.fullName,
+          applicantEmail: step1Data.email,
+          applicantPhone: step1Data.phone,
+          applicantAddress: fullAddress,
+          packageName: json.packageName || selectedPackage.item.post,
+          packageFee: String(json.packageFee || selectedPackage.item.fees),
+          submittedAt: json.submittedAt || new Date().toISOString(),
+          paymentStatus: "Pending Verification",
+          applicationStatus: "Applied (Pending Review)",
         });
       }
     } catch (err: any) {
-      console.error(err);
-      alert(err.message || "Network error. Unable to connect to server. Please try again.");
+      console.error("Submission error:", err);
+      const friendlyMessage =
+        err.message === "fetch failed"
+          ? "Unable to connect to the server. Please verify your internet connection and try again."
+          : err.message || "Network error. Unable to connect to server. Please try again.";
+      alert(friendlyMessage);
     } finally {
       setSubmitting(false);
     }
@@ -571,9 +650,14 @@ function MembershipApplyContent() {
         <ApplicationSuccessModal
           applicationRef={submissionResult.applicationRef}
           applicantName={submissionResult.applicantName}
+          applicantEmail={submissionResult.applicantEmail}
+          applicantPhone={submissionResult.applicantPhone}
+          applicantAddress={submissionResult.applicantAddress}
           packageName={submissionResult.packageName}
           packageFee={submissionResult.packageFee}
           submittedAt={submissionResult.submittedAt}
+          paymentStatus={submissionResult.paymentStatus}
+          applicationStatus={submissionResult.applicationStatus}
           paymentSessionId={submissionResult.paymentSessionId}
         />
       )}
