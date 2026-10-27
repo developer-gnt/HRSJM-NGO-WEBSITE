@@ -1,5 +1,5 @@
 /* ================================================================ */
-/* Success Stories page — successStories.module.css                  */
+/* Success Stories page - successStories.module.css                  */
 /* Same design system as the rest of the site:                       */
 /* navy (#062a4f) + gold (#fad25c) on cream (#f7f4ec).               */
 /* Hero/breadcrumb/CTA recipes follow allEvents.module.css;          */
@@ -7,16 +7,13 @@
 /* ================================================================ */
 
 /* ---------------------------------------------------------------- */
-/* Section 01 — Page Hero (light editorial band)                     */
+/* Section 01 - Page Hero (light editorial band)                     */
 /* ---------------------------------------------------------------- */
 
 .hero {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy)
-    url("/images/success-stories-hero.png")
-    right center / cover
-    no-repeat;
+  background: var(--color-navy) url("/images/success-stories-hero.png") right center / cover no-repeat;
   color: var(--color-white);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
@@ -27,13 +24,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(2, 22, 44, 0.92) 0%,
-    rgba(2, 22, 44, 0.72) 35%,
-    rgba(2, 22, 44, 0.25) 55%,
-    transparent 75%
-  );
+  background: linear-gradient(90deg,
+      rgba(2, 22, 44, 0.92) 0%,
+      rgba(2, 22, 44, 0.72) 35%,
+      rgba(2, 22, 44, 0.25) 55%,
+      transparent 75%);
   pointer-events: none;
 }
 
@@ -135,7 +130,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 02 — Stories grid                                         */
+/* Section 02 - Stories grid                                         */
 /* ---------------------------------------------------------------- */
 
 .stories {
@@ -284,6 +279,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .stories [data-reveal],
   .stories [data-reveal-item] {
     opacity: 1;
@@ -298,7 +294,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 03 — CTA band                                             */
+/* Section 03 - CTA band                                             */
 /* ---------------------------------------------------------------- */
 
 .cta {
@@ -312,11 +308,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at 50% 0%,
-    rgba(250, 210, 92, 0.12) 0%,
-    transparent 65%
-  );
+  background: radial-gradient(ellipse at 50% 0%,
+      rgba(250, 210, 92, 0.12) 0%,
+      transparent 65%);
   pointer-events: none;
 }
 
@@ -443,12 +437,10 @@
   }
 
   .hero::before {
-    background: linear-gradient(
-      180deg,
-      rgba(2, 22, 44, 0.94) 0%,
-      rgba(2, 22, 44, 0.76) 55%,
-      rgba(2, 22, 44, 0.9) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(2, 22, 44, 0.94) 0%,
+        rgba(2, 22, 44, 0.76) 55%,
+        rgba(2, 22, 44, 0.9) 100%);
   }
 
   .heroInner {

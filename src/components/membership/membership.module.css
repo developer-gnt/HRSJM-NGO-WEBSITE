@@ -1,15 +1,15 @@
 /* ------------------------------------------------------------------ */
 /* Membership page styles.                                             */
 /* Visual language follows the HRSJM Complaint page reference.         */
-/* Section 01 — Hero                                                   */
-/* Section 02 — Why Membership                                         */
-/* Section 03 — Benefits                                               */
-/* Section 04 — Process                                                */
-/* Section 05 — Membership Options                                     */
-/* Section 06 — Application Form                                       */
-/* Section 07 — Be Part of the Movement                                */
-/* Section 08 — FAQ                                                    */
-/* Section 09 — Final CTA                                              */
+/* Section 01 - Hero                                                   */
+/* Section 02 - Why Membership                                         */
+/* Section 03 - Benefits                                               */
+/* Section 04 - Process                                                */
+/* Section 05 - Membership Options                                     */
+/* Section 06 - Application Form                                       */
+/* Section 07 - Be Part of the Movement                                */
+/* Section 08 - FAQ                                                    */
+/* Section 09 - Final CTA                                              */
 /* ------------------------------------------------------------------ */
 
 /* ---------- Shared ---------- */
@@ -133,7 +133,7 @@
   }
 }
 
-/* ---------- Section 01 — Hero ---------- */
+/* ---------- Section 01 - Hero ---------- */
 
 .hero {
   position: relative;
@@ -355,7 +355,7 @@
   }
 }
 
-/* ---------- Section 02 — Why Membership ---------- */
+/* ---------- Section 02 - Why Membership ---------- */
 
 .why {
   background: var(--color-cream);
@@ -457,7 +457,7 @@
   }
 }
 
-/* ---------- Section 03 — Benefits (process-style banner) ---------- */
+/* ---------- Section 03 - Benefits (process-style banner) ---------- */
 
 .benefits {
   position: relative;
@@ -604,7 +604,7 @@
   line-height: 1.55;
 }
 
-/* Tablet — intro on navy above, steps on the light band below */
+/* Tablet - intro on navy above, steps on the light band below */
 @media (max-width: 1023px) {
   .benefitsScrim {
     background: linear-gradient(180deg,
@@ -632,7 +632,7 @@
   }
 }
 
-/* Mobile — stacked with a vertical timeline */
+/* Mobile - stacked with a vertical timeline */
 @media (max-width: 639px) {
   .benefitsImage {
     object-position: 24% center;
@@ -681,7 +681,7 @@
   }
 }
 
-/* ---------- Section 05 — Membership Options ---------- */
+/* ---------- Section 05 - Membership Options ---------- */
 
 .options {
   background: var(--color-cream);
@@ -779,7 +779,7 @@
   }
 }
 
-/* ---------- Section 06 — Application Form ---------- */
+/* ---------- Section 06 - Application Form ---------- */
 
 .apply {
   background: #fbf9f3;
@@ -832,7 +832,7 @@
   gap: 18px 20px;
 }
 
-/* Right panel — image + Before You Join accordion (complaint-page style) */
+/* Right panel - image + Before You Join accordion (complaint-page style) */
 .applyMain {
   min-width: 0;
 }
@@ -1312,7 +1312,7 @@
   }
 }
 
-/* ---------- Section 07 — Be Part of the Movement ---------- */
+/* ---------- Section 07 - Be Part of the Movement ---------- */
 
 .movement {
   display: grid;
@@ -1416,7 +1416,7 @@
   }
 }
 
-/* ---------- Section 09 — Final CTA ---------- */
+/* ---------- Section 09 - Final CTA ---------- */
 
 .cta {
   position: relative;
@@ -1766,7 +1766,7 @@
   }
 }
 
-/* ---------- Section 09 — Final CTA ---------- */
+/* ---------- Section 09 - Final CTA ---------- */
 
 .cta {
   position: relative;
@@ -1861,7 +1861,7 @@
   }
 }
 
-/* ---------- Section 08 — Membership FAQs (Reference Design) ---------- */
+/* ---------- Section 08 - Membership FAQs (Reference Design) ---------- */
 
 .faq {
   background: var(--color-cream);

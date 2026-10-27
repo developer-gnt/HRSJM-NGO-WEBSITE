@@ -44,7 +44,7 @@ export default function FAQPage() {
             .
           </p>
 
-          {/* Category pills — quick navigation to each FAQ group */}
+          {/* Category pills - quick navigation to each FAQ group */}
           <ul className={styles.statList} aria-label="FAQ categories overview">
             {faqCategories.map((cat, index) => (
               <li key={cat.id}>
@@ -62,7 +62,7 @@ export default function FAQPage() {
         </div>
       </section>
 
-      {/* ── Body — full-width FAQ content ──────────────────────────── */}
+      {/* ── Body - full-width FAQ content ──────────────────────────── */}
       <section className={styles.body} aria-label="FAQ categories and answers">
         <div className={styles.bodyInner}>
           {faqCategories.map((cat) => (

@@ -9,9 +9,26 @@ import EventsNewsletter from "@/components/events/EventsNewsletter";
 import EventsCTA from "@/components/events/EventsCTA";
 
 export const metadata: Metadata = {
-  title: "Events & Activities",
+  title: "Events & Community Activities - Human Rights & Social Justice Mission",
   description:
-    "Explore our events, campaigns and community activities working towards a more just, equal and inclusive India.",
+    "Participate in nationwide legal awareness workshops, human rights rallies, charity drives, and grassroots community conferences organized by HRSJM across India.",
+  keywords: [
+    "HRSJM Events",
+    "Human Rights Workshops India",
+    "Legal Awareness Camps",
+    "Social Justice Campaigns",
+    "NGO Conferences India",
+    "Community Drives Mumbai",
+  ],
+  alternates: {
+    canonical: "/events",
+  },
+  openGraph: {
+    title: "HRSJM Events & Community Activities",
+    description:
+      "Join our public seminars, legal clinics, and human rights campaigns across Indian states.",
+    url: "https://hrsjm.org/events",
+  },
 };
 
 export default function EventsPage() {

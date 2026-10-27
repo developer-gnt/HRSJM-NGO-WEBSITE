@@ -10,7 +10,7 @@ import CategorySidebar from "./CategorySidebar";
 import shared from "./news.module.css";
 import styles from "./categoryListing.module.css";
 
-/* Category listing page. Articles come from the shared article data —
+/* Category listing page. Articles come from the shared article data -
    the Featured Article leads its own category. Cards without a detail
    page render as previews; the Featured Article links through. */
 export default function CategoryListingPage({ slug }: { slug: string }) {
@@ -87,7 +87,7 @@ export default function CategoryListingPage({ slug }: { slug: string }) {
               </div>
             ) : (
               <p className={styles.listingEmpty}>
-                No articles in this category yet — new stories are published
+                No articles in this category yet - new stories are published
                 regularly, so check back soon.
               </p>
             )}

@@ -24,7 +24,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: "What is HRSJM?",
         answer:
-          "HRSJM — the Human Rights & Social Justice Mission — is a non-profit organisation dedicated to upholding human rights, dignity, equality and access to justice for every person. We work through community outreach, legal support, awareness campaigns and advocacy.",
+          "HRSJM - the Human Rights & Social Justice Mission - is a non-profit organisation dedicated to upholding human rights, dignity, equality and access to justice for every person. We work through community outreach, legal support, awareness campaigns and advocacy.",
       },
       {
         question: "How can I get involved?",
@@ -47,14 +47,14 @@ export const faqCategories: FaqCategory[] = [
     id: "rights",
     label: "Your Rights",
     eyebrow: "Know Your Rights",
-    heading: "Your Rights — FAQs",
+    heading: "Your Rights - FAQs",
     description:
       "Common questions about human rights, legal protections and how to seek support.",
     items: [
       {
         question: "What are fundamental rights?",
         answer:
-          "Fundamental rights are the basic freedoms and protections every person is entitled to — equality, dignity, freedom of expression and protection from discrimination. They are guaranteed by the Constitution and cannot be taken away arbitrarily.",
+          "Fundamental rights are the basic freedoms and protections every person is entitled to - equality, dignity, freedom of expression and protection from discrimination. They are guaranteed by the Constitution and cannot be taken away arbitrarily.",
       },
       {
         question: "How can I file a complaint if my rights are violated?",
@@ -89,7 +89,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: "Who can become an HRSJM member?",
         answer:
-          "Anyone who supports human rights, equality and social justice can apply. Members come from all backgrounds — students, professionals, community workers and concerned citizens.",
+          "Anyone who supports human rights, equality and social justice can apply. Members come from all backgrounds - students, professionals, community workers and concerned citizens.",
       },
       {
         question: "What are the benefits of membership?",
@@ -127,7 +127,7 @@ export const faqCategories: FaqCategory[] = [
     id: "complaint",
     label: "Get Help",
     eyebrow: "Filing a Complaint",
-    heading: "Get Help — FAQs",
+    heading: "Get Help - FAQs",
     description:
       "Common questions about filing a complaint and how HRSJM supports you through the process.",
     items: [

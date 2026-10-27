@@ -1,5 +1,5 @@
 /* ================================================================ */
-/* All Articles page — allArticles.module.css                        */
+/* All Articles page - allArticles.module.css                        */
 /* Navy editorial header band + category filter pills over the      */
 /* shared article grid and Trending/Newsletter sidebar, matching    */
 /* the News & Blog design system.                                   */
@@ -8,11 +8,9 @@
 .header {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(
-    90deg,
-    var(--color-navy-dark) 0%,
-    var(--color-navy) 100%
-  );
+  background: linear-gradient(90deg,
+      var(--color-navy-dark) 0%,
+      var(--color-navy) 100%);
   color: var(--color-white);
 }
 
@@ -22,7 +20,7 @@
   padding: 20px var(--page-padding) 26px;
 }
 
-/* Breadcrumb on the dark band — same recipe as the news hero */
+/* Breadcrumb on the dark band - same recipe as the news hero */
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
@@ -90,7 +88,7 @@
   padding: 28px 0 72px;
 }
 
-/* Category filter pills — white with thin borders, navy active state */
+/* Category filter pills - white with thin borders, navy active state */
 .filterRow {
   display: flex;
   flex-wrap: wrap;
@@ -159,7 +157,7 @@
   font-weight: 500;
 }
 
-/* Empty state — soft dashed card, same shell language as listings */
+/* Empty state - soft dashed card, same shell language as listings */
 .listingEmpty {
   margin-top: 18px;
   padding: 30px 26px;
@@ -171,7 +169,7 @@
   line-height: 1.6;
 }
 
-/* Tablet — grid and sidebar stack (the shared sidebar carries its own
+/* Tablet - grid and sidebar stack (the shared sidebar carries its own
    2-up tablet layout from news.module.css) */
 @media (max-width: 1023px) {
   .listing {
@@ -184,7 +182,7 @@
   }
 }
 
-/* Mobile — compact header, single column, wrapping pills */
+/* Mobile - compact header, single column, wrapping pills */
 @media (max-width: 639px) {
   .headerInner {
     padding: 20px var(--page-padding) 36px;

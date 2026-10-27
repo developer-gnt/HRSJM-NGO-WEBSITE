@@ -34,6 +34,7 @@ export const usefulLinks: FooterLink[] = [
   { label: "Membership Benefits", href: "/benefits" },
   { label: "Membership Categories", href: "/membership/categories" },
   { label: "Apply for Membership", href: "/membership/apply" },
+  { label: "How to become a district / state president", href: "/how-to-become-a-district-and-state-president" },
   { label: "Make a Donation", href: "/donation" },
   { label: "Renew Membership", href: "/membership/renew" },
   { label: "Member Login", href: "/membership/login" },
@@ -50,7 +51,7 @@ export const socialLinks: SocialLink[] = [
   { label: "LinkedIn", href: "#", icon: "linkedin", placeholder: true },
 ];
 
-// TODO: phone and email are dummy placeholders — replace with real contact details.
+// TODO: phone and email are dummy placeholders - replace with real contact details.
 export const contactItems: ContactItem[] = [
   {
     label: "Address",

@@ -41,7 +41,7 @@ export interface RightsCategoryDetail {
   heroSubtitle: string;
   heroImage: string;
   heroBgImage?: string;
-  
+
   // Section 1: Overview
   overview: {
     heading: string;
@@ -119,7 +119,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
     overview: {
       heading: "What are Women’s Rights?",
       description1:
-        "Women's rights are human rights. They ensure that every woman can live with dignity, freedom, equality and safety in all areas of life — at home, at work, in education, in public spaces and in society. These rights protect women from discrimination, violence and exploitation, and promote equal opportunities for growth and participation.",
+        "Women's rights are human rights. They ensure that every woman can live with dignity, freedom, equality and safety in all areas of life - at home, at work, in education, in public spaces and in society. These rights protect women from discrimination, violence and exploitation, and promote equal opportunities for growth and participation.",
       description2:
         "Under Article 15(3) of the Constitution of India, the state is empowered to make special affirmative provisions for women. A comprehensive legal architecture safeguards women from domestic violence, workplace harassment, wage disparities, and dowry offences.",
       quote: "“Empowered women empower families, communities and nations. Gender equality is not just a goal, it is a fundamental right.”",
@@ -147,10 +147,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“A safe, equal and empowered society begins with respecting women’s rights.”",
-        source: "— Gender Equality Principle",
+        source: "- Gender Equality Principle",
         iconType: "shield",
         image: "/images/rights/womens-rights-sidecard-hd.jpg",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -370,10 +370,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“Invest in children today for a brighter, safer and more equal tomorrow.”",
-        source: "— Child Rights Charter",
+        source: "- Child Rights Charter",
         iconType: "shield",
         image: "/images/rights/childrens-rights-sidecard-hd.jpg",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -591,10 +591,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“Respect Labour. Build a Fairer India for Every Worker.”",
-        source: "— Worker Dignity Charter",
+        source: "- Worker Dignity Charter",
         iconType: "shield",
         image: "/images/rights/labour-rights-sidecard-hd.jpg",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -814,10 +814,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“Respect our elders today for a stronger, more compassionate tomorrow.”",
-        source: "— Senior Citizens Dignity Charter",
+        source: "- Senior Citizens Dignity Charter",
         iconType: "heart",
         image: "/images/rights/senior-citizen-rights-sidecard-hd.jpg",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -994,7 +994,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       description1:
         "Human rights are basic rights and freedoms that belong to every person, simply because they are human. These rights are universal, inalienable, and apply to all, regardless of nationality, gender, religion, caste, language or any other status.",
       description2:
-        "They encompass civil, political, economic, social and cultural guarantees — from the right to life and liberty to the right to food, education, work, and healthcare. In India, human rights principles are firmly enshrined in our Constitution and protected by statutory bodies like the National Human Rights Commission (NHRC).",
+        "They encompass civil, political, economic, social and cultural guarantees - from the right to life and liberty to the right to food, education, work, and healthcare. In India, human rights principles are firmly enshrined in our Constitution and protected by statutory bodies like the National Human Rights Commission (NHRC).",
       quote: "“Human rights are not a privilege, but a right for every human being.”",
       image: "/images/rights/human-rights-collage.png",
       extendedPoints: [
@@ -1022,10 +1022,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“All human beings are born free and equal in dignity and rights.”",
-        source: "— Universal Declaration of Human Rights (UDHR)",
+        source: "- Universal Declaration of Human Rights (UDHR)",
         iconType: "un",
         image: "/images/rights/human-rights-sidecard.png",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -1142,7 +1142,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         },
         {
           question: "Can human rights be restricted?",
-          answer: "Most human rights are qualified, meaning governments may restrict them only under strictly defined legal circumstances — such as maintaining public health during pandemics, national security, or preventing crime. However, absolute rights like the prohibition of torture, slavery, and arbitrary deprivation of life can never be suspended."
+          answer: "Most human rights are qualified, meaning governments may restrict them only under strictly defined legal circumstances - such as maintaining public health during pandemics, national security, or preventing crime. However, absolute rights like the prohibition of torture, slavery, and arbitrary deprivation of life can never be suspended."
         },
         {
           question: "What can I do if my rights are violated?",
@@ -1185,7 +1185,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       description1:
         "Fundamental Rights are basic human rights guaranteed by the Constitution of India to every citizen. These rights ensure freedom, equality, dignity and justice, and protect individuals from arbitrary action by the State. They are essential for a democratic and just society.",
       description2:
-        "Enshrined in Part III of the Constitution (Articles 12 to 35), these rights are justiciable — meaning citizens can directly petition the High Courts (Article 226) or the Supreme Court of India (Article 32) when their fundamental rights are infringed.",
+        "Enshrined in Part III of the Constitution (Articles 12 to 35), these rights are justiciable - meaning citizens can directly petition the High Courts (Article 226) or the Supreme Court of India (Article 32) when their fundamental rights are infringed.",
       quote: "“Fundamental Rights are the soul of our Constitution and the foundation of a free, just and equal India.”",
       image: "/images/rights/fundamental-rights-collage.png",
       extendedPoints: [
@@ -1239,10 +1239,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“A Constitution is only as strong as the rights it guarantees to its people.”",
-        source: "— Constitutional Philosophy of India",
+        source: "- Constitutional Philosophy of India",
         iconType: "constitution",
         image: "/images/rights/fundamental-rights-sidecard.png",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT ARTICLES",
@@ -1440,10 +1440,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“Justice is not a privilege for the few, but a right for all.”",
-        source: "— Civil Rights Principle",
+        source: "- Civil Rights Principle",
         iconType: "scales",
         image: "/images/rights/civil-rights-sidecard-hd.jpg",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -1623,10 +1623,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“Freedom is not the absence of all restrictions, but the protection of what truly matters.”",
-        source: "— Civil Liberties Principle",
+        source: "- Civil Liberties Principle",
         iconType: "constitution",
         image: "/images/rights/civil-liberties-sidecard-hd.jpg",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -1765,7 +1765,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         },
         {
           question: "Can the government restrict civil liberties?",
-          answer: "Civil liberties may be subjected to reasonable restrictions expressly permitted by the Constitution — such as for sovereignty, security of the state, or public order. However, such restrictions must be proportionate, backed by valid law, and subject to judicial review."
+          answer: "Civil liberties may be subjected to reasonable restrictions expressly permitted by the Constitution - such as for sovereignty, security of the state, or public order. However, such restrictions must be proportionate, backed by valid law, and subject to judicial review."
         },
         {
           question: "What is the right to privacy?",
@@ -1842,10 +1842,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“Voices of the people more transparent and accountable democracy.”",
-        source: "— Democratic Freedom Principle",
+        source: "- Democratic Freedom Principle",
         iconType: "shield",
         image: "/images/rights/freedom-of-speech-sidecard-hd.jpg",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -1968,7 +1968,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
           court: "Supreme Court of India",
           year: "1989",
           summary: "Held that movie censorship cannot be permitted merely because hostile crowds threaten protests; state has a duty to protect free expression.",
-          impact: "Laid down the 'spark in a powder keg' test — speech cannot be curbed unless there is immediate proximate danger of violence."
+          impact: "Laid down the 'spark in a powder keg' test - speech cannot be curbed unless there is immediate proximate danger of violence."
         }
       ]
     },
@@ -2065,10 +2065,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“A transparent government builds a stronger nation.”",
-        source: "— RTI Principle",
+        source: "- RTI Principle",
         iconType: "scales",
         image: "/images/rights/right-to-information-sidecard-hd.jpg",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -2281,10 +2281,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“Different beliefs. One nation. Equal rights for all.”",
-        source: "— Indian Constitutional Vision",
+        source: "- Indian Constitutional Vision",
         iconType: "constitution",
         image: "/images/rights/minority-rights-sidecard.png",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",
@@ -2488,10 +2488,10 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
       ],
       quoteCard: {
         quote: "“Educate a child today for a stronger, fairer and more equal India tomorrow.”",
-        source: "— Education Empowerment Charter",
+        source: "- Education Empowerment Charter",
         iconType: "shield",
         image: "/images/rights/right-to-education-sidecard-hd.jpg",
-    }
+      }
     },
     laws: {
       eyebrow: "IMPORTANT LAWS & DOCUMENTS",

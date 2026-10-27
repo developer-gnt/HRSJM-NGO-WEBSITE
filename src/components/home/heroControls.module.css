@@ -103,6 +103,23 @@
   }
 }
 
+@media (min-width: 1300px) {
+  .controls {
+    margin-bottom: 16px;
+    gap: 10px;
+  }
+
+  .arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .arrow svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .arrow,
   .dot,

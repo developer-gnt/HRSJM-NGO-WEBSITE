@@ -2,16 +2,25 @@ import type { Metadata } from "next";
 import HelpCenterPage from "@/components/help/HelpCenterPage";
 
 export const metadata: Metadata = {
-  title: "Help Centre | Human Rights & Social Justice Mission",
+  title: "Help Centre & Support - Human Rights & Social Justice Mission",
   description:
-    "Find answers, guides and resources to make your HRSJM membership journey simple and meaningful. Explore topics, search FAQs, or get in touch with our support team.",
+    "Official Help Centre of HRSJM. Find guides, membership support, complaint tracking assistance, and direct helpline contact for citizens and members.",
   keywords: [
     "HRSJM Help Centre",
-    "Human Rights Support",
+    "Human Rights Support India",
     "Membership FAQs",
-    "Volunteering Help",
-    "HRSJM Contact Support",
+    "HRSJM Complaint Assistance",
+    "HRSJM Helpline",
   ],
+  alternates: {
+    canonical: "/help",
+  },
+  openGraph: {
+    title: "HRSJM Help Centre & Support",
+    description:
+      "Find guides, FAQs, and support resources for your membership and rights enquiries.",
+    url: "https://hrsjm.org/help",
+  },
 };
 
 export default function Page() {

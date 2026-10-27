@@ -18,7 +18,6 @@ export default function Logo({ onNavigate }: LogoProps) {
         priority
       />
       <span className={styles.logoCopy}>
-        <strong>HRSJM</strong>
         <small>Human Rights &amp; Social Justice Mission</small>
         <span className={styles.logoHindi} lang="hi">
           मानव अधिकार · सामाजिक न्याय

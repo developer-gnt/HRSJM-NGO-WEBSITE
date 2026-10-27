@@ -36,7 +36,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
     items: [
       {
         srNo: 1,
-        post: "District General Member",
+        post: "District Active Member",
         qualification: "Minimum 8th Class",
         fees: "₹800",
         validity: "1 Year",
@@ -44,7 +44,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 2,
-        post: "Zonal General Member",
+        post: "State Active Member",
         qualification: "Minimum 8th Class",
         fees: "₹800",
         validity: "1 Year",
@@ -60,7 +60,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 4,
-        post: "Zonal Unit Post",
+        post: "State Unit Post",
         qualification: "Minimum 10th Class",
         fees: "₹2,300",
         validity: "2 Years",
@@ -81,7 +81,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
     items: [
       {
         srNo: 5,
-        post: "Lion of Zone",
+        post: "Lion of State",
         qualification: "Minimum 12th Pass",
         fees: "₹5,000",
         validity: "5 Years",
@@ -89,7 +89,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 6,
-        post: "Councillor of Zone",
+        post: "Counsellor of State",
         qualification: "Minimum 12th Pass",
         fees: "₹5,000",
         validity: "5 Years",
@@ -97,7 +97,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 7,
-        post: "Ambassador of Zone",
+        post: "Ambassador of State",
         qualification: "Minimum 12th Pass",
         fees: "₹5,000",
         validity: "5 Years",
@@ -105,7 +105,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 8,
-        post: "Hon'ble Zone Director",
+        post: "Hon'ble State Director",
         qualification: "Minimum Graduate / Degree",
         fees: "₹10,000",
         validity: "10 Years",
@@ -126,15 +126,15 @@ export const membershipCategorySections: MembershipCategorySection[] = [
     items: [
       {
         srNo: 9,
-        post: "National Legal Council Call",
-        qualification: "Advocate / Rest. Judge",
+        post: "National Legal Council Cell",
+        qualification: "Advocate / Retd. Judge",
         fees: "₹10,000",
         validity: "10 Years",
         kit: ["Letter Pad"],
       },
       {
         srNo: 10,
-        post: "National Minority Council Call",
+        post: "National Minority Council Cell",
         qualification:
           "Graduate / Degree (Muslim, Christian, Buddhist, Parsi, Jain & Sikh)",
         fees: "₹10,000",
@@ -143,7 +143,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 11,
-        post: "National Woman Council Call",
+        post: "National Woman Council Cell",
         qualification: "Graduate / Degree (Only for Women)",
         fees: "₹10,000",
         validity: "10 Years",
@@ -151,7 +151,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 12,
-        post: "National Political Council Call",
+        post: "National Political Council Cell",
         qualification: "Graduate / Degree (For Politicians)",
         fees: "₹10,000",
         validity: "10 Years",

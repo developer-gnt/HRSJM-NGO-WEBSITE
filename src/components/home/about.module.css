@@ -1,4 +1,4 @@
-/* ── About HRSJM — editorial four-zone section on warm cream ── */
+/* ── About HRSJM - editorial four-zone section on warm cream ── */
 
 .section {
   background: var(--color-cream);
@@ -68,6 +68,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .armed [data-reveal],
   .armed [data-reveal-fade],
   .armed [data-reveal-scale],

@@ -67,7 +67,7 @@ export default function HistoryHero() {
 
               {/* Editorial Slogan Callout */}
               <p className={styles.heroSlogan}>
-                From a vision of humanity to a growing movement for justice — our journey continues.
+                From a vision of humanity to a growing movement for justice - our journey continues.
               </p>
             </div>
 

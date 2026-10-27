@@ -1,14 +1,14 @@
 /* ------------------------------------------------------------------ */
 /* Donation page styles.                                               */
 /* Reference: public/donation-wireframe.png                            */
-/* Section 01 — Hero                                                   */
-/* Section 02 — Impact Statistics                                      */
-/* Section 03 — Donation Form                                          */
-/* Section 04 — Your Donation Supports                                 */
-/* Section 05 — Real Impact (stories carousel)                         */
-/* Section 06 — Make a Lasting Impact                                  */
-/* Section 07 — FAQ                                                    */
-/* Section 08 — Final CTA                                              */
+/* Section 01 - Hero                                                   */
+/* Section 02 - Impact Statistics                                      */
+/* Section 03 - Donation Form                                          */
+/* Section 04 - Your Donation Supports                                 */
+/* Section 05 - Real Impact (stories carousel)                         */
+/* Section 06 - Make a Lasting Impact                                  */
+/* Section 07 - FAQ                                                    */
+/* Section 08 - Final CTA                                              */
 /* ------------------------------------------------------------------ */
 
 /* ---------- Shared ---------- */
@@ -138,13 +138,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .btnGold,
   .btnGoldSmall {
     transition: none;
   }
 }
 
-/* ---------- Section 01 — Hero ---------- */
+/* ---------- Section 01 - Hero ---------- */
 
 .hero {
   position: relative;
@@ -165,14 +166,12 @@
 .heroScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    93deg,
-    rgba(3, 26, 50, 0.96) 0%,
-    rgba(3, 26, 50, 0.9) 32%,
-    rgba(3, 26, 50, 0.5) 55%,
-    rgba(3, 26, 50, 0.08) 80%,
-    rgba(3, 26, 50, 0) 100%
-  );
+  background: linear-gradient(93deg,
+      rgba(3, 26, 50, 0.96) 0%,
+      rgba(3, 26, 50, 0.9) 32%,
+      rgba(3, 26, 50, 0.5) 55%,
+      rgba(3, 26, 50, 0.08) 80%,
+      rgba(3, 26, 50, 0) 100%);
 }
 
 .hero .container {
@@ -193,6 +192,7 @@
     opacity: 0;
     transform: translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -271,7 +271,7 @@
   margin-top: 30px;
 }
 
-/* Support card — small cream card, bottom right of the hero */
+/* Support card - small cream card, bottom right of the hero */
 .heroCard {
   position: absolute;
   right: var(--page-padding);
@@ -316,7 +316,7 @@
   margin-bottom: 2px;
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .hero {
     min-height: 440px;
@@ -336,7 +336,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .hero {
     min-height: 520px;
@@ -347,12 +347,10 @@
   }
 
   .heroScrim {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 26, 50, 0.985) 0%,
-      rgba(3, 26, 50, 0.94) 55%,
-      rgba(3, 26, 50, 0.82) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 26, 50, 0.985) 0%,
+        rgba(3, 26, 50, 0.94) 55%,
+        rgba(3, 26, 50, 0.82) 100%);
   }
 
   .heroContent {
@@ -376,7 +374,7 @@
   }
 }
 
-/* ---------- Section 02 — Impact Statistics ---------- */
+/* ---------- Section 02 - Impact Statistics ---------- */
 
 .stats {
   position: relative;
@@ -392,12 +390,10 @@
 .statsScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 26, 50, 0.95) 0%,
-    rgba(4, 32, 60, 0.84) 40%,
-    rgba(4, 32, 60, 0.78) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 26, 50, 0.95) 0%,
+      rgba(4, 32, 60, 0.84) 40%,
+      rgba(4, 32, 60, 0.78) 100%);
 }
 
 .stats .container {
@@ -539,7 +535,7 @@
   }
 }
 
-/* ---------- Section 03 — Donation Form ---------- */
+/* ---------- Section 03 - Donation Form ---------- */
 
 .donate {
   background: var(--color-cream);
@@ -917,7 +913,7 @@
   }
 }
 
-/* ---------- Section 04 — Your Donation Supports ---------- */
+/* ---------- Section 04 - Your Donation Supports ---------- */
 
 .supports {
   position: relative;
@@ -934,20 +930,16 @@
   left: 96px;
   width: 46%;
   /* Fade the image's hard edges into the flat navy around it. */
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0,
-    #000 48px,
-    #000 86%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0,
-    #000 48px,
-    #000 86%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(90deg,
+      transparent 0,
+      #000 48px,
+      #000 86%,
+      transparent 100%);
+  mask-image: linear-gradient(90deg,
+      transparent 0,
+      #000 48px,
+      #000 86%,
+      transparent 100%);
 }
 
 .supportsImage {
@@ -960,14 +952,12 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 26, 50, 0) 0%,
-    rgba(3, 26, 50, 0) 34%,
-    rgba(3, 26, 50, 0.55) 52%,
-    rgba(3, 26, 50, 0.92) 66%,
-    #031a32 88%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 26, 50, 0) 0%,
+      rgba(3, 26, 50, 0) 34%,
+      rgba(3, 26, 50, 0.55) 52%,
+      rgba(3, 26, 50, 0.92) 66%,
+      #031a32 88%);
   pointer-events: none;
 }
 
@@ -1039,7 +1029,7 @@
   line-height: 1.5;
 }
 
-/* Tablet + mobile — stack a visible photo band above the content */
+/* Tablet + mobile - stack a visible photo band above the content */
 @media (max-width: 1023px) {
   .supportsImageWrap {
     position: relative;
@@ -1099,7 +1089,7 @@
   }
 }
 
-/* ---------- Section 05 — Real Impact ---------- */
+/* ---------- Section 05 - Real Impact ---------- */
 
 .impact {
   background: var(--color-cream);
@@ -1276,7 +1266,7 @@
   }
 }
 
-/* ---------- Section 06 — Make a Lasting Impact ---------- */
+/* ---------- Section 06 - Make a Lasting Impact ---------- */
 
 .lasting {
   position: relative;
@@ -1284,7 +1274,7 @@
   background: var(--color-navy-dark);
 }
 
-/* Navy overlay — strongest on the left where the text sits (over the
+/* Navy overlay - strongest on the left where the text sits (over the
    image's own dark foliage), easing off so the speaker and audience
    stay visible on the right. Sits ABOVE the image but BELOW the text. */
 .lasting::before {
@@ -1292,14 +1282,12 @@
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.94) 0%,
-    rgba(3, 29, 56, 0.9) 40%,
-    rgba(3, 29, 56, 0.65) 55%,
-    rgba(3, 29, 56, 0.25) 75%,
-    rgba(3, 29, 56, 0.05) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.94) 0%,
+      rgba(3, 29, 56, 0.9) 40%,
+      rgba(3, 29, 56, 0.65) 55%,
+      rgba(3, 29, 56, 0.25) 75%,
+      rgba(3, 29, 56, 0.05) 100%);
 }
 
 .lastingImageWrap {
@@ -1412,7 +1400,7 @@
   }
 }
 
-/* Mobile — stack: image band on top, text below on plain cream */
+/* Mobile - stack: image band on top, text below on plain cream */
 @media (max-width: 639px) {
   .lasting {
     background: #faf6ee;
@@ -1469,7 +1457,7 @@
   }
 }
 
-/* ---------- Section 07 — FAQ ---------- */
+/* ---------- Section 07 - FAQ ---------- */
 
 .faq {
   background: var(--color-cream);
@@ -1590,7 +1578,7 @@
   }
 }
 
-/* ---------- Section 08 — Final CTA ---------- */
+/* ---------- Section 08 - Final CTA ---------- */
 
 .cta {
   position: relative;
@@ -1608,13 +1596,11 @@
 .ctaScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 26, 50, 0.92) 0%,
-    rgba(3, 26, 50, 0.85) 36%,
-    rgba(3, 26, 50, 0.45) 62%,
-    rgba(3, 26, 50, 0.22) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 26, 50, 0.92) 0%,
+      rgba(3, 26, 50, 0.85) 36%,
+      rgba(3, 26, 50, 0.45) 62%,
+      rgba(3, 26, 50, 0.22) 100%);
 }
 
 .cta .container {
@@ -1693,12 +1679,10 @@
 /* Tablet */
 @media (max-width: 1023px) {
   .ctaScrim {
-    background: linear-gradient(
-      90deg,
-      rgba(3, 26, 50, 0.93) 0%,
-      rgba(3, 26, 50, 0.82) 50%,
-      rgba(3, 26, 50, 0.55) 100%
-    );
+    background: linear-gradient(90deg,
+        rgba(3, 26, 50, 0.93) 0%,
+        rgba(3, 26, 50, 0.82) 50%,
+        rgba(3, 26, 50, 0.55) 100%);
   }
 }
 
@@ -1709,11 +1693,9 @@
   }
 
   .ctaScrim {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 26, 50, 0.9) 0%,
-      rgba(3, 26, 50, 0.86) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 26, 50, 0.9) 0%,
+        rgba(3, 26, 50, 0.86) 100%);
   }
 
   .ctaInner {
@@ -2028,7 +2010,7 @@
   display: block;
 }
 
-/* Card Action Button — Signature Brand Gold/Yellow Button matching the theme */
+/* Card Action Button - Signature Brand Gold/Yellow Button matching the theme */
 .btnCardMedical,
 .btnCardEducation,
 .btnCardDisaster,

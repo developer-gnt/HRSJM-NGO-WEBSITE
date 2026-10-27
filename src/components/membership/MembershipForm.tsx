@@ -105,7 +105,7 @@ const beforeYouJoin = [
   {
     question: "Who can become an HRSJM member?",
     answer:
-      "Anyone who supports human rights, equality and social justice can apply — students, professionals, community workers and concerned citizens alike.",
+      "Anyone who supports human rights, equality and social justice can apply - students, professionals, community workers and concerned citizens alike.",
   },
   {
     question: "Is my information kept confidential?",
@@ -125,7 +125,7 @@ const beforeYouJoin = [
   {
     question: "Can I volunteer without becoming a member?",
     answer:
-      "Yes. Volunteering is open to everyone — membership simply gives you a more structured way to participate and contribute.",
+      "Yes. Volunteering is open to everyone - membership simply gives you a more structured way to participate and contribute.",
   },
 ];
 

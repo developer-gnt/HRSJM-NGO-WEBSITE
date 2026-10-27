@@ -19,7 +19,7 @@ export async function generateMetadata({
   const category = findArticleCategory(slug);
   if (!category) return { title: "Category Not Found" };
   return {
-    title: `${category.label} — News & Blog`,
+    title: `${category.label} - News & Blog`,
     description: category.description,
   };
 }
@@ -33,7 +33,7 @@ export default async function CategoryRoute({
   const category = findArticleCategory(slug);
   if (!category) notFound();
 
-  // Pass only the slug — the category object carries an icon component,
+  // Pass only the slug - the category object carries an icon component,
   // which cannot cross the server→client boundary.
   return <CategoryListingPage slug={slug} />;
 }

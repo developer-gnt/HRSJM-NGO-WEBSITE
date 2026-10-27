@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------- */
 /* What HRSJM Does page styles.                                     */
-/* Section 01 — Hero                                                */
+/* Section 01 - Hero                                                */
 /* (breadcrumb, eyebrow, heading, description, CTAs, handwritten    */
 /* script overlay, floating impact card)                            */
 /* ---------------------------------------------------------------- */
@@ -28,7 +28,7 @@
   object-position: center;
 }
 
-/* Left scrim — deep navy where the copy sits, easing out so the
+/* Left scrim - deep navy where the copy sits, easing out so the
    woman/community composition on the right keeps its golden light. */
 .heroScrim {
   position: absolute;
@@ -195,7 +195,7 @@
   transform: translateX(3px);
 }
 
-/* Secondary — double chevron + label, transparent with thin border */
+/* Secondary - double chevron + label, transparent with thin border */
 .secondaryBtn {
   display: inline-flex;
   align-items: center;
@@ -229,7 +229,7 @@
   margin-left: -9px;
 }
 
-/* Handwritten script overlay — sits over the image's golden light.
+/* Handwritten script overlay - sits over the image's golden light.
    Rotation lives on the wrapper so the fade-up animation on the text
    never overwrites it. */
 .heroScript {
@@ -324,7 +324,7 @@
   color: var(--color-text-secondary);
 }
 
-/* Load-in animations — subtle fade + upward stagger */
+/* Load-in animations - subtle fade + upward stagger */
 @keyframes heroFadeUp {
   from {
     opacity: 0;
@@ -375,7 +375,7 @@
   animation-delay: 720ms;
 }
 
-/* Tablet — 640–1024px */
+/* Tablet - 640–1024px */
 @media (max-width: 1023px) {
 
   .hero {
@@ -390,7 +390,7 @@
     object-position: 62% center;
   }
 
-  /* Script overlay is a desktop-only accent — it would crowd the
+  /* Script overlay is a desktop-only accent - it would crowd the
      narrower copy column */
   .heroScript {
     display: none;
@@ -402,10 +402,10 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
 
-  /* Content-driven height on mobile — no fixed min-height, so the
+  /* Content-driven height on mobile - no fixed min-height, so the
      hero is never taller than its copy needs. */
   .hero {
     min-height: 0;
@@ -617,7 +617,7 @@
   color: var(--color-text-secondary);
 }
 
-/* Viewport-entry reveal — intro copy, divider, then staggered pillars */
+/* Viewport-entry reveal - intro copy, divider, then staggered pillars */
 .approach.armed .approachEyebrow,
 .approach.armed .approachHeading,
 .approach.armed .approachDescription,
@@ -663,10 +663,10 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Approach — responsive                                            */
+/* Approach - responsive                                            */
 /* ---------------------------------------------------------------- */
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .approachInner {
     grid-template-columns: 1fr;
@@ -684,7 +684,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .approach {
     padding-block: 44px 52px;
@@ -699,7 +699,7 @@
   }
 }
 
-/* Very narrow — single-column pillars */
+/* Very narrow - single-column pillars */
 @media (max-width: 379px) {
   .approachList {
     grid-template-columns: 1fr;
@@ -729,7 +729,7 @@
 
 /* ---------------------------------------------------------------- */
 /* Key Areas of Our Work                                            */
-/* Dark photographic band — the section background is the provided  */
+/* Dark photographic band - the section background is the provided  */
 /* navy community scene (public/WHD-Cards/section-bg.png); a soft   */
 /* navy wash keeps the header copy readable over it.                */
 /* ---------------------------------------------------------------- */
@@ -754,7 +754,7 @@
   padding-inline: var(--page-padding);
 }
 
-/* Header — heading block left, supporting paragraph right */
+/* Header - heading block left, supporting paragraph right */
 .coreAreasHeader {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -810,7 +810,7 @@
   color: rgba(247, 244, 236, 0.82);
 }
 
-/* Cards — panoramic photo over a navy body, thin light border */
+/* Cards - panoramic photo over a navy body, thin light border */
 .coreAreasGrid {
   margin-top: clamp(36px, 3.4vw, 52px);
   display: grid;
@@ -921,7 +921,7 @@
   color: var(--color-gold);
 }
 
-/* Viewport-entry reveal — eyebrow, heading, paragraph, then the six
+/* Viewport-entry reveal - eyebrow, heading, paragraph, then the six
    cards in a left-to-right stagger */
 .coreAreas.armed .coreAreasEyebrow,
 .coreAreas.armed .coreAreasHeading,
@@ -953,10 +953,10 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Key Areas — responsive                                           */
+/* Key Areas - responsive                                           */
 /* ---------------------------------------------------------------- */
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .coreAreasHeader {
     grid-template-columns: 1fr;
@@ -976,7 +976,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .coreAreas {
     padding-block: 52px 60px;
@@ -1018,7 +1018,7 @@
 
 /* ---------------------------------------------------------------- */
 /* How We Work                                                      */
-/* Cream editorial band — intro copy left, brush-edge photo centre, */
+/* Cream editorial band - intro copy left, brush-edge photo centre, */
 /* five-step process list right (per page wireframe).               */
 /* ---------------------------------------------------------------- */
 
@@ -1120,7 +1120,7 @@
   transform: translateX(3px);
 }
 
-/* Centre image — the artwork's own painted cream ground lets it sit
+/* Centre image - the artwork's own painted cream ground lets it sit
    directly on the section background with no card treatment */
 .howWeWorkMedia {
   position: relative;
@@ -1132,7 +1132,7 @@
   height: auto;
 }
 
-/* Process list — number in a thin gold ring, no filled cards */
+/* Process list - number in a thin gold ring, no filled cards */
 .howWeWorkSteps {
   list-style: none;
   display: flex;
@@ -1175,7 +1175,7 @@
   color: var(--color-text-secondary);
 }
 
-/* Viewport-entry reveal — intro copy, image, then the five steps in
+/* Viewport-entry reveal - intro copy, image, then the five steps in
    sequence */
 .howWeWork.armed .howWeWorkEyebrow,
 .howWeWork.armed .howWeWorkHeading,
@@ -1219,10 +1219,10 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* How We Work — responsive                                         */
+/* How We Work - responsive                                         */
 /* ---------------------------------------------------------------- */
 
-/* Tablet — 640–1023px: keep the 3-column hierarchy, tightened */
+/* Tablet - 640–1023px: keep the 3-column hierarchy, tightened */
 @media (max-width: 1023px) {
   .howWeWorkInner {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.78fr) minmax(0, 1fr);
@@ -1230,7 +1230,7 @@
   }
 }
 
-/* Mobile — under 640px: stack eyebrow → heading → copy → CTA → image
+/* Mobile - under 640px: stack eyebrow → heading → copy → CTA → image
    → steps */
 @media (max-width: 639px) {
   .howWeWork {
@@ -1252,7 +1252,7 @@
   }
 }
 
-/* Very narrow — tighter step rows */
+/* Very narrow - tighter step rows */
 @media (max-width: 379px) {
   .howWeWorkStep {
     gap: 14px;
@@ -1316,7 +1316,7 @@
   object-position: 66% center;
 }
 
-/* Light left-only wash for copy legibility — the image is already
+/* Light left-only wash for copy legibility - the image is already
    dark navy on the left, so this stays subtle and never muddies the
    sunset/people on the right. */
 .impactScrim {
@@ -1425,7 +1425,7 @@
   transform: translateX(3px);
 }
 
-/* Glass panel — one unified surface for all four statistics. The
+/* Glass panel - one unified surface for all four statistics. The
    backdrop blur lets the sunset/people composition read through it
    without ever becoming a solid or a bright card. */
 .impactPanel {
@@ -1457,8 +1457,8 @@
   padding: clamp(18px, 1.8vw, 26px) clamp(22px, 2.8vw, 40px);
 }
 
-/* Hairline dividers — vertical between columns, horizontal between
-   rows — so the grid reads as one panel, not four cards. */
+/* Hairline dividers - vertical between columns, horizontal between
+   rows - so the grid reads as one panel, not four cards. */
 .impactStat:nth-child(odd) {
   border-right: 1px solid rgba(255, 255, 255, 0.12);
 }
@@ -1490,7 +1490,7 @@
   color: rgba(247, 244, 236, 0.72);
 }
 
-/* Viewport-entry reveal — copy column, then panel, then a very
+/* Viewport-entry reveal - copy column, then panel, then a very
    subtle per-statistic stagger. */
 .impact.armed .impactEyebrow,
 .impact.armed .impactHeading,
@@ -1533,7 +1533,7 @@
   transition-delay: calc(380ms + var(--stagger, 0) * 90ms);
 }
 
-/* Tablet — keep the two-column editorial split, tightened */
+/* Tablet - keep the two-column editorial split, tightened */
 @media (max-width: 1023px) {
   .impactInner {
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -1545,7 +1545,7 @@
   }
 }
 
-/* Mobile — copy stacks first, panel drops below; the sunset walk
+/* Mobile - copy stacks first, panel drops below; the sunset walk
    stays in frame via a right-leaning crop and an even wash. */
 @media (max-width: 639px) {
   .impact {
@@ -1586,7 +1586,7 @@
   }
 }
 
-/* Very narrow — single-column statistics */
+/* Very narrow - single-column statistics */
 @media (max-width: 379px) {
   .impactStat:nth-child(odd) {
     border-right: none;
@@ -1653,7 +1653,7 @@
   object-position: 63% center;
 }
 
-/* Subtle left-weighted wash for copy legibility — the image is
+/* Subtle left-weighted wash for copy legibility - the image is
    already dark navy on the left, so this stays light-handed and
    never muddies the golden-hour center or the boy. */
 .finalCtaScrim {
@@ -1736,14 +1736,14 @@
   margin-top: 26px;
 }
 
-/* Single leading arrow — distinguishes the movement link from the
+/* Single leading arrow - distinguishes the movement link from the
    hero's double-chevron variant while reusing the same surface. */
 .finalCtaSecondaryIcon {
   display: inline-flex;
   color: var(--color-white);
 }
 
-/* Handwritten script over the darker right edge — narrow column so
+/* Handwritten script over the darker right edge - narrow column so
    it stays on the navy brushwork and never crosses the boy's face.
    Rotation lives on the wrapper so the fade-up animation on the text
    never overwrites it, exactly like the hero script. */
@@ -1766,7 +1766,7 @@
   text-shadow: 0 1px 10px rgba(3, 29, 56, 0.55);
 }
 
-/* Viewport-entry reveal — text column first, buttons slightly after,
+/* Viewport-entry reveal - text column first, buttons slightly after,
    then the handwritten line fades in. */
 .finalCta.armed .finalCtaEyebrow,
 .finalCta.armed .finalCtaHeading,
@@ -1803,7 +1803,7 @@
   transition-delay: 340ms;
 }
 
-/* Tablet — copy widens a touch; the script hides with the crop, as
+/* Tablet - copy widens a touch; the script hides with the crop, as
    on the hero, so it can never crowd the boy's face. */
 @media (max-width: 1023px) {
   .finalCtaImg {
@@ -1819,7 +1819,7 @@
   }
 }
 
-/* Mobile — column stacks, buttons may stack vertically, and the boy
+/* Mobile - column stacks, buttons may stack vertically, and the boy
    stays visible on the right via a right-leaning crop with a fuller
    wash behind the copy. */
 @media (max-width: 639px) {
@@ -1884,7 +1884,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section — What We Do (Programs & Key Action Sectors)             */
+/* Section - What We Do (Programs & Key Action Sectors)             */
 /* ---------------------------------------------------------------- */
 
 .whatWeDoSection {
@@ -2248,6 +2248,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .whatWeDoSection.armed .whatWeDoEyebrow,
   .whatWeDoSection.armed .whatWeDoHeading,
   .whatWeDoSection.armed .whatWeDoDescription,
@@ -2263,4 +2264,3 @@
     transition: none;
   }
 }
-

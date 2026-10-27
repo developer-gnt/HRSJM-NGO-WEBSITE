@@ -1,13 +1,13 @@
 /* ---------------------------------------------------------------- */
 /* Know Your Rights page styles.                                    */
-/* Section 02 — Explore Rights / Know Your Rights grid              */
+/* Section 02 - Explore Rights / Know Your Rights grid              */
 /* (section header, handwritten quote, 11 rights cards)             */
 /* ---------------------------------------------------------------- */
 
 .section {
   background: var(--color-cream);
   padding: clamp(56px, 6.5vw, 96px) 0;
-  /* Anchor target of the hero CTA — clear the sticky navbar */
+  /* Anchor target of the hero CTA - clear the sticky navbar */
   scroll-margin-top: 120px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section header — copy left, handwritten quote right              */
+/* Section header - copy left, handwritten quote right              */
 /* ---------------------------------------------------------------- */
 
 .header {
@@ -160,7 +160,7 @@
   line-height: 1.55;
 }
 
-/* Viewport-entry reveal — header copy, quote, then staggered cards */
+/* Viewport-entry reveal - header copy, quote, then staggered cards */
 .section.armed .eyebrow,
 .section.armed .heading,
 .section.armed .description,
@@ -206,7 +206,7 @@
 /* Responsive                                                       */
 /* ---------------------------------------------------------------- */
 
-/* Tablet — 640–1024px */
+/* Tablet - 640–1024px */
 @media (max-width: 1023px) {
   .header {
     grid-template-columns: 1fr;
@@ -224,7 +224,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .grid {
     grid-template-columns: 1fr;
@@ -241,6 +241,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .section.armed .eyebrow,
   .section.armed .heading,
   .section.armed .description,

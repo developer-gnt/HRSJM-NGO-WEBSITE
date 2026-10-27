@@ -94,7 +94,7 @@ const getVisibleCount = () => {
 
 /* Continuous slow marquee: drifts forward one card every ~5s, looping
    forever and wrapping modulo stories.length. Arrows and swipes glide one
-   card on top of the drift. The track renders the stories twice — the
+   card on top of the drift. The track renders the stories twice - the
    second copy stands in for the first whenever the offset crosses a full
    cycle. Drift pauses on hover/focus and while off-screen. */
 const DRIFT_CARDS_PER_SECOND = 1 / 5;

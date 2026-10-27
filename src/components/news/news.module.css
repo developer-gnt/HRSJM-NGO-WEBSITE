@@ -1,32 +1,27 @@
 /* ---------------------------------------------------------------- */
 /* News & Blog page styles.                                         */
-/* Section 01 — News Hero                                           */
+/* Section 01 - News Hero                                           */
 /* ---------------------------------------------------------------- */
 
 .hero {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy)
-    url("/images/news-hero-bg.png")
-    center right / cover
-    no-repeat;
+  background: var(--color-navy) url("/images/news-hero-bg.png") center right / cover no-repeat;
   color: var(--color-white);
 }
 
-/* Navy editorial overlay — strongest on the left where the text sits,
+/* Navy editorial overlay - strongest on the left where the text sits,
    easing off to the right so the courthouse/newspaper visual stays
    visible. */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.94) 0%,
-    rgba(3, 29, 56, 0.82) 32%,
-    rgba(3, 29, 56, 0.38) 58%,
-    rgba(3, 29, 56, 0.05) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.94) 0%,
+      rgba(3, 29, 56, 0.82) 32%,
+      rgba(3, 29, 56, 0.38) 58%,
+      rgba(3, 29, 56, 0.05) 100%);
 }
 
 .heroInner {
@@ -174,7 +169,7 @@
   transform: rotate(-2deg);
 }
 
-/* Bottom category strip — compact dark translucent navigation */
+/* Bottom category strip - compact dark translucent navigation */
 .categories {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -234,7 +229,7 @@
   text-overflow: ellipsis;
 }
 
-/* Tablet — 640–1023px: 3×2 category grid, script note stays top-right */
+/* Tablet - 640–1023px: 3×2 category grid, script note stays top-right */
 @media (max-width: 1023px) {
   .hero {
     background-position: 62% center;
@@ -280,7 +275,7 @@
   }
 }
 
-/* Mobile — under 640px: stronger overlay for text legibility, strip
+/* Mobile - under 640px: stronger overlay for text legibility, strip
    becomes horizontally scrollable without page-level scrolling */
 @media (max-width: 639px) {
   .hero {
@@ -288,12 +283,10 @@
   }
 
   .hero::before {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 29, 56, 0.88) 0%,
-      rgba(3, 29, 56, 0.78) 55%,
-      rgba(3, 29, 56, 0.92) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 29, 56, 0.88) 0%,
+        rgba(3, 29, 56, 0.78) 55%,
+        rgba(3, 29, 56, 0.92) 100%);
   }
 
   .heroInner {
@@ -332,7 +325,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 02 — Featured Article + Categories                        */
+/* Section 02 - Featured Article + Categories                        */
 /* ---------------------------------------------------------------- */
 
 .featured {
@@ -345,7 +338,7 @@
   padding: 0 var(--page-padding);
 }
 
-/* Section label — same rhythm as the hero eyebrow, on cream */
+/* Section label - same rhythm as the hero eyebrow, on cream */
 .sectionEyebrow {
   display: flex;
   align-items: center;
@@ -366,7 +359,7 @@
   margin-top: 16px;
 }
 
-/* Featured article card — image left, navy content panel right */
+/* Featured article card - image left, navy content panel right */
 .featuredCard {
   display: grid;
   grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
@@ -547,7 +540,7 @@
   text-overflow: ellipsis;
 }
 
-/* Tablet — stack columns, featured first then categories */
+/* Tablet - stack columns, featured first then categories */
 @media (max-width: 1023px) {
   .featured {
     padding-top: 44px;
@@ -601,7 +594,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 03 — Latest News & Updates + Trending + Newsletter        */
+/* Section 03 - Latest News & Updates + Trending + Newsletter        */
 /* ---------------------------------------------------------------- */
 
 .latest {
@@ -649,7 +642,7 @@
   color: var(--color-gold-dark);
 }
 
-/* Article cards — editorial, white on cream, subtle borders.
+/* Article cards - editorial, white on cream, subtle borders.
    Wide desktop shows the reference's 3×2 compact grid. */
 .articleGrid {
   display: grid;
@@ -765,7 +758,7 @@
   outline-offset: 2px;
 }
 
-/* Sidebar — trending + newsletter */
+/* Sidebar - trending + newsletter */
 .latestSidebar {
   display: flex;
   flex-direction: column;
@@ -792,7 +785,7 @@
   padding: 11px 0;
 }
 
-.trendingList li + li .trendingItem {
+.trendingList li+li .trendingItem {
   border-top: 1px solid var(--color-border);
 }
 
@@ -929,7 +922,7 @@
   margin-top: 6px;
 }
 
-/* Mid-width desktop — 2-column article grid when the sidebar
+/* Mid-width desktop - 2-column article grid when the sidebar
    would squeeze 3 columns too tight */
 @media (max-width: 1279px) {
   .articleGrid {
@@ -937,7 +930,7 @@
   }
 }
 
-/* Tablet — stack content and sidebar */
+/* Tablet - stack content and sidebar */
 @media (max-width: 1023px) {
   .latest {
     padding: 32px 0 52px;
@@ -971,7 +964,7 @@
   }
 }
 
-/* Mobile — single column cards, sidebar stacks below */
+/* Mobile - single column cards, sidebar stacks below */
 @media (max-width: 639px) {
   .latest {
     padding: 28px 0 44px;
@@ -1000,32 +993,27 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 04 — Knowledge Empowers Banner                            */
+/* Section 04 - Knowledge Empowers Banner                            */
 /* ---------------------------------------------------------------- */
 
 .knowledge {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy-dark)
-    url("/images/news-knowledge-bg.png")
-    center right / cover
-    no-repeat;
+  background: var(--color-navy-dark) url("/images/news-knowledge-bg.png") center right / cover no-repeat;
   color: var(--color-white);
 }
 
-/* Navy editorial overlay — solid on the left where the text sits,
+/* Navy editorial overlay - solid on the left where the text sits,
    easing off so the book/scales/gavel imagery stays visible. */
 .knowledge::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.96) 0%,
-    rgba(3, 29, 56, 0.86) 30%,
-    rgba(3, 29, 56, 0.45) 58%,
-    rgba(3, 29, 56, 0.08) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.96) 0%,
+      rgba(3, 29, 56, 0.86) 30%,
+      rgba(3, 29, 56, 0.45) 58%,
+      rgba(3, 29, 56, 0.08) 100%);
 }
 
 .knowledgeInner {
@@ -1086,19 +1074,17 @@
   }
 }
 
-/* Mobile — text first, imagery stays as the backdrop */
+/* Mobile - text first, imagery stays as the backdrop */
 @media (max-width: 639px) {
   .knowledge {
     background-position: 74% center;
   }
 
   .knowledge::before {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 29, 56, 0.92) 0%,
-      rgba(3, 29, 56, 0.82) 55%,
-      rgba(3, 29, 56, 0.9) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 29, 56, 0.92) 0%,
+        rgba(3, 29, 56, 0.82) 55%,
+        rgba(3, 29, 56, 0.9) 100%);
   }
 
   .knowledgeInner {
@@ -1111,7 +1097,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 05 — Voices from the Community                            */
+/* Section 05 - Voices from the Community                            */
 /* ---------------------------------------------------------------- */
 
 .voices {
@@ -1160,7 +1146,7 @@
   color: var(--color-gold);
 }
 
-/* Card track — 4 per view on desktop, scrollable within the section */
+/* Card track - 4 per view on desktop, scrollable within the section */
 .voicesTrack {
   display: grid;
   grid-auto-flow: column;
@@ -1232,7 +1218,7 @@
   font-weight: 500;
 }
 
-/* Tablet — 2 cards per view */
+/* Tablet - 2 cards per view */
 @media (max-width: 1023px) {
   .voices {
     padding: 44px 0 52px;
@@ -1243,7 +1229,7 @@
   }
 }
 
-/* Mobile — 1 card per view, scrolling contained in the track */
+/* Mobile - 1 card per view, scrolling contained in the track */
 @media (max-width: 639px) {
   .voices {
     padding: 36px 0 44px;
@@ -1261,16 +1247,13 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 06 — Final CTA (Be a Part of the Movement)                */
+/* Section 06 - Final CTA (Be a Part of the Movement)                */
 /* ---------------------------------------------------------------- */
 
 .cta {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy-dark)
-    url("/images/news-cta-bg.png")
-    center / cover
-    no-repeat;
+  background: var(--color-navy-dark) url("/images/news-cta-bg.png") center / cover no-repeat;
   color: var(--color-white);
 }
 
@@ -1280,13 +1263,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.95) 0%,
-    rgba(3, 29, 56, 0.85) 26%,
-    rgba(3, 29, 56, 0.42) 52%,
-    rgba(3, 29, 56, 0.06) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.95) 0%,
+      rgba(3, 29, 56, 0.85) 26%,
+      rgba(3, 29, 56, 0.42) 52%,
+      rgba(3, 29, 56, 0.06) 100%);
 }
 
 .ctaInner {
@@ -1398,7 +1379,7 @@
   }
 }
 
-/* Mobile — stack content, quote joins the flow */
+/* Mobile - stack content, quote joins the flow */
 @media (max-width: 700px) {
   .ctaInner {
     flex-direction: column;
@@ -1421,12 +1402,10 @@
   }
 
   .cta::before {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 29, 56, 0.9) 0%,
-      rgba(3, 29, 56, 0.78) 55%,
-      rgba(3, 29, 56, 0.92) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 29, 56, 0.9) 0%,
+        rgba(3, 29, 56, 0.78) 55%,
+        rgba(3, 29, 56, 0.92) 100%);
   }
 
   .ctaInner {
@@ -1487,6 +1466,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .armed [data-reveal],
   .armed [data-reveal-fade],
   .armed [data-reveal-item],

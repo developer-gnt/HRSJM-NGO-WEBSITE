@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------- */
 /* Complaint / Get Help page styles.                                */
-/* Section 01 — Complaint Hero                                      */
-/* Section 02 — How We Can Help                                     */
+/* Section 01 - Complaint Hero                                      */
+/* Section 02 - How We Can Help                                     */
 /* ---------------------------------------------------------------- */
 
 .hero {
@@ -11,7 +11,7 @@
   color: var(--color-white);
 }
 
-/* Navy editorial overlay — strongest on the left where the text sits,
+/* Navy editorial overlay - strongest on the left where the text sits,
    easing off to the right so the woman/community visual stays visible. */
 .hero::before {
   content: "";
@@ -224,7 +224,7 @@
   transform: rotate(-2deg);
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .hero {
     background-position: 68% center;
@@ -239,7 +239,7 @@
   }
 
   /* Move the note to the top-right so it never covers the
-     woman's face — the top corner only has sky and temple. */
+     woman's face - the top corner only has sky and temple. */
   .scriptNote {
     top: 18px;
     bottom: auto;
@@ -279,7 +279,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .hero {
     background-position: 72% 30%;
@@ -328,7 +328,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 02 — How We Can Help                                     */
+/* Section 02 - How We Can Help                                     */
 /* ---------------------------------------------------------------- */
 
 .support {
@@ -468,7 +468,7 @@
   color: #52677a;
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .support {
     padding: 52px 0 60px;
@@ -490,7 +490,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .support {
     padding: 44px 0 52px;
@@ -513,7 +513,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 03 — A Simple & Secure Process                           */
+/* Section 03 - A Simple & Secure Process                           */
 /* ---------------------------------------------------------------- */
 
 .process {
@@ -522,7 +522,7 @@
   background: var(--color-navy) url("/images/complaint-process-bg.png") center / cover no-repeat;
 }
 
-/* Navy editorial overlay — strongest on the left behind the intro,
+/* Navy editorial overlay - strongest on the left behind the intro,
    easing off to the right where the light sky keeps the steps readable. */
 .process::before {
   content: "";
@@ -653,7 +653,7 @@
   color: #3d5266;
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .processInner {
     padding: 56px var(--page-padding);
@@ -762,7 +762,7 @@
   }
 }
 
-/* Mobile — vertical timeline under 640px */
+/* Mobile - vertical timeline under 640px */
 @media (max-width: 639px) {
   .processInner {
     padding: 44px var(--page-padding);
@@ -817,7 +817,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 04 — File a Complaint + Before You File                  */
+/* Section 04 - File a Complaint + Before You File                  */
 /* ---------------------------------------------------------------- */
 
 .fileSection {
@@ -835,7 +835,7 @@
   align-items: start;
 }
 
-/* Left — form */
+/* Left - form */
 .fileEyebrow {
   display: flex;
   align-items: center;
@@ -1038,7 +1038,7 @@
   color: #52677a;
 }
 
-/* Right — Before You File panel */
+/* Right - Before You File panel */
 .filePanel {
   border-radius: 8px;
   overflow: hidden;
@@ -1138,7 +1138,7 @@
   color: #52677a;
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .fileSection {
     padding: 52px 0 60px;
@@ -1154,7 +1154,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .fileSection {
     padding: 44px 0 52px;
@@ -1184,7 +1184,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 05 — Additional Support                                  */
+/* Section 05 - Additional Support                                  */
 /* ---------------------------------------------------------------- */
 
 .supportExtra {
@@ -1282,7 +1282,7 @@ a.supportExtraValue:hover {
   transform: translateX(4px);
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .supportExtra {
     padding: 0 0 60px;
@@ -1295,7 +1295,7 @@ a.supportExtraValue:hover {
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .supportExtra {
     padding: 0 0 52px;
@@ -1309,7 +1309,7 @@ a.supportExtraValue:hover {
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 06 — People We Have Supported                            */
+/* Section 06 - People We Have Supported                            */
 /* ---------------------------------------------------------------- */
 
 .stories {
@@ -1458,7 +1458,7 @@ a.supportExtraValue:hover {
   background: #ddaa3a;
 }
 
-/* Tablet — 640–1023px: two visible cards */
+/* Tablet - 640–1023px: two visible cards */
 @media (max-width: 1023px) {
   .stories {
     padding: 56px 0 64px;
@@ -1474,7 +1474,7 @@ a.supportExtraValue:hover {
   }
 }
 
-/* Mobile — under 640px: one card carousel */
+/* Mobile - under 640px: one card carousel */
 @media (max-width: 639px) {
   .stories {
     padding: 48px 0 56px;
@@ -1490,7 +1490,7 @@ a.supportExtraValue:hover {
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 07 — Final CTA                                           */
+/* Section 07 - Final CTA                                           */
 /* ---------------------------------------------------------------- */
 
 .cta {
@@ -1592,7 +1592,7 @@ a.supportExtraValue:hover {
   border-color: rgba(255, 255, 255, 0.55);
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .ctaInner {
     padding: 68px var(--page-padding);
@@ -1614,7 +1614,7 @@ a.supportExtraValue:hover {
   }
 }
 
-/* Mobile — under 640px: content stacks over the image with the
+/* Mobile - under 640px: content stacks over the image with the
    script note above it; background anchors to the child's face. */
 @media (max-width: 639px) {
   .cta {
@@ -1892,13 +1892,25 @@ a.supportExtraValue:hover {
 }
 
 @keyframes ackFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes ackSlideUp {
-  from { opacity: 0; transform: translateY(16px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .ackModalCard {
@@ -2467,18 +2479,24 @@ a.supportExtraValue:hover {
   .ackSummaryGrid {
     grid-template-columns: 1fr;
   }
+
   .ackMemberCard {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .ackModalFooter {
     flex-direction: column;
     gap: 10px;
   }
-  .ackFooterLeft, .ackPrintBtn, .ackCloseBtn {
+
+  .ackFooterLeft,
+  .ackPrintBtn,
+  .ackCloseBtn {
     width: 100%;
     justify-content: center;
   }
+
   .ackDonateSubmitBtn {
     width: 100%;
     justify-content: center;
@@ -2491,15 +2509,19 @@ a.supportExtraValue:hover {
   body * {
     visibility: hidden;
   }
+
   .ackModalOverlay {
     position: absolute;
     inset: 0;
     background: transparent;
     padding: 0;
   }
-  .ackModalCard, .ackModalCard * {
+
+  .ackModalCard,
+  .ackModalCard * {
     visibility: visible;
   }
+
   .ackModalCard {
     position: absolute;
     left: 0;
@@ -2509,10 +2531,11 @@ a.supportExtraValue:hover {
     box-shadow: none;
     border: none;
   }
+
   .ackCloseIconBtn,
   .ackCopyBtn,
   .ackOptionsBox,
   .ackModalFooter {
     display: none !important;
   }
-}
+}

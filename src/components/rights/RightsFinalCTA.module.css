@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------- */
 /* Know Your Rights page styles.                                    */
-/* Section — Final CTA                                              */
+/* Section - Final CTA                                              */
 /* (full-width mountain/flag backdrop, left-aligned closing copy)   */
 /* ---------------------------------------------------------------- */
 
@@ -10,7 +10,7 @@
   isolation: isolate;
   background: var(--color-navy-dark);
   color: var(--color-white);
-  /* Cinematic closing band — tall enough to breathe, never taller */
+  /* Cinematic closing band - tall enough to breathe, never taller */
   padding: clamp(64px, 7vw, 104px) 0;
 }
 
@@ -32,20 +32,16 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(
-      90deg,
+    linear-gradient(90deg,
       rgba(3, 29, 56, 0.88) 0%,
       rgba(3, 29, 56, 0.6) 30%,
       rgba(3, 29, 56, 0.16) 56%,
-      rgba(3, 29, 56, 0) 74%
-    ),
-    linear-gradient(
-      180deg,
+      rgba(3, 29, 56, 0) 74%),
+    linear-gradient(180deg,
       rgba(3, 29, 56, 0.32) 0%,
       rgba(3, 29, 56, 0) 30%,
       rgba(3, 29, 56, 0) 66%,
-      rgba(3, 29, 56, 0.4) 100%
-    );
+      rgba(3, 29, 56, 0.4) 100%);
   pointer-events: none;
 }
 
@@ -56,7 +52,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Copy — eyebrow, heading, description, CTAs                       */
+/* Copy - eyebrow, heading, description, CTAs                       */
 /* ---------------------------------------------------------------- */
 
 .eyebrow {
@@ -168,7 +164,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Viewport-entry reveal — background settles first, copy staggers  */
+/* Viewport-entry reveal - background settles first, copy staggers  */
 /* ---------------------------------------------------------------- */
 
 .section.armed .bg {
@@ -215,7 +211,7 @@
 /* Responsive                                                       */
 /* ---------------------------------------------------------------- */
 
-/* Tablet — slightly shorter band */
+/* Tablet - slightly shorter band */
 @media (max-width: 1023px) {
   .section {
     padding: clamp(56px, 6vw, 80px) 0;
@@ -230,7 +226,7 @@
   }
 }
 
-/* Mobile — single column; keep the people and flag in frame while
+/* Mobile - single column; keep the people and flag in frame while
    the stronger scrim holds the copy readable on the left. */
 @media (max-width: 639px) {
   .section {
@@ -243,18 +239,14 @@
 
   .scrim {
     background:
-      linear-gradient(
-        180deg,
+      linear-gradient(180deg,
         rgba(3, 29, 56, 0.6) 0%,
         rgba(3, 29, 56, 0.42) 45%,
-        rgba(3, 29, 56, 0.66) 100%
-      ),
-      linear-gradient(
-        90deg,
+        rgba(3, 29, 56, 0.66) 100%),
+      linear-gradient(90deg,
         rgba(3, 29, 56, 0.88) 0%,
         rgba(3, 29, 56, 0.6) 52%,
-        rgba(3, 29, 56, 0.32) 100%
-      );
+        rgba(3, 29, 56, 0.32) 100%);
   }
 
   .heading {

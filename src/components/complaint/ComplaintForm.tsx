@@ -97,8 +97,8 @@ const complaintTypes = [
   "Discrimination / Atrocity",
   "Harassment or Threat",
   "Police / Authority Misconduct",
-  "Legal Aid — Civil",
-  "Legal Aid — Criminal",
+  "Legal Aid - Civil",
+  "Legal Aid - Criminal",
   "Women's Rights & Safety",
   "Child Rights & Protection",
   "Caste / Tribal Rights",
@@ -700,9 +700,8 @@ export default function ComplaintForm() {
                   onChange={(e) => handleFileUpload("aadhaar", e)}
                 />
                 <div
-                  className={`${styles.uploadCard} ${
-                    values.aadhaarFileName ? styles.uploadCardSuccess : ""
-                  } ${errors.aadhaarFile ? styles.uploadCardError : ""}`}
+                  className={`${styles.uploadCard} ${values.aadhaarFileName ? styles.uploadCardSuccess : ""
+                    } ${errors.aadhaarFile ? styles.uploadCardError : ""}`}
                   onClick={() => aadhaarInputRef.current?.click()}
                   role="button"
                   tabIndex={0}
@@ -713,9 +712,8 @@ export default function ComplaintForm() {
                   <div className={styles.uploadCardContent}>
                     <div className={styles.uploadIconText}>
                       <div
-                        className={`${styles.uploadIconCircle} ${
-                          values.aadhaarFileName ? styles.uploadIconCircleSuccess : ""
-                        }`}
+                        className={`${styles.uploadIconCircle} ${values.aadhaarFileName ? styles.uploadIconCircleSuccess : ""
+                          }`}
                       >
                         {values.aadhaarFileName ? <Check size={18} strokeWidth={2.6} /> : <FileText size={18} />}
                       </div>
@@ -763,9 +761,8 @@ export default function ComplaintForm() {
                   onChange={(e) => handleFileUpload("handwritten", e)}
                 />
                 <div
-                  className={`${styles.uploadCard} ${
-                    values.handwrittenFileName ? styles.uploadCardSuccess : ""
-                  } ${errors.handwrittenFile ? styles.uploadCardError : ""}`}
+                  className={`${styles.uploadCard} ${values.handwrittenFileName ? styles.uploadCardSuccess : ""
+                    } ${errors.handwrittenFile ? styles.uploadCardError : ""}`}
                   onClick={() => handwrittenInputRef.current?.click()}
                   role="button"
                   tabIndex={0}
@@ -776,9 +773,8 @@ export default function ComplaintForm() {
                   <div className={styles.uploadCardContent}>
                     <div className={styles.uploadIconText}>
                       <div
-                        className={`${styles.uploadIconCircle} ${
-                          values.handwrittenFileName ? styles.uploadIconCircleSuccess : ""
-                        }`}
+                        className={`${styles.uploadIconCircle} ${values.handwrittenFileName ? styles.uploadIconCircleSuccess : ""
+                          }`}
                       >
                         {values.handwrittenFileName ? <Check size={18} strokeWidth={2.6} /> : <Upload size={18} />}
                       </div>
@@ -824,9 +820,8 @@ export default function ComplaintForm() {
               </p>
               <div className={styles.deptRadioRow}>
                 <label
-                  className={`${styles.deptRadioLabel} ${
-                    !values.reportedToOtherDept ? styles.deptRadioLabelSelected : ""
-                  }`}
+                  className={`${styles.deptRadioLabel} ${!values.reportedToOtherDept ? styles.deptRadioLabelSelected : ""
+                    }`}
                 >
                   <input
                     type="radio"
@@ -848,9 +843,8 @@ export default function ComplaintForm() {
                 </label>
 
                 <label
-                  className={`${styles.deptRadioLabel} ${
-                    values.reportedToOtherDept ? styles.deptRadioLabelSelected : ""
-                  }`}
+                  className={`${styles.deptRadioLabel} ${values.reportedToOtherDept ? styles.deptRadioLabelSelected : ""
+                    }`}
                 >
                   <input
                     type="radio"
@@ -903,9 +897,8 @@ export default function ComplaintForm() {
                       onChange={(e) => handleFileUpload("otherDept", e)}
                     />
                     <div
-                      className={`${styles.uploadCard} ${
-                        values.otherDeptFileName ? styles.uploadCardSuccess : ""
-                      }`}
+                      className={`${styles.uploadCard} ${values.otherDeptFileName ? styles.uploadCardSuccess : ""
+                        }`}
                       onClick={() => otherDeptInputRef.current?.click()}
                       role="button"
                       tabIndex={0}
@@ -913,9 +906,8 @@ export default function ComplaintForm() {
                       <div className={styles.uploadCardContent}>
                         <div className={styles.uploadIconText}>
                           <div
-                            className={`${styles.uploadIconCircle} ${
-                              values.otherDeptFileName ? styles.uploadIconCircleSuccess : ""
-                            }`}
+                            className={`${styles.uploadIconCircle} ${values.otherDeptFileName ? styles.uploadIconCircleSuccess : ""
+                              }`}
                           >
                             {values.otherDeptFileName ? <Check size={18} strokeWidth={2.6} /> : <Building2 size={18} />}
                           </div>
@@ -1284,7 +1276,7 @@ export default function ComplaintForm() {
                   </div>
                   <div>
                     <h3 className={styles.ackOptionsTitle}>
-                      Support Justice — Ways to Get Involved
+                      Support Justice - Ways to Get Involved
                     </h3>
                     <p className={styles.ackOptionsSubtitle}>
                       HRSJM provides free legal aid, grievance redressal, and human rights defense across India. You may choose to support our work through a nominal donation, become an official member, or proceed directly.
@@ -1309,9 +1301,8 @@ export default function ComplaintForm() {
                         <button
                           key={amt}
                           type="button"
-                          className={`${styles.ackDonateChip} ${
-                            donateAmount === amt ? styles.ackDonateChipSelected : ""
-                          }`}
+                          className={`${styles.ackDonateChip} ${donateAmount === amt ? styles.ackDonateChipSelected : ""
+                            }`}
                           onClick={() => {
                             setDonateAmount(amt);
                             setCustomDonateAmount(String(amt));

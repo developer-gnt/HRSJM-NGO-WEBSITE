@@ -393,7 +393,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         tocTitle: "A More Equal Future",
         heading: "6. A More Equal Future",
         paragraphs: [
-          "A safer, more equal future is possible when we work together — empowering women, challenging discrimination, and creating opportunities for every girl to thrive. Let's continue to support and stand for women's rights.",
+          "A safer, more equal future is possible when we work together - empowering women, challenging discrimination, and creating opportunities for every girl to thrive. Let's continue to support and stand for women's rights.",
         ],
       },
     ],
@@ -455,7 +455,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         heading: "1. Why Maharashtra, Why Now",
         paragraphs: [
           "This monsoon season, our field teams travelled through settlements and village clusters across Maharashtra where awareness of basic legal rights remains thin and access to institutional help is thinner. Common complaints heard across districts: delayed ration supplies, unpaid wages, school admission hurdles for migrant children, and confusion regarding official documents.",
-          "The outreach programme was designed around those grievances — not around what we assumed people needed, but around what community members told us during our initial listening visits.",
+          "The outreach programme was designed around those grievances - not around what we assumed people needed, but around what community members told us during our initial listening visits.",
         ],
       },
       {
@@ -477,7 +477,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         tocTitle: "Listening Before Teaching",
         heading: "3. Listening Before Teaching",
         paragraphs: [
-          "The most important sessions were the ones where we spoke least. Community meetings opened with residents describing their own disputes and doubts, and the guidance followed those threads — rights explained through the very problems in the room, in Marathi and Hindi, with printed one-page guides left behind for later reference.",
+          "The most important sessions were the ones where we spoke least. Community meetings opened with residents describing their own disputes and doubts, and the guidance followed those threads - rights explained through the very problems in the room, in Marathi and Hindi, with printed one-page guides left behind for later reference.",
           "Local volunteers from each settlement were identified and briefed to continue the work after the programme moved on. Knowledge that stays in the community outlasts any single visit.",
         ],
       },
@@ -520,7 +520,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         tocTitle: "What Comes Next",
         heading: "6. What Comes Next",
         paragraphs: [
-          "The Maharashtra outreach will return in the coming quarter to follow up on open cases and expand into newly identified districts. An application filed is not a problem solved — we track every grievance until resolution.",
+          "The Maharashtra outreach will return in the coming quarter to follow up on open cases and expand into newly identified districts. An application filed is not a problem solved - we track every grievance until resolution.",
           "We invite volunteers, supporters and community advocates to stand with us as we expand our outreach across Western India.",
         ],
       },
@@ -582,7 +582,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         tocTitle: "Rights Every Child Holds",
         heading: "1. The Rights Every Child Holds",
         paragraphs: [
-          "Children in India hold a full charter of rights guaranteed by the Constitution: the right to life, dignity, equality, and protection against discrimination. The guiding principle is universal: the best interests of the child must always come first — ahead of convenience, custom, or cost.",
+          "Children in India hold a full charter of rights guaranteed by the Constitution: the right to life, dignity, equality, and protection against discrimination. The guiding principle is universal: the best interests of the child must always come first - ahead of convenience, custom, or cost.",
           "A child is a recognized rights-holder, entitled to education, healthcare, and an environment free from exploitation, abuse, and neglect.",
         ],
       },
@@ -831,7 +831,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
     bannerImage: "/images/news-featured-supreme-court.png",
     cardImage: "/images/news-featured-supreme-court.png",
     summaryCallout:
-      "India's Constitution opens with a promise: justice, liberty, equality and dignity for every citizen. Fundamental Rights are the backbone of that promise — guarantees that protect us in our homes, workplaces, classrooms and courtrooms.",
+      "India's Constitution opens with a promise: justice, liberty, equality and dignity for every citizen. Fundamental Rights are the backbone of that promise - guarantees that protect us in our homes, workplaces, classrooms and courtrooms.",
     sections: [
       {
         id: "understanding-rights",
@@ -849,10 +849,10 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
           "Fundamental rights are enforceable guarantees directly actionable before High Courts and the Supreme Court:",
         ],
         steps: [
-          { number: 1, text: "Right to Equality (Articles 14–18) — Non-discrimination and equal opportunity" },
-          { number: 2, text: "Right to Freedom (Articles 19–22) — Speech, peaceful assembly, and personal liberty" },
-          { number: 3, text: "Right against Exploitation (Articles 23–24) — Prohibition of forced and child labour" },
-          { number: 4, text: "Right to Constitutional Remedies (Article 32) — Direct access to the highest court" },
+          { number: 1, text: "Right to Equality (Articles 14–18) - Non-discrimination and equal opportunity" },
+          { number: 2, text: "Right to Freedom (Articles 19–22) - Speech, peaceful assembly, and personal liberty" },
+          { number: 3, text: "Right against Exploitation (Articles 23–24) - Prohibition of forced and child labour" },
+          { number: 4, text: "Right to Constitutional Remedies (Article 32) - Direct access to the highest court" },
         ],
       },
       {
@@ -904,7 +904,7 @@ export const newsArticlesData: Record<string, NewsArticleDetail> = {
         tocTitle: "The Road Ahead",
         heading: "6. The Road Ahead",
         paragraphs: [
-          "Fundamental rights are India's shared inheritance — and a shared responsibility. As society changes, the work of defending dignity, equality and justice changes with it. HRSJM remains committed to walking alongside communities across the nation.",
+          "Fundamental rights are India's shared inheritance - and a shared responsibility. As society changes, the work of defending dignity, equality and justice changes with it. HRSJM remains committed to walking alongside communities across the nation.",
         ],
       },
     ],

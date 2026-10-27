@@ -25,6 +25,30 @@ export default function TestingPhaseModal() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Lock background scrolling while modal is open
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalDocOverflow = document.documentElement.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+
+    // Compensate for disappearing scrollbar to avoid layout shift
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalDocOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
+    };
+  }, [isOpen]);
+
   const handleContinue = () => {
     if (testingNoticeConfig.displayFrequency === "session") {
       sessionStorage.setItem("hrsjm_testing_acknowledged", "true");

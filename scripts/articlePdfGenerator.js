@@ -25,7 +25,7 @@ function wrapText(text, font, size, maxWidth) {
   const clean = text
     .replace(/[“”]/g, '"')
     .replace(/[‘’]/g, "'")
-    .replace(/—/g, " - ")
+    .replace(/-/g, " - ")
     .replace(/–/g, " - ")
     .replace(/₹/g, "Rs. ")
     .replace(/•/g, "-")

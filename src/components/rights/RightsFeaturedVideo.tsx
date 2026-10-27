@@ -26,7 +26,7 @@ export default function RightsFeaturedVideo() {
 
           <p className={styles.videoDescription}>
             Watch this important video to understand the human rights that
-            protect your dignity and freedom — and the legal protections that
+            protect your dignity and freedom - and the legal protections that
             uphold them. Learn to recognise when rights are denied, and
             discover practical steps you can take to respond, seek help and
             stand up for yourself and for others in your community.

@@ -109,7 +109,7 @@ export default function AllArticlesPage() {
                 </div>
               ) : (
                 <p className={styles.listingEmpty}>
-                  No articles in this category yet — new stories are published
+                  No articles in this category yet - new stories are published
                   regularly, so check back soon.
                 </p>
               )}

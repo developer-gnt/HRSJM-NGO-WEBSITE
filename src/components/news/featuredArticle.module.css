@@ -1,5 +1,5 @@
 /* ================================================================ */
-/* Featured Article page — featuredArticle.module.css                */
+/* Featured Article page - featuredArticle.module.css                */
 /* Same design system: navy + gold on cream, editorial serif,        */
 /* white cards with thin borders (mirrors the event detail page).    */
 /* ================================================================ */
@@ -63,7 +63,7 @@
   min-width: 0;
 }
 
-.sidebarSticky > aside {
+.sidebarSticky>aside {
   position: sticky;
   top: 96px;
 }
@@ -77,7 +77,7 @@
   padding-top: 0;
 }
 
-.articleSection + .articleSection {
+.articleSection+.articleSection {
   border-top: 1px solid var(--color-border);
 }
 
@@ -156,7 +156,7 @@
   transform: translateY(-1px);
 }
 
-/* Tablet — article and category navigation stack, navigation follows
+/* Tablet - article and category navigation stack, navigation follows
    the content */
 @media (max-width: 1023px) {
   .contentGrid {
@@ -164,12 +164,12 @@
     gap: 36px;
   }
 
-  .sidebarSticky > aside {
+  .sidebarSticky>aside {
     position: static;
   }
 }
 
-/* Mobile — readable single-column article */
+/* Mobile - readable single-column article */
 @media (max-width: 639px) {
   .detail {
     padding: 24px 0 52px;

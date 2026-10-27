@@ -1,7 +1,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import styles from "./membership.module.css";
 
-/* Contact values mirror src/config/footer.ts (placeholders there — update
+/* Contact values mirror src/config/footer.ts (placeholders there - update
    both when real details are connected). */
 const channels = [
   {

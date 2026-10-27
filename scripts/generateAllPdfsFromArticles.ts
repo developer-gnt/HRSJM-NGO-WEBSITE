@@ -55,7 +55,7 @@ async function main() {
         ...childArticle,
         title: "Child Protection Guide",
         subtitle:
-          "Building a Safer and Brighter Future — Comprehensive Rights, POCSO Safeguards & Child Welfare in India",
+          "Building a Safer and Brighter Future - Comprehensive Rights, POCSO Safeguards & Child Welfare in India",
         category: "Child Rights & Protection",
       },
       "child-protection-guide.pdf",

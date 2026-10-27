@@ -44,7 +44,7 @@ export default function HistoryContactStrip() {
           {/* Badge Pill with Laurel */}
           <div className={styles.badgePill}>
             <Award className={styles.badgeLaurel} size={18} strokeWidth={2.4} />
-            <span>HRSJM — We Are Human &amp; Serve For Humanity.</span>
+            <span>HRSJM - We Are Human &amp; Serve For Humanity.</span>
           </div>
         </div>
       </div>

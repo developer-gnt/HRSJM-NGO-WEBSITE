@@ -11,16 +11,16 @@ export default function BenefitsPage() {
       {/* 1. Benefits Hero Banner */}
       <BenefitsHero />
 
-      {/* 2. Key Benefits — 6 cards in 3x2 grid */}
+      {/* 2. Key Benefits - 6 cards in 3x2 grid */}
       <KeyBenefits />
 
-      {/* 3. Community Impact — Stronger Communities. Brighter Futures. */}
+      {/* 3. Community Impact - Stronger Communities. Brighter Futures. */}
       <CommunityImpact />
 
-      {/* 4. More Than Individual Benefits — Image and Contribution list */}
+      {/* 4. More Than Individual Benefits - Image and Contribution list */}
       <ContributionSection />
 
-      {/* 5. Final CTA — Join HRSJM Today */}
+      {/* 5. Final CTA - Join HRSJM Today */}
       <BenefitsCTA />
     </main>
   );

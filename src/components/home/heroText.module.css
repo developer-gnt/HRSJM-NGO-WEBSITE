@@ -167,6 +167,42 @@
   }
 }
 
+@media (min-width: 1300px) {
+  .content {
+    max-width: 740px;
+    gap: 12px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+  }
+
+  .heading {
+    font-size: clamp(38px, 3.2vw, 45px);
+    line-height: 1.08;
+    letter-spacing: 0.005em;
+  }
+
+  .description {
+    max-width: 510px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .actions {
+    gap: 14px;
+    margin-top: 6px;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    min-height: 46px;
+    padding: 0 22px;
+    font-size: 14.5px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .primaryCta,
   .secondaryCta {

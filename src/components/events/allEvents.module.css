@@ -1,21 +1,18 @@
 /* ================================================================ */
-/* All / Upcoming Events listing page — allEvents.module.css         */
+/* All / Upcoming Events listing page - allEvents.module.css         */
 /* Visual language matches events.module.css (main event page):      */
 /* Dark navy hero with gold accents, rich typography, script note,    */
 /* category strip, interactive filters, search, and sunset CTA.       */
 /* ================================================================ */
 
 /* ---------------------------------------------------------------- */
-/* Section 01 — Page Hero (Dark Navy, matching main event page)      */
+/* Section 01 - Page Hero (Dark Navy, matching main event page)      */
 /* ---------------------------------------------------------------- */
 
 .hero {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy)
-    url("/images/events-hero-bg.png")
-    center 36% / cover
-    no-repeat;
+  background: var(--color-navy) url("/images/events-hero-bg.png") center 36% / cover no-repeat;
   color: var(--color-white);
 }
 
@@ -23,13 +20,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.95) 0%,
-    rgba(3, 29, 56, 0.85) 35%,
-    rgba(3, 29, 56, 0.45) 65%,
-    rgba(3, 29, 56, 0.15) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.95) 0%,
+      rgba(3, 29, 56, 0.85) 35%,
+      rgba(3, 29, 56, 0.45) 65%,
+      rgba(3, 29, 56, 0.15) 100%);
   pointer-events: none;
 }
 
@@ -224,7 +219,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 02 — Filters, Search & Events Grid                        */
+/* Section 02 - Filters, Search & Events Grid                        */
 /* ---------------------------------------------------------------- */
 
 .listing {
@@ -314,7 +309,7 @@
   font-weight: 700;
 }
 
-/* Category filter row — gold pill marks active category */
+/* Category filter row - gold pill marks active category */
 .filterBar {
   display: flex;
   align-items: center;
@@ -433,7 +428,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 03 — Pagination                                           */
+/* Section 03 - Pagination                                           */
 /* ---------------------------------------------------------------- */
 
 .pagination {
@@ -491,16 +486,13 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 04 — Final CTA (matching events.module.css)               */
+/* Section 04 - Final CTA (matching events.module.css)               */
 /* ---------------------------------------------------------------- */
 
 .eventsCta {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy-dark)
-    url("/images/events-cta-bg.png")
-    center / cover
-    no-repeat;
+  background: var(--color-navy-dark) url("/images/events-cta-bg.png") center / cover no-repeat;
   color: var(--color-white);
   margin-bottom: clamp(48px, 6vw, 80px);
 }
@@ -509,12 +501,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(3, 29, 56, 0.74) 0%,
-    rgba(3, 29, 56, 0.82) 60%,
-    rgba(3, 29, 56, 0.9) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(3, 29, 56, 0.74) 0%,
+      rgba(3, 29, 56, 0.82) 60%,
+      rgba(3, 29, 56, 0.9) 100%);
   pointer-events: none;
 }
 
@@ -699,12 +689,10 @@
   }
 
   .hero::before {
-    background: linear-gradient(
-      180deg,
-      rgba(3, 29, 56, 0.94) 0%,
-      rgba(3, 29, 56, 0.88) 50%,
-      rgba(3, 29, 56, 0.95) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(3, 29, 56, 0.94) 0%,
+        rgba(3, 29, 56, 0.88) 50%,
+        rgba(3, 29, 56, 0.95) 100%);
   }
 
   .heroInner {

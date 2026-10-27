@@ -27,7 +27,7 @@ export const maintenanceConfig: MaintenanceConfig = {
   hindiTitle: "मानव अधिकार एवं सामाजिक न्याय मिशन · तकनीकी रखरखाव प्रगति पर है",
   description:
     "Our website is currently undergoing scheduled maintenance and system upgrades to improve performance, data security, and community services. We appreciate your patience and will be back online shortly.",
-  estimatedReturn: "System updates are underway — please check back soon.",
+  estimatedReturn: "System updates are underway - please check back soon.",
 
   contact: {
     phone: "+919876543210",

@@ -9,7 +9,7 @@ const faqs = [
   {
     question: "Who can become an HRSJM member?",
     answer:
-      "Anyone who supports human rights, equality and social justice can apply. Members come from all backgrounds — students, professionals, community workers and concerned citizens.",
+      "Anyone who supports human rights, equality and social justice can apply. Members come from all backgrounds - students, professionals, community workers and concerned citizens.",
   },
   {
     question: "What are the benefits of membership?",
