@@ -94,9 +94,14 @@ function MembershipApplyContent() {
   const [submissionResult, setSubmissionResult] = useState<{
     applicationRef: string;
     applicantName: string;
+    applicantEmail?: string;
+    applicantPhone?: string;
+    applicantAddress?: string;
     packageName: string;
     packageFee: string;
     submittedAt: string;
+    paymentStatus?: string;
+    applicationStatus?: string;
     paymentSessionId?: string;
   } | null>(null);
 
@@ -454,13 +459,26 @@ function MembershipApplyContent() {
         // Successfully verified and created! Reset completed order ID
         completedOrderIdRef.current = null;
 
+        // Address summary for receipt
+        const fullAddress = [
+          step2Data.address1,
+          step2Data.city,
+          step2Data.state,
+          step2Data.country,
+        ].filter(Boolean).join(", ") || "Mumbai, Maharashtra, India";
+
         // Step 4: Payment confirmed! Database record saved with status PENDING (Applied). Show success modal.
         setSubmissionResult({
           applicationRef: verifyJson.applicationRef,
-          applicantName: verifyJson.applicantName,
-          packageName: verifyJson.packageName,
-          packageFee: verifyJson.packageFee,
-          submittedAt: verifyJson.submittedAt,
+          applicantName: verifyJson.applicantName || step1Data.fullName,
+          applicantEmail: step1Data.email,
+          applicantPhone: step1Data.phone,
+          applicantAddress: fullAddress,
+          packageName: verifyJson.packageName || selectedPackage.item.post,
+          packageFee: String(verifyJson.packageFee || selectedPackage.item.fees),
+          submittedAt: verifyJson.submittedAt || new Date().toISOString(),
+          paymentStatus: "Confirmed Paid",
+          applicationStatus: "Applied (Pending Review)",
           paymentSessionId,
         });
       } else {
@@ -480,17 +498,33 @@ function MembershipApplyContent() {
           return;
         }
 
+        const fullAddress = [
+          step2Data.address1,
+          step2Data.city,
+          step2Data.state,
+          step2Data.country,
+        ].filter(Boolean).join(", ") || "Mumbai, Maharashtra, India";
+
         setSubmissionResult({
           applicationRef: json.applicationRef,
-          applicantName: json.applicantName,
-          packageName: json.packageName,
-          packageFee: json.packageFee,
-          submittedAt: json.submittedAt,
+          applicantName: json.applicantName || step1Data.fullName,
+          applicantEmail: step1Data.email,
+          applicantPhone: step1Data.phone,
+          applicantAddress: fullAddress,
+          packageName: json.packageName || selectedPackage.item.post,
+          packageFee: String(json.packageFee || selectedPackage.item.fees),
+          submittedAt: json.submittedAt || new Date().toISOString(),
+          paymentStatus: "Pending Verification",
+          applicationStatus: "Applied (Pending Review)",
         });
       }
     } catch (err: any) {
       console.error("Submission error:", err);
-      alert(err.message || "Network error. Unable to connect to server. Please try again.");
+      const friendlyMessage =
+        err.message === "fetch failed"
+          ? "Unable to connect to the server. Please verify your internet connection and try again."
+          : err.message || "Network error. Unable to connect to server. Please try again.";
+      alert(friendlyMessage);
     } finally {
       setSubmitting(false);
     }
@@ -616,9 +650,14 @@ function MembershipApplyContent() {
         <ApplicationSuccessModal
           applicationRef={submissionResult.applicationRef}
           applicantName={submissionResult.applicantName}
+          applicantEmail={submissionResult.applicantEmail}
+          applicantPhone={submissionResult.applicantPhone}
+          applicantAddress={submissionResult.applicantAddress}
           packageName={submissionResult.packageName}
           packageFee={submissionResult.packageFee}
           submittedAt={submissionResult.submittedAt}
+          paymentStatus={submissionResult.paymentStatus}
+          applicationStatus={submissionResult.applicationStatus}
           paymentSessionId={submissionResult.paymentSessionId}
         />
       )}

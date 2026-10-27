@@ -23,21 +23,65 @@ function PaymentCallbackContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [retryAttempt, setRetryAttempt] = useState(1);
 
-  const verifyPayment = async (oid: string) => {
+  const verifyPayment = async (oid: string, maxAttempts = 3) => {
     setIsLoading(true);
     setError(null);
-    try {
-      const data = await verifyCashfreeOrder(oid);
-      setResult(data);
-    } catch (err: unknown) {
-      setError(
-        (err as Error)?.message ||
-          "Could not verify payment with Cashfree. Please contact support if your account was debited."
-      );
-    } finally {
-      setIsLoading(false);
+
+    let lastError: any = null;
+    let latestData: any = null;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      setRetryAttempt(attempt);
+      try {
+        const data = await verifyCashfreeOrder(oid);
+        latestData = data;
+
+        const isConfirmed =
+          data?.status === "SUCCESS" ||
+          data?.payment?.payment_status === "SUCCESS" ||
+          data?.data?.status === "SUCCESS";
+
+        if (isConfirmed) {
+          setResult(data);
+          setError(null);
+          setIsLoading(false);
+          return;
+        }
+
+        // If not yet confirmed and more retries remain, wait 1.5s for gateway to synchronize
+        if (attempt < maxAttempts) {
+          await new Promise((r) => setTimeout(r, 1500));
+          continue;
+        }
+      } catch (err: unknown) {
+        lastError = err;
+        // If 500 race condition or network hiccup, allow 1.5s for backend/webhook lock to complete
+        if (attempt < maxAttempts) {
+          await new Promise((r) => setTimeout(r, 1500));
+          continue;
+        }
+      }
     }
+
+    const finalSuccess =
+      latestData?.status === "SUCCESS" ||
+      latestData?.payment?.payment_status === "SUCCESS" ||
+      latestData?.data?.status === "SUCCESS";
+
+    if (finalSuccess) {
+      setResult(latestData);
+      setError(null);
+    } else {
+      setResult(latestData);
+      setError(
+        (lastError as Error)?.message ||
+          latestData?.message ||
+          "Could not verify payment with Cashfree. Please click Re-check Transaction Status below."
+      );
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -78,15 +122,20 @@ function PaymentCallbackContent() {
           Verifying Payment with Cashfree Gateway...
         </h2>
         <p style={{ fontSize: 14, color: "#64748b", margin: 0, maxWidth: 440 }}>
-          Please hold on while we safely verify your payment attempt with the banking network.
+          {retryAttempt > 1
+            ? `Synchronizing final bank confirmation with Cashfree (attempt ${retryAttempt} of 3)...`
+            : "Please hold on while we safely verify your payment attempt with the banking network."}
         </p>
       </div>
     );
   }
 
-  const isSuccess = result?.status === "SUCCESS";
-  const paymentData = result?.payment || result;
-  const receiptData = result?.receipt;
+  const isSuccess =
+    result?.status === "SUCCESS" ||
+    result?.payment?.payment_status === "SUCCESS" ||
+    result?.data?.status === "SUCCESS";
+  const paymentData = result?.payment || result?.data?.payment || result;
+  const receiptData = result?.receipt || result?.data?.receipt;
   const isDonation =
     orderId?.toLowerCase().includes("don") ||
     result?.purpose?.toLowerCase().includes("donation");

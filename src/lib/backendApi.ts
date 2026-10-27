@@ -22,6 +22,41 @@ export function getBackendApiUrl(): string {
   return isProd ? PROD_BACKEND_URL : LOCAL_BACKEND_URL;
 }
 
+/**
+ * Primary HTTP client to communicate with HRSJM Backend API.
+ * Automatically tries getBackendApiUrl(). If configured to localhost and connection is refused
+ * or fails, seamlessly routes to the live VPS backend (PROD_BACKEND_URL) so user transactions
+ * and payment sessions do not break.
+ */
+export async function backendFetch(
+  endpointPath: string,
+  init?: RequestInit
+): Promise<Response> {
+  const primaryBase = getBackendApiUrl();
+  const cleanEndpoint = endpointPath.startsWith("/") ? endpointPath : `/${endpointPath}`;
+  const primaryUrl = `${primaryBase}${cleanEndpoint}`;
+
+  try {
+    return await fetch(primaryUrl, init);
+  } catch (err: any) {
+    // If primary was localhost and connection failed (e.g. local backend offline), fallback to live VPS
+    if (primaryBase.includes("localhost") || primaryBase.includes("127.0.0.1")) {
+      const fallbackUrl = `${PROD_BACKEND_URL}${cleanEndpoint}`;
+      console.warn(
+        `[backendApi] Primary local endpoint (${primaryUrl}) unreachable (${err.message}). Retrying via live backend: ${fallbackUrl}`
+      );
+      try {
+        return await fetch(fallbackUrl, init);
+      } catch (fallbackErr: any) {
+        throw new Error(
+          `Unable to connect to backend server. Both local (${primaryUrl}) and live (${fallbackUrl}) endpoints failed: ${fallbackErr.message || err.message}`
+        );
+      }
+    }
+    throw err;
+  }
+}
+
 export interface BackendCategory {
   id: string;
   name: string;
@@ -58,9 +93,8 @@ export interface CashfreeOrderResponse {
  * Fetch all available membership categories from live backend
  */
 export async function fetchBackendCategories(): Promise<BackendCategory[]> {
-  const url = `${getBackendApiUrl()}/membership-categories`;
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await backendFetch("/membership-categories", { cache: "no-store" });
     if (!res.ok) {
       throw new Error(`Failed to fetch categories: ${res.statusText}`);
     }
@@ -184,7 +218,7 @@ export async function createBackendMembership(payload: {
     body.password = payload.password.trim();
   }
 
-  const res = await fetch(url, {
+  const res = await backendFetch("/memberships", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -222,7 +256,6 @@ export async function createCashfreeOrder(payload: {
   returnUrl?: string;
   referenceId?: string;
 }): Promise<CashfreeOrderResponse> {
-  const url = `${getBackendApiUrl()}/payments/cashfree/orders`;
   const body = {
     purpose: payload.purpose,
     amount: payload.amount,
@@ -234,7 +267,7 @@ export async function createCashfreeOrder(payload: {
     reference_id: payload.referenceId,
   };
 
-  const res = await fetch(url, {
+  const res = await backendFetch("/payments/cashfree/orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -261,15 +294,17 @@ export async function createCashfreeOrder(payload: {
  */
 export async function verifyCashfreeOrder(orderId: string): Promise<any> {
   const isBrowser = typeof window !== "undefined";
-  const url = isBrowser
-    ? `/api/payments/verify?order_id=${encodeURIComponent(orderId)}`
-    : `${getBackendApiUrl()}/payments/cashfree/orders/${encodeURIComponent(orderId)}/verify`;
-
-  const res = await fetch(url, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-    cache: "no-store",
-  });
+  const res = isBrowser
+    ? await fetch(`/api/payments/verify?order_id=${encodeURIComponent(orderId)}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+      })
+    : await backendFetch(`/payments/cashfree/orders/${encodeURIComponent(orderId)}/verify`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+      });
 
   const text = await res.text();
   let json: any = null;
@@ -299,7 +334,6 @@ export async function createBackendDonation(payload: {
   isAnonymous?: boolean;
   remark?: string;
 }): Promise<any> {
-  const url = `${getBackendApiUrl()}/donations`;
   const body = {
     donor_name: payload.donorName.trim(),
     donor_mobile: payload.donorMobile?.trim() || undefined,
@@ -310,7 +344,7 @@ export async function createBackendDonation(payload: {
     remark: payload.remark?.trim() || undefined,
   };
 
-  const res = await fetch(url, {
+  const res = await backendFetch("/donations", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -345,7 +379,6 @@ export async function createBackendComplaint(payload: {
   otherDeptFileName?: string;
   otherDeptFileUri?: string;
 }): Promise<any> {
-  const publicTicketUrl = `${getBackendApiUrl()}/support-tickets/public`;
   const body: Record<string, any> = {
     fullName: payload.fullName.trim(),
     phone: payload.phone.trim(),
@@ -359,7 +392,7 @@ export async function createBackendComplaint(payload: {
   }
 
   try {
-    const res = await fetch(publicTicketUrl, {
+    const res = await backendFetch("/support-tickets/public", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -389,7 +422,6 @@ export async function createBackendComplaint(payload: {
   }
 
   // Fallback to assistance-requests if running on older backend
-  const fallbackUrl = `${getBackendApiUrl()}/assistance-requests`;
   const fallbackBody = {
     full_name: payload.fullName.trim(),
     mobile: payload.phone.trim(),
@@ -399,7 +431,7 @@ export async function createBackendComplaint(payload: {
     description: `Citizen Complaint / Grievance Details:\n- Source: Website\n- Category: ${payload.complaintType}\n- State: ${payload.state}\n- Nearby Police Station: ${payload.policeStation}\n- Description:\n${payload.details}`,
   };
 
-  const fallbackRes = await fetch(fallbackUrl, {
+  const fallbackRes = await backendFetch("/assistance-requests", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(fallbackBody),
@@ -436,9 +468,8 @@ export async function checkDuplicateMembership(
   if (email) params.append("email", email.trim());
   if (phone) params.append("phone", phone.trim());
 
-  const url = `${getBackendApiUrl()}/memberships/check-duplicate?${params.toString()}`;
   try {
-    const res = await fetch(url, {
+    const res = await backendFetch(`/memberships/check-duplicate?${params.toString()}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       cache: "no-store",
