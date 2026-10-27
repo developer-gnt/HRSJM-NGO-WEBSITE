@@ -12,9 +12,14 @@ export function getBackendApiUrl(): string {
     return envUrl.trim();
   }
 
-  // 2. Fallback based on NEXT_PUBLIC_APP_ENV ('local' | 'production')
-  const appEnv = (process.env.NEXT_PUBLIC_APP_ENV || process.env.APP_ENV || "local").toLowerCase();
-  return appEnv === "production" ? PROD_BACKEND_URL : LOCAL_BACKEND_URL;
+  // 2. Check if running on Vercel or production mode
+  const isProd =
+    process.env.NODE_ENV === "production" ||
+    Boolean(process.env.VERCEL) ||
+    Boolean(process.env.NEXT_PUBLIC_VERCEL_ENV) ||
+    (process.env.NEXT_PUBLIC_APP_ENV || process.env.APP_ENV || "").toLowerCase() === "production";
+
+  return isProd ? PROD_BACKEND_URL : LOCAL_BACKEND_URL;
 }
 
 export interface BackendCategory {
@@ -185,7 +190,17 @@ export async function createBackendMembership(payload: {
     body: JSON.stringify(body),
   });
 
-  const json = await res.json();
+  const text = await res.text();
+  let json: any = null;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    if (res.status === 413 || text.includes("Request Entity Too Large") || text.includes("Payload Too Large")) {
+      throw new Error("The application payload or uploaded documents are too large for the server (413). Please compress images before uploading.");
+    }
+    throw new Error(`Backend server returned invalid response (${res.status}): ${text.slice(0, 150)}`);
+  }
+
   if (!res.ok || json.success === false) {
     const errMsg = json.message || json.error || (Array.isArray(json.message) ? json.message.join(", ") : "Backend membership creation failed");
     throw new Error(errMsg);
@@ -225,7 +240,14 @@ export async function createCashfreeOrder(payload: {
     body: JSON.stringify(body),
   });
 
-  const json = await res.json();
+  const text = await res.text();
+  let json: any = null;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    throw new Error(`Payment order creation returned invalid response (${res.status}): ${text.slice(0, 150)}`);
+  }
+
   if (!res.ok || json.success === false) {
     const errMsg = json.message || json.error || "Failed to create Cashfree order";
     throw new Error(errMsg);
@@ -249,7 +271,14 @@ export async function verifyCashfreeOrder(orderId: string): Promise<any> {
     cache: "no-store",
   });
 
-  const json = await res.json();
+  const text = await res.text();
+  let json: any = null;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    throw new Error(`Payment verification returned invalid response (${res.status}): ${text.slice(0, 150)}`);
+  }
+
   if (!res.ok || json.success === false) {
     const errMsg = json.error || json.message || "Failed to verify Cashfree payment";
     throw new Error(errMsg);

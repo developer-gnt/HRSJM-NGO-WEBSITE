@@ -37,7 +37,7 @@ export const usefulLinks: FooterLink[] = [
   { label: "How to become a district / state president", href: "/how-to-become-a-district-and-state-president" },
   { label: "Make a Donation", href: "/donation" },
   { label: "Renew Membership", href: "/membership/renew" },
-  { label: "Member Login", href: "/membership/login" },
+  // { label: "Member Login", href: "/membership/login" },
   { label: "Our Constitution", href: "/constitution" },
   { label: "FAQs", href: "/faqs" },
   { label: "Help Centre", href: "/help" },

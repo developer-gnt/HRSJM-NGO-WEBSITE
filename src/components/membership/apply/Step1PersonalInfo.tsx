@@ -20,6 +20,7 @@ import {
   EyeOff,
 } from "lucide-react";
 import styles from "./apply.module.css";
+import { compressImageToDataUrl } from "@/lib/imageCompression";
 
 export interface Step1Data {
   photoFile: File | null;
@@ -59,7 +60,7 @@ export default function Step1PersonalInfo({
     return d.toISOString().split("T")[0];
   })();
 
-  const handlePhotoUpload = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -68,17 +69,25 @@ export default function Step1PersonalInfo({
       return;
     }
 
-    if (file.size > 2 * 1024 * 1024) {
-      alert("Photo file size must not exceed 2MB.");
+    if (file.size > 10 * 1024 * 1024) {
+      alert("Photo file size must not exceed 10MB.");
       return;
     }
 
     onChange("photoFile", file);
-    const reader = new FileReader();
-    reader.onload = () => {
-      onChange("photoPreview", reader.result as string);
-    };
-    reader.readAsDataURL(file);
+    try {
+      const { dataUrl } = await compressImageToDataUrl(file, {
+        maxDimension: 600,
+        quality: 0.8,
+      });
+      onChange("photoPreview", dataUrl);
+    } catch {
+      const reader = new FileReader();
+      reader.onload = () => {
+        onChange("photoPreview", reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleRemovePhoto = (e: React.MouseEvent) => {

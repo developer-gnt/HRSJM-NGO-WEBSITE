@@ -20,7 +20,19 @@ export async function GET(request: NextRequest) {
       cache: "no-store",
     });
 
-    const json = await res.json();
+    const resText = await res.text();
+    let json: any = null;
+    try {
+      json = JSON.parse(resText);
+    } catch {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Payment verification gateway returned unexpected response (${res.status}): ${resText.slice(0, 100)}`,
+        },
+        { status: 502 }
+      );
+    }
     if (!res.ok || json.success === false) {
       return NextResponse.json(
         {

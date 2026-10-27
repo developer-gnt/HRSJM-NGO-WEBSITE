@@ -13,6 +13,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import styles from "./apply.module.css";
+import { compressImageToDataUrl } from "@/lib/imageCompression";
 
 export interface DocumentUploadItem {
   file: File | null;
@@ -51,17 +52,12 @@ export default function Step3DocumentUpload({
   const browseQualRef = useRef<HTMLInputElement>(null);
   const browsePhotoRef = useRef<HTMLInputElement>(null);
 
-  const handleFile = (
+  const handleFile = async (
     field: "idProof" | "addressProof" | "qualification" | "photograph",
     e: ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    if (file.size > 5 * 1024 * 1024) {
-      alert("File size exceeds 5MB limit. Please upload a smaller file.");
-      return;
-    }
 
     const validTypes = [
       "application/pdf",
@@ -72,22 +68,50 @@ export default function Step3DocumentUpload({
     ];
     if (
       !validTypes.includes(file.type) &&
-      !file.name.match(/\.(pdf|jpg|jpeg|png)$/i)
+      !file.name.match(/\.(pdf|jpg|jpeg|png|webp)$/i)
     ) {
       alert("Please upload a valid file format (PDF, JPG, or PNG).");
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
+    const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+
+    if (isPdf && file.size > 2 * 1024 * 1024) {
+      alert("PDF document size must not exceed 2MB. Please upload a smaller PDF or a photo (JPG/PNG) of the document.");
+      return;
+    }
+
+    if (!isPdf && file.size > 12 * 1024 * 1024) {
+      alert("Image file size exceeds 12MB limit. Please choose a smaller photo.");
+      return;
+    }
+
+    try {
+      const maxDim = field === "photograph" ? 600 : 1200;
+      const quality = field === "photograph" ? 0.8 : 0.75;
+      const { dataUrl, size } = await compressImageToDataUrl(file, {
+        maxDimension: maxDim,
+        quality,
+      });
+
       onChange(field, {
         file,
         name: file.name,
-        size: file.size,
-        dataUrl: reader.result as string,
+        size,
+        dataUrl,
       });
-    };
-    reader.readAsDataURL(file);
+    } catch {
+      const reader = new FileReader();
+      reader.onload = () => {
+        onChange(field, {
+          file,
+          name: file.name,
+          size: file.size,
+          dataUrl: reader.result as string,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleRemove = (field: "idProof" | "addressProof" | "qualification" | "photograph") => {
