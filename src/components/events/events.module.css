@@ -927,6 +927,102 @@
   margin-top: 24px;
 }
 
+/* Past Activities Horizontal Carousel / Slider */
+.sliderContainer {
+  position: relative;
+  margin-top: 28px;
+  width: 100%;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+
+.viewport {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 10px 0 24px;
+  margin: -10px 0 -24px;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.viewport img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+.track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: none;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 calc(100% / var(--visible, 4));
+  padding: 0 10px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.sliderArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-navy);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(6, 42, 79, 0.14), 0 1px 3px rgba(6, 42, 79, 0.08);
+  cursor: pointer;
+  transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease,
+    transform 0.22s ease, box-shadow 0.22s ease;
+  z-index: 10;
+}
+
+.sliderArrow[data-side="prev"] {
+  left: -20px;
+}
+
+.sliderArrow[data-side="next"] {
+  right: -20px;
+}
+
+.sliderArrow:hover {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-white);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 20px rgba(6, 42, 79, 0.22);
+}
+
+.sliderArrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.sliderArrow:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+}
+
 .activityCardLink {
   text-decoration: none;
   color: inherit;
@@ -1057,6 +1153,14 @@
     gap: 18px;
   }
 
+  .sliderArrow[data-side="prev"] {
+    left: -10px;
+  }
+
+  .sliderArrow[data-side="next"] {
+    right: -10px;
+  }
+
   .pastFilters {
     margin-top: 20px;
   }
@@ -1072,6 +1176,27 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 14px;
     margin-top: 20px;
+  }
+
+  .sliderContainer {
+    margin-top: 18px;
+  }
+
+  .slide {
+    padding: 0 6px;
+  }
+
+  .sliderArrow {
+    width: 38px;
+    height: 38px;
+  }
+
+  .sliderArrow[data-side="prev"] {
+    left: 4px;
+  }
+
+  .sliderArrow[data-side="next"] {
+    right: 4px;
   }
 
   .pastFilters {
