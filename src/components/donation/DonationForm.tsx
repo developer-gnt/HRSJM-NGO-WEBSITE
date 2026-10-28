@@ -12,6 +12,7 @@ import {
   RefreshCw,
   Scale,
   Users,
+  Loader2,
 } from "lucide-react";
 import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
 import styles from "./donation.module.css";
@@ -172,26 +173,26 @@ export default function DonationForm() {
       if (data.cashfreeOrder?.payment_session_id) {
         setMessage({
           type: "info",
-          text: `Redirecting to Cashfree secure checkout...`,
+          text: `Opening Cashfree secure checkout modal...`,
         });
         try {
           await launchCashfreeCheckout({
             paymentSessionId: data.cashfreeOrder.payment_session_id,
-            redirectTarget: "_self",
+            redirectTarget: "_modal",
           });
         } catch (sdkErr: any) {
-          console.warn("Cashfree checkout notice:", sdkErr);
+          console.warn("Cashfree checkout interaction notice:", sdkErr);
         }
       } else {
         setMessage({
-          type: "info",
-          text: `Donation registered with backend! Reference ID: ${data.donationRef}. Thank you for standing up for human rights.`,
+          type: "error",
+          text: "Could not create payment gateway session. Please try again.",
         });
       }
     } catch (err: any) {
       setMessage({
         type: "error",
-        text: "Network error. Unable to connect to backend server. Please retry.",
+        text: "Network error. Unable to connect to payment server. Please retry.",
       });
     } finally {
       setSubmitting(false);
@@ -403,11 +404,27 @@ export default function DonationForm() {
             <button
               type="submit"
               className={styles.donateButton}
-              disabled={submitting || !agreeTerms}
-              style={{ opacity: submitting || !agreeTerms ? 0.75 : 1, cursor: submitting || !agreeTerms ? "not-allowed" : "pointer" }}
+              disabled={submitting}
+              style={{
+                cursor: submitting ? "not-allowed" : "pointer",
+                opacity: submitting ? 0.8 : 1,
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
             >
-              {submitting ? "Connecting to Gateway..." : "Donate Now"}
-              <ArrowRight size={17} strokeWidth={2.2} aria-hidden="true" />
+              {submitting ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Connecting to Cashfree Gateway...
+                </>
+              ) : (
+                <>
+                  Donate Now
+                  <ArrowRight size={17} strokeWidth={2.2} aria-hidden="true" />
+                </>
+              )}
             </button>
 
             {donationSuccess && (
@@ -435,7 +452,7 @@ export default function DonationForm() {
                     onClick={() => {
                       launchCashfreeCheckout({
                         paymentSessionId: donationSuccess.cashfreeOrder.payment_session_id,
-                        redirectTarget: "_self",
+                        redirectTarget: "_modal",
                       });
                     }}
                     style={{

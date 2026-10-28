@@ -109,9 +109,49 @@ export default function EmergencyPage() {
 
   const gridRef = useRef<HTMLDivElement>(null);
 
+  // Dedicated helper to scroll smoothly and accurately to the category section,
+  // taking into account the sticky navigation bar height.
+  const scrollToExploreCategories = (behavior: ScrollBehavior = "smooth") => {
+    if (typeof window === "undefined") return;
+    const el = document.getElementById("explore-categories");
+    if (!el) return;
+    const header = document.querySelector("header");
+    const headerHeight = header ? header.getBoundingClientRect().height : 115;
+    const elTop = el.getBoundingClientRect().top + window.pageYOffset;
+    const targetY = Math.max(0, elTop - headerHeight - 16);
+
+    window.scrollTo({
+      top: targetY,
+      behavior,
+    });
+  };
+
   // 1. Fetch dynamic emergency cases and categories from backend
-  // Also read ?caseId=... from URL and auto-open the modal in the same async chain
+  // Also read ?category=... and ?caseId=... from URL and auto-open the modal / pre-select category
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Prevent browser from restoring stale scroll position from previous page
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const catParam = params.get("category");
+    if (catParam) {
+      setSelectedCategory(catParam);
+    }
+
+    const shouldScrollToCategory =
+      window.location.hash.includes("explore-categories") || Boolean(catParam);
+
+    if (shouldScrollToCategory) {
+      // Immediate position alignment
+      scrollToExploreCategories("auto");
+      setTimeout(() => scrollToExploreCategories("smooth"), 100);
+      setTimeout(() => scrollToExploreCategories("smooth"), 350);
+    }
+
     const controller = new AbortController();
     fetch("/api/donation/causes")
       .then((res) => res.json())
@@ -126,27 +166,53 @@ export default function EmergencyPage() {
             setCategories(data.categories);
           }
         }
-        // Open modal if URL has ?caseId=...
+        // Open modal if URL has ?caseId=... or re-check ?category=...
         if (typeof window !== "undefined") {
-          const params = new URLSearchParams(window.location.search);
-          const caseId = params.get("caseId");
+          const currentParams = new URLSearchParams(window.location.search);
+          const currentCat = currentParams.get("category");
+          if (currentCat) {
+            setSelectedCategory(currentCat);
+          }
+          const caseId = currentParams.get("caseId");
           if (caseId) {
             const found = loadedCases.find((c) => c.id === caseId);
             if (found) {
-              // Defer to next tick so the setState from above flushes first
               setTimeout(() => setActiveModalCase(found), 0);
             }
           }
         }
         setIsLoading(false);
+        if (shouldScrollToCategory) {
+          setTimeout(() => scrollToExploreCategories("smooth"), 80);
+        }
       })
       .catch((err) => {
         if (!controller.signal.aborted) {
           console.warn("Could not load dynamic cases, using defaults:", err);
           setIsLoading(false);
+          if (shouldScrollToCategory) {
+            setTimeout(() => scrollToExploreCategories("smooth"), 80);
+          }
         }
       });
-    return () => controller.abort();
+
+    const handleHashOrPopState = () => {
+      const p = new URLSearchParams(window.location.search);
+      const c = p.get("category");
+      if (c) setSelectedCategory(c);
+      if (window.location.hash.includes("explore-categories") || Boolean(c)) {
+        scrollToExploreCategories("smooth");
+      }
+    };
+
+    window.addEventListener("popstate", handleHashOrPopState);
+    window.addEventListener("hashchange", handleHashOrPopState);
+
+    return () => {
+      controller.abort();
+      window.removeEventListener("popstate", handleHashOrPopState);
+      window.removeEventListener("hashchange", handleHashOrPopState);
+    };
   }, []);
 
   // Handle category selection
@@ -383,6 +449,7 @@ export default function EmergencyPage() {
           3. CATEGORY SELECTION SECTION
           ============================================================ */}
       <section
+        id="explore-categories"
         className={styles.categoriesSection}
         aria-labelledby="select-category-heading"
       >
@@ -418,23 +485,17 @@ export default function EmergencyPage() {
                   }`}
                 >
                   <div className={styles.catIconCircle} aria-hidden="true">
-                    <IconComponent size={22} strokeWidth={2.2} />
+                    <IconComponent size={20} strokeWidth={2.2} />
                   </div>
 
-                  <h3 className={styles.catName}>{cat.name}</h3>
-                  <p className={styles.catDesc}>{cat.description}</p>
+                  <span className={styles.catName}>{cat.name}</span>
 
-                  <div className={styles.catFooter}>
-                    <span className={styles.catCountText}>
-                      {cat.activeCount} active cases
-                    </span>
-                    <div
-                      className={styles.catArrowBtn}
-                      aria-label={`View ${cat.name}`}
-                    >
-                      <ArrowRight size={13} strokeWidth={2.6} />
-                    </div>
-                  </div>
+                  <ChevronRight
+                    size={16}
+                    strokeWidth={2.4}
+                    className={styles.catChevron}
+                    aria-hidden="true"
+                  />
                 </button>
               );
             })}

@@ -118,7 +118,7 @@ export default function EmergencyCaseModal({
       if (data.cashfreeOrder?.payment_session_id) {
         await launchCashfreeCheckout({
           paymentSessionId: data.cashfreeOrder.payment_session_id,
-          redirectTarget: "_self",
+          redirectTarget: "_modal",
         });
       } else {
         setErrorMessage("Payment session could not be established. Please retry.");

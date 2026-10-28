@@ -1551,16 +1551,19 @@
   margin-top: 20px;
   padding: 11px 20px;
   border-radius: var(--radius-sm);
-  background: var(--color-navy);
-  color: var(--color-white);
+  background: #fad25c;
+  color: #062a4f;
   font-size: 13.5px;
   font-weight: 700;
-  transition: background 200ms ease, transform 200ms ease;
+  transition: all 200ms ease;
+  box-shadow: 0 2px 6px rgba(250, 210, 92, 0.25);
 }
 
 .faqViewAll:hover {
-  background: var(--color-navy-dark);
+  background: #f5ba2f;
+  color: #062a4f;
   transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(245, 186, 47, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1849,7 +1852,177 @@
   display: block;
 }
 
-/* 4 Emergency Category Cards Grid */
+/* ------------------------------------------------------------
+   CATEGORY SELECTION SECTION (Redesigned like Image 1)
+   ------------------------------------------------------------ */
+.categorySelectSection {
+  margin-top: clamp(28px, 4vw, 48px);
+  margin-bottom: clamp(36px, 5vw, 60px);
+}
+
+.headingGoldBar {
+  width: 48px;
+  height: 3px;
+  background: #eab308;
+  border-radius: 2px;
+  margin-bottom: 14px;
+}
+
+.categorySelectTitle {
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(30px, 3.6vw, 42px);
+  font-weight: 700;
+  color: #0b2345;
+  margin: 0 0 6px 0;
+  line-height: 1.15;
+}
+
+.categorySelectSubtitle {
+  font-size: clamp(14px, 1.4vw, 15.5px);
+  color: #64748b;
+  margin: 0 0 28px 0;
+}
+
+/* 6 Category Cards Grid */
+.emergencyCategoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1240px) {
+  .emergencyCategoriesGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 680px) {
+  .emergencyCategoriesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 440px) {
+  .emergencyCategoriesGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.categoryCard {
+  background: #ffffff;
+  border: 1px solid #eae5d9;
+  border-radius: 14px;
+  padding: 22px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 220ms ease;
+  box-shadow: 0 2px 8px rgba(11, 35, 69, 0.03);
+  position: relative;
+  min-height: 240px;
+}
+
+.categoryCard:hover {
+  transform: translateY(-3px);
+  border-color: #f5ba2f;
+  box-shadow: 0 10px 24px -6px rgba(11, 35, 69, 0.09);
+}
+
+.categoryCardActive {
+  border: 2px solid #f59e0b !important;
+  background: #fffdf8 !important;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15) !important;
+}
+
+.catIconWrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b45309;
+  margin-bottom: 16px;
+  transition: all 200ms ease;
+  flex-shrink: 0;
+}
+
+.categoryCard:hover .catIconWrap {
+  background: #fef3c7;
+  color: #92400e;
+  transform: scale(1.05);
+}
+
+.categoryCardActive .catIconWrap {
+  background: #f59e0b !important;
+  border-color: #d97706 !important;
+  color: #ffffff !important;
+}
+
+.catTitle {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0b2345;
+  margin: 0 0 8px 0;
+  line-height: 1.25;
+}
+
+.catDescription {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0 0 16px 0;
+  flex-grow: 1;
+}
+
+.catBottomRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.catActiveCount {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0b2345;
+}
+
+.catArrowCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fef3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b45309;
+  transition: all 180ms ease;
+  flex-shrink: 0;
+}
+
+.categoryCard:hover .catArrowCircle {
+  transform: translateX(2px);
+  background: #fad25c;
+  color: #0c2340;
+}
+
+.categoryCardActive .catArrowCircle {
+  background: #f59e0b !important;
+  color: #ffffff !important;
+}
+
+/* 4 Emergency Category Cards Grid (Previous fallback) */
 .emergencyCardsGrid {
   display: grid;
   grid-template-columns: 1fr;
