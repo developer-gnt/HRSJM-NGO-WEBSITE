@@ -390,6 +390,14 @@ export async function createBackendComplaint(payload: {
   if (payload.email && payload.email.trim()) {
     body.email = payload.email.trim().toLowerCase();
   }
+  if (payload.aadhaarFileName) body.aadhaarFileName = payload.aadhaarFileName;
+  if (payload.aadhaarFileUri) body.aadhaarFileUri = payload.aadhaarFileUri;
+  if (payload.handwrittenFileName) body.handwrittenFileName = payload.handwrittenFileName;
+  if (payload.handwrittenFileUri) body.handwrittenFileUri = payload.handwrittenFileUri;
+  if (payload.reportedToOtherDept !== undefined) body.reportedToOtherDept = payload.reportedToOtherDept;
+  if (payload.otherDeptName) body.otherDeptName = payload.otherDeptName;
+  if (payload.otherDeptFileName) body.otherDeptFileName = payload.otherDeptFileName;
+  if (payload.otherDeptFileUri) body.otherDeptFileUri = payload.otherDeptFileUri;
 
   try {
     const res = await backendFetch("/support-tickets/public", {
