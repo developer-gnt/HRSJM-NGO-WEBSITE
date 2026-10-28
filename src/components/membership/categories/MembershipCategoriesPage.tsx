@@ -145,6 +145,14 @@ export default function MembershipCategoriesPage() {
                         <th className={styles.thCell}>
                           {section.kitHeaderLabel}
                         </th>
+                        {section.hasLetterPadColumn && (
+                          <th
+                            className={`${styles.thCell} ${styles.thCenter}`}
+                            style={{ width: "135px" }}
+                          >
+                            {section.letterPadHeaderLabel || "Letter Pad Authority"}
+                          </th>
+                        )}
                         <th
                           className={`${styles.thCell} ${styles.thCenter}`}
                           style={{ width: "135px" }}
@@ -182,6 +190,18 @@ export default function MembershipCategoriesPage() {
                               item.kit[0]
                             )}
                           </td>
+                          {section.hasLetterPadColumn && (
+                            <td
+                              className={`${styles.tdValidity} ${styles.thCenter}`}
+                              style={{
+                                fontWeight: item.letterPad === "-" ? 700 : 500,
+                                color: item.letterPad === "-" ? "#334155" : "inherit",
+                                fontSize: item.letterPad === "-" ? 16 : 12.5,
+                              }}
+                            >
+                              {item.letterPad || "-"}
+                            </td>
+                          )}
                           <td className={styles.tdAction}>
                             <Link
                               href={`/membership/apply?post=${encodeURIComponent(

@@ -240,6 +240,7 @@
    3. CATEGORY SELECTION SECTION
    ------------------------------------------------------------ */
 .categoriesSection {
+  scroll-margin-top: 130px;
   padding-bottom: clamp(28px, 4vw, 44px);
 }
 
@@ -262,135 +263,117 @@
 }
 
 /* 6 Category Cards Grid */
+/* 6 Category Pill Cards in Single Row */
 .categoriesGrid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
 }
 
-@media (min-width: 540px) {
-  .categoriesGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 860px) {
+@media (max-width: 1240px) {
   .categoriesGrid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
   }
 }
 
-@media (min-width: 1140px) {
+@media (max-width: 680px) {
   .categoriesGrid {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 440px) {
+  .categoriesGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 
 .categoryCard {
   background: #ffffff;
-  border: 1.5px solid #eae5d9;
+  border: 1px solid #f6d895;
   border-radius: 14px;
-  padding: 18px 16px;
+  padding: 10px 14px 10px 10px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   text-align: left;
   cursor: pointer;
-  transition: all 220ms cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 8px rgba(11, 35, 69, 0.03);
+  transition: all 200ms ease;
+  box-shadow: 0 1px 4px rgba(11, 35, 69, 0.03);
   position: relative;
-  min-height: 180px;
+  min-height: 56px;
+  width: 100%;
 }
 
 .categoryCard:hover {
-  transform: translateY(-3px);
-  border-color: #f5ba2f;
-  box-shadow: 0 10px 24px -6px rgba(11, 35, 69, 0.1);
+  transform: translateY(-2px);
+  border-color: #f59e0b;
+  box-shadow: 0 6px 16px -4px rgba(245, 158, 11, 0.16);
 }
 
 .categoryCardSelected {
-  border-color: #d97706;
-  background: #ffffff;
-  box-shadow: 0 0 0 2px #d97706, 0 12px 28px -6px rgba(217, 119, 6, 0.18);
-  transform: translateY(-2px);
+  background: #fec84b !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.28) !important;
+  transform: translateY(-1px);
 }
 
 .catIconCircle {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: #fffbeb;
-  border: 1px solid #fef3c7;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fef6e5;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #b45309;
-  margin-bottom: 14px;
-  transition: background 200ms ease, color 200ms ease;
+  transition: all 200ms ease;
 }
 
 .categoryCardSelected .catIconCircle {
-  background: #f59e0b;
-  color: #ffffff;
-  border-color: #f59e0b;
+  background: #ffffff !important;
+  color: #b45309 !important;
 }
 
 .catName {
-  font-size: 14.5px;
-  font-weight: 800;
-  color: #0b2345;
-  margin: 0 0 6px 0;
-  line-height: 1.25;
-}
-
-.catDesc {
-  font-size: 11.5px;
-  line-height: 1.45;
-  color: #64748b;
-  margin: 0 0 16px 0;
-  flex-grow: 1;
-}
-
-.catFooter {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-top: 10px;
-  border-top: 1px solid #f1f5f9;
-}
-
-.catCountText {
-  font-size: 11.5px;
+  flex: 1;
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 13.5px;
   font-weight: 700;
   color: #0b2345;
+  margin: 0 10px;
+  line-height: 1.18;
+  transition: color 180ms ease;
 }
 
-.catArrowBtn {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: #fef3c7;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.categoryCardSelected .catName {
+  color: #0b2345;
+}
+
+.catChevron {
+  flex-shrink: 0;
   color: #b45309;
-  transition: all 180ms ease;
+  transition: transform 180ms ease, color 180ms ease;
 }
 
-.categoryCardSelected .catArrowBtn {
-  background: #f59e0b;
-  color: #ffffff;
+.categoryCard:hover .catChevron {
   transform: translateX(2px);
+}
+
+.categoryCardSelected .catChevron {
+  color: #0b2345;
 }
 
 /* ------------------------------------------------------------
    4. SELECTED CATEGORY HEADER + SEARCH & SORT
    ------------------------------------------------------------ */
 .filterRowSection {
+  scroll-margin-top: 130px;
   padding-top: 8px;
   padding-bottom: 22px;
 }

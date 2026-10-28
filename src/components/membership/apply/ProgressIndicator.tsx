@@ -48,11 +48,10 @@ export default function ProgressIndicator({
                 type="button"
                 className={styles.stepNode}
                 onClick={() => {
-                  if (onStepClick && step.number < currentStep) {
+                  if (onStepClick) {
                     onStepClick(step.number as 1 | 2 | 3 | 4);
                   }
                 }}
-                disabled={step.number > currentStep}
                 aria-current={isActive ? "step" : undefined}
                 aria-label={`Step ${step.number}: ${step.label.replace("\n", " ")}${
                   isCompleted ? " (Completed)" : isActive ? " (Active)" : ""

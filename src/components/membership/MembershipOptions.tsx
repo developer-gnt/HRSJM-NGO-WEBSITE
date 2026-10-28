@@ -80,7 +80,7 @@ export default function MembershipOptions() {
                 <h3 className={styles.planName}>{cat.name}</h3>
                 <p className={styles.planDescription}>{cat.description}</p>
                 <Link
-                  href="/membership/categories"
+                  href={`/membership/categories#${cat.targetCategory}`}
                   className={styles.planButton}
                 >
                   Join Now

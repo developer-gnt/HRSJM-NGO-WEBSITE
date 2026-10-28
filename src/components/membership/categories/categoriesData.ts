@@ -7,6 +7,7 @@ export interface MembershipCategoryItem {
   fees: string;
   validity: string;
   kit: string[];
+  letterPad?: string;
 }
 
 export interface MembershipCategorySection {
@@ -17,6 +18,8 @@ export interface MembershipCategorySection {
   iconBg: string;
   headerTheme: "blue" | "green";
   kitHeaderLabel: string;
+  hasLetterPadColumn?: boolean;
+  letterPadHeaderLabel?: string;
   quote: string;
   headerArt: string;
   items: MembershipCategoryItem[];
@@ -30,7 +33,9 @@ export const membershipCategorySections: MembershipCategorySection[] = [
     icon: Users,
     iconBg: "#062a4f",
     headerTheme: "blue",
-    kitHeaderLabel: "Includes",
+    kitHeaderLabel: "Kit",
+    hasLetterPadColumn: true,
+    letterPadHeaderLabel: "Letter Pad Authority",
     quote: "Be the voice that drives change.",
     headerArt: "/membership/card1_art.png",
     items: [
@@ -41,6 +46,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         fees: "₹800",
         validity: "1 Year",
         kit: ["Appointment Letter", "Certificate", "Identity Card & Sticker"],
+        letterPad: "-",
       },
       {
         srNo: 2,
@@ -49,6 +55,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         fees: "₹800",
         validity: "1 Year",
         kit: ["Appointment Letter", "Certificate", "Identity Card & Sticker"],
+        letterPad: "-",
       },
       {
         srNo: 3,
@@ -56,7 +63,8 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Minimum 10th Class",
         fees: "₹1,300",
         validity: "1 Year",
-        kit: ["Appointment Letter", "Certificate", "Identity Card & Sticker"],
+        kit: ["Appointment Letter", "Certificate", "Identity Card, ID Cover, Lanyard, Sticker & T' Shirt"],
+        letterPad: "-",
       },
       {
         srNo: 4,
@@ -64,18 +72,21 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Minimum 10th Class",
         fees: "₹2,300",
         validity: "2 Years",
-        kit: ["Appointment Letter", "Certificate", "Identity Card & Sticker"],
+        kit: ["Appointment Letter", "Certificate", "Identity Card, ID Cover, Lanyard, Sticker & T' Shirt"],
+        letterPad: "-",
       },
     ],
   },
   {
     id: "letter-pad-post",
     title: "Letter Pad Post",
-    subtitle: "Positions with Letter PadAuthority to represent HRSJM at state level.",
+    subtitle: "Positions with Letter Pad Authority to represent HRSJM at state level.",
     icon: FileText,
     iconBg: "#062a4f",
     headerTheme: "blue",
-    kitHeaderLabel: "Kit / Letter Pad",
+    kitHeaderLabel: "Kit",
+    hasLetterPadColumn: true,
+    letterPadHeaderLabel: "Letter Pad Authority",
     quote: "Represent. Support. Create impact.",
     headerArt: "/membership/card2_art.png",
     items: [
@@ -85,7 +96,12 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Minimum 12th Pass",
         fees: "₹5,000",
         validity: "5 Years",
-        kit: ["Letter Pad"],
+        kit: [
+          "Appointment Letter",
+          "Certificate",
+          "Identity Card, 2 ID Cover, 2 Lanyard, 2 Sticker & 2 T' Shirt",
+        ],
+        letterPad: "Letter Pad",
       },
       {
         srNo: 6,
@@ -93,7 +109,12 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Minimum 12th Pass",
         fees: "₹5,000",
         validity: "5 Years",
-        kit: ["Letter Pad"],
+        kit: [
+          "Appointment Letter",
+          "Certificate",
+          "Identity Card, 2 ID Cover, 2 Lanyard, 2 Sticker & 2 T' Shirt",
+        ],
+        letterPad: "Letter Pad",
       },
       {
         srNo: 7,
@@ -101,7 +122,12 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Minimum 12th Pass",
         fees: "₹5,000",
         validity: "5 Years",
-        kit: ["Letter Pad"],
+        kit: [
+          "Appointment Letter",
+          "Certificate",
+          "Identity Card, 2 ID Cover, 2 Lanyard, 2 Sticker & 2 T' Shirt",
+        ],
+        letterPad: "Letter Pad",
       },
       {
         srNo: 8,
@@ -109,7 +135,12 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Minimum Graduate / Degree",
         fees: "₹10,000",
         validity: "10 Years",
-        kit: ["Letter Pad"],
+        kit: [
+          "Appointment Letter",
+          "Certificate",
+          "Identity Card, 3 ID Cover, 3 Lanyard, 3 Sticker & 3 T' Shirt",
+        ],
+        letterPad: "Letter Pad",
       },
     ],
   },
@@ -120,7 +151,9 @@ export const membershipCategorySections: MembershipCategorySection[] = [
     icon: Landmark,
     iconBg: "#062a4f",
     headerTheme: "blue",
-    kitHeaderLabel: "Kit / Letter Pad",
+    kitHeaderLabel: "Kit",
+    hasLetterPadColumn: true,
+    letterPadHeaderLabel: "Letter Pad Authority",
     quote: "Work for a greater tomorrow.",
     headerArt: "/membership/card3_art.png",
     items: [
@@ -130,7 +163,12 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Advocate / Retd. Judge",
         fees: "₹10,000",
         validity: "10 Years",
-        kit: ["Letter Pad"],
+        kit: [
+          "Appointment Letter",
+          "Certificate",
+          "Identity Card, 3 ID Cover, 3 Lanyard, 3 Sticker & 3 T' Shirt",
+        ],
+        letterPad: "Letter Pad",
       },
       {
         srNo: 10,
@@ -139,7 +177,12 @@ export const membershipCategorySections: MembershipCategorySection[] = [
           "Graduate / Degree (Muslim, Christian, Buddhist, Parsi, Jain & Sikh)",
         fees: "₹10,000",
         validity: "10 Years",
-        kit: ["Letter Pad"],
+        kit: [
+          "Appointment Letter",
+          "Certificate",
+          "Identity Card, 3 ID Cover, 3 Lanyard, 3 Sticker & 3 T' Shirt",
+        ],
+        letterPad: "Letter Pad",
       },
       {
         srNo: 11,
@@ -147,7 +190,12 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Graduate / Degree (Only for Women)",
         fees: "₹10,000",
         validity: "10 Years",
-        kit: ["Letter Pad"],
+        kit: [
+          "Appointment Letter",
+          "Certificate",
+          "Identity Card, 3 ID Cover, 3 Lanyard, 3 Sticker & 3 T' Shirt",
+        ],
+        letterPad: "Letter Pad",
       },
       {
         srNo: 12,
@@ -155,7 +203,12 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Graduate / Degree (For Politicians)",
         fees: "₹10,000",
         validity: "10 Years",
-        kit: ["Letter Pad"],
+        kit: [
+          "Appointment Letter",
+          "Certificate",
+          "Identity Card, 3 ID Cover, 3 Lanyard, 3 Sticker & 3 T' Shirt",
+        ],
+        letterPad: "Letter Pad",
       },
     ],
   },

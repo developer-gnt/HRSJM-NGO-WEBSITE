@@ -3,6 +3,7 @@ export interface KeyRightItem {
   subtitle?: string;
   description: string;
   icon: string;
+  featured?: boolean;
 }
 
 export interface LawItem {
@@ -1015,7 +1016,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         { title: "Freedom of Expression", icon: "message", description: "The freedom to hold opinions, receive information, and express ideas through speech, writing, and art." },
         { title: "Freedom of Religion", icon: "sun", description: "Unfettered right to profess, practice, and propagate one's religious or philosophical beliefs freely." },
         { title: "Right to Participate in Public Life", icon: "usersRound", description: "Equal rights to vote, stand for election, and actively shape civic and political governance." },
-        { title: "Right to Work", icon: "briefcase", description: "Fair wages, humane working conditions, equal pay for equal work, and protection against forced labor." },
+        { title: "Right to Work", icon: "briefcase", description: "Fair wages, humane working conditions, equal pay for equal work, and protection against forced labor.", featured: true },
         { title: "Right to Education", icon: "graduationCap", description: "Universal access to free, compulsory elementary education and lifelong vocational learning." },
         { title: "Right to Health", icon: "shieldCheck", description: "Access to timely, acceptable, and affordable healthcare of appropriate quality for all individuals." },
         { title: "Right to Adequate Standard of Living", icon: "home", description: "Sufficient food, clean water, adequate shelter, clothing, and continuous improvement of living conditions." },
@@ -1024,7 +1025,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         quote: "“All human beings are born free and equal in dignity and rights.”",
         source: "- Universal Declaration of Human Rights (UDHR)",
         iconType: "un",
-        image: "/images/rights/human-rights-sidecard.png",
+        image: "/images/rights/unity-hands-stack.jpg",
       }
     },
     laws: {

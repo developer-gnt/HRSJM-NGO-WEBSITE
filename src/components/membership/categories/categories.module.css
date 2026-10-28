@@ -184,6 +184,7 @@
   margin-bottom: 30px;
   overflow: hidden;
   transition: box-shadow 200ms ease;
+  scroll-margin-top: 100px;
 }
 
 .categoryCard:hover {

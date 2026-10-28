@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { backendFetch } from "@/lib/backendApi";
+import { backendFetch, extractErrorMessage, verifyDirectlyWithCashfree } from "@/lib/backendApi";
 
 export async function GET(request: NextRequest) {
   try {
@@ -62,6 +62,19 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    // If central backend returned an error or was unavailable, verify directly with Cashfree PG
+    try {
+      const directRes = await verifyDirectlyWithCashfree(orderId);
+      if (directRes && (directRes.status === "SUCCESS" || directRes.latest_status === "SUCCESS")) {
+        return NextResponse.json({
+          success: true,
+          data: directRes,
+        });
+      }
+    } catch (directErr: any) {
+      console.warn("Direct Cashfree verification check:", directErr.message);
+    }
+
     if (!res || !json) {
       const fallbackStatus = (res as any)?.status || 502;
       return NextResponse.json(
@@ -77,7 +90,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: json.message || json.error || "Failed to verify payment with backend",
+          error: extractErrorMessage(json, "Failed to verify payment with backend"),
           data: json.data || null,
         },
         { status: (res as any)?.status || 500 }

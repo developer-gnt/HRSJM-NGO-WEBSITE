@@ -9,6 +9,7 @@ import {
   resolveBackendCategoryId,
   createCashfreeOrder,
   verifyCashfreeOrder,
+  extractErrorMessage,
 } from "@/lib/backendApi";
 
 export async function POST(request: Request) {
@@ -226,10 +227,11 @@ export async function POST(request: Request) {
       try {
         verifyRes = await verifyCashfreeOrder(orderId);
       } catch (err: any) {
+        const errMsg = extractErrorMessage(err, "Failed to communicate with payment gateway verification.");
         return NextResponse.json(
           {
             success: false,
-            error: err.message || "Failed to communicate with payment gateway verification.",
+            error: errMsg,
           },
           { status: 400 }
         );
@@ -237,8 +239,8 @@ export async function POST(request: Request) {
 
       if (verifyRes?.status !== "SUCCESS") {
         const failureReason =
-          verifyRes?.latest_message ||
-          verifyRes?.message ||
+          (typeof verifyRes?.latest_message === "string" && verifyRes.latest_message) ||
+          (typeof verifyRes?.message === "string" && verifyRes.message) ||
           (verifyRes?.latest_status ? `Gateway reported status: ${verifyRes.latest_status}` : "Payment not confirmed or pending");
         return NextResponse.json(
           {
@@ -322,12 +324,19 @@ export async function POST(request: Request) {
           { status: 409 }
         );
       }
-      return NextResponse.json(
-        {
-          success: false,
-          error: apiErr.message || "Unable to save application to database. Please contact support.",
-        },
-        { status: 500 }
+      // If this was an offline/manual payment attempt that failed backend submission, return error
+      if (!isOnlinePayment) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: apiErr.message || "Unable to save application to database. Please contact support.",
+          },
+          { status: 500 }
+        );
+      }
+      console.warn(
+        "Central backend API sync error for verified paid application. Continuing with local backup storage and receipt generation:",
+        apiErr.message
       );
     }
 

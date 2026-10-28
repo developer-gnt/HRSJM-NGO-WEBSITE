@@ -20,8 +20,6 @@ const categories = [
   "Awareness",
   "Legal Aid",
   "Community Outreach",
-  "Campaigns",
-  "Workshops",
 ];
 
 const activities: ActivityItem[] = activitiesData;

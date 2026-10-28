@@ -81,6 +81,7 @@ function MembershipApplyContent() {
   const [step4Data, setStep4Data] = useState<Step4Data>({
     paymentMode: "online_gateway",
     paymentReference: "",
+    validity: selectedPackage.item.validity || "1 Year",
   });
 
   // Validation Errors
@@ -107,6 +108,21 @@ function MembershipApplyContent() {
 
   // Keep track of active paid Cashfree order so user does not get double-charged on retry
   const completedOrderIdRef = useRef<string | null>(null);
+
+  const formatDisplayError = (err: any, fallback: string): string => {
+    if (!err) return fallback;
+    if (typeof err === "string" && err.trim().length > 0) return err;
+    if (typeof err.message === "string" && err.message.trim().length > 0) return err.message;
+    if (Array.isArray(err.message) && err.message.length > 0) return err.message.join(", ");
+    if (typeof err.error === "string" && err.error.trim().length > 0) return err.error;
+    if (err.error && typeof err.error === "object") {
+      if (typeof err.error.message === "string") return err.error.message;
+      if (Array.isArray(err.error.details)) return err.error.details.join(", ");
+      if (typeof err.error.details === "string") return err.error.details;
+      if (err.error.code) return `Server Error (${err.error.code})`;
+    }
+    return fallback;
+  };
 
   const parseResponseSafely = async (res: Response, context: string) => {
     const text = await res.text();
@@ -254,18 +270,26 @@ function MembershipApplyContent() {
   const validateStep3 = (): boolean => {
     const errors: Record<string, string> = {};
 
-    if (!step3Data.idProof.file) {
+    if (!step3Data.idProof.file && !step3Data.idProof.dataUrl) {
       errors.idProof = "Please upload Identity Proof.";
     }
-    if (!step3Data.addressProof.file) {
+    if (!step3Data.addressProof.file && !step3Data.addressProof.dataUrl) {
       errors.addressProof = "Please upload Address Proof.";
     }
-    if (!step3Data.qualification.file) {
+    if (!step3Data.qualification.file && !step3Data.qualification.dataUrl) {
       errors.qualification = "Please upload Qualification Certificate.";
     }
-    if (!step3Data.photograph.file) {
+
+    const hasPhoto = Boolean(
+      step3Data.photograph.file ||
+      step3Data.photograph.dataUrl ||
+      step1Data.photoFile ||
+      step1Data.photoPreview
+    );
+    if (!hasPhoto) {
       errors.photograph = "Please upload Photograph.";
     }
+
     if (!step3Data.agreePrivacy) {
       errors.agreePrivacy = "Please agree to the Privacy Policy.";
     }
@@ -277,6 +301,31 @@ function MembershipApplyContent() {
     }
 
     setStep3Errors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Validate Step 4: Package, Validity, and Payment Mode
+  const validateStep4 = (): boolean => {
+    const errors: Record<string, string> = {};
+
+    const chosenValidity = step4Data.validity || selectedPackage?.item?.validity;
+    if (!chosenValidity || !chosenValidity.trim()) {
+      errors.validity = "Please select or confirm your membership validity period.";
+    }
+
+    if (!selectedPackage?.item?.post) {
+      errors.post = "Please select a membership post.";
+    }
+
+    if (!selectedPackage?.item?.fees) {
+      errors.fee = "Registration fee is required.";
+    }
+
+    if (!step4Data.paymentMode) {
+      errors.paymentMode = "Please select a payment method.";
+    }
+
+    setStep4Errors(errors);
     return Object.keys(errors).length === 0;
   };
 
@@ -342,8 +391,78 @@ function MembershipApplyContent() {
 
   // Final Submit from Step 4
   const handleFinalSubmit = async () => {
+    // Step 1 Check BEFORE Payment
+    if (!validateStep1()) {
+      setCurrentStep(1);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+      alert("Please resolve all errors in Step 1 (Personal Information) before making payment.");
+      return;
+    }
+
+    // Step 2 Check BEFORE Payment
+    if (!validateStep2()) {
+      setCurrentStep(2);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+      alert("Please complete all required fields in Step 2 (Address Details) before making payment.");
+      return;
+    }
+
+    // Step 3 Check BEFORE Payment
+    if (!validateStep3()) {
+      setCurrentStep(3);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+      alert("Please upload all 4 required documents and accept all declarations in Step 3 before making payment.");
+      return;
+    }
+
+    // Step 4 Check & Validity BEFORE Payment
+    if (!validateStep4()) {
+      setCurrentStep(4);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+      alert("Please confirm your membership validity period before proceeding to payment.");
+      return;
+    }
+
+    const chosenValidity = step4Data.validity || selectedPackage?.item?.validity || "1 Year";
+
     setSubmitting(true);
     try {
+      // Pre-Payment Duplicate Verification: Do NOT take payment if mobile/email already exists!
+      try {
+        const dupRes = await fetch("/api/membership/check-duplicate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phone: step1Data.phone.trim(),
+            email: step1Data.email.trim(),
+          }),
+        });
+
+        const dupData = await dupRes.json();
+        if (dupData?.isDuplicate) {
+          const errorMsg =
+            dupData.message ||
+            "An account or membership application is already registered with this mobile number or email. Please login or renew instead of paying again.";
+          const newErrors: Record<string, string> = {};
+          if (dupData.field === "phone") {
+            newErrors.phone = errorMsg;
+          } else if (dupData.field === "email") {
+            newErrors.email = errorMsg;
+          } else {
+            newErrors.phone = errorMsg;
+            newErrors.email = errorMsg;
+          }
+          setStep1Errors((prev) => ({ ...prev, ...newErrors }));
+          setCurrentStep(1);
+          window.scrollTo({ top: 320, behavior: "smooth" });
+          alert(errorMsg);
+          setSubmitting(false);
+          return;
+        }
+      } catch (dupErr) {
+        console.warn("Pre-payment duplicate check failed:", dupErr);
+      }
+
       const payload = {
         fullName: step1Data.fullName,
         dob: step1Data.dob,
@@ -374,7 +493,7 @@ function MembershipApplyContent() {
         agreePledge: step3Data.agreePledge,
         packageName: selectedPackage.item.post,
         packageFee: selectedPackage.item.fees,
-        packageValidity: selectedPackage.item.validity,
+        packageValidity: chosenValidity,
         termsAgreed: step3Data.agreeTerms,
         pledgeAgreed: step3Data.agreePledge,
         declarationAgreed: step3Data.agreePrivacy,
@@ -388,6 +507,7 @@ function MembershipApplyContent() {
         alert(
           "Total document upload size is too large (exceeds 3.8MB server limit). Please upload compressed images or smaller documents and try again."
         );
+        setSubmitting(false);
         return;
       }
 
@@ -397,13 +517,14 @@ function MembershipApplyContent() {
 
         // Only create a new Cashfree session if we don't already have a paid order from this session
         if (!orderId) {
-          // Step 1: Request Cashfree payment session WITHOUT creating DB record
+          // Request Cashfree payment session with verified validity and duplicate checks
           const orderRes = await fetch("/api/membership/initiate-order", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               amount: selectedPackage.item.fees,
               packageName: selectedPackage.item.post,
+              packageValidity: chosenValidity,
               fullName: step1Data.fullName,
               phone: step1Data.phone,
               email: step1Data.email,
@@ -412,27 +533,27 @@ function MembershipApplyContent() {
 
           const orderJson = await parseResponseSafely(orderRes, "initiating payment session");
           if (!orderRes.ok || !orderJson.success) {
-            alert(orderJson.error || "Failed to initiate payment session. Please try again.");
+            alert(formatDisplayError(orderJson, "Failed to initiate payment session. Please check your details and try again."));
+            setSubmitting(false);
             return;
           }
 
           orderId = orderJson.orderId;
           paymentSessionId = orderJson.paymentSessionId;
 
-          // Step 2: Open Cashfree checkout popup
+          // Open Cashfree checkout popup ONLY after all checks and validity have passed
           try {
             await launchCashfreeCheckout({
               paymentSessionId: paymentSessionId!,
               redirectTarget: "_modal",
             });
-            // Record orderId so that if verification or network fails, user can retry without double paying
             completedOrderIdRef.current = orderId;
           } catch (cfErr) {
             console.warn("Cashfree checkout interaction:", cfErr);
           }
         }
 
-        // Step 3: Cashfree checkout completed or closed. Verify payment with gateway before saving!
+        // Verify payment with gateway before saving
         const verifyRes = await fetch("/api/membership/apply", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -445,21 +566,21 @@ function MembershipApplyContent() {
 
         const verifyJson = await parseResponseSafely(verifyRes, "verifying payment and submitting application");
         if (!verifyRes.ok || !verifyJson.success) {
-          // If payment was not completed or failed on gateway, clear saved order so user can retry checkout
           if (verifyJson.paymentStatus && verifyJson.paymentStatus !== "SUCCESS") {
             completedOrderIdRef.current = null;
           }
           alert(
-            verifyJson.error ||
-            "Payment was not completed or failed. Your membership application has not been submitted. Please try again."
+            formatDisplayError(
+              verifyJson,
+              "Payment was not completed or failed. Your membership application has not been submitted. Please try again."
+            )
           );
+          setSubmitting(false);
           return;
         }
 
-        // Successfully verified and created! Reset completed order ID
         completedOrderIdRef.current = null;
 
-        // Address summary for receipt
         const fullAddress = [
           step2Data.address1,
           step2Data.city,
@@ -467,7 +588,6 @@ function MembershipApplyContent() {
           step2Data.country,
         ].filter(Boolean).join(", ") || "Mumbai, Maharashtra, India";
 
-        // Step 4: Payment confirmed! Database record saved with status PENDING (Applied). Show success modal.
         setSubmissionResult({
           applicationRef: verifyJson.applicationRef,
           applicantName: verifyJson.applicantName || step1Data.fullName,
@@ -494,7 +614,8 @@ function MembershipApplyContent() {
 
         const json = await parseResponseSafely(res, "submitting membership application");
         if (!res.ok || !json.success) {
-          alert(json.error || "Submission failed. Please check your data and retry.");
+          alert(formatDisplayError(json, "Submission failed. Please check your data and retry."));
+          setSubmitting(false);
           return;
         }
 
@@ -584,13 +705,56 @@ function MembershipApplyContent() {
             {/* Four-Step Progress Indicator */}
             <ProgressIndicator
               currentStep={currentStep}
-              onStepClick={(step) => setCurrentStep(step)}
+              onStepClick={(step) => {
+                if (step < currentStep) {
+                  setCurrentStep(step);
+                  window.scrollTo({ top: 320, behavior: "smooth" });
+                } else if (step === 2) {
+                  if (validateStep1()) {
+                    setCurrentStep(2);
+                    window.scrollTo({ top: 320, behavior: "smooth" });
+                  } else {
+                    alert("Please complete Step 1 (Personal Information) before moving forward.");
+                  }
+                } else if (step === 3) {
+                  if (!validateStep1()) {
+                    setCurrentStep(1);
+                    alert("Please complete Step 1 (Personal Information) first.");
+                  } else if (!validateStep2()) {
+                    setCurrentStep(2);
+                    alert("Please complete Step 2 (Address Details) before moving to Step 3.");
+                  } else {
+                    setCurrentStep(3);
+                    window.scrollTo({ top: 320, behavior: "smooth" });
+                  }
+                } else if (step === 4) {
+                  if (!validateStep1()) {
+                    setCurrentStep(1);
+                    alert("Please complete Step 1 (Personal Information) first.");
+                  } else if (!validateStep2()) {
+                    setCurrentStep(2);
+                    alert("Please complete Step 2 (Address Details) first.");
+                  } else if (!validateStep3()) {
+                    setCurrentStep(3);
+                    alert("Please complete Step 3 (Documents & Declarations) before moving to Step 4.");
+                  } else {
+                    setCurrentStep(4);
+                    window.scrollTo({ top: 320, behavior: "smooth" });
+                  }
+                }
+              }}
             />
 
             {/* Dynamic Membership Package Summary */}
             <MembershipSummaryCard
               selectedPackage={selectedPackage}
-              onSelectPackage={(pkg) => setSelectedPackage(pkg)}
+              onSelectPackage={(pkg) => {
+                setSelectedPackage(pkg);
+                setStep4Data((prev) => ({
+                  ...prev,
+                  validity: pkg.item.validity,
+                }));
+              }}
             />
 
             {/* Step 1: Personal Information */}

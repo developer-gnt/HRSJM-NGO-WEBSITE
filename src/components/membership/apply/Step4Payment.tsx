@@ -9,6 +9,8 @@ import {
   QrCode,
   ShieldCheck,
   Loader2,
+  Calendar,
+  AlertCircle,
 } from "lucide-react";
 import type { UnifiedMembershipPackage } from "../categories/categoriesData";
 import styles from "./apply.module.css";
@@ -16,6 +18,7 @@ import styles from "./apply.module.css";
 export interface Step4Data {
   paymentMode: "upi_bank" | "online_gateway";
   paymentReference: string;
+  validity: string;
 }
 
 interface Step4Props {
@@ -48,12 +51,14 @@ export default function Step4Payment({
     onSubmit();
   };
 
+  const currentValidity = data.validity || selectedPackage.item.validity || "1 Year";
+
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className={styles.stepHeader}>
         <h2 className={styles.sectionHeading}>Payment Step &amp; Application Review</h2>
         <p className={styles.sectionSubtitle}>
-          Review your membership registration fee and select your payment method.
+          Review your membership details, confirm validity, and complete payment.
         </p>
       </div>
 
@@ -64,7 +69,7 @@ export default function Step4Payment({
           border: "1px solid #e2e8f0",
           borderRadius: 12,
           padding: 24,
-          marginBottom: 24,
+          marginBottom: 20,
         }}
       >
         <h3
@@ -109,8 +114,8 @@ export default function Step4Payment({
             <strong style={{ color: "#0a3a6b" }}>{selectedPackage.item.post}</strong>
           </div>
           <div>
-            <span style={{ color: "#64748b", display: "block" }}>Validity:</span>
-            <strong>{selectedPackage.item.validity}</strong>
+            <span style={{ color: "#64748b", display: "block" }}>Membership Validity:</span>
+            <strong style={{ color: "#0d7a57" }}>{currentValidity}</strong>
           </div>
         </div>
 
@@ -140,6 +145,114 @@ export default function Step4Payment({
             {selectedPackage.item.fees}
           </div>
         </div>
+      </div>
+
+      {/* Validity Selection & Confirmation Card (Taken before payment) */}
+      <div
+        style={{
+          background: "#ffffff",
+          border: `1.5px solid ${errors.validity ? "#ef4444" : "#e2e8f0"}`,
+          borderRadius: 12,
+          padding: 20,
+          marginBottom: 24,
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+          <div>
+            <h3
+              style={{
+                fontSize: 15,
+                fontWeight: 700,
+                color: "var(--color-navy)",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                margin: 0,
+              }}
+            >
+              <Calendar size={18} style={{ color: "#0a3a6b" }} />
+              Membership Validity Period (Required Before Payment)
+            </h3>
+            <p style={{ fontSize: 12.5, color: "#64748b", margin: "4px 0 0 0" }}>
+              Confirm your official membership validity duration before initiating payment.
+            </p>
+          </div>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: "#0d7a57",
+              background: "#dcfce7",
+              padding: "4px 10px",
+              borderRadius: 20,
+            }}
+          >
+            CONFIRMED: {currentValidity}
+          </span>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+            gap: 12,
+            marginTop: 14,
+          }}
+        >
+          {["1 Year", "2 Years", "5 Years", "10 Years"].map((vOption) => {
+            const isPackageDefault = selectedPackage.item.validity === vOption;
+            const isCurrentSelected = currentValidity === vOption;
+            return (
+              <div
+                key={vOption}
+                onClick={() => onChange("validity", vOption)}
+                style={{
+                  border: `2px solid ${isCurrentSelected ? "#0a3a6b" : "#e2e8f0"}`,
+                  borderRadius: 10,
+                  padding: "12px 14px",
+                  cursor: "pointer",
+                  background: isCurrentSelected ? "#f0f7ff" : "#f8fafc",
+                  textAlign: "center",
+                  transition: "all 140ms ease",
+                  position: "relative",
+                }}
+              >
+                {isPackageDefault && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: -9,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      fontSize: 9.5,
+                      fontWeight: 800,
+                      background: "#0a3a6b",
+                      color: "#ffffff",
+                      padding: "1px 6px",
+                      borderRadius: 6,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    POST DEFAULT
+                  </span>
+                )}
+                <div style={{ fontSize: 14, fontWeight: 700, color: isCurrentSelected ? "#0a3a6b" : "#334155" }}>
+                  {vOption}
+                </div>
+                <div style={{ fontSize: 11, color: isCurrentSelected ? "#0a3a6b" : "#64748b", marginTop: 2, fontWeight: isCurrentSelected ? 600 : 400 }}>
+                  {isCurrentSelected ? "✓ Confirmed" : "Choose"}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {errors.validity && (
+          <p className={styles.fieldError} style={{ marginTop: 10 }} role="alert">
+            <AlertCircle size={13} strokeWidth={2} />
+            {errors.validity}
+          </p>
+        )}
       </div>
 
       {/* Payment Mode Selection */}

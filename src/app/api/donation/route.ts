@@ -58,14 +58,21 @@ export async function POST(request: Request) {
         purpose: "donation",
         amount: numAmount,
         customerName: resolvedName,
-        customerPhone: donorMobile?.trim() || "9999999999",
-        customerEmail: donorEmail?.trim() || undefined,
+        customerPhone: donorMobile?.trim() || "9876543210",
+        customerEmail: donorEmail?.trim() || "donor@hrsjm.org",
         orderNote: `Donation: ${cause || "Human Rights & Social Justice"} (${donationRef})`,
         referenceId: backendDonation?.id || donationRef,
         returnUrl: `${origin}/payments/callback?order_id={order_id}`,
       });
     } catch (cfErr: any) {
-      console.warn("Cashfree order creation notice for donation:", cfErr.message);
+      console.error("Cashfree order creation error for donation:", cfErr.message);
+      return NextResponse.json(
+        {
+          success: false,
+          error: cfErr.message || "Failed to create Cashfree checkout session. Please try again.",
+        },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({

@@ -8,6 +8,7 @@ import {
   GraduationCap,
   CloudLightning,
   Home,
+  Utensils,
   ArrowRight,
   CheckCircle2,
   Users,
@@ -20,6 +21,59 @@ import {
 } from "lucide-react";
 import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
 import styles from "./donation.module.css";
+
+interface CategorySelectionItem {
+  id: string;
+  title: string;
+  description: string;
+  icon: any;
+  activeCount: number;
+}
+
+const emergencySelectionCategories: CategorySelectionItem[] = [
+  {
+    id: "medical",
+    title: "Medical Assistance",
+    description: "Support for hospitalization, major operations and emergency medical needs.",
+    icon: HeartPulse,
+    activeCount: 12,
+  },
+  {
+    id: "education",
+    title: "Educational Assistance",
+    description: "Help for school fees, college admissions, uniforms, books and learning needs.",
+    icon: GraduationCap,
+    activeCount: 8,
+  },
+  {
+    id: "disaster",
+    title: "Disaster Relief",
+    description: "Emergency support during floods, storms, heavy rainfall, fires and other natural disasters.",
+    icon: CloudLightning,
+    activeCount: 15,
+  },
+  {
+    id: "housing",
+    title: "Housing & Rehabilitation",
+    description: "Assistance for house damage, building collapse and rehabilitation of affected families.",
+    icon: Home,
+    activeCount: 10,
+  },
+  {
+    id: "food",
+    title: "Food & Essentials",
+    description: "Support for food, clean water, daily essentials and basic survival needs.",
+    icon: Utensils,
+    activeCount: 18,
+  },
+  {
+    id: "women-child",
+    title: "Women & Child Support",
+    description: "Assistance for women in crisis, child welfare, safety, education and rehabilitation.",
+    icon: Users,
+    activeCount: 14,
+  },
+];
 
 interface CauseStats {
   id: string;
@@ -177,6 +231,7 @@ const formatINR = (val: number) =>
   `₹${new Intl.NumberFormat("en-IN").format(Math.max(0, val))}`;
 
 export default function EmergencyDonationSection() {
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>("medical");
   const [categories, setCategories] = useState<CauseStats[]>(initialEmergencyCategories);
   const [activeModalCause, setActiveModalCause] = useState<CauseStats | null>(null);
 
@@ -294,7 +349,7 @@ export default function EmergencyDonationSection() {
       if (data.cashfreeOrder?.payment_session_id) {
         await launchCashfreeCheckout({
           paymentSessionId: data.cashfreeOrder.payment_session_id,
-          redirectTarget: "_self",
+          redirectTarget: "_modal",
         });
       } else {
         setErrorMessage("Payment session could not be created. Please try again.");
@@ -362,166 +417,49 @@ export default function EmergencyDonationSection() {
         </div>
 
         {/* ============================================================
-<<<<<<< HEAD
-            2. THE 4 EMERGENCY CATEGORY CARDS WITH SEPARATE DONATION & PROGRESS
+            2. CATEGORY SELECTION: 6 Clean Cards matching Image 1
             ============================================================ */}
-        <div id="emergency-categories" className={styles.emergencyCardsGrid}>
-          {categories.map((cat) => {
-            const Icon = cat.icon;
-            const percent = Math.min(100, Math.round((cat.raised / (cat.goal || 1)) * 100));
+        <div className={styles.categorySelectSection}>
+          <div className={styles.headingGoldBar} aria-hidden="true" />
+          <h2 className={styles.categorySelectTitle}>Select a Category</h2>
+          <p className={styles.categorySelectSubtitle}>
+            Choose a category to view and support active cases.
+          </p>
 
-            return (
-              <div
-                key={cat.id}
-                className={`${styles.emergencyCard} ${cat.themeClass}`}
-                style={{ display: "flex", flexDirection: "column" }}
-              >
-                {/* Card Top: Icon, Title, and Small Arrow */}
-                <div className={styles.cardHeaderTop}>
-                  <div className={cat.iconWrapClass} aria-hidden="true">
+          <div id="emergency-categories" className={styles.emergencyCategoriesGrid}>
+            {emergencySelectionCategories.map((cat) => {
+              const Icon = cat.icon;
+              const isSelected = selectedCategoryId === cat.id;
+
+              return (
+                <Link
+                  key={cat.id}
+                  href={`/donation/emergency?category=${cat.id}#explore-categories`}
+                  scroll={false}
+                  onClick={() => setSelectedCategoryId(cat.id)}
+                  className={`${styles.categoryCard} ${
+                    isSelected ? styles.categoryCardActive : ""
+                  }`}
+                >
+                  <div className={styles.catIconWrap} aria-hidden="true">
                     <Icon size={24} strokeWidth={2.2} />
                   </div>
-                  <h3 className={styles.cardTitle}>{cat.title}</h3>
-                  <button
-                    type="button"
-                    onClick={() => openDonateModal(cat)}
-                    className={cat.arrowClass}
-                    aria-label={`Donate to ${cat.title}`}
-                    style={{ border: "none", cursor: "pointer" }}
-                  >
-                    <ArrowRight size={14} strokeWidth={2.6} />
-                  </button>
-                </div>
 
-                {/* Card Description */}
-                <p className={styles.cardDesc}>{cat.description}</p>
+                  <h3 className={styles.catTitle}>{cat.title}</h3>
+                  <p className={styles.catDescription}>{cat.description}</p>
 
-                {/* Card Image */}
-                <div className={styles.cardImageWrap}>
-                  <Image
-                    src={cat.image}
-                    alt={cat.alt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className={styles.cardImg}
-                  />
-                </div>
-
-                {/* ====================================================
-                    LIVE DATABASE PROGRESS BAR FOR THIS SPECIFIC CAUSE
-                    ==================================================== */}
-                <div
-                  style={{
-                    background: "#f8fafc",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "10px",
-                    padding: "12px 14px",
-                    marginBottom: "16px",
-                  }}
-                >
-                  {/* Seeker / Beneficiary Tag & % Funded Badge */}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        fontSize: "11px",
-                        fontWeight: 700,
-                        color: "#0f172a",
-                      }}
-                    >
-                      <UserCheck size={13} color={cat.accentColor} />
-                      {cat.seekerName}
+                  <div className={styles.catBottomRow}>
+                    <span className={styles.catActiveCount}>
+                      {cat.activeCount} active cases
                     </span>
-                    <span
-                      style={{
-                        fontSize: "10.5px",
-                        fontWeight: 800,
-                        color: cat.accentColor,
-                        background: cat.badgeBg || "#ecfdf5",
-                        border: `1px solid ${cat.badgeBorder || "#a7f3d0"}`,
-                        padding: "2px 7px",
-                        borderRadius: "12px",
-                      }}
-                    >
-                      {percent}% Funded
+                    <span className={styles.catArrowCircle} aria-hidden="true">
+                      <ArrowRight size={14} strokeWidth={2.6} />
                     </span>
                   </div>
-
-                  {/* Progress Bar Track */}
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "8px",
-                      background: "#e2e8f0",
-                      borderRadius: "999px",
-                      overflow: "hidden",
-                      margin: "6px 0",
-                      boxShadow: "inset 0 1px 2px rgba(0,0,0,0.06)",
-                    }}
-                    role="progressbar"
-                    aria-valuenow={percent}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                  >
-                    <div
-                      style={{
-                        width: `${percent}%`,
-                        height: "100%",
-                        background: cat.gradient || cat.accentColor,
-                        borderRadius: "999px",
-                        transition: "width 500ms ease",
-                        boxShadow: `0 1px 6px ${cat.accentColor}40`,
-                      }}
-                    />
-                  </div>
-
-                  {/* Raised vs Goal */}
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      fontSize: "11.5px",
-                      marginTop: "6px",
-                    }}
-                  >
-                    <span style={{ fontWeight: 800, color: "#0f172a" }}>
-                      <span style={{ color: cat.accentColor }}>{formatINR(cat.raised)}</span>{" "}
-                      <span style={{ fontWeight: 500, color: "#64748b" }}>raised</span>
-                    </span>
-                    <span style={{ color: "#64748b", fontWeight: 600 }}>
-                      Goal: {formatINR(cat.goal)}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Separate Payment Gateway Trigger Button for this specific cause */}
-                <button
-                  type="button"
-                  onClick={() => openDonateModal(cat)}
-                  className={cat.btnClass}
-                  style={{
-                    border: "none",
-                    cursor: "pointer",
-                    marginTop: "auto",
-                    width: "100%",
-                  }}
-                >
-                  {cat.btnText}
-                  <ArrowRight size={16} strokeWidth={2.4} aria-hidden="true" />
-                </button>
-              </div>
-            );
-          })}
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
         {/* ============================================================
