@@ -349,7 +349,7 @@ export default function EmergencyDonationSection() {
       if (data.cashfreeOrder?.payment_session_id) {
         await launchCashfreeCheckout({
           paymentSessionId: data.cashfreeOrder.payment_session_id,
-          redirectTarget: "_modal",
+          redirectTarget: "_self",
         });
       } else {
         setErrorMessage("Payment session could not be created. Please try again.");
