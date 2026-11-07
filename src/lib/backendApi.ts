@@ -327,7 +327,7 @@ export async function createDirectCashfreeOrder(payload: {
   const orderId = `${orderPrefix}_${cleanRef}_${Date.now().toString(36)}`;
 
   const rawPhone = (payload.customerPhone || "").replace(/\D/g, "").slice(-10);
-  const customerPhone = rawPhone.length === 10 ? rawPhone : "9876543210";
+  const customerPhone = rawPhone.length === 10 ? rawPhone : "70210578530";
   const customerId = `cust_${customerPhone}_${Date.now().toString(36).slice(-4)}`;
   const customerName = (payload.customerName || "HRSJM Supporter").replace(/[^a-zA-Z0-9 ]/g, " ").slice(0, 50).trim() || "HRSJM Supporter";
   const customerEmail = payload.customerEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.customerEmail)
@@ -750,6 +750,54 @@ export async function checkDuplicateMembership(
   } catch (err) {
     console.warn("Duplicate check API warning:", err);
     return { isDuplicate: false };
+  }
+}
+
+export interface MemberStatusVerificationResult {
+  found: boolean;
+  membership_id?: string;
+  membership_number?: string | null;
+  member_name?: string;
+  category_name?: string;
+  status?: string;
+  start_date?: string | null;
+  expiry_date?: string | null;
+  is_valid?: boolean;
+  is_expired?: boolean;
+  days_remaining?: number;
+  days_overdue?: number;
+  referral_code?: string | null;
+  renewal_fee?: number;
+  renewal_sequence?: number;
+  eligible_for_free_renewal?: boolean;
+  message: string;
+}
+
+export async function verifyMemberStatus(
+  query: string
+): Promise<MemberStatusVerificationResult> {
+  try {
+    const res = await backendFetch(`/memberships/status-lookup?query=${encodeURIComponent(query.trim())}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return {
+        found: false,
+        message: "Unable to verify member status at this time. Please try again or contact support.",
+      };
+    }
+
+    const json = await res.json();
+    return json?.data || json;
+  } catch (err: any) {
+    console.warn("Member status verification warning:", err);
+    return {
+      found: false,
+      message: "Network or server connection issue while checking member status.",
+    };
   }
 }
 

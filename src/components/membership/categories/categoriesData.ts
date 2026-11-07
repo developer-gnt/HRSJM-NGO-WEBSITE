@@ -52,7 +52,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         srNo: 2,
         post: "State Active Member",
         qualification: "Minimum 8th Class",
-        fees: "₹800",
+        fees: "₹900",
         validity: "1 Year",
         kit: ["Appointment Letter", "Certificate", "Identity Card & Sticker"],
         letterPad: "-",

@@ -9,7 +9,7 @@ const supportChannels = [
     icon: Phone,
     title: "Helpline",
     value: "+91 98765 43210",
-    href: "tel:+919876543210",
+    href: "tel:+9170210578530",
     sub: "Mon - Sat, 10:00 AM - 6:00 PM",
   },
   {

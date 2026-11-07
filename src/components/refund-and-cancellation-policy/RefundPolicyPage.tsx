@@ -391,7 +391,7 @@ export default function RefundPolicyPage() {
                     <div className={styles.contactCardBody}>
                       <h4 className={styles.contactCardLabel}>Email</h4>
                       <p className={styles.contactCardText}>
-                        <a href="mailto:info@hrsjm.org">info@hrsjm.org</a>
+                        <a href="mailto:enquiry@hrsjm.org">enquiry@hrsjm.org</a>
                         <br />
                         <a href="mailto:enquiry@hrsjm.org">enquiry@hrsjm.org</a>
                       </p>

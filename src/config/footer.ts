@@ -44,11 +44,21 @@ export const usefulLinks: FooterLink[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { label: "Facebook", href: "#", icon: "facebook", placeholder: true },
-  { label: "X", href: "#", icon: "x", placeholder: true },
-  { label: "Instagram", href: "#", icon: "instagram", placeholder: true },
-  { label: "YouTube", href: "#", icon: "youtube", placeholder: true },
-  { label: "LinkedIn", href: "#", icon: "linkedin", placeholder: true },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/HumanRightsSocialJusticeMissionNgo",
+    icon: "facebook",
+  },
+  {
+    label: "X",
+    href: "https://x.com/hrsjm_president",
+    icon: "x",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/humanrights_hrsjm/",
+    icon: "instagram",
+  },
 ];
 
 // TODO: phone and email are dummy placeholders - replace with real contact details.
@@ -63,13 +73,13 @@ export const contactItems: ContactItem[] = [
   {
     label: "Phone",
     value: "+91 98765 43210",
-    href: "tel:+919876543210",
+    href: "tel:+9170210578530",
     icon: "phone",
   },
   {
     label: "Email",
-    value: "info@hrsjm.org",
-    href: "mailto:info@hrsjm.org",
+    value: "enquiry@hrsjm.org",
+    href: "mailto:enquiry@hrsjm.org",
     icon: "email",
   },
 ];

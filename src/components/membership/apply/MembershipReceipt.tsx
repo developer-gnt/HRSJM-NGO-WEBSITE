@@ -37,7 +37,7 @@ export default function MembershipReceipt({
   applicationRef,
   applicantName,
   applicantEmail = "sahil.shaikh@example.com",
-  applicantPhone = "+91 9876543210",
+  applicantPhone = "+91 70210578530",
   applicantAddress = "Mumbai, Maharashtra, India",
   packageName,
   packageFee,
@@ -574,7 +574,7 @@ export default function MembershipReceipt({
               </div>
               <div class="contacts-right">
                 <div>&#128222; +91 7021057853</div>
-                <div>&#9993; info@hrsjm.org</div>
+                <div>&#9993; enquiry@hrsjm.org</div>
                 <div>&#127760; www.hrsjm.org</div>
               </div>
             </div>
@@ -895,7 +895,7 @@ export default function MembershipReceipt({
               </div>
               <div className={styles.footerContactItem}>
                 <Mail size={13} className={styles.contactIcon} />
-                <span>info@hrsjm.org</span>
+                <span>enquiry@hrsjm.org</span>
               </div>
               <div className={styles.footerContactItem}>
                 <Globe size={13} className={styles.contactIcon} />
