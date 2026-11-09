@@ -62,8 +62,8 @@ export const contactItems: ContactItem[] = [
   },
   {
     label: "Phone",
-    value: "+91 98765 43210",
-    href: "tel:+919876543210",
+    value: "+91 70210 57853",
+    href: "tel:+917021057853",
     icon: "phone",
   },
   {

@@ -37,7 +37,7 @@ export default function MembershipReceipt({
   applicationRef,
   applicantName,
   applicantEmail = "sahil.shaikh@example.com",
-  applicantPhone = "+91 9876543210",
+  applicantPhone = "+91 7021057853",
   applicantAddress = "Mumbai, Maharashtra, India",
   packageName,
   packageFee,

@@ -58,7 +58,7 @@ export async function POST(request: Request) {
         purpose: "donation",
         amount: numAmount,
         customerName: resolvedName,
-        customerPhone: donorMobile?.trim() || "9876543210",
+        customerPhone: donorMobile?.trim() || "7021057853",
         customerEmail: donorEmail?.trim() || "donor@hrsjm.org",
         orderNote: `Donation: ${cause || "Human Rights & Social Justice"} (${donationRef})`,
         referenceId: backendDonation?.id || donationRef,

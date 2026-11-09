@@ -227,7 +227,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       type="tel"
                       inputMode="numeric"
                       maxLength={10}
-                      placeholder="98765 43210"
+                      placeholder="70210 57853"
                       value={phone}
                       onChange={handlePhoneChange}
                       className={styles.joinPhoneInput}
