@@ -327,7 +327,7 @@ export async function createDirectCashfreeOrder(payload: {
   const orderId = `${orderPrefix}_${cleanRef}_${Date.now().toString(36)}`;
 
   const rawPhone = (payload.customerPhone || "").replace(/\D/g, "").slice(-10);
-  const customerPhone = rawPhone.length === 10 ? rawPhone : "70210578530";
+  const customerPhone = rawPhone.length === 10 ? rawPhone : "7021057853";
   const customerId = `cust_${customerPhone}_${Date.now().toString(36).slice(-4)}`;
   const customerName = (payload.customerName || "HRSJM Supporter").replace(/[^a-zA-Z0-9 ]/g, " ").slice(0, 50).trim() || "HRSJM Supporter";
   const customerEmail = payload.customerEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.customerEmail)

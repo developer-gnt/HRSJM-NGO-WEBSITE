@@ -30,8 +30,8 @@ export const maintenanceConfig: MaintenanceConfig = {
   estimatedReturn: "System updates are underway - please check back soon.",
 
   contact: {
-    phone: "+9170210578530",
-    phoneDisplay: "+91 98765 43210",
+    phone: "+917021057853",
+    phoneDisplay: "+91 70210 57853",
     email: "enquiry@hrsjm.org",
     address: "Sir Mathuradas Vasanji Rd, Chimatpada, Marol Naka, Andheri East, Mumbai, Maharashtra 400059",
   },

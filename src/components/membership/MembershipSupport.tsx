@@ -6,7 +6,7 @@ import styles from "./membership.module.css";
 const channels = [
   {
     title: "Helpline",
-    lines: ["+91 98765 43210", "Mon - Sat, 10:00 AM - 6:00 PM"],
+    lines: ["+91 70210 57853", "Mon - Sat, 10:00 AM - 6:00 PM"],
     icon: Phone,
   },
   {

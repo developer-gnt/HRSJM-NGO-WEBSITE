@@ -1151,7 +1151,7 @@ export const rightsDetailData: Record<string, RightsCategoryDetail> = {
         },
         {
           question: "How can I file a complaint?",
-          answer: "You can file a complaint directly on our website through the 'File a Complaint' portal, call our dedicated helpline at +91 98765 43210, or visit any of our regional legal aid centers across India. Our legal advocacy team will evaluate your case confidentially within 48 hours."
+          answer: "You can file a complaint directly on our website through the 'File a Complaint' portal, call our dedicated helpline at +91 70210 57853, or visit any of our regional legal aid centers across India. Our legal advocacy team will evaluate your case confidentially within 48 hours."
         }
       ],
       resources: {
