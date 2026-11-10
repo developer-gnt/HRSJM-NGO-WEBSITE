@@ -208,7 +208,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
     items: [
       {
         srNo: 9,
-        post: "Advocate / Retd. Judges",
+        post: "National Legal Council Cell",
         qualification: "Advocate / Retd. Judge",
         fees: "₹ 10,000",
         validity: "10 Years",
