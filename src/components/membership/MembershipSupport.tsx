@@ -11,7 +11,7 @@ const channels = [
   },
   {
     title: "Email Support",
-    lines: ["help@hrsjm.org", "We usually respond within 24 - 48 hours"],
+    lines: ["enquiry@hrsjm.org", "We usually respond within 24 - 48 hours"],
     icon: Mail,
   },
   {

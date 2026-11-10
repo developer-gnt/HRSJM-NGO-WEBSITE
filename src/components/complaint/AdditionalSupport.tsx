@@ -15,8 +15,8 @@ const supportChannels = [
   {
     icon: Mail,
     title: "Email Support",
-    value: "help@hrsjm.org",
-    href: "mailto:help@hrsjm.org",
+    value: "enquiry@hrsjm.org",
+    href: "mailto:enquiry@hrsjm.org",
     sub: "We usually respond within 24\u201348 hours",
   },
   {

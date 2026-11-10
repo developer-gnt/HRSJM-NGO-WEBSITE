@@ -333,25 +333,7 @@ function MembershipApplyContent() {
   const validateStep3 = (): boolean => {
     const errors: Record<string, string> = {};
 
-    if (!step3Data.idProof.file && !step3Data.idProof.dataUrl) {
-      errors.idProof = "Please upload Identity Proof.";
-    }
-    if (!step3Data.addressProof.file && !step3Data.addressProof.dataUrl) {
-      errors.addressProof = "Please upload Address Proof.";
-    }
-    if (!step3Data.qualification.file && !step3Data.qualification.dataUrl) {
-      errors.qualification = "Please upload Qualification Certificate.";
-    }
-
-    const hasPhoto = Boolean(
-      step3Data.photograph.file ||
-      step3Data.photograph.dataUrl ||
-      step1Data.photoFile ||
-      step1Data.photoPreview
-    );
-    if (!hasPhoto) {
-      errors.photograph = "Please upload Photograph.";
-    }
+    // Document uploads are optional
 
     if (!step3Data.agreePrivacy) {
       errors.agreePrivacy = "Please agree to the Privacy Policy.";

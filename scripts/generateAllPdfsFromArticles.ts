@@ -83,7 +83,7 @@ async function main() {
       [
         "Central RTI Online Portal: rtionline.gov.in",
         "Central Information Commission (CIC): 011-26183996",
-        "HRSJM Legal RTI Guidance Desk: rti-help@hrsjm.org",
+        "HRSJM Legal RTI Guidance Desk:enquiry@hrsjm.org",
       ]
     );
   }

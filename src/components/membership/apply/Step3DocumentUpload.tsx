@@ -144,7 +144,7 @@ export default function Step3DocumentUpload({
       <div className={styles.stepHeader}>
         <h2 className={styles.sectionHeading}>Documents &amp; Declarations</h2>
         <p className={styles.sectionSubtitle}>
-          Please upload the required documents (4 documents).
+          Please upload supporting documents (optional).
         </p>
       </div>
 
@@ -161,7 +161,7 @@ export default function Step3DocumentUpload({
             </span>
             <div className={styles.docMetaText}>
               <h3 className={styles.docTitle}>
-                Identity Proof <span className={styles.fieldRequired}>*</span>
+                Identity Proof (Aadhar Card)
               </h3>
               <p className={styles.docSubtitle}>
                 Aadhaar Card, PAN Card or Passport
@@ -254,7 +254,7 @@ export default function Step3DocumentUpload({
             </span>
             <div className={styles.docMetaText}>
               <h3 className={styles.docTitle}>
-                Address Proof <span className={styles.fieldRequired}>*</span>
+                Address Proof
               </h3>
               <p className={styles.docSubtitle}>
                 Electricity Bill, Rent Agreement or Bank Statement
@@ -347,7 +347,7 @@ export default function Step3DocumentUpload({
             </span>
             <div className={styles.docMetaText}>
               <h3 className={styles.docTitle}>
-                Qualification <span className={styles.fieldRequired}>*</span>
+                Qualification
               </h3>
               <p className={styles.docSubtitle}>
                 Marksheet, Degree or Certificate
@@ -440,7 +440,7 @@ export default function Step3DocumentUpload({
             </span>
             <div className={styles.docMetaText}>
               <h3 className={styles.docTitle}>
-                Photograph <span className={styles.fieldRequired}>*</span>
+                Photograph
               </h3>
               <p className={styles.docSubtitle}>
                 Recent passport size photograph

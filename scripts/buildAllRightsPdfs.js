@@ -243,7 +243,7 @@ async function main() {
     helplines: [
       "Central RTI Online Portal: rtionline.gov.in",
       "Central Information Commission (CIC): 011-26183996",
-      "HRSJM Legal RTI Help Desk: rti-help@hrsjm.org",
+      "HRSJM Legal RTI Help Desk: rti-enquiry@hrsjm.org",
     ],
     outputPath: path.join(outDir, "rti-application-guide.pdf"),
   });

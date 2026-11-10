@@ -13,9 +13,12 @@ import {
   Mail,
   Globe,
   Printer,
+  Download,
+  Loader2,
   X,
   Clock,
 } from "lucide-react";
+import { downloadMembershipReceiptPdf } from "@/lib/membershipReceiptPdf";
 import styles from "./membershipReceipt.module.css";
 
 export interface MembershipReceiptProps {
@@ -47,6 +50,31 @@ export default function MembershipReceipt({
   autoPrint = false,
   onClose,
 }: MembershipReceiptProps) {
+  const [downloading, setDownloading] = React.useState(false);
+
+  const handleDownload = async () => {
+    try {
+      setDownloading(true);
+      await downloadMembershipReceiptPdf({
+        applicationRef,
+        applicantName,
+        applicantEmail,
+        applicantPhone,
+        applicantAddress,
+        packageName,
+        packageFee,
+        submittedAt,
+        paymentStatus,
+        applicationStatus,
+      });
+    } catch (err) {
+      console.error("Failed to download receipt PDF:", err);
+      handlePrint();
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   const handlePrint = () => {
     if (typeof window === "undefined") return;
 
@@ -653,6 +681,25 @@ export default function MembershipReceipt({
           <span>Official Membership Application Receipt</span>
         </div>
         <div className={styles.toolbarActions}>
+          <button
+            type="button"
+            className={styles.btnPrint}
+            onClick={handleDownload}
+            disabled={downloading}
+            title="Download PDF Receipt"
+          >
+            {downloading ? (
+              <>
+                <Loader2 size={15} className="animate-spin" />
+                <span>Downloading...</span>
+              </>
+            ) : (
+              <>
+                <Download size={15} />
+                <span>Download PDF</span>
+              </>
+            )}
+          </button>
           <button
             type="button"
             className={styles.btnPrint}

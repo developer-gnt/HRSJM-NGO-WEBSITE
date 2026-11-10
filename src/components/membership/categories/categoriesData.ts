@@ -67,7 +67,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 2,
-        post: "Zonal Active Member",
+        post: "State Active Member",
         qualification: "Minimum 8th Class",
         fees: "₹ 900",
         validity: "1 Year",
@@ -95,7 +95,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 4,
-        post: "Zonal Unit Post",
+        post: " State Unit Post",
         qualification: "Minimum 10th Class",
         fees: "₹ 2,300",
         validity: "2 Years",
@@ -112,8 +112,8 @@ export const membershipCategorySections: MembershipCategorySection[] = [
     ],
   },
   {
-    id: "letter-pad-post",
-    title: "Letter Pad Posts",
+    id: "Executive Membership",
+    title: "Executive Membership",
     subtitle: "Positions with Letter Pad Authority to represent HRSJM at state level.",
     icon: FileText,
     iconBg: "#062a4f",
@@ -208,7 +208,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
     items: [
       {
         srNo: 9,
-        post: "National Legal Council Call",
+        post: "Advocate / Retd. Judges",
         qualification: "Advocate / Retd. Judge",
         fees: "₹ 10,000",
         validity: "10 Years",

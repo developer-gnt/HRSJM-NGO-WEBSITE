@@ -103,16 +103,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!idProofName || !addressProofName || !qualificationName || !photoName) {
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "All 4 required documents (Identity Proof, Address Proof, Qualification, Photograph) must be uploaded.",
-        },
-        { status: 400 }
-      );
-    }
+// Documents are optional
 
     if (!agreePrivacy || !agreeTerms) {
       return NextResponse.json(
@@ -154,39 +145,47 @@ export async function POST(request: Request) {
 
     // 3. Prepare structured documents array compatible with backend & admin portal
     const documents = [
-      {
-        id: "id-proof",
-        title: "Identity Proof (Aadhaar / Voter ID / Passport)",
-        fileName: idProofName,
-        fileSize: "1.5 MB",
-        type: "ID_PROOF",
-        uri: idProofUri || undefined,
-      },
-      {
-        id: "address-proof",
-        title: "Address Proof",
-        fileName: addressProofName,
-        fileSize: "1.8 MB",
-        type: "ADDRESS_PROOF",
-        uri: addressProofUri || undefined,
-      },
-      {
-        id: "qualification",
-        title: "Educational Qualification Certificate",
-        fileName: qualificationName,
-        fileSize: "1.2 MB",
-        type: "QUALIFICATION",
-        uri: qualificationUri || undefined,
-      },
-      {
-        id: "photograph",
-        title: "Passport Size Photograph",
-        fileName: photoName,
-        fileSize: "850 KB",
-        type: "PHOTOGRAPH",
-        uri: photoUri || avatarUrl || undefined,
-      },
-    ];
+      idProofName
+        ? {
+            id: "id-proof",
+            title: "Identity Proof (Aadhar Card)",
+            fileName: idProofName,
+            fileSize: "1.5 MB",
+            type: "ID_PROOF",
+            uri: idProofUri || undefined,
+          }
+        : null,
+      addressProofName
+        ? {
+            id: "address-proof",
+            title: "Address Proof",
+            fileName: addressProofName,
+            fileSize: "1.8 MB",
+            type: "ADDRESS_PROOF",
+            uri: addressProofUri || undefined,
+          }
+        : null,
+      qualificationName
+        ? {
+            id: "qualification",
+            title: "Educational Qualification Certificate",
+            fileName: qualificationName,
+            fileSize: "1.2 MB",
+            type: "QUALIFICATION",
+            uri: qualificationUri || undefined,
+          }
+        : null,
+      photoName
+        ? {
+            id: "photograph",
+            title: "Passport Size Photograph",
+            fileName: photoName,
+            fileSize: "850 KB",
+            type: "PHOTOGRAPH",
+            uri: photoUri || avatarUrl || undefined,
+          }
+        : null,
+    ].filter(Boolean);
 
     const personalDetails = {
       full_name: String(fullName).trim(),
