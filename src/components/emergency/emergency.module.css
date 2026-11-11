@@ -1323,6 +1323,278 @@
   margin: 0;
 }
 
+.modalDocActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.modalViewDocBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0b2345;
+  color: #ffffff;
+  border: 1px solid #0b2345;
+  border-radius: 8px;
+  padding: 9px 15px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.modalViewDocBtn:hover {
+  background: #133666;
+  transform: translateY(-1px);
+}
+
+.modalDocExternalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0b2345;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 8px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.modalDocExternalLink:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.modalDocPanel {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modalDocHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modalDocTitleWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modalDocTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0b2345;
+}
+
+.modalDocBadge {
+  display: inline-flex;
+  align-items: center;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.modalDocPreviewCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.modalDocPreviewBtn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: zoom-in;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.modalDocPreviewImg {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #f1f5f9;
+  display: block;
+}
+
+.modalDocZoomHint {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0b2345;
+}
+
+.modalDocPreviewBtn:hover .modalDocZoomHint {
+  text-decoration: underline;
+}
+
+.docLightboxBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.docLightboxContent {
+  width: 100%;
+  max-width: 760px;
+  max-height: 92vh;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+}
+
+.docLightboxBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #0b2345;
+  color: #ffffff;
+}
+
+.docLightboxTitle {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.docLightboxActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.docLightboxOpenLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 6px 11px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.docLightboxOpenLink:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.docLightboxCloseBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.docLightboxCloseBtn:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.docLightboxImgWrap {
+  overflow: auto;
+  padding: 16px;
+  background: #f1f5f9;
+  display: flex;
+  justify-content: center;
+}
+
+.docLightboxImg {
+  width: 100%;
+  max-width: 680px;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+}
+
+.modalDocGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
+.modalDocField {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.modalDocLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.modalDocValue {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+@media (max-width: 540px) {
+  .modalDocGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Modal Donation Form */
 .modalDonationForm {
   display: flex;

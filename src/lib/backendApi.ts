@@ -155,8 +155,8 @@ export async function fetchBackendCategories(): Promise<BackendCategory[]> {
       },
       {
         id: "1781c1b4-60d1-4034-899a-d749f7f93e81",
-        name: "Lion, Counselor or Ambassador of State",
-        code: "LION_COUNSELOR_AMBASSADOR",
+        name: "Lion, Counselor   or Ambassador of State",
+        code: "LION_Counselor  _AMBASSADOR",
         description: "Qualification: 12th Pass · 3 Years Free Renewal",
         fee: 3000,
         validity_days: 365,
@@ -221,15 +221,15 @@ export async function resolveBackendCategoryId(packageName: string): Promise<str
     if (matched) return matched.id;
   }
   if (clean.includes("lion")) {
-    const matched = categories.find((c) => c.code === "LION_OF_STATE" || c.code === "LION_COUNSELOR_AMBASSADOR");
+    const matched = categories.find((c) => c.code === "LION_OF_STATE" || c.code === "LION_Counselor  _AMBASSADOR");
     if (matched) return matched.id;
   }
   if (clean.includes("counsel") || clean.includes("councillor")) {
-    const matched = categories.find((c) => c.code === "COUNSELLOR_OF_STATE" || c.code === "LION_COUNSELOR_AMBASSADOR");
+    const matched = categories.find((c) => c.code === "COUNSELLOR_OF_STATE" || c.code === "LION_Counselor  _AMBASSADOR");
     if (matched) return matched.id;
   }
   if (clean.includes("ambassador")) {
-    const matched = categories.find((c) => c.code === "AMBASSADOR_OF_STATE" || c.code === "LION_COUNSELOR_AMBASSADOR");
+    const matched = categories.find((c) => c.code === "AMBASSADOR_OF_STATE" || c.code === "LION_Counselor  _AMBASSADOR");
     if (matched) return matched.id;
   }
   if (clean.includes("national") || clean.includes("cell") || clean.includes("legal")) {
@@ -517,8 +517,8 @@ export async function verifyDirectlyWithCashfree(orderId: string): Promise<any> 
     (orderData.order_status === "EXPIRED"
       ? "Payment session expired"
       : orderData.order_status === "TERMINATED"
-      ? "Payment session terminated"
-      : `Payment status on gateway: ${latestStatus}`);
+        ? "Payment session terminated"
+        : `Payment status on gateway: ${latestStatus}`);
 
   return {
     status: latestStatus === "SUCCESS" ? "SUCCESS" : "FAILED",
@@ -570,7 +570,7 @@ export async function verifyCashfreeOrder(orderId: string): Promise<any> {
         if (json.success !== false && (json.status === "SUCCESS" || json.data?.status === "SUCCESS")) {
           return json.data || json;
         }
-      } catch {}
+      } catch { }
     }
   } catch (err: any) {
     console.warn(`[backendApi] Backend verify endpoint issue (${err.message}). Falling back to gateway direct verification...`);

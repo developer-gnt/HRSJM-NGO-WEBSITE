@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { scrollToSection } from "@/lib/scrollToSection";
 import styles from "./events.module.css";
 
 export default function EventsCTA() {
@@ -21,7 +24,11 @@ export default function EventsCTA() {
             to build a more just, equal and inclusive India.
           </p>
           <div className={styles.eventsCtaAction}>
-            <Link href="#upcoming-events" className={styles.btnGold}>
+            <Link
+              href="#upcoming-events"
+              className={styles.btnGold}
+              onClick={(e) => scrollToSection(e, "upcoming-events")}
+            >
               View Upcoming Events
               <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
             </Link>

@@ -17,6 +17,8 @@ export interface EmergencyCaseRecord {
   alt: string;
   verified: boolean;
   hospitalOrDetails?: string;
+  documentUrl?: string;
+  documentTitle?: string;
 }
 
 export interface EmergencyCategoryMeta {

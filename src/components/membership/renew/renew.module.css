@@ -316,6 +316,14 @@
   justify-content: center;
   gap: 6px;
   width: 100%;
+<<<<<<< HEAD
+  padding: 10px 16px;
+  border: 1px solid var(--color-gold);
+  border-radius: 6px;
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
+  font-size: 13px;
+=======
   padding: 11px 16px;
   border: 1px solid var(--color-navy, #062a4f);
   border-radius: var(--radius-sm, 8px);
@@ -323,14 +331,21 @@
   color: var(--color-navy, #062a4f);
   font-family: var(--font-body), Arial, sans-serif;
   font-size: 13.5px;
+>>>>>>> f31d5cf745879317518820aaf61383494d351e3a
   font-weight: 700;
   cursor: pointer;
   transition: all 160ms ease;
 }
 
 .tierBtn:hover {
+<<<<<<< HEAD
+  background: var(--color-gold-light);
+  border-color: var(--color-gold-light);
+  color: var(--color-navy-dark);
+=======
   background: var(--color-navy, #062a4f);
   color: var(--color-white, #ffffff);
+>>>>>>> f31d5cf745879317518820aaf61383494d351e3a
 }
 
 .tierBtnActive {

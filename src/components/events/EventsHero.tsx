@@ -12,6 +12,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { useScrollReveal, revealDelay, revealStagger } from "@/hooks/useScrollReveal";
+import { scrollToSection } from "@/lib/scrollToSection";
 import styles from "./events.module.css";
 
 const activities = [
@@ -54,11 +55,19 @@ export default function EventsHero() {
             towards a more just, equal and inclusive India.
           </p>
           <div className={styles.actions} data-reveal style={revealDelay(4)}>
-            <Link href="#upcoming-events" className={styles.btnGold}>
+            <Link
+              href="#upcoming-events"
+              className={styles.btnGold}
+              onClick={(e) => scrollToSection(e, "upcoming-events")}
+            >
               Upcoming Events
               <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
             </Link>
-            <Link href="#activities" className={styles.btnGhost}>
+            <Link
+              href="#activities"
+              className={styles.btnGhost}
+              onClick={(e) => scrollToSection(e, "activities")}
+            >
               <Play size={15} strokeWidth={2.2} aria-hidden="true" />
               Our Activities
             </Link>

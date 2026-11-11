@@ -13,6 +13,10 @@ import {
   Lock,
   ArrowRight,
   CheckCircle2,
+  FileText,
+  ExternalLink,
+  ChevronUp,
+  ZoomIn,
 } from "lucide-react";
 import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
 import type { EmergencyCaseRecord } from "@/app/api/donation/causes/route";
@@ -24,6 +28,8 @@ interface EmergencyCaseModalProps {
 }
 
 const quickAmounts = [500, 1000, 2500, 5000, 10000];
+const DEFAULT_SAMPLE_DOCUMENT =
+  "/images/donation/emergency/sample-verification-document.jpg";
 
 const formatINR = (val: number) =>
   `₹${new Intl.NumberFormat("en-IN").format(Math.max(0, val))}`;
@@ -40,12 +46,22 @@ export default function EmergencyCaseModal({
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [expandedDocCaseId, setExpandedDocCaseId] = useState<string | null>(null);
+  const [docLightboxCaseId, setDocLightboxCaseId] = useState<string | null>(null);
+  const showDocument = Boolean(emergencyCase && expandedDocCaseId === emergencyCase.id);
+  const showDocLightbox = Boolean(emergencyCase && docLightboxCaseId === emergencyCase.id);
 
   useEffect(() => {
     if (!emergencyCase) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        if (docLightboxCaseId === emergencyCase.id) {
+          setDocLightboxCaseId(null);
+        } else {
+          onClose();
+        }
+      }
     };
 
     document.body.style.overflow = "hidden";
@@ -54,9 +70,13 @@ export default function EmergencyCaseModal({
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [emergencyCase, onClose]);
+  }, [emergencyCase, docLightboxCaseId, onClose]);
 
   if (!emergencyCase) return null;
+
+  const documentImage = emergencyCase.documentUrl || DEFAULT_SAMPLE_DOCUMENT;
+  const documentTitle =
+    emergencyCase.documentTitle || "Verified Case Support & Authorization Record";
 
   const percent = Math.min(
     100,
@@ -262,6 +282,100 @@ export default function EmergencyCaseModal({
               <ShieldCheck size={16} color="#0b2345" aria-hidden="true" />
               100% of your contribution to this case is disbursed directly to medical institutions, educational bodies, or verified relief vendors under the oversight of HRSJM social justice officers.
             </p>
+
+            <div className={styles.modalDocActions}>
+              <button
+                type="button"
+                className={styles.modalViewDocBtn}
+                onClick={() =>
+                  setExpandedDocCaseId((prev) =>
+                    prev === emergencyCase.id ? null : emergencyCase.id
+                  )
+                }
+                aria-expanded={showDocument}
+              >
+                <FileText size={16} aria-hidden="true" />
+                <span>{showDocument ? "Hide Document" : "View Document"}</span>
+                {showDocument && <ChevronUp size={15} aria-hidden="true" />}
+              </button>
+
+              {showDocument && (
+                <a
+                  href={documentImage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.modalDocExternalLink}
+                >
+                  <ExternalLink size={15} aria-hidden="true" />
+                  <span>Open Image in New Tab</span>
+                </a>
+              )}
+            </div>
+
+            {showDocument && (
+              <div className={styles.modalDocPanel} role="region" aria-label="Case Supporting Document">
+                <div className={styles.modalDocHeader}>
+                  <div className={styles.modalDocTitleWrap}>
+                    <FileText size={16} color="#0b2345" aria-hidden="true" />
+                    <span className={styles.modalDocTitle}>{documentTitle}</span>
+                  </div>
+                  <span className={styles.modalDocBadge}>
+                    {emergencyCase.verified ? "HRSJM Verified" : "Under Review"}
+                  </span>
+                </div>
+
+                <div className={styles.modalDocPreviewCard}>
+                  <button
+                    type="button"
+                    className={styles.modalDocPreviewBtn}
+                    onClick={() => setDocLightboxCaseId(emergencyCase.id)}
+                    aria-label={`Enlarge document image for ${emergencyCase.beneficiaryName}`}
+                  >
+                    <Image
+                      src={documentImage}
+                      alt={`${documentTitle} for ${emergencyCase.beneficiaryName}`}
+                      width={760}
+                      height={980}
+                      unoptimized
+                      className={styles.modalDocPreviewImg}
+                    />
+                    <span className={styles.modalDocZoomHint}>
+                      <ZoomIn size={14} aria-hidden="true" />
+                      Click to view full document image
+                    </span>
+                  </button>
+                </div>
+
+                <div className={styles.modalDocGrid}>
+                  <div className={styles.modalDocField}>
+                    <span className={styles.modalDocLabel}>Case Reference ID</span>
+                    <span className={styles.modalDocValue}>{emergencyCase.id.toUpperCase()}</span>
+                  </div>
+                  <div className={styles.modalDocField}>
+                    <span className={styles.modalDocLabel}>Beneficiary</span>
+                    <span className={styles.modalDocValue}>{emergencyCase.beneficiaryName}</span>
+                  </div>
+                  <div className={styles.modalDocField}>
+                    <span className={styles.modalDocLabel}>Category</span>
+                    <span className={styles.modalDocValue}>{emergencyCase.category}</span>
+                  </div>
+                  <div className={styles.modalDocField}>
+                    <span className={styles.modalDocLabel}>Location</span>
+                    <span className={styles.modalDocValue}>{emergencyCase.location}</span>
+                  </div>
+                  <div className={styles.modalDocField}>
+                    <span className={styles.modalDocLabel}>Facility / Center</span>
+                    <span className={styles.modalDocValue}>
+                      {emergencyCase.hospitalOrDetails || "Verified HRSJM Relief Partner"}
+                    </span>
+                  </div>
+                  <div className={styles.modalDocField}>
+                    <span className={styles.modalDocLabel}>Approved Target Goal</span>
+                    <span className={styles.modalDocValue}>{formatINR(emergencyCase.goal)}</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Direct Donation Form */}
@@ -385,6 +499,53 @@ export default function EmergencyCaseModal({
           </form>
         </div>
       </div>
+
+      {showDocLightbox && (
+        <div
+          className={styles.docLightboxBackdrop}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Full document preview for ${emergencyCase.beneficiaryName}`}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setDocLightboxCaseId(null);
+          }}
+        >
+          <div className={styles.docLightboxContent}>
+            <div className={styles.docLightboxBar}>
+              <span className={styles.docLightboxTitle}>{documentTitle}</span>
+              <div className={styles.docLightboxActions}>
+                <a
+                  href={documentImage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.docLightboxOpenLink}
+                >
+                  <ExternalLink size={14} aria-hidden="true" />
+                  <span>Open Image</span>
+                </a>
+                <button
+                  type="button"
+                  className={styles.docLightboxCloseBtn}
+                  onClick={() => setDocLightboxCaseId(null)}
+                  aria-label="Close document image preview"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            </div>
+            <div className={styles.docLightboxImgWrap}>
+              <Image
+                src={documentImage}
+                alt={`${documentTitle} for ${emergencyCase.beneficiaryName}`}
+                width={900}
+                height={1160}
+                unoptimized
+                className={styles.docLightboxImg}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
