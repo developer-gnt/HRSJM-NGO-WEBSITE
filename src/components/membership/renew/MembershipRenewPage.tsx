@@ -31,20 +31,9 @@ const renewalTiers: RenewalTier[] = [
     description: "Official renewal fee is equal for all registered members for their 1st year.",
     isPopular: true,
     features: [
-<<<<<<< HEAD
-      // "Digital ID Card Renewal",
-      // "Valid for 1 Year",
-      // "Voting & Assembly Rights",
-      // "Mission Certificate Renewal",
       "Fresh ID card and Sticker (by post)",
       "Fresh Certificate (Soft Copy)",
       "Extra Kit (On Demand)",
-=======
-      "Renew Invalid ID & Fresh ID Card",
-      "Valid for 1 Full Year",
-      "Official Member Assembly Rights",
-      "Mission Certificate Renewal",
->>>>>>> f31d5cf745879317518820aaf61383494d351e3a
     ],
   },
   {
@@ -54,20 +43,9 @@ const renewalTiers: RenewalTier[] = [
     period: "/ 2nd year",
     description: "Concessionary fee for existing members completing their 2nd consecutive year.",
     features: [
-<<<<<<< HEAD
-      // "Digital ID Card Renewal",
-      // "Valid for 1 Year",
-      // "Local Unit Participation",
-      // "Event Access",
       "Fresh ID card and Sticker (by post)",
       "Fresh Certificate (Soft Copy)",
       "Extra Kit (On Demand)",
-=======
-      "Renew Invalid ID & Fresh ID Card",
-      "Valid for 1 Year Extension",
-      "Local & State Unit Participation",
-      "Event & Assembly Access",
->>>>>>> f31d5cf745879317518820aaf61383494d351e3a
     ],
   },
   {
@@ -77,20 +55,9 @@ const renewalTiers: RenewalTier[] = [
     period: "/ 3rd year+",
     description: "Continuing loyalty rate of ₹300 for 3rd year and all subsequent renewal years.",
     features: [
-<<<<<<< HEAD
-      // "Digital ID Card Renewal",
-      // "Valid for 1 Year",
-      // "Grassroots Volunteer Status",
-      // "Newsletter & Bulletins",
       "Fresh ID card and Sticker (by post)",
       "Fresh Certificate (Soft Copy)",
       "Extra Kit (On Demand)",
-=======
-      "Renew Invalid ID & Fresh ID Card",
-      "Valid for 1 Year Extension",
-      "Senior Volunteer Active Status",
-      "Continuous Concessionary Rate",
->>>>>>> f31d5cf745879317518820aaf61383494d351e3a
     ],
   },
   {
@@ -254,19 +221,13 @@ export default function MembershipRenewPage() {
                   </ul>
 
                   <Link
-                    href={`https://webapp-hrsjm.vercel.app/`}
+                    href="https://webapp-hrsjm.vercel.app/"
                     target="_blank"
-                    type="button"
                     className={`${styles.tierBtn} ${isSelected ? styles.tierBtnActive : ""
                       }`}
                   >
-<<<<<<< HEAD
                     {isSelected ? "Selected Tier" : "Select Tier"}
                   </Link>
-=======
-                    {isSelected ? "Selected Option" : "Select Option"}
-                  </button>
->>>>>>> f31d5cf745879317518820aaf61383494d351e3a
                 </div>
               );
             })}
