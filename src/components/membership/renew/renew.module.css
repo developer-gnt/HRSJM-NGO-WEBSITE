@@ -266,10 +266,10 @@
   gap: 6px;
   width: 100%;
   padding: 10px 16px;
-  border: 1px solid #0a3a6b;
+  border: 1px solid var(--color-gold);
   border-radius: 6px;
-  background: transparent;
-  color: #0a3a6b;
+  background: var(--color-gold);
+  color: var(--color-navy-dark);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -277,8 +277,9 @@
 }
 
 .tierBtn:hover {
-  background: #0a3a6b;
-  color: var(--color-white);
+  background: var(--color-gold-light);
+  border-color: var(--color-gold-light);
+  color: var(--color-navy-dark);
 }
 
 .tierBtnActive {

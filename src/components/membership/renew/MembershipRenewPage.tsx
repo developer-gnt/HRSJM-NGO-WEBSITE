@@ -11,6 +11,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import styles from "./renew.module.css";
+import { redirect } from "next/navigation";
 
 interface RenewalTier {
   id: string;
@@ -31,10 +32,13 @@ const renewalTiers: RenewalTier[] = [
     description: "Standard active annual renewal for registered members and state coordinators.",
     isPopular: true,
     features: [
-      "Digital ID Card Renewal",
-      "Valid for 1 Year",
-      "Voting & Assembly Rights",
-      "Mission Certificate Renewal",
+      // "Digital ID Card Renewal",
+      // "Valid for 1 Year",
+      // "Voting & Assembly Rights",
+      // "Mission Certificate Renewal",
+      "Fresh ID card and Sticker (by post)",
+      "Fresh Certificate (Soft Copy)",
+      "Extra Kit (On Demand)",
     ],
   },
   {
@@ -44,10 +48,13 @@ const renewalTiers: RenewalTier[] = [
     period: "/ year",
     description: "Community & district active member annual renewal option.",
     features: [
-      "Digital ID Card Renewal",
-      "Valid for 1 Year",
-      "Local Unit Participation",
-      "Event Access",
+      // "Digital ID Card Renewal",
+      // "Valid for 1 Year",
+      // "Local Unit Participation",
+      // "Event Access",
+      "Fresh ID card and Sticker (by post)",
+      "Fresh Certificate (Soft Copy)",
+      "Extra Kit (On Demand)",
     ],
   },
   {
@@ -57,10 +64,13 @@ const renewalTiers: RenewalTier[] = [
     period: "/ year",
     description: "Concessionary renewal tier for student and grassroots community workers.",
     features: [
-      "Digital ID Card Renewal",
-      "Valid for 1 Year",
-      "Grassroots Volunteer Status",
-      "Newsletter & Bulletins",
+      // "Digital ID Card Renewal",
+      // "Valid for 1 Year",
+      // "Grassroots Volunteer Status",
+      // "Newsletter & Bulletins",
+      "Fresh ID card and Sticker (by post)",
+      "Fresh Certificate (Soft Copy)",
+      "Extra Kit (On Demand)",
     ],
   },
   {
@@ -171,9 +181,8 @@ export default function MembershipRenewPage() {
               return (
                 <div
                   key={tier.id}
-                  className={`${styles.tierCard} ${
-                    tier.isPopular ? styles.tierCardPopular : ""
-                  }`}
+                  className={`${styles.tierCard} ${tier.isPopular ? styles.tierCardPopular : ""
+                    }`}
                 >
                   {tier.isPopular && (
                     <span className={styles.popularBadge}>Most Common</span>
@@ -197,15 +206,15 @@ export default function MembershipRenewPage() {
                     ))}
                   </ul>
 
-                  <button
+                  <Link
+                    href={`https://webapp-hrsjm.vercel.app/`}
+                    target="_blank"
                     type="button"
-                    className={`${styles.tierBtn} ${
-                      isSelected ? styles.tierBtnActive : ""
-                    }`}
-                    onClick={() => setSelectedTier(tier.id)}
+                    className={`${styles.tierBtn} ${isSelected ? styles.tierBtnActive : ""
+                      }`}
                   >
                     {isSelected ? "Selected Tier" : "Select Tier"}
-                  </button>
+                  </Link>
                 </div>
               );
             })}

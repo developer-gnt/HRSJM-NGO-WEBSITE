@@ -34,13 +34,20 @@ export const subNavItems: SubNavItem[] = [
 
 export const leadershipMembers: LeadershipMember[] = [
   {
+    id: "president",
+    name: "President",
+    designation: "President",
+    role: "President",
+    image: "/assets/leadership/leader_president.jpg",
+  },
+  {
     id: "mt-qazi",
     name: "Mr. M.T. Qazi",
     designation: "Honorable National President",
     qualification: "M.A. Human Rights",
     location: "Delhi, Mumbai",
     role: "National President",
-    image: "/assets/leadership/leader_mt_qazi.jpg",
+    image: "/assets/leadership/leader_mt_qazi_v2.jpg",
   },
   {
     id: "sp-panigrahi",
@@ -49,7 +56,7 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "B.Com | Engineer",
     location: "Maharashtra",
     role: "National Vice President",
-    image: "/assets/leadership/leader_sp_panigrahi.jpg",
+    image: "/assets/leadership/leader_sp_panigrahi_v2.jpg",
   },
   {
     id: "na-diwakar",
@@ -67,7 +74,7 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "B.A. | L.L.B.",
     location: "Maharashtra",
     role: "Joint Secretary",
-    image: "/assets/leadership/leader_sh_shaikh.jpg",
+    image: "/assets/leadership/leader_sh_shaikh_v2.jpg",
   },
   {
     id: "ar-ahmed",
@@ -76,7 +83,7 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "B.Com | Engineer",
     location: "Maharashtra",
     role: "Treasurer",
-    image: "/assets/leadership/leader_ar_ahmed.jpg",
+    image: "/assets/leadership/leader_ar_ahmed_v2.jpg",
   },
   {
     id: "rd-khetri",
@@ -85,7 +92,7 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "Governing Body Member",
     location: "Maharashtra",
     role: "Director",
-    image: "/assets/leadership/leader_rd_khetri.jpg",
+    image: "/assets/leadership/leader_rd_khetri_v2.jpg",
   },
   {
     id: "mm-patel",
@@ -94,7 +101,7 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "B.A. | L.L.B.",
     location: "Gujarat",
     role: "Director (Legal)",
-    image: "/assets/leadership/leader_mm_patel.jpg",
+    image: "/assets/leadership/leader_mm_patel_v2.jpg",
   },
   {
     id: "mz-siddiqui",
@@ -103,7 +110,7 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "M.A. | B.Ed. | L.L.B.",
     location: "Maharashtra",
     role: "Director (Legal)",
-    image: "/assets/leadership/leader_mz_siddiqui.jpg",
+    image: "/assets/leadership/leader_mz_siddiqui_v2.jpg",
   },
   {
     id: "ih-khan",
@@ -112,7 +119,7 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "Governing Body Member",
     location: "Delhi",
     role: "Director (Legal)",
-    image: "/assets/leadership/leader_ih_khan.jpg",
+    image: "/assets/leadership/leader_ih_khan_v2.jpg",
   },
   {
     id: "fp-khan",
@@ -121,7 +128,7 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "Doctor",
     location: "U.P.",
     role: "Director (Human Resources)",
-    image: "/assets/leadership/leader_fp_khan.jpg",
+    image: "/assets/leadership/leader_fp_khan_v2.jpg",
   },
   {
     id: "as-sayyed",
@@ -130,7 +137,7 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "M.B.A. (Finance)",
     location: "U.K.",
     role: "Director",
-    image: "/assets/leadership/leader_as_sayyed.jpg",
+    image: "/assets/leadership/leader_as_sayyed_v2.jpg",
   },
 ];
 

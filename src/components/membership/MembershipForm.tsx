@@ -31,7 +31,7 @@ const membershipTypeGroups = [
     group: "Letter Pad Post",
     options: [
       "Lion of State",
-      "Counselor of State",
+      "Counselor   of State",
       "Ambassador of State",
       "Hon'ble State Director",
     ],

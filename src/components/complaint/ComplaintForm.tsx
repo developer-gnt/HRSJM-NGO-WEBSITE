@@ -93,19 +93,19 @@ export const indianStates = [
 ];
 
 const complaintTypes = [
-  "Human Rights Violation",
-  "Discrimination / Atrocity",
-  "Harassment or Threat",
-  "Police / Authority Misconduct",
-  "Legal Aid - Civil",
-  "Legal Aid - Criminal",
-  "Women's Rights & Safety",
-  "Child Rights & Protection",
-  "Caste / Tribal Rights",
-  "Labour / Wage Rights",
-  "Housing & Land Rights",
-  "Education Rights",
-  "Other",
+  "CUSTODIAL DEATH",
+  "CHILD LABOR",
+  "CONSUMER ISSUE",
+  "COMMUNAL VIOLENCE",
+  "DOMESTIC VIOLENCE",
+  "DOWRY RELATED ISSUE",
+  "ENVIRONMENT DESTRUCTION",
+  "HUMAN TRAFFICKING",
+  "LABOR ISSUE",
+  "RAPE OR SEXUAL HARASSMENT",
+  "SUSPICIOUS DEATH",
+  "CIVIL ISSUES",
+  "OTHERS",
 ];
 
 interface FormValues {

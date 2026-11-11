@@ -230,14 +230,14 @@ export default function ValuesAndLeadership({
                   className={styles.leadOutlineButton}
                 >
                   <ShieldCheck size={16} className={styles.leadOutlineBadgeIcon} />
-                  <span>National Governing Body (11 Members)</span>
+                  <span>National Governing Body ({leadershipMembers.length} Members)</span>
                   <ArrowRight className={styles.leadOutlineButtonIcon} size={15} />
                 </button>
               </div>
             </div>
           </div>
 
-          {/* All 11 Verified Official Leadership Members Grid */}
+          {/* Verified Official Leadership Members Grid */}
           <div className={styles.leadCardGrid}>
             {leadershipMembers.map((member) => (
               <div

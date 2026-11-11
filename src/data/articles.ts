@@ -173,7 +173,7 @@ export const latestArticles: Article[] = [
       {
         heading: "Multi-Language Support & Operating Standards",
         paragraphs: [
-          "To ensure every citizen is heard without linguistic barriers, the call centre is staffed by paralegals and multilingual counselors fluent in Hindi, Marathi, Bengali, Tamil, Telugu, and English. Calls are answered within three rings, and comprehensive case notes are maintained in an encrypted, privacy-compliant management system.",
+          "To ensure every citizen is heard without linguistic barriers, the call centre is staffed by paralegals and multilingual Counselor  s fluent in Hindi, Marathi, Bengali, Tamil, Telugu, and English. Calls are answered within three rings, and comprehensive case notes are maintained in an encrypted, privacy-compliant management system.",
           "Standard counseling lines operate from 8:00 AM to 10:00 PM every day, while an automated distress intake system functions 24 hours a day with scheduled priority callbacks for urgent emergencies.",
         ],
       },
