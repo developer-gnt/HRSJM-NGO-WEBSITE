@@ -260,7 +260,8 @@ export default function ValuesAndLeadership({
                     src={member.image}
                     alt={member.name}
                     fill
-                    sizes="(min-width: 1140px) 25vw, (min-width: 880px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    quality={95}
+                    sizes="(min-width: 1140px) 320px, (min-width: 880px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className={styles.leaderImg}
                   />
                   {member.location && (

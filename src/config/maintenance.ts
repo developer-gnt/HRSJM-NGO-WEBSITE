@@ -32,15 +32,13 @@ export const maintenanceConfig: MaintenanceConfig = {
   contact: {
     phone: "+917021057853",
     phoneDisplay: "+91 70210 57853",
-    email: "info@hrsjm.org",
+    email: "enquiry@hrsjm.org",
     address: "Sir Mathuradas Vasanji Rd, Chimatpada, Marol Naka, Andheri East, Mumbai, Maharashtra 400059",
   },
 
   socialLinks: [
-    { name: "Facebook", href: "https://facebook.com" },
-    { name: "X (Twitter)", href: "https://twitter.com" },
-    { name: "Instagram", href: "https://instagram.com" },
-    { name: "LinkedIn", href: "https://linkedin.com" },
-    { name: "YouTube", href: "https://youtube.com" },
+    { name: "Facebook", href: "https://www.facebook.com/HumanRightsSocialJusticeMissionNgo" },
+    { name: "X (Twitter)", href: "https://x.com/hrsjm_president" },
+    { name: "Instagram", href: "https://www.instagram.com/humanrights_hrsjm/" },
   ],
 };

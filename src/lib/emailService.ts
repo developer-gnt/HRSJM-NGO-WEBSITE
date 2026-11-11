@@ -1,3 +1,4 @@
+import path from "path";
 import type { MembershipRecord } from "./membershipStorage";
 
 export interface EmailDispatchResult {
@@ -147,6 +148,9 @@ export async function sendContactInquiryEmail(data: {
   <div class="card">
     <div class="gold-bar"></div>
     <div class="header">
+      <div style="margin-bottom: 10px; text-align: center;">
+        <img src="cid:hrsjm_logo" alt="HRSJM Crest" width="68" height="auto" style="display: block; margin: 0 auto; width: 68px; max-width: 68px; height: auto; border: 0;" />
+      </div>
       <h2 style="margin:0;font-size:18px;letter-spacing:0.5px;">HUMAN RIGHTS & SOCIAL JUSTICE MISSION</h2>
       <p style="margin:4px 0 0 0;font-size:12px;color:#cbd5e1;">Citizen Information & Helpdesk</p>
     </div>
@@ -322,6 +326,12 @@ You can reply directly to this email to respond to ${recipient}.
       const fromAddress = process.env.MAIL_FROM || smtpUser;
       const formattedFrom = `"Human Rights & Social Justice Mission" <${fromAddress}>`;
 
+      const logoAttachment = {
+        filename: "hrsjm-logo.png",
+        path: path.resolve(process.cwd(), "public/logo.png"),
+        cid: "hrsjm_logo",
+      };
+
       await Promise.all([
         transporter.sendMail({
           from: formattedFrom,
@@ -329,6 +339,7 @@ You can reply directly to this email to respond to ${recipient}.
           subject: citizenSubject,
           html: citizenHtml,
           text: citizenText,
+          attachments: [logoAttachment],
         }),
         transporter.sendMail({
           from: formattedFrom,
@@ -337,6 +348,7 @@ You can reply directly to this email to respond to ${recipient}.
           subject: adminSubject,
           html: adminHtml,
           text: adminText,
+          attachments: [logoAttachment],
         }),
       ]);
 

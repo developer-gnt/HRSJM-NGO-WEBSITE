@@ -648,6 +648,14 @@ export async function createBackendComplaint(payload: {
   if (payload.email && payload.email.trim()) {
     body.email = payload.email.trim().toLowerCase();
   }
+  if (payload.aadhaarFileName) body.aadhaarFileName = payload.aadhaarFileName;
+  if (payload.aadhaarFileUri) body.aadhaarFileUri = payload.aadhaarFileUri;
+  if (payload.handwrittenFileName) body.handwrittenFileName = payload.handwrittenFileName;
+  if (payload.handwrittenFileUri) body.handwrittenFileUri = payload.handwrittenFileUri;
+  if (payload.reportedToOtherDept !== undefined) body.reportedToOtherDept = payload.reportedToOtherDept;
+  if (payload.otherDeptName) body.otherDeptName = payload.otherDeptName;
+  if (payload.otherDeptFileName) body.otherDeptFileName = payload.otherDeptFileName;
+  if (payload.otherDeptFileUri) body.otherDeptFileUri = payload.otherDeptFileUri;
 
   try {
     const res = await backendFetch("/support-tickets/public", {
@@ -742,6 +750,54 @@ export async function checkDuplicateMembership(
   } catch (err) {
     console.warn("Duplicate check API warning:", err);
     return { isDuplicate: false };
+  }
+}
+
+export interface MemberStatusVerificationResult {
+  found: boolean;
+  membership_id?: string;
+  membership_number?: string | null;
+  member_name?: string;
+  category_name?: string;
+  status?: string;
+  start_date?: string | null;
+  expiry_date?: string | null;
+  is_valid?: boolean;
+  is_expired?: boolean;
+  days_remaining?: number;
+  days_overdue?: number;
+  referral_code?: string | null;
+  renewal_fee?: number;
+  renewal_sequence?: number;
+  eligible_for_free_renewal?: boolean;
+  message: string;
+}
+
+export async function verifyMemberStatus(
+  query: string
+): Promise<MemberStatusVerificationResult> {
+  try {
+    const res = await backendFetch(`/memberships/status-lookup?query=${encodeURIComponent(query.trim())}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return {
+        found: false,
+        message: "Unable to verify member status at this time. Please try again or contact support.",
+      };
+    }
+
+    const json = await res.json();
+    return json?.data || json;
+  } catch (err: any) {
+    console.warn("Member status verification warning:", err);
+    return {
+      found: false,
+      message: "Network or server connection issue while checking member status.",
+    };
   }
 }
 

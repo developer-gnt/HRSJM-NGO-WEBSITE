@@ -55,12 +55,6 @@ export default function DonationForm() {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [donationSuccess, setDonationSuccess] = useState<{
-    donationRef: string;
-    amount: number;
-    donorName: string;
-    cashfreeOrder?: any;
-  } | null>(null);
   const [message, setMessage] = useState<{
     type: "error" | "info";
     text: string;
@@ -163,31 +157,21 @@ export default function DonationForm() {
         return;
       }
 
-      setDonationSuccess({
-        donationRef: data.donationRef,
-        amount: data.amount,
-        donorName: data.donorName,
-        cashfreeOrder: data.cashfreeOrder,
-      });
-
       if (data.cashfreeOrder?.payment_session_id) {
         setMessage({
           type: "info",
-          text: `Opening Cashfree secure checkout modal...`,
+          text: "Redirecting to Cashfree secure payment gateway...",
         });
-        try {
-          await launchCashfreeCheckout({
-            paymentSessionId: data.cashfreeOrder.payment_session_id,
-            redirectTarget: "_modal",
-          });
-        } catch (sdkErr: any) {
-          console.warn("Cashfree checkout interaction notice:", sdkErr);
-        }
+        await launchCashfreeCheckout({
+          paymentSessionId: data.cashfreeOrder.payment_session_id,
+          redirectTarget: "_self",
+        });
       } else {
         setMessage({
           type: "error",
           text: "Could not create payment gateway session. Please try again.",
         });
+        setSubmitting(false);
       }
     } catch (err: any) {
       setMessage({
@@ -427,52 +411,6 @@ export default function DonationForm() {
               )}
             </button>
 
-            {donationSuccess && (
-              <div
-                style={{
-                  marginTop: "16px",
-                  padding: "16px",
-                  background: "#f0fdf4",
-                  border: "1px solid #bbf7d0",
-                  borderRadius: "10px",
-                  color: "#166534",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", fontWeight: 700, fontSize: "15px" }}>
-                  <span>🛡️</span> Donation Registered with HRSJM!
-                </div>
-                <div style={{ marginTop: "6px", fontSize: "13px", lineHeight: "1.6" }}>
-                  Official Ref: <strong style={{ color: "#14532d" }}>{donationSuccess.donationRef}</strong><br />
-                  Amount: <strong>₹{donationSuccess.amount.toLocaleString("en-IN")}</strong><br />
-                  Donor: <strong>{donationSuccess.donorName}</strong>
-                </div>
-                {donationSuccess.cashfreeOrder?.payment_session_id && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      launchCashfreeCheckout({
-                        paymentSessionId: donationSuccess.cashfreeOrder.payment_session_id,
-                        redirectTarget: "_modal",
-                      });
-                    }}
-                    style={{
-                      marginTop: "12px",
-                      width: "100%",
-                      padding: "10px 16px",
-                      background: "var(--color-navy)",
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: "8px",
-                      fontWeight: 600,
-                      cursor: "pointer",
-                      fontSize: "14px",
-                    }}
-                  >
-                    Proceed to Cashfree Checkout →
-                  </button>
-                )}
-              </div>
-            )}
 
             <p className={styles.policyNotice}>
               Please review our{" "}

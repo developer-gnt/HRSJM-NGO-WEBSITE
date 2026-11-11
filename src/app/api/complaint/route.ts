@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createBackendComplaint } from "@/lib/backendApi";
+import { saveComplaintDocuments } from "@/lib/db";
 
 export async function POST(request: Request) {
   try {
@@ -105,6 +106,24 @@ export async function POST(request: Request) {
       otherDeptFileName: otherDeptFileName || undefined,
       otherDeptFileUri: otherDeptFileUri || undefined,
     });
+
+    const ticketId = backendResult?.id;
+    if (ticketId) {
+      try {
+        await saveComplaintDocuments({
+          ticketId,
+          userId: backendResult?.user_id,
+          aadhaarFileName: aadhaarFileName || undefined,
+          aadhaarFileUri: aadhaarFileUri || undefined,
+          handwrittenFileName: handwrittenFileName || undefined,
+          handwrittenFileUri: handwrittenFileUri || undefined,
+          otherDeptFileName: otherDeptFileName || undefined,
+          otherDeptFileUri: otherDeptFileUri || undefined,
+        });
+      } catch (docErr) {
+        console.error("Failed to persist complaint documents into database:", docErr);
+      }
+    }
 
     const complaintRef =
       backendResult?.ticketId ||

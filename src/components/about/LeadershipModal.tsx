@@ -43,7 +43,8 @@ export default function LeadershipModal({
             src={member.image}
             alt={member.name}
             fill
-            sizes="512px"
+            quality={95}
+            sizes="(max-width: 640px) 100vw, 600px"
             className={styles.leadModalImg}
           />
           <div className={styles.leadModalShade} />

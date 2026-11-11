@@ -56,6 +56,8 @@ export default function Footer() {
                 <a
                   href={social.href}
                   aria-label={`${social.label}${social.placeholder ? " (link pending)" : ""}`}
+                  target={social.placeholder ? undefined : "_blank"}
+                  rel={social.placeholder ? undefined : "noopener noreferrer"}
                   onClick={social.placeholder ? (event) => event.preventDefault() : undefined}
                 >
                   <Icon name={social.icon as IconName} />

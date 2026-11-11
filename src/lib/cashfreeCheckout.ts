@@ -41,7 +41,7 @@ export interface LaunchCashfreeOptions {
 export async function launchCashfreeCheckout({
   paymentSessionId,
   redirectTarget = "_self",
-}: LaunchCashfreeOptions): Promise<void> {
+}: LaunchCashfreeOptions): Promise<any> {
   if (!paymentSessionId) {
     throw new Error("Missing Cashfree payment session ID.");
   }

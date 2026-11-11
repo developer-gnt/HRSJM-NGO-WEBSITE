@@ -1318,7 +1318,9 @@
 
 .leaderImg {
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
   transition: transform 500ms ease;
 }
 
@@ -2035,9 +2037,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  filter: grayscale(1) contrast(1.1);
-  opacity: 0.8;
+  object-position: center 25%;
+  image-rendering: -webkit-optimize-contrast;
+  opacity: 0.95;
 }
 
 .leadModalShade {

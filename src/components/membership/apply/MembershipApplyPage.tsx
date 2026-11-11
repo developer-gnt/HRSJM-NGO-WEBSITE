@@ -16,6 +16,7 @@ import Step3DocumentUpload, {
 import Step4Payment, { type Step4Data } from "./Step4Payment";
 import ApplicationSuccessModal from "./ApplicationSuccessModal";
 import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
+import { fetchBackendCategories } from "@/lib/backendApi";
 import {
   findMembershipPackage,
   type UnifiedMembershipPackage,
@@ -33,9 +34,71 @@ function MembershipApplyContent() {
 
   useEffect(() => {
     if (postParam) {
-      setSelectedPackage(findMembershipPackage(postParam));
+      const pkg = findMembershipPackage(postParam);
+      setSelectedPackage(pkg);
+      setStep4Data((prev) => ({
+        ...prev,
+        validity: pkg.item.validity,
+      }));
     }
   }, [postParam]);
+
+  // Synchronize category fees & validity dynamically with live database
+  useEffect(() => {
+    let isMounted = true;
+    fetchBackendCategories()
+      .then((cats) => {
+        if (!isMounted || !cats || cats.length === 0) return;
+        setSelectedPackage((prevPkg) => {
+          const postName = prevPkg.item.post.trim().toLowerCase();
+          const matched = cats.find((c) => {
+            const cName = c.name.trim().toLowerCase();
+            const cCode = c.code.toLowerCase().replace(/_/g, " ");
+            return (
+              cName === postName ||
+              postName.includes(cName) ||
+              cName.includes(postName) ||
+              postName.includes(cCode)
+            );
+          });
+          if (matched) {
+            const dbFee = `₹${Number(matched.fee).toLocaleString("en-IN")}`;
+            let dbValidity = "1 Year";
+            if (matched.validity_days >= 3600) dbValidity = "10 Years";
+            else if (matched.validity_days >= 1800) dbValidity = "5 Years";
+            else if (matched.validity_days >= 700) dbValidity = "2 Years";
+            else if (matched.validity_days >= 350) dbValidity = "1 Year";
+
+            return {
+              ...prevPkg,
+              item: {
+                ...prevPkg.item,
+                fees: dbFee,
+                validity: dbValidity,
+              },
+            };
+          }
+          return prevPkg;
+        });
+      })
+      .catch((err) => {
+        console.warn("Could not fetch categories from database:", err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Always keep step4Data validity synced with selected package
+  useEffect(() => {
+    if (selectedPackage?.item?.validity) {
+      setStep4Data((prev) => ({
+        ...prev,
+        validity: selectedPackage.item.validity,
+      }));
+    }
+  }, [selectedPackage]);
 
   // Current Step (1, 2, 3, or 4)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
@@ -270,25 +333,7 @@ function MembershipApplyContent() {
   const validateStep3 = (): boolean => {
     const errors: Record<string, string> = {};
 
-    if (!step3Data.idProof.file && !step3Data.idProof.dataUrl) {
-      errors.idProof = "Please upload Identity Proof.";
-    }
-    if (!step3Data.addressProof.file && !step3Data.addressProof.dataUrl) {
-      errors.addressProof = "Please upload Address Proof.";
-    }
-    if (!step3Data.qualification.file && !step3Data.qualification.dataUrl) {
-      errors.qualification = "Please upload Qualification Certificate.";
-    }
-
-    const hasPhoto = Boolean(
-      step3Data.photograph.file ||
-      step3Data.photograph.dataUrl ||
-      step1Data.photoFile ||
-      step1Data.photoPreview
-    );
-    if (!hasPhoto) {
-      errors.photograph = "Please upload Photograph.";
-    }
+    // Document uploads are optional
 
     if (!step3Data.agreePrivacy) {
       errors.agreePrivacy = "Please agree to the Privacy Policy.";
@@ -304,14 +349,9 @@ function MembershipApplyContent() {
     return Object.keys(errors).length === 0;
   };
 
-  // Validate Step 4: Package, Validity, and Payment Mode
+  // Validate Step 4: Package & Fee
   const validateStep4 = (): boolean => {
     const errors: Record<string, string> = {};
-
-    const chosenValidity = step4Data.validity || selectedPackage?.item?.validity;
-    if (!chosenValidity || !chosenValidity.trim()) {
-      errors.validity = "Please select or confirm your membership validity period.";
-    }
 
     if (!selectedPackage?.item?.post) {
       errors.post = "Please select a membership post.";
@@ -319,10 +359,6 @@ function MembershipApplyContent() {
 
     if (!selectedPackage?.item?.fees) {
       errors.fee = "Registration fee is required.";
-    }
-
-    if (!step4Data.paymentMode) {
-      errors.paymentMode = "Please select a payment method.";
     }
 
     setStep4Errors(errors);
@@ -350,7 +386,7 @@ function MembershipApplyContent() {
 
       const data = await res.json();
       if (data?.isDuplicate) {
-        const errorMsg = data.message || "This mobile number or email is already registered.";
+        const errorMsg = sanitizeDuplicateMessage(data.message);
         const newErrors: Record<string, string> = {};
         if (data.field === "phone") {
           newErrors.phone = errorMsg;
@@ -415,11 +451,11 @@ function MembershipApplyContent() {
       return;
     }
 
-    // Step 4 Check & Validity BEFORE Payment
+    // Step 4 Validation BEFORE Payment
     if (!validateStep4()) {
       setCurrentStep(4);
       window.scrollTo({ top: 320, behavior: "smooth" });
-      alert("Please confirm your membership validity period before proceeding to payment.");
+      alert("Please ensure your membership details are complete before proceeding to payment.");
       return;
     }
 
@@ -440,9 +476,7 @@ function MembershipApplyContent() {
 
         const dupData = await dupRes.json();
         if (dupData?.isDuplicate) {
-          const errorMsg =
-            dupData.message ||
-            "An account or membership application is already registered with this mobile number or email. Please login or renew instead of paying again.";
+          const errorMsg = sanitizeDuplicateMessage(dupData.message);
           const newErrors: Record<string, string> = {};
           if (dupData.field === "phone") {
             newErrors.phone = errorMsg;
@@ -541,12 +575,19 @@ function MembershipApplyContent() {
           orderId = orderJson.orderId;
           paymentSessionId = orderJson.paymentSessionId;
 
-          // Open Cashfree checkout popup ONLY after all checks and validity have passed
+          // Open Cashfree checkout popup
           try {
-            await launchCashfreeCheckout({
+            const checkoutResult = await launchCashfreeCheckout({
               paymentSessionId: paymentSessionId!,
               redirectTarget: "_modal",
             });
+
+            if (checkoutResult?.error) {
+              console.warn("Cashfree checkout interaction:", checkoutResult.error);
+              setSubmitting(false);
+              return;
+            }
+
             completedOrderIdRef.current = orderId;
           } catch (cfErr) {
             console.warn("Cashfree checkout interaction:", cfErr);
@@ -827,6 +868,17 @@ function MembershipApplyContent() {
       )}
     </div>
   );
+}
+
+function sanitizeDuplicateMessage(rawMsg?: string): string {
+  if (!rawMsg) return "An active membership or account is already registered with this mobile number or email.";
+  return rawMsg
+    .replace(/\s*\([^)]*Membership No[^)]*\)/gi, "")
+    .replace(/\s*\([^)]*HRSJM-[^)]*\)/gi, "")
+    .replace(/\s*\([^)]*Active[^)]*\)/gi, "")
+    .replace(/\s*\([^)]*Under Review[^)]*\)/gi, "")
+    .replace(/\s*\([^)]*Pending[^)]*\)/gi, "")
+    .trim();
 }
 
 export default function MembershipApplyPage() {

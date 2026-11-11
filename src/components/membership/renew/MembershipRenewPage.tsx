@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
   AlertTriangle,
+  Award,
   Check,
   ChevronRight,
-  Search,
-  ShieldCheck,
 } from "lucide-react";
 import styles from "./renew.module.css";
 import { redirect } from "next/navigation";
@@ -25,13 +24,14 @@ interface RenewalTier {
 
 const renewalTiers: RenewalTier[] = [
   {
-    id: "tier-500",
-    name: "Tier 1 Renewal",
+    id: "tier-1st-year",
+    name: "1st Year Renewal",
     amount: "₹500",
-    period: "/ year",
-    description: "Standard active annual renewal for registered members and state coordinators.",
+    period: "/ 1st year",
+    description: "Official renewal fee is equal for all registered members for their 1st year.",
     isPopular: true,
     features: [
+<<<<<<< HEAD
       // "Digital ID Card Renewal",
       // "Valid for 1 Year",
       // "Voting & Assembly Rights",
@@ -39,15 +39,22 @@ const renewalTiers: RenewalTier[] = [
       "Fresh ID card and Sticker (by post)",
       "Fresh Certificate (Soft Copy)",
       "Extra Kit (On Demand)",
+=======
+      "Renew Invalid ID & Fresh ID Card",
+      "Valid for 1 Full Year",
+      "Official Member Assembly Rights",
+      "Mission Certificate Renewal",
+>>>>>>> f31d5cf745879317518820aaf61383494d351e3a
     ],
   },
   {
-    id: "tier-400",
-    name: "Tier 2 Renewal",
+    id: "tier-2nd-year",
+    name: "2nd Year Renewal",
     amount: "₹400",
-    period: "/ year",
-    description: "Community & district active member annual renewal option.",
+    period: "/ 2nd year",
+    description: "Concessionary fee for existing members completing their 2nd consecutive year.",
     features: [
+<<<<<<< HEAD
       // "Digital ID Card Renewal",
       // "Valid for 1 Year",
       // "Local Unit Participation",
@@ -55,15 +62,22 @@ const renewalTiers: RenewalTier[] = [
       "Fresh ID card and Sticker (by post)",
       "Fresh Certificate (Soft Copy)",
       "Extra Kit (On Demand)",
+=======
+      "Renew Invalid ID & Fresh ID Card",
+      "Valid for 1 Year Extension",
+      "Local & State Unit Participation",
+      "Event & Assembly Access",
+>>>>>>> f31d5cf745879317518820aaf61383494d351e3a
     ],
   },
   {
-    id: "tier-300",
-    name: "Tier 3 Renewal",
+    id: "tier-3rd-year",
+    name: "3rd Year Renewal",
     amount: "₹300",
-    period: "/ year",
-    description: "Concessionary renewal tier for student and grassroots community workers.",
+    period: "/ 3rd year+",
+    description: "Continuing loyalty rate of ₹300 for 3rd year and all subsequent renewal years.",
     features: [
+<<<<<<< HEAD
       // "Digital ID Card Renewal",
       // "Valid for 1 Year",
       // "Grassroots Volunteer Status",
@@ -71,36 +85,70 @@ const renewalTiers: RenewalTier[] = [
       "Fresh ID card and Sticker (by post)",
       "Fresh Certificate (Soft Copy)",
       "Extra Kit (On Demand)",
+=======
+      "Renew Invalid ID & Fresh ID Card",
+      "Valid for 1 Year Extension",
+      "Senior Volunteer Active Status",
+      "Continuous Concessionary Rate",
+>>>>>>> f31d5cf745879317518820aaf61383494d351e3a
     ],
   },
   {
     id: "tier-free",
-    name: "Honorary Renewal",
+    name: "Free Renewal Plan",
     amount: "Free",
     period: "Renewal (₹0)",
-    description: "Special exemption tier for designated honorary patrons and life coordinators.",
+    description: "Special incentive plan: Earn 1 to 5 years free renewal by introducing new members!",
     features: [
-      "Exempt from Annual Fees",
-      "Subject to Committee Approval",
-      "Honorary Active Status",
-      "Direct Board Liaison",
+      "100% Fee Exemption (₹0)",
+      "1 to 5 Years Free Extension",
+      "New Fresh ID Card Issued Every Time",
+      "Process Anytime — No Waiting Needed",
     ],
   },
 ];
 
+const referralTiers = [
+  {
+    category: "District Unit",
+    referralRequired: "1 Person in District Unit",
+    qualification: "10th Pass (10 TH)",
+    reward: "1 Year",
+    highlight: "1 Year Free Renewal",
+  },
+  {
+    category: "State Unit",
+    referralRequired: "1 Person in State Unit",
+    qualification: "10th Pass (10 TH)",
+    reward: "2 Years",
+    highlight: "2 Years Free Renewal",
+  },
+  {
+    category: "Lion, Counselor or Ambassador of State",
+    referralRequired: "1 Person in (Lion, Counselor or Ambassador of State)",
+    qualification: "12th Pass (12 TH)",
+    reward: "3 Years",
+    highlight: "3 Years Free Renewal",
+  },
+  {
+    category: "Hon'ble State Director",
+    referralRequired: "1 Person in Hon'ble State Director",
+    qualification: "Graduates",
+    reward: "4 Years",
+    highlight: "4 Years Free Renewal",
+  },
+  {
+    category: "National Council Cell",
+    subCategory: "(Lawyers, Women or Minority)",
+    referralRequired: "1 Person in National Council Cell",
+    qualification: "Graduates",
+    reward: "5 Years",
+    highlight: "5 Years Free Renewal",
+  },
+];
+
 export default function MembershipRenewPage() {
-  const [memberIdQuery, setMemberIdQuery] = useState("");
-  const [lookupResult, setLookupResult] = useState<string | null>(null);
-  const [selectedTier, setSelectedTier] = useState<string>("tier-500");
-
-  const handleLookup = (e: FormEvent) => {
-    e.preventDefault();
-    if (!memberIdQuery.trim()) return;
-
-    setLookupResult(
-      `Lookup initiated for ${memberIdQuery.trim().toUpperCase()}. Official membership records database verification is pending client credentials. Please contact the membership administration desk with this ID to complete verification.`
-    );
-  };
+  const [selectedTier, setSelectedTier] = useState<string>("tier-1st-year");
 
   return (
     <div className={styles.page}>
@@ -131,15 +179,15 @@ export default function MembershipRenewPage() {
             <div className={styles.heroContent}>
               <p className={styles.heroEyebrow}>
                 <span className={styles.heroEyebrowSquare} aria-hidden="true" />
-                MEMBERSHIP RENEWAL
+                MEMBERSHIP RENEWAL &amp; FREE EXTENSION
               </p>
               <h1 id="renew-heading" className={styles.heroHeading}>
                 Renew Your <span className={styles.heroHeadingGold}>Membership</span>
               </h1>
               <p className={styles.heroDescription}>
-                Maintain your active membership status, renew your official ID
-                card, and continue supporting the struggle for human rights and
-                social justice across India.
+                Renew your invalid ID card, get a fresh official ID, and continue
+                supporting the fight for human rights and social justice. Renewal fee
+                is equal for all members, or earn up to 5 years free renewal by introducing new members!
               </p>
             </div>
           </div>
@@ -152,8 +200,8 @@ export default function MembershipRenewPage() {
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Select Your Renewal Option</h2>
             <p className={styles.sectionSubtitle}>
-              HRSJM offers tiered annual renewal options based on member
-              category and designation. Select the tier applicable to your post.
+              HRSJM renewal fee is equal for all members: 1st Year is ₹500, 2nd Year is ₹400,
+              and 3rd Year onwards is ₹300. You can also qualify for 100% Free Renewal through referrals!
             </p>
           </div>
 
@@ -162,14 +210,13 @@ export default function MembershipRenewPage() {
             <AlertTriangle size={24} className={styles.noticeIcon} />
             <div>
               <h3 className={styles.noticeTitle}>
-                Notice Regarding Lapsed-Renewal Balance Rules &amp; Tier Eligibility
+                Official Notice: Equal Renewal Fee &amp; Free Renewal Policy
               </h3>
               <p className={styles.noticeText}>
-                Renewal tier assignment and any lapsed-renewal arrears or balance
-                calculations are subject to official eligibility confirmation by
-                the HRSJM governing body. If your membership validity has expired
-                by more than 90 days, please check your record below or contact the
-                central administrative desk to confirm your exact renewal fee.
+                Renewal fee is uniform for all existing members: <strong>1st Year: ₹500</strong>,{" "}
+                <strong>2nd Year: ₹400</strong>, and <strong>3rd Year &amp; beyond: ₹300</strong>.
+                Additionally, members can process renewal anytime without waiting for their expiry
+                date by referring new candidates into official district, state, or national units.
               </p>
             </div>
           </div>
@@ -213,19 +260,107 @@ export default function MembershipRenewPage() {
                     className={`${styles.tierBtn} ${isSelected ? styles.tierBtnActive : ""
                       }`}
                   >
+<<<<<<< HEAD
                     {isSelected ? "Selected Tier" : "Select Tier"}
                   </Link>
+=======
+                    {isSelected ? "Selected Option" : "Select Option"}
+                  </button>
+>>>>>>> f31d5cf745879317518820aaf61383494d351e3a
                 </div>
               );
             })}
           </div>
+
+          {/* Free Renewal by Referral Feature Section */}
+          <section className={styles.freeRenewalSection} aria-labelledby="free-renewal-title">
+            <div className={styles.freeRenewalBadge}>
+              <Award size={15} /> Good News — Free Renewal Scheme
+            </div>
+            <h2 id="free-renewal-title" className={styles.freeRenewalHeading}>
+              Renew Your Invalid ID &amp; Get Fresh ID Card{" "}
+              <span className={styles.freeRenewalHeadingGold}>100% Free!</span>
+            </h2>
+            <p className={styles.freeRenewalSubheading}>
+              Dear Member, you are welcome to renew for free! Introduce or refer new applicants
+              to join HRSJM. Each time your referred applicant’s membership application is approved,
+              your official membership renewal period is extended by 1 to 5 years and a fresh ID card
+              is issued to you.
+            </p>
+
+            {/* 5 Referral Tiers Cards */}
+            <div className={styles.freeTiersGrid}>
+              {referralTiers.map((item, idx) => (
+                <div key={item.category} className={styles.freeTierCard}>
+                  <span className={styles.freeTierBadge}>Tier 0{idx + 1}</span>
+                  <h3 className={styles.freeTierName}>
+                    {item.category}
+                    {item.subCategory && (
+                      <span style={{ display: "block", fontSize: 11.5, color: "#94a3b8", fontWeight: 500 }}>
+                        {item.subCategory}
+                      </span>
+                    )}
+                  </h3>
+
+                  <div className={styles.freeTierQualification}>
+                    <span>Required Qualification:</span>
+                    <span className={styles.freeTierQualTag}>{item.qualification}</span>
+                  </div>
+
+                  <div className={styles.freeTierReward}>
+                    <span className={styles.freeTierYears}>{item.reward}</span>
+                    <span className={styles.freeTierLabel}>Free Renewal</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Note for Free Renewal Policy */}
+            <div className={styles.policyBox}>
+              <h3 className={styles.policyTitle}>
+                <Award size={18} /> Important Notes for Free Renewal Policy
+              </h3>
+              <ul className={styles.policyList}>
+                <li className={styles.policyItem}>
+                  <span className={styles.policyNumber}>1</span>
+                  <div>
+                    <strong>Process Anytime:</strong> There is no need to wait for your renewal period
+                    to arrive. Free renewal can be processed anytime through member referrals.
+                  </div>
+                </li>
+                <li className={styles.policyItem}>
+                  <span className={styles.policyNumber}>2</span>
+                  <div>
+                    <strong>Unique 6-Digit Referral Code:</strong> All verified members receive their
+                    exclusive 6-digit referral code in their dashboard. When new members apply using your
+                    code, your ID is linked to theirs.
+                  </div>
+                </li>
+                <li className={styles.policyItem}>
+                  <span className={styles.policyNumber}>3</span>
+                  <div>
+                    <strong>Automatic Extension:</strong> As soon as the referred applicant’s membership
+                    is approved by the governing body, your renewal period is automatically extended.
+                  </div>
+                </li>
+                <li className={styles.policyItem}>
+                  <span className={styles.policyNumber}>4</span>
+                  <div>
+                    <strong>Multiple Referrals &amp; Fresh ID:</strong> If you introduce new members
+                    multiple times within a year, you receive a free renewal each time, and an updated ID
+                    will be issued every time!
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
 
           <p
             style={{
               fontSize: 13,
               color: "#64748b",
               textAlign: "center",
-              margin: "24px auto",
+              margin: "32px auto 0",
               maxWidth: 600,
             }}
           >
@@ -242,50 +377,6 @@ export default function MembershipRenewPage() {
             </Link>{" "}
             before completing your payment.
           </p>
-
-          {/* Member ID Lookup */}
-          <div className={styles.lookupCard}>
-            <h3 className={styles.lookupTitle}>Verify Member Status for Renewal</h3>
-            <p className={styles.lookupSubtitle}>
-              Enter your Membership ID or registered mobile number to check
-              applicable renewal dues and lapsed validity balance.
-            </p>
-
-            <form onSubmit={handleLookup}>
-              <div className={styles.lookupInputGroup}>
-                <input
-                  type="text"
-                  placeholder="Enter Membership ID (e.g. HRSJM-2024-XXXXXX)"
-                  value={memberIdQuery}
-                  onChange={(e) => setMemberIdQuery(e.target.value)}
-                  className={styles.lookupInput}
-                />
-                <button type="submit" className={styles.btnGold}>
-                  <Search size={16} /> Check Status
-                </button>
-              </div>
-            </form>
-
-            {lookupResult && (
-              <div
-                style={{
-                  marginTop: 18,
-                  padding: 14,
-                  borderRadius: 8,
-                  background: "#f0fdf4",
-                  border: "1px solid #bbf7d0",
-                  color: "#166534",
-                  fontSize: 13,
-                  lineHeight: 1.45,
-                }}
-              >
-                <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-                  <ShieldCheck size={18} style={{ flexShrink: 0, marginTop: 2 }} />
-                  <div>{lookupResult}</div>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       </main>
     </div>

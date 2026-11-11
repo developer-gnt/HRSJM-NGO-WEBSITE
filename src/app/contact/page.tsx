@@ -9,7 +9,7 @@ import ContactCTA from "@/components/contact/ContactCTA";
 export const metadata: Metadata = {
   title: "Contact Us - Human Rights & Social Justice Mission (HRSJM) Office",
   description:
-    "Contact the HRSJM National Head Office in Andheri East, Mumbai. Phone: +91 7021057853, Email: info@hrsjm.org. Reach out for membership enquiries, legal support, and partnerships.",
+    "Contact the HRSJM National Head Office in Andheri East, Mumbai. Phone: +91 7021057853, Email: enquiry@hrsjm.org. Reach out for membership enquiries, legal support, and partnerships.",
   keywords: [
     "Contact HRSJM",
     "Human Rights NGO Mumbai Address",

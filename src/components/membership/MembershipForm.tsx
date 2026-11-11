@@ -28,7 +28,7 @@ const membershipTypeGroups = [
     ],
   },
   {
-    group: "Letter Pad Post",
+    group: "Excecutive Membership",
     options: [
       "Lion of State",
       "Counselor   of State",

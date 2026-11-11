@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Check, Home, Printer, FileText } from "lucide-react";
-import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
+import { Check, Download, Home, Loader2, Printer } from "lucide-react";
+import { downloadMembershipReceiptPdf } from "@/lib/membershipReceiptPdf";
 import MembershipReceipt from "./MembershipReceipt";
 import styles from "./apply.module.css";
 
@@ -35,9 +35,34 @@ export default function ApplicationSuccessModal({
   paymentSessionId,
 }: SuccessModalProps) {
   const [showReceipt, setShowReceipt] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   const handlePrint = () => {
     setShowReceipt(true);
+  };
+
+  const handleDownload = async () => {
+    try {
+      setDownloading(true);
+      await downloadMembershipReceiptPdf({
+        applicationRef,
+        applicantName,
+        applicantEmail,
+        applicantPhone,
+        applicantAddress,
+        packageName,
+        packageFee,
+        submittedAt,
+        paymentStatus,
+        applicationStatus,
+      });
+    } catch (err) {
+      console.error("Failed to generate/download receipt PDF:", err);
+      // Fallback: open receipt modal for browser print/save
+      setShowReceipt(true);
+    } finally {
+      setDownloading(false);
+    }
   };
 
   const formattedDate = new Date(submittedAt).toLocaleString("en-IN", {
@@ -107,12 +132,28 @@ export default function ApplicationSuccessModal({
           <div className={styles.successActions} style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center" }}>
             <button
               type="button"
+              className={styles.btnGold}
+              onClick={handleDownload}
+              disabled={downloading}
+            >
+              {downloading ? (
+                <>
+                  <Loader2 size={15} className="animate-spin" /> Downloading...
+                </>
+              ) : (
+                <>
+                  <Download size={15} /> Download Receipt
+                </>
+              )}
+            </button>
+            <button
+              type="button"
               className={styles.btnOutline}
               onClick={handlePrint}
             >
               <Printer size={15} /> Print Receipt
             </button>
-            <Link href="/" className={styles.btnGold}>
+            <Link href="/" className={styles.btnOutline}>
               <Home size={15} /> Back to Home
             </Link>
           </div>

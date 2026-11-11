@@ -22,8 +22,8 @@ const categories = [
     defaultPost: "District Active Member",
   },
   {
-    id: "Letter Pad Post",
-    name: "Letter Pad Post",
+    id: "Executive Membership",
+    name: "Executive Membership",
     fee: "From ₹5,000 / 5 Years",
     description:
       "Designated state-level positions authorized with official HRSJM letter pad to represent the mission in human rights causes.",
@@ -91,11 +91,10 @@ export default function MembershipOptions() {
           })}
         </ul>
 
-        <div style={{ textAlign: "center", marginTop: 32 }}>
+        <div className={styles.optionsActionWrap}>
           <Link
             href="/membership/categories"
             className={styles.btnGold}
-            style={{ display: "inline-flex" }}
           >
             Explore All 12 Membership Posts &amp; Qualifications Table
             <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
