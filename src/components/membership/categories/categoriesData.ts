@@ -134,7 +134,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         kit: [
           "Appointment Letter",
           "Certificate",
-          "Identity Card & Sticker & T' Shirt ",
+          "Identity Card, 2 ID Cover, 2 Lanyard, 2 Sticker & 2 T' Shirt",
           " Letter Pad",
         ],
         letterPad: "Letter Pad",
@@ -151,7 +151,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         kit: [
           "Appointment Letter",
           "Certificate",
-          "Identity Card 2 & Sticker 2 & T' Shirt 2",
+          "Identity Card, 2 ID Cover, 2 Lanyard, 2 Sticker & 2 T' Shirt",
           "Letter Pad",
         ],
         letterPad: "Letter Pad",
@@ -168,7 +168,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         kit: [
           "Appointment Letter",
           "Certificate",
-          "Identity Card 2 & Sticker 2 & T' Shirt 2",
+          "Identity Card, 2 ID Cover, 2 Lanyard, 2 Sticker & 2 T' Shirt",
           "Letter Pad",
         ],
         letterPad: "Letter Pad",
