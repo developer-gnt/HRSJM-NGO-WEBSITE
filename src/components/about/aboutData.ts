@@ -34,20 +34,13 @@ export const subNavItems: SubNavItem[] = [
 
 export const leadershipMembers: LeadershipMember[] = [
   {
-    id: "president",
-    name: "President",
-    designation: "President",
-    role: "President",
-    image: "/assets/leadership/leader_president.jpg",
-  },
-  {
     id: "mt-qazi",
     name: "Mr. M.T. Qazi",
     designation: "Honorable National President",
     qualification: "M.A. Human Rights",
     location: "Delhi, Mumbai",
     role: "National President",
-    image: "/assets/leadership/leader_mt_qazi_v2.jpg",
+    image: "/assets/leadership/leader_mt_qazi_v3.jpg",
   },
   {
     id: "sp-panigrahi",

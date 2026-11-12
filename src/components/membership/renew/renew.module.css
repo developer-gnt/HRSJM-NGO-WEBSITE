@@ -317,10 +317,11 @@
   gap: 6px;
   width: 100%;
   padding: 10px 16px;
-  border: 1px solid var(--color-gold);
+  border: 1px solid var(--color-gold, #fad25c);
   border-radius: 6px;
-  background: var(--color-gold);
-  color: var(--color-navy-dark);
+  background: var(--color-gold, #fad25c);
+  color: var(--color-navy-dark, #031d38);
+  font-family: var(--font-body), Arial, sans-serif;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -329,9 +330,9 @@
 }
 
 .tierBtn:hover {
-  background: var(--color-gold-light);
-  border-color: var(--color-gold-light);
-  color: var(--color-navy-dark);
+  background: var(--color-gold-light, #e8bc3f);
+  border-color: var(--color-gold-light, #e8bc3f);
+  color: var(--color-navy-dark, #031d38);
 }
 
 .tierBtnActive {
