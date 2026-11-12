@@ -7,9 +7,26 @@ import CommunityVoices from "@/components/news/CommunityVoices";
 import NewsCTA from "@/components/news/NewsCTA";
 
 export const metadata: Metadata = {
-  title: "News & Blog",
+  title: "Human Rights News & Legal Insights Blog | HRSJM India",
   description:
-    "Latest updates, community stories, human rights insights and awareness resources from Human Rights & Social Justice Mission.",
+    "Stay informed with the latest human rights news, grassroots community reports, legal analyses, and social justice campaign updates from HRSJM across India.",
+  keywords: [
+    "Human Rights News India",
+    "HRSJM Blog",
+    "Social Justice News India",
+    "Legal Rights Articles",
+    "Human Rights Violations News",
+    "NGO Ground Reports India",
+  ],
+  alternates: {
+    canonical: "/news",
+  },
+  openGraph: {
+    title: "HRSJM News & Human Rights Insights",
+    description:
+      "Latest human rights stories, legal awareness articles, and field reports from across India.",
+    url: "https://hrsjm.org/news",
+  },
 };
 
 export default function NewsPage() {

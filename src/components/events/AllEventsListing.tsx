@@ -128,7 +128,7 @@ export default function AllEventsListing() {
                 {filteredEvents.length}
               </span>{" "}
               events
-              {activeFilter !== "All Events" ? ` — ${activeFilter}` : ""}
+              {activeFilter !== "All Events" ? ` - ${activeFilter}` : ""}
               {searchQuery.trim() ? ` matching "${searchQuery.trim()}"` : ""}
             </p>
           </div>
@@ -203,9 +203,8 @@ export default function AllEventsListing() {
                 <button
                   key={pageNum}
                   type="button"
-                  className={`${styles.pageBtn} ${styles.pageNum}${
-                    pageNum === currentPage ? ` ${styles.pageNumActive}` : ""
-                  }`}
+                  className={`${styles.pageBtn} ${styles.pageNum}${pageNum === currentPage ? ` ${styles.pageNumActive}` : ""
+                    }`}
                   aria-current={pageNum === currentPage ? "page" : undefined}
                   onClick={() => goToPage(pageNum)}
                 >

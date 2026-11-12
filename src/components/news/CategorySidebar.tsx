@@ -20,9 +20,8 @@ export default function CategorySidebar({
             <li key={label} data-reveal-item style={revealStagger(index)}>
               <Link
                 href={href}
-                className={`${styles.categoryItem}${
-                  label === activeLabel ? ` ${styles.categoryItemActive}` : ""
-                }`}
+                className={`${styles.categoryItem}${label === activeLabel ? ` ${styles.categoryItemActive}` : ""
+                  }`}
                 aria-current={label === activeLabel ? "true" : undefined}
               >
                 <span className={styles.categoryItemIcon}>

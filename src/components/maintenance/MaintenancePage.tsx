@@ -48,7 +48,6 @@ export default function MaintenancePage() {
               priority
             />
             <div className={styles.brandCopy}>
-              <strong className={styles.brandTitle}>HRSJM</strong>
               <small className={styles.brandSubtitle}>
                 Human Rights &amp; Social Justice Mission
               </small>

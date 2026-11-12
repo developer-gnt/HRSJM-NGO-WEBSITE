@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { X, Quote, Shield, Mail } from "lucide-react";
+import { X, ShieldCheck, MapPin, Award, Building2, UserCheck } from "lucide-react";
 import type { LeadershipMember } from "./aboutData";
 import styles from "./about.module.css";
 
@@ -17,8 +17,17 @@ export default function LeadershipModal({
   if (!member) return null;
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={`${styles.modalPanel} ${styles.modalPanelNarrow}`}>
+    <div
+      className={styles.modalOverlay}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-leader-name"
+    >
+      <div
+        className={`${styles.modalPanel} ${styles.modalPanelNarrow}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Close button */}
         <button
           onClick={onClose}
@@ -34,38 +43,75 @@ export default function LeadershipModal({
             src={member.image}
             alt={member.name}
             fill
-            sizes="512px"
+            quality={95}
+            sizes="(max-width: 640px) 100vw, 600px"
             className={styles.leadModalImg}
           />
           <div className={styles.leadModalShade} />
 
           <div className={styles.leadModalCaption}>
             <span className={styles.modalEyebrow}>
-              {member.specialization || "HRSJM National Leadership"}
+              HRSJM National Governing Body
             </span>
-            <h3 className={styles.leadModalName}>{member.name}</h3>
+            <h3 id="modal-leader-name" className={styles.leadModalName}>{member.name}</h3>
             <p className={styles.leadModalDesignation}>{member.designation}</p>
           </div>
         </div>
 
-        {/* Bio content */}
+        {/* Verified Profile Details Body */}
         <div className={styles.leadModalBody}>
-          {/* Quote */}
-          <div className={styles.leadModalQuote}>
-            <Quote strokeWidth={1.8} />
-            <p className={styles.leadModalQuoteText}>“{member.quote}”</p>
-          </div>
+          <div className={styles.leadModalInfoList}>
+            <div className={styles.leadModalInfoItem}>
+              <div className={styles.leadModalInfoIconWrap}>
+                <Building2 size={16} />
+              </div>
+              <div>
+                <span className={styles.leadModalInfoLabel}>Designation</span>
+                <p className={styles.leadModalInfoVal}>{member.designation}</p>
+              </div>
+            </div>
 
-          <p className={styles.leadModalBio}>{member.bio}</p>
+            {member.qualification && (
+              <div className={styles.leadModalInfoItem}>
+                <div className={styles.leadModalInfoIconWrap}>
+                  <Award size={16} />
+                </div>
+                <div>
+                  <span className={styles.leadModalInfoLabel}>Academic &amp; Professional Details</span>
+                  <p className={styles.leadModalInfoVal}>{member.qualification}</p>
+                </div>
+              </div>
+            )}
+
+            {member.location && (
+              <div className={styles.leadModalInfoItem}>
+                <div className={styles.leadModalInfoIconWrap}>
+                  <MapPin size={16} />
+                </div>
+                <div>
+                  <span className={styles.leadModalInfoLabel}>Location / Jurisdiction</span>
+                  <p className={styles.leadModalInfoVal}>{member.location}</p>
+                </div>
+              </div>
+            )}
+
+            <div className={styles.leadModalInfoItem}>
+              <div className={styles.leadModalInfoIconWrap}>
+                <UserCheck size={16} />
+              </div>
+              <div>
+                <span className={styles.leadModalInfoLabel}>Organizational Standing</span>
+                <p className={styles.leadModalInfoVal}>
+                  {member.role ? `${member.role} &bull; National Governing Body` : "National Governing Body Member"}
+                </p>
+              </div>
+            </div>
+          </div>
 
           <div className={styles.leadModalMeta}>
             <span className={styles.leadModalVerified}>
-              <Shield strokeWidth={1.8} />
-              Verified HRSJM Executive Council
-            </span>
-            <span className={styles.leadModalEmail}>
-              <Mail strokeWidth={1.8} />
-              leadership@hrsjm.org
+              <ShieldCheck size={16} strokeWidth={2.2} />
+              Verified Official Profile &bull; hrsjm.org
             </span>
           </div>
         </div>

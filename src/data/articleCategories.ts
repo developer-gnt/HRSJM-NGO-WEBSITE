@@ -68,7 +68,7 @@ export const articleCategories: ArticleCategory[] = [
     href: "/news/category/media-coverage",
     icon: Tv,
     description:
-      "HRSJM in the press — coverage of our initiatives, campaigns and events across India.",
+      "HRSJM in the press - coverage of our initiatives, campaigns and events across India.",
   },
 ];
 

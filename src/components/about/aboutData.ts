@@ -2,8 +2,11 @@ export interface LeadershipMember {
   id: string;
   name: string;
   designation: string;
-  quote: string;
   image: string;
+  qualification?: string;
+  location?: string;
+  role?: string;
+  quote?: string;
   bio?: string;
   specialization?: string;
 }
@@ -31,40 +34,103 @@ export const subNavItems: SubNavItem[] = [
 
 export const leadershipMembers: LeadershipMember[] = [
   {
-    id: "arvind-deshpande",
-    name: "Dr. Arvind Deshpande",
-    designation: "Founder & Chairperson",
-    quote: "A just society is built when people stand together.",
-    image: "/assets/leader_exact_arvind.jpg",
-    bio: "Dr. Deshpande has dedicated over three decades to constitutional rights defense, grassroots legal aid, and socio-economic equality advocacy across India.",
-    specialization: "Constitutional Rights & Public Interest Law",
+    id: "mt-qazi",
+    name: "Mr. M.T. Qazi",
+    designation: "Honorable National President",
+    qualification: "M.A. Human Rights",
+    location: "Delhi, Mumbai",
+    role: "National President",
+    image: "/assets/leadership/leader_mt_qazi_v3.jpg",
   },
   {
-    id: "neha-sharma",
-    name: "Ms. Neha Sharma",
-    designation: "General Secretary",
-    quote: "Empowered people create lasting change.",
-    image: "/assets/leader_exact_neha.jpg",
-    bio: "A grassroots mobilizer and gender rights advocate, Ms. Sharma oversees HRSJM’s national chapters, volunteer networks, and community education programs.",
-    specialization: "Community Organizing & Gender Justice",
+    id: "sp-panigrahi",
+    name: "Mr. S. P. Panigrahi",
+    designation: "National Vice President",
+    qualification: "B.Com | Engineer",
+    location: "Maharashtra",
+    role: "National Vice President",
+    image: "/assets/leadership/leader_sp_panigrahi_v2.jpg",
   },
   {
-    id: "sameer-khan",
-    name: "Adv. Sameer Khan",
-    designation: "Legal Advisor",
-    quote: "Justice is a right, not a privilege.",
-    image: "/assets/leader_exact_sameer.jpg",
-    bio: "Advocate Khan leads HRSJM’s legal defense cell, providing pro-bono representation to marginalized citizens, laborers, and undertrials.",
-    specialization: "Pro-Bono Litigation & Human Security",
+    id: "na-diwakar",
+    name: "Mr. N. A. Diwakar",
+    designation: "National General Secretary",
+    qualification: "M.A. | B.Ed.",
+    location: "Maharashtra",
+    role: "National General Secretary",
+    image: "/assets/leadership/leader_placeholder.svg",
   },
   {
-    id: "kavita-rao",
-    name: "Dr. Kavita Rao",
-    designation: "Head - Programs",
-    quote: "Communities are the true changemakers.",
-    image: "/assets/leader_exact_kavita.jpg",
-    bio: "Dr. Rao steers regional capacity-building initiatives, youth civic fellowships, and community health and sanitation rights clinics.",
-    specialization: "Program Development & Social Research",
+    id: "sh-shaikh",
+    name: "Adv. S. H. Shaikh",
+    designation: "Joint Secretary",
+    qualification: "B.A. | L.L.B.",
+    location: "Maharashtra",
+    role: "Joint Secretary",
+    image: "/assets/leadership/leader_sh_shaikh_v2.jpg",
+  },
+  {
+    id: "ar-ahmed",
+    name: "Mr. A. R. Ahmed",
+    designation: "Treasurer",
+    qualification: "B.Com | Engineer",
+    location: "Maharashtra",
+    role: "Treasurer",
+    image: "/assets/leadership/leader_ar_ahmed_v2.jpg",
+  },
+  {
+    id: "rd-khetri",
+    name: "Mr. R. D. Khetri",
+    designation: "Director",
+    qualification: "Governing Body Member",
+    location: "Maharashtra",
+    role: "Director",
+    image: "/assets/leadership/leader_rd_khetri_v2.jpg",
+  },
+  {
+    id: "mm-patel",
+    name: "Adv. M. M. Patel",
+    designation: "Director (Legal)",
+    qualification: "B.A. | L.L.B.",
+    location: "Gujarat",
+    role: "Director (Legal)",
+    image: "/assets/leadership/leader_mm_patel_v2.jpg",
+  },
+  {
+    id: "mz-siddiqui",
+    name: "Adv. M. Z. Siddiqui",
+    designation: "Director (Legal)",
+    qualification: "M.A. | B.Ed. | L.L.B.",
+    location: "Maharashtra",
+    role: "Director (Legal)",
+    image: "/assets/leadership/leader_mz_siddiqui_v2.jpg",
+  },
+  {
+    id: "ih-khan",
+    name: "Adv. I. H. Khan",
+    designation: "Director (Legal)",
+    qualification: "Governing Body Member",
+    location: "Delhi",
+    role: "Director (Legal)",
+    image: "/assets/leadership/leader_ih_khan_v2.jpg",
+  },
+  {
+    id: "fp-khan",
+    name: "Dr. F. P. Khan",
+    designation: "Director (Human Resources)",
+    qualification: "Doctor",
+    location: "U.P.",
+    role: "Director (Human Resources)",
+    image: "/assets/leadership/leader_fp_khan_v2.jpg",
+  },
+  {
+    id: "as-sayyed",
+    name: "Mr. A. S. Sayyed",
+    designation: "Director",
+    qualification: "M.B.A. (Finance)",
+    location: "U.K.",
+    role: "Director",
+    image: "/assets/leadership/leader_as_sayyed_v2.jpg",
   },
 ];
 

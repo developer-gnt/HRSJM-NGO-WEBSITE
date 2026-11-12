@@ -10,8 +10,8 @@ import shared from "@/components/news/news.module.css";
 import styles from "@/components/news/featuredArticle.module.css";
 
 /* Detail page for the latest-articles grid (/articles/[slug]). It reuses
-   the exact Featured Article page layout — image-left hero card on navy,
-   numbered editorial sections, Categories card alongside — so every
+   the exact Featured Article page layout - image-left hero card on navy,
+   numbered editorial sections, Categories card alongside - so every
    article detail reads like part of the same system. */
 export default function ArticleDetailPage({ article }: { article: Article }) {
   const sectionRef = useScrollReveal(shared);

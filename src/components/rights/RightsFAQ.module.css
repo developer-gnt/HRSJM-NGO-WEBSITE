@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------- */
 /* Know Your Rights page styles.                                    */
-/* Section — Frequently Asked Questions                             */
+/* Section - Frequently Asked Questions                             */
 /* (copy column with CTA, accordion list of five questions)         */
 /* ---------------------------------------------------------------- */
 
@@ -24,7 +24,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Copy column — eyebrow, heading, description, CTA                 */
+/* Copy column - eyebrow, heading, description, CTA                 */
 /* ---------------------------------------------------------------- */
 
 .eyebrow {
@@ -67,7 +67,7 @@
   line-height: 1.6;
 }
 
-/* Shares the hero's gold CTA styling — only adds top spacing */
+/* Shares the hero's gold CTA styling - only adds top spacing */
 .primaryBtn {
   display: inline-flex;
   align-items: center;
@@ -175,7 +175,7 @@
   border-radius: 2px;
 }
 
-/* Hand-drawn "+" — two bars, the vertical one folds onto the
+/* Hand-drawn "+" - two bars, the vertical one folds onto the
    horizontal when open so it reads as a minus. */
 .plus {
   position: relative;
@@ -210,7 +210,7 @@
   transform: rotate(90deg);
 }
 
-/* Smooth height + opacity — the 0fr→1fr grid row transition */
+/* Smooth height + opacity - the 0fr→1fr grid row transition */
 .panel {
   display: grid;
   grid-template-rows: 0fr;
@@ -239,7 +239,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Viewport-entry reveal — copy first, then staggered rows          */
+/* Viewport-entry reveal - copy first, then staggered rows          */
 /* ---------------------------------------------------------------- */
 
 .section.armed .eyebrow,
@@ -281,7 +281,7 @@
 /* Responsive                                                       */
 /* ---------------------------------------------------------------- */
 
-/* Tablet — keep two columns, tighten the gap */
+/* Tablet - keep two columns, tighten the gap */
 @media (max-width: 1023px) {
   .inner {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
@@ -293,7 +293,7 @@
   }
 }
 
-/* Mobile — copy stacks above the full-width accordion */
+/* Mobile - copy stacks above the full-width accordion */
 @media (max-width: 639px) {
   .section {
     padding: 48px 0 52px;
@@ -337,6 +337,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .section.armed .eyebrow,
   .section.armed .heading,
   .section.armed .description,

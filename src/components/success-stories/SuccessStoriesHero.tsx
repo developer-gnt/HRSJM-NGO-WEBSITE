@@ -30,7 +30,7 @@ export default function SuccessStoriesHero() {
 
         <p className={styles.description}>
           Behind every case is a person whose life changed. These are the
-          stories of the people and communities HRSJM stands with — proof that
+          stories of the people and communities HRSJM stands with - proof that
           awareness, advocacy and support create lasting change.
         </p>
 

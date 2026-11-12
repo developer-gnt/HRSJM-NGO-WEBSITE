@@ -1,6 +1,6 @@
 /* ==========================================================================
    HRSJM Membership Categories Page Styles
-   Matching High-Fidelity Reference Design
+   Matching High-Fidelity Reference Design (Mobile 2-Column Exact Spec)
    ========================================================================== */
 
 .page {
@@ -9,9 +9,9 @@
 }
 
 .container {
-  width: min(100%, var(--container, 1280px));
+  width: min(100%, 1160px);
   margin-inline: auto;
-  padding-inline: var(--page-padding, 24px);
+  padding-inline: 20px;
 }
 
 /* --------------------------------------------------------------------------
@@ -21,9 +21,9 @@
   position: relative;
   background-color: #031d38;
   color: #ffffff;
-  padding: 20px var(--page-padding) 26px;
+  padding: 24px var(--page-padding, 24px) 30px;
   overflow: hidden;
-  min-height: 380px;
+  min-height: 340px;
 }
 
 .hero .container {
@@ -68,7 +68,7 @@
   gap: 8px;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 .breadcrumb a {
@@ -100,7 +100,7 @@
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .heroEyebrowDot {
@@ -113,11 +113,11 @@
 
 .heroHeading {
   font-family: var(--font-playfair), var(--font-display), Georgia, serif;
-  font-size: clamp(34px, 3.8vw, 48px);
+  font-size: clamp(30px, 3.4vw, 44px);
   font-weight: 700;
   line-height: 1.15;
   color: #ffffff;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .heroHeadingGold {
@@ -125,18 +125,18 @@
 }
 
 .heroSubtitle {
-  font-size: clamp(15px, 1.2vw, 17px);
+  font-size: clamp(14px, 1.1vw, 16px);
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   line-height: 1.4;
 }
 
 .heroDescription {
-  font-size: 13.5px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.55;
   color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .heroActions {
@@ -150,12 +150,12 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 44px;
-  padding: 0 24px;
+  min-height: 42px;
+  padding: 0 22px;
   border-radius: 6px;
   background: var(--color-gold, #fad25c);
   color: var(--color-navy-dark, #031d38);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   text-decoration: none;
   box-shadow: 0 4px 14px rgba(250, 210, 92, 0.35);
@@ -173,206 +173,262 @@
    Categories Content Section
    -------------------------------------------------------------------------- */
 .categoriesSection {
-  padding: 36px 0 56px;
+  padding: 24px 0 48px;
 }
 
-.categoryCard {
+.choosePlanIntro {
+  font-size: 13.5px;
+  color: #475569;
+  font-weight: 500;
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+.sectionGroup {
+  margin-bottom: 24px;
+}
+
+/* Light blue section banner */
+.sectionBanner {
+  background: linear-gradient(90deg, #dce8f8 0%, #ebf3fb 100%);
+  border: 1px solid #cce0f5;
+  border-radius: 8px;
+  padding: 9px 16px;
+  margin-bottom: 10px;
+}
+
+.sectionTitle {
+  font-size: 17.5px;
+  font-weight: 700;
+  color: #0f294a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* Cards List */
+.cardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Single Item Card */
+.itemCard {
   background: #ffffff;
-  border: 1px solid #e1e9f2;
+  border: 1px solid #d9e3ee;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(6, 42, 79, 0.05);
-  margin-bottom: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.035);
   overflow: hidden;
-  transition: box-shadow 200ms ease;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
-.categoryCard:hover {
-  box-shadow: 0 8px 28px rgba(6, 42, 79, 0.08);
+.itemCard:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 14px rgba(15, 41, 74, 0.06);
 }
 
-/* Card Header */
-.cardHeader {
+/* Card Top Row / Header */
+.itemTopRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 18px 24px;
-  background: #ffffff;
-  border-bottom: 1px solid #edf2f7;
-}
-
-.cardHeaderLeft {
-  display: flex;
-  align-items: center;
+  padding: 12px 18px 10px 18px;
   gap: 16px;
 }
 
-.cardIconWrap {
-  flex-shrink: 0;
+.itemIdentity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.itemIconWrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 10px;
-  background-color: var(--color-navy, #062a4f);
-  color: #ffffff;
-  box-shadow: 0 4px 10px rgba(6, 42, 79, 0.18);
-}
-
-.cardHeaderInfo {
-  display: flex;
-  flex-direction: column;
-}
-
-.cardTitle {
-  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
-  font-size: 21px;
-  font-weight: 700;
-  color: var(--color-navy, #062a4f);
-  line-height: 1.2;
-  margin-bottom: 3px;
-}
-
-.cardSubtitle {
-  font-size: 12.5px;
-  color: #64748b;
-  line-height: 1.4;
-}
-
-/* Right side quote & art */
-.cardHeaderRight {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-left: auto;
-}
-
-.headerArtWrap {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
 }
 
-.headerArtImg {
-  height: 52px;
-  width: auto;
-  object-fit: contain;
-  display: block;
+.iconBlue {
+  background-color: #eef4fc;
+  color: #2563eb;
+  border: 1px solid #dce8f8;
 }
 
-.headerQuoteWrap {
+.iconGreen {
+  background-color: #ecfdf3;
+  color: #16a34a;
+  border: 1px solid #dcfce7;
+}
+
+.itemTitles {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  min-width: 0;
 }
 
-.headerQuoteText {
-  font-family: var(--font-playfair), Georgia, serif;
-  font-size: 14.5px;
+.itemPostName {
+  font-size: 15.5px;
   font-weight: 700;
-  color: var(--color-navy, #062a4f);
-  line-height: 1.3;
-  max-width: 180px;
+  color: #0f294a;
+  margin: 0;
+  line-height: 1.25;
 }
 
-.headerQuoteLine {
-  display: block;
-  width: 32px;
-  height: 2.5px;
-  background: var(--color-gold, #fad25c);
-  border-radius: 2px;
-  margin-top: 5px;
-}
-
-/* Table */
-.tableWrap {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 860px;
-  text-align: left;
-}
-
-.thCell {
-  background-color: #eaf3fb;
-  color: var(--color-navy, #062a4f);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 13px 18px;
-  border-top: 1px solid #dbe8f5;
-  border-bottom: 1px solid #d4e3f2;
-  letter-spacing: 0.01em;
-}
-
-.thCenter {
-  text-align: center;
-}
-
-.table td {
-  padding: 14px 18px;
-  font-size: 13.5px;
-  color: #1e293b;
-  border-bottom: 1px solid #edf2f7;
-  vertical-align: middle;
-}
-
-.table tr:last-child td {
-  border-bottom: none;
-}
-
-.table tr:hover td {
-  background-color: #f8fbfe;
-}
-
-.tdSrNo {
-  text-align: center;
-  font-weight: 700;
-  color: var(--color-navy, #062a4f);
-  width: 65px;
-}
-
-.tdPost {
-  font-weight: 700;
-  color: var(--color-navy, #062a4f);
-  font-size: 14px;
-}
-
-.tdQualification {
-  color: #334155;
-  font-size: 13px;
-  line-height: 1.45;
-}
-
-.tdFees {
-  text-align: center;
-  font-weight: 800;
-  color: var(--color-navy, #062a4f);
-  font-size: 15px;
-  white-space: nowrap;
-}
-
-.tdValidity {
-  text-align: center;
-  color: #334155;
+.itemQualification {
+  font-size: 12px;
+  color: #64748b;
   font-weight: 500;
-  font-size: 13px;
-  white-space: nowrap;
+  margin: 2px 0 0 0;
 }
 
-.tdKit {
+.itemPricing {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.itemPrice {
+  font-size: 19px;
+  font-weight: 800;
+  color: #16a34a;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.itemPriceValidity {
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+  margin-top: 2px;
+}
+
+/* Subtle Horizontal Divider below header */
+.cardDivider {
+  height: 1px;
+  background-color: #eef2f6;
+  margin: 0 18px;
+}
+
+/* --------------------------------------------------------------------------
+   Card Body: Two-Column Layout (Matching Screenshot 2 Exactly)
+   Maintained across Desktop, Tablet, and Mobile devices
+   -------------------------------------------------------------------------- */
+.itemBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 13px 18px 15px 18px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* Left Column: Benefits + Membership Duration at bottom */
+.bodyLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5.5px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.benefitCheckIcon {
+  flex-shrink: 0;
+  margin-top: 1.5px;
+}
+
+.benefitText {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+/* Duration at the bottom of the left column */
+.durationWrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.durationCalendarIcon {
+  color: #1d4ed8;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.durationContent {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.durationLabel {
+  font-size: 10.5px;
+  color: #64748b;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.durationValue {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f294a;
+  margin-top: 1px;
+}
+
+/* Right Column: Kit List + Golden Apply Now button at bottom */
+.bodyRight {
+  border-left: 1px solid #eef2f6;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.kitTopSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.kitHeader {
+  display: flex;
+  align-items: center;
+  gap: 5.5px;
+  margin-bottom: 5px;
+}
+
+.kitHeaderIcon {
+  color: #1d4ed8;
+  flex-shrink: 0;
+}
+
+.kitHeaderTitle {
   font-size: 12.5px;
-  color: #334155;
-  line-height: 1.45;
+  font-weight: 700;
+  color: #0f294a;
 }
 
-.kitList {
-  list-style-type: none;
+.kitNumberedList {
+  list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
@@ -380,44 +436,51 @@
   gap: 3px;
 }
 
-.kitItem {
+.kitNumberedItem {
   display: flex;
   align-items: flex-start;
-  gap: 6px;
+  gap: 4px;
+  font-size: 11.5px;
+  color: #334155;
+  line-height: 1.35;
+  font-weight: 500;
 }
 
-.kitBullet {
-  color: var(--color-navy, #062a4f);
-  font-size: 14px;
-  line-height: 1.1;
+.kitNumber {
+  color: #475569;
+  font-weight: 600;
   flex-shrink: 0;
 }
 
-.tdAction {
-  text-align: center;
+.kitNumberedText {
+  color: #334155;
+  word-break: break-word;
 }
 
+/* Golden Apply Now Button spanning the right column */
 .applyBtn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 7px 18px;
-  border-radius: 9999px;
-  background: var(--color-gold, #fad25c);
-  color: var(--color-navy-dark, #031d38);
-  font-size: 12px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 7px;
+  background: #e59a18;
+  color: #0f172a;
+  font-size: 13px;
   font-weight: 700;
   text-decoration: none;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(250, 210, 92, 0.35);
-  transition: all 150ms ease;
+  text-align: center;
+  margin-top: 14px;
+  transition: all 160ms ease;
+  box-shadow: 0 1px 2px rgba(229, 154, 24, 0.2);
 }
 
 .applyBtn:hover {
-  background: #fce282;
+  background: #d97706;
+  color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(250, 210, 92, 0.45);
+  box-shadow: 0 3px 8px rgba(217, 119, 6, 0.3);
 }
 
 /* --------------------------------------------------------------------------
@@ -428,7 +491,7 @@
   background-color: #faf8f3;
   border-top: 1px solid #ebd9b5;
   border-bottom: 1px solid #ebd9b5;
-  padding: 38px 0;
+  padding: 34px 0;
   overflow: hidden;
 }
 
@@ -456,7 +519,7 @@
 
 .bottomCtaHeading {
   font-family: var(--font-playfair), var(--font-display), Georgia, serif;
-  font-size: clamp(26px, 2.6vw, 36px);
+  font-size: clamp(24px, 2.4vw, 32px);
   font-weight: 700;
   color: var(--color-navy, #062a4f);
   margin-bottom: 4px;
@@ -468,7 +531,7 @@
 }
 
 .bottomCtaSubtitle {
-  font-size: 14px;
+  font-size: 13.5px;
   color: #52606d;
   line-height: 1.5;
 }
@@ -478,8 +541,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 44px;
-  padding: 0 24px;
+  min-height: 42px;
+  padding: 0 22px;
   border-radius: 6px;
   background: var(--color-gold, #fad25c);
   color: var(--color-navy-dark, #031d38);
@@ -499,32 +562,12 @@
 
 /* --------------------------------------------------------------------------
    Responsive Breakpoints
+   Crucial: Two-column card body layout is preserved on all mobile screen sizes!
    -------------------------------------------------------------------------- */
-@media (max-width: 960px) {
-  .heroGradient {
-    background: linear-gradient(
-      90deg,
-      #031d38 0%,
-      #031d38 55%,
-      rgba(3, 29, 56, 0.92) 80%,
-      rgba(3, 29, 56, 0.4) 100%
-    );
-  }
-
-  .headerQuoteText {
-    max-width: 140px;
-    font-size: 13.5px;
-  }
-
-  .headerArtImg {
-    height: 46px;
-  }
-}
-
 @media (max-width: 768px) {
   .hero {
     padding-top: 20px;
-    padding-bottom: 44px;
+    padding-bottom: 36px;
     min-height: auto;
   }
 
@@ -536,20 +579,132 @@
     );
   }
 
-  .cardHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 16px 20px;
+  .container {
+    padding-inline: 14px;
   }
 
-  .cardHeaderRight {
-    width: 100%;
-    margin-left: 0;
-    justify-content: flex-start;
-    gap: 14px;
-    padding-top: 10px;
-    border-top: 1px dashed #e2e8f0;
+  .categoriesSection {
+    padding: 16px 0 36px;
+  }
+
+  .choosePlanIntro {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .sectionGroup {
+    margin-bottom: 18px;
+  }
+
+  .sectionBanner {
+    padding: 8px 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .sectionTitle {
+    font-size: 16px;
+  }
+
+  .cardsList {
+    gap: 10px;
+  }
+
+  .itemCard {
+    border-radius: 12px;
+  }
+
+  .itemTopRow {
+    padding: 10px 14px 8px 14px;
+    gap: 10px;
+  }
+
+  .itemIconWrap {
+    width: 36px;
+    height: 36px;
+  }
+
+  .itemPostName {
+    font-size: 14.5px;
+  }
+
+  .itemQualification {
+    font-size: 11.5px;
+  }
+
+  .itemPrice {
+    font-size: 18px;
+  }
+
+  .itemPriceValidity {
+    font-size: 11px;
+  }
+
+  .cardDivider {
+    margin: 0 14px;
+  }
+
+  /* Two-column layout strictly preserved on mobile */
+  .itemBody {
+    grid-template-columns: 1fr 1fr;
+    padding: 12px 14px 14px 14px;
+    gap: 12px;
+  }
+
+  .bodyRight {
+    border-left: 1px solid #eef2f6;
+    padding-left: 12px;
+  }
+
+  .benefitsList {
+    gap: 5px;
+  }
+
+  .benefitItem {
+    gap: 6px;
+  }
+
+  .benefitText {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .durationWrap {
+    margin-top: 12px;
+    gap: 6px;
+  }
+
+  .durationLabel {
+    font-size: 10px;
+  }
+
+  .durationValue {
+    font-size: 12.5px;
+  }
+
+  .kitHeader {
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  .kitHeaderTitle {
+    font-size: 11.5px;
+  }
+
+  .kitNumberedList {
+    gap: 2.5px;
+  }
+
+  .kitNumberedItem {
+    font-size: 10.5px;
+    line-height: 1.3;
+  }
+
+  .applyBtn {
+    margin-top: 12px;
+    padding: 7px 8px;
+    font-size: 12px;
+    border-radius: 6px;
   }
 
   .bottomCtaInner {
@@ -563,18 +718,86 @@
   }
 }
 
-@media (max-width: 480px) {
-  .heroHeading {
-    font-size: 28px;
+/* Small mobile devices (e.g. 360px - 380px Android devices) */
+@media (max-width: 380px) {
+  .container {
+    padding-inline: 10px;
   }
 
-  .cardTitle {
-    font-size: 18px;
+  .itemTopRow {
+    padding: 9px 10px 7px 10px;
+    gap: 8px;
   }
 
-  .cardIconWrap {
-    width: 40px;
-    height: 40px;
+  .itemIconWrap {
+    width: 32px;
+    height: 32px;
+  }
+
+  .itemPostName {
+    font-size: 13.5px;
+  }
+
+  .itemQualification {
+    font-size: 10.5px;
+  }
+
+  .itemPrice {
+    font-size: 16px;
+  }
+
+  .itemPriceValidity {
+    font-size: 10.5px;
+  }
+
+  .cardDivider {
+    margin: 0 10px;
+  }
+
+  .itemBody {
+    grid-template-columns: 1fr 1fr;
+    padding: 10px 10px 12px 10px;
+    gap: 8px;
+  }
+
+  .bodyRight {
+    padding-left: 8px;
+  }
+
+  .benefitItem {
+    gap: 5px;
+  }
+
+  .benefitText {
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .durationWrap {
+    margin-top: 10px;
+    gap: 5px;
+  }
+
+  .durationLabel {
+    font-size: 9px;
+  }
+
+  .durationValue {
+    font-size: 11.5px;
+  }
+
+  .kitHeaderTitle {
+    font-size: 10.5px;
+  }
+
+  .kitNumberedItem {
+    font-size: 9.5px;
+    line-height: 1.25;
+  }
+
+  .applyBtn {
+    margin-top: 10px;
+    padding: 6px 4px;
+    font-size: 11px;
   }
 }
-

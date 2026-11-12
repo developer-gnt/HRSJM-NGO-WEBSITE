@@ -12,18 +12,18 @@ import styles from "./membership.module.css";
 
 const categories = [
   {
-    id: "Active Membership",
-    name: "Active Membership",
+    id: "General Membership",
+    name: "General Membership",
     fee: "From ₹800 / year",
     description:
       "Contribute at the district and state level. Includes official appointment letter, certificate, and membership identity kit.",
     icon: Users,
-    targetCategory: "active-membership",
+    targetCategory: "general-membership",
     defaultPost: "District Active Member",
   },
   {
-    id: "Letter Pad Post",
-    name: "Letter Pad Post",
+    id: "Executive Membership",
+    name: "Executive Membership",
     fee: "From ₹5,000 / 5 Years",
     description:
       "Designated state-level positions authorized with official HRSJM letter pad to represent the mission in human rights causes.",
@@ -80,7 +80,7 @@ export default function MembershipOptions() {
                 <h3 className={styles.planName}>{cat.name}</h3>
                 <p className={styles.planDescription}>{cat.description}</p>
                 <Link
-                  href="/membership/categories"
+                  href={`/membership/categories#${cat.targetCategory}`}
                   className={styles.planButton}
                 >
                   Join Now
@@ -91,11 +91,10 @@ export default function MembershipOptions() {
           })}
         </ul>
 
-        <div style={{ textAlign: "center", marginTop: 32 }}>
+        <div className={styles.optionsActionWrap}>
           <Link
             href="/membership/categories"
             className={styles.btnGold}
-            style={{ display: "inline-flex" }}
           >
             Explore All 12 Membership Posts &amp; Qualifications Table
             <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />

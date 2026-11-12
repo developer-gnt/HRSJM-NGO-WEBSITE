@@ -32,26 +32,37 @@ export default function HelpFAQ({ searchQuery, onClearSearch }: HelpFAQProps) {
       return membershipFaqs;
     }
 
-    // Search across all FAQ categories to give comprehensive support results
-    const results: DisplayFaqItem[] = [];
-    faqCategories.forEach((category) => {
-      category.items.forEach((item) => {
-        const matchesQuestion = item.question.toLowerCase().includes(q);
-        const matchesAnswer = item.answer.toLowerCase().includes(q);
-        const matchesCategory =
-          category.label.toLowerCase().includes(q) ||
-          category.heading.toLowerCase().includes(q);
+    const queryTokens = q.split(/\s+/).filter(Boolean);
+    const exactMatches: DisplayFaqItem[] = [];
+    const tokenMatches: DisplayFaqItem[] = [];
 
-        if (matchesQuestion || matchesAnswer || matchesCategory) {
-          results.push({
-            ...item,
-            categoryLabel: category.label,
-          });
+    // Search across all FAQ categories to give comprehensive support results
+    faqCategories.forEach((category) => {
+      const categoryText = `${category.label} ${category.heading} ${category.eyebrow} ${category.description}`.toLowerCase();
+
+      category.items.forEach((item) => {
+        const questionText = item.question.toLowerCase();
+        const answerText = item.answer.toLowerCase();
+        const combinedText = `${questionText} ${answerText} ${categoryText}`;
+
+        const isExactMatch =
+          questionText.includes(q) ||
+          answerText.includes(q) ||
+          categoryText.includes(q);
+
+        const isTokenMatch =
+          queryTokens.length > 1 &&
+          queryTokens.every((token) => combinedText.includes(token));
+
+        if (isExactMatch) {
+          exactMatches.push({ ...item, categoryLabel: category.label });
+        } else if (isTokenMatch) {
+          tokenMatches.push({ ...item, categoryLabel: category.label });
         }
       });
     });
 
-    return results;
+    return [...exactMatches, ...tokenMatches];
   }, [searchQuery, membershipFaqs]);
 
   const isSearching = searchQuery.trim().length > 0;

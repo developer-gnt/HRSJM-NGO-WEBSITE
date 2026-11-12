@@ -1,0 +1,40 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="800" y2="800" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0a2540"/>
+      <stop offset="100%" stop-color="#041424"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="200" y1="180" x2="600" y2="700" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fad25c"/>
+      <stop offset="100%" stop-color="#d9a928"/>
+    </linearGradient>
+    <radialGradient id="haloGrad" cx="400" cy="340" r="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="800" fill="url(#bgGrad)"/>
+  <circle cx="400" cy="340" r="260" fill="url(#haloGrad)"/>
+
+  <!-- Subtle gold frame -->
+  <rect x="24" y="24" width="752" height="752" rx="8" stroke="url(#goldGrad)" stroke-width="2" stroke-opacity="0.4"/>
+
+  <!-- Head -->
+  <circle cx="400" cy="300" r="115" fill="#f8fafc" fill-opacity="0.9"/>
+  <circle cx="400" cy="300" r="120" stroke="url(#goldGrad)" stroke-width="3" stroke-opacity="0.75"/>
+
+  <!-- Suit / Shoulders -->
+  <path d="M190 710C190 580 285 480 400 480C515 480 610 580 610 710C610 722 602 730 590 730H210C198 730 190 722 190 710Z" fill="#f8fafc" fill-opacity="0.9"/>
+
+  <!-- Lapel / Tie detail -->
+  <path d="M400 480L340 640L400 730L460 640L400 480Z" fill="#062a4f" fill-opacity="0.25"/>
+  <path d="M370 480L400 580L430 480" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="400" y1="580" x2="400" y2="730" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Official Badge Text / Icon indicator -->
+  <g transform="translate(400, 755)" text-anchor="middle">
+    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="600" fill="#fad25c" letter-spacing="2">HRSJM GOVERNING BODY</text>
+  </g>
+</svg>

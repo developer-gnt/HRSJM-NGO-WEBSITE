@@ -137,7 +137,7 @@ export default function ExploreRightsSection() {
             </h2>
             <p className={styles.description}>
               Explore key areas of human rights that protect your dignity,
-              freedom and equal opportunities — click any category to view its comprehensive guide.
+              freedom and equal opportunities - click any category to view its comprehensive guide.
             </p>
           </div>
 

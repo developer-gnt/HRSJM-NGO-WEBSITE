@@ -1,8 +1,59 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronRight } from "lucide-react";
-import { membershipCategorySections } from "./categoriesData";
+import {
+  ArrowRight,
+  ChevronRight,
+  Calendar,
+  Users,
+  Briefcase,
+  Crown,
+  Award,
+  Shield,
+  Star,
+  Landmark,
+  User,
+  Building2,
+  type LucideIcon,
+} from "lucide-react";
+import {
+  membershipCategorySections,
+  type CategoryIconName,
+} from "./categoriesData";
 import styles from "./categories.module.css";
+
+const iconMap: Record<CategoryIconName, LucideIcon> = {
+  Users,
+  Briefcase,
+  Crown,
+  Award,
+  Shield,
+  Star,
+  Landmark,
+  User,
+  Building2,
+};
+
+function GreenCheck() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 16 16"
+      fill="none"
+      className={styles.benefitCheckIcon}
+      aria-hidden="true"
+    >
+      <circle cx="8" cy="8" r="8" fill="#16a34a" />
+      <path
+        d="M4.5 8.2L6.8 10.5L11.5 5.5"
+        stroke="#ffffff"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export default function MembershipCategoriesPage() {
   return (
@@ -70,141 +121,134 @@ export default function MembershipCategoriesPage() {
       <section
         id="categories"
         className={styles.categoriesSection}
-        aria-label="Membership categories tables"
+        aria-label="Membership categories plans"
       >
         <div className={styles.container}>
-          {membershipCategorySections.map((section) => {
-            const SectionIcon = section.icon;
+          <p className={styles.choosePlanIntro}>
+            Choose a membership plan that fits you
+          </p>
 
-            return (
-              <div key={section.id} id={section.id} className={styles.categoryCard}>
-                {/* Card Header */}
-                <div className={styles.cardHeader}>
-                  <div className={styles.cardHeaderLeft}>
-                    <div className={styles.cardIconWrap}>
-                      <SectionIcon size={22} strokeWidth={2.2} aria-hidden="true" />
-                    </div>
-                    <div className={styles.cardHeaderInfo}>
-                      <h2 className={styles.cardTitle}>{section.title}</h2>
-                      <p className={styles.cardSubtitle}>{section.subtitle}</p>
-                    </div>
-                  </div>
+          {membershipCategorySections.map((section) => (
+            <div key={section.id} id={section.id} className={styles.sectionGroup}>
+              {/* Section Header Banner */}
+              <div className={styles.sectionBanner}>
+                <h2 className={styles.sectionTitle}>{section.title}</h2>
+              </div>
 
-                  <div className={styles.cardHeaderRight}>
-                    {section.headerArt && (
-                      <div className={styles.headerArtWrap}>
-                        <Image
-                          src={section.headerArt}
-                          alt=""
-                          width={145}
-                          height={58}
-                          className={styles.headerArtImg}
-                        />
+              {/* List of Item Cards */}
+              <div className={styles.cardsList}>
+                {section.items.map((item) => {
+                  const ItemIcon =
+                    (item.iconName && iconMap[item.iconName]) || Users;
+                  const isGreenTheme = item.theme === "green";
+
+                  return (
+                    <div key={item.srNo} className={styles.itemCard}>
+                      {/* Top Row: Icon + Title & Subtitle | Price & Validity */}
+                      <div className={styles.itemTopRow}>
+                        <div className={styles.itemIdentity}>
+                          <div
+                            className={`${styles.itemIconWrap} ${
+                              isGreenTheme ? styles.iconGreen : styles.iconBlue
+                            }`}
+                            aria-hidden="true"
+                          >
+                            <ItemIcon size={19} strokeWidth={2.2} />
+                          </div>
+                          <div className={styles.itemTitles}>
+                            <h3 className={styles.itemPostName}>{item.post}</h3>
+                            <p className={styles.itemQualification}>
+                              {item.qualification}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className={styles.itemPricing}>
+                          <div className={styles.itemPrice}>{item.fees}</div>
+                          <div className={styles.itemPriceValidity}>
+                            {item.validity}
+                          </div>
+                        </div>
                       </div>
-                    )}
-                    {section.quote && (
-                      <div className={styles.headerQuoteWrap}>
-                        <p className={styles.headerQuoteText}>
-                          &ldquo;{section.quote}&rdquo;
-                        </p>
-                        <span className={styles.headerQuoteLine} aria-hidden="true" />
-                      </div>
-                    )}
-                  </div>
-                </div>
 
-                {/* Table */}
-                <div className={styles.tableWrap}>
-                  <table className={styles.table}>
-                    <thead>
-                      <tr>
-                        <th
-                          className={`${styles.thCell} ${styles.thCenter}`}
-                          style={{ width: "65px" }}
-                        >
-                          No.
-                        </th>
-                        <th className={styles.thCell} style={{ width: "230px" }}>
-                          Post
-                        </th>
-                        <th className={styles.thCell} style={{ width: "230px" }}>
-                          Required Qualification
-                        </th>
-                        <th
-                          className={`${styles.thCell} ${styles.thCenter}`}
-                          style={{ width: "110px" }}
-                        >
-                          Fees (₹)
-                        </th>
-                        <th
-                          className={`${styles.thCell} ${styles.thCenter}`}
-                          style={{ width: "95px" }}
-                        >
-                          Validity
-                        </th>
-                        <th className={styles.thCell}>
-                          {section.kitHeaderLabel}
-                        </th>
-                        <th
-                          className={`${styles.thCell} ${styles.thCenter}`}
-                          style={{ width: "135px" }}
-                        >
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {section.items.map((item) => (
-                        <tr key={item.srNo}>
-                          <td className={styles.tdSrNo}>{item.srNo}</td>
-                          <td className={styles.tdPost}>{item.post}</td>
-                          <td className={styles.tdQualification}>
-                            {item.qualification}
-                          </td>
-                          <td className={styles.tdFees}>{item.fees}</td>
-                          <td className={styles.tdValidity}>{item.validity}</td>
-                          <td className={styles.tdKit}>
-                            {item.kit.length > 1 ? (
-                              <ul className={styles.kitList}>
-                                {item.kit.map((kitItem) => (
-                                  <li key={kitItem} className={styles.kitItem}>
-                                    <span
-                                      className={styles.kitBullet}
-                                      aria-hidden="true"
-                                    >
-                                      •
-                                    </span>
-                                    <span>{kitItem}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            ) : (
-                              item.kit[0]
-                            )}
-                          </td>
-                          <td className={styles.tdAction}>
-                            <Link
-                              href={`/membership/apply?post=${encodeURIComponent(
-                                item.post
-                              )}`}
-                              className={styles.applyBtn}
-                            >
-                              Apply Now
-                              <ArrowRight
-                                size={12}
-                                strokeWidth={2.4}
+                      {/* Subtle Horizontal Divider */}
+                      <div className={styles.cardDivider} aria-hidden="true" />
+
+                      {/* Card Body: Two-Column Layout (Preserved on Desktop, Tablet, and Mobile) */}
+                      <div className={styles.itemBody}>
+                        {/* Left Column: Benefits + Duration at Bottom */}
+                        <div className={styles.bodyLeft}>
+                          <ul className={styles.benefitsList}>
+                            {item.kit.map((kitItem, idx) => (
+                              <li key={idx} className={styles.benefitItem}>
+                                <GreenCheck />
+                                <span className={styles.benefitText}>
+                                  {kitItem}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+
+                          <div className={styles.durationWrap}>
+                            <Calendar
+                              size={15}
+                              className={styles.durationCalendarIcon}
+                              aria-hidden="true"
+                            />
+                            <div className={styles.durationContent}>
+                              <span className={styles.durationLabel}>
+                                Membership Duration
+                              </span>
+                              <span className={styles.durationValue}>
+                                {item.duration || item.validity}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Right Column: Kit List + Apply Now at Bottom */}
+                        <div className={styles.bodyRight}>
+                          <div className={styles.kitTopSection}>
+                            <div className={styles.kitHeader}>
+                              <Calendar
+                                size={13}
+                                className={styles.kitHeaderIcon}
                                 aria-hidden="true"
                               />
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                              <span className={styles.kitHeaderTitle}>
+                                Membership Kit
+                              </span>
+                            </div>
+                            <ol className={styles.kitNumberedList}>
+                              {item.kit.map((kitItem, idx) => (
+                                <li key={idx} className={styles.kitNumberedItem}>
+                                  <span className={styles.kitNumber}>
+                                    {idx + 1}.
+                                  </span>
+                                  <span className={styles.kitNumberedText}>
+                                    {kitItem}
+                                  </span>
+                                </li>
+                              ))}
+                            </ol>
+                          </div>
+
+                          <Link
+                            href={`/membership/apply?post=${encodeURIComponent(
+                              item.post
+                            )}`}
+                            className={styles.applyBtn}
+                          >
+                            Apply Now
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
 

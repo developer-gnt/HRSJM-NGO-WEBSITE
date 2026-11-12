@@ -13,20 +13,18 @@
   z-index: -2;
 }
 
-/* Local light veil behind the left text column only — keeps navy text
+/* Local light veil behind the left text column only - keeps navy text
    readable over the valley while leaving the bright mountains untouched. */
 .scrim {
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(247, 244, 236, 0.62) 0%,
-    rgba(247, 244, 236, 0.38) 36%,
-    rgba(247, 244, 236, 0.08) 54%,
-    rgba(247, 244, 236, 0) 64%
-  );
+  background: linear-gradient(90deg,
+      rgba(247, 244, 236, 0.62) 0%,
+      rgba(247, 244, 236, 0.38) 36%,
+      rgba(247, 244, 236, 0.08) 54%,
+      rgba(247, 244, 236, 0) 64%);
 }
 
 .container {
@@ -90,7 +88,7 @@
   padding-left: 0;
 }
 
-.stat + .stat {
+.stat+.stat {
   border-left: 1px solid rgba(6, 42, 79, 0.22);
 }
 
@@ -181,6 +179,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .section [data-reveal],
   .section [data-reveal-item] {
     opacity: 1;
@@ -224,12 +223,10 @@
   }
 
   .scrim {
-    background: linear-gradient(
-      180deg,
-      rgba(247, 244, 236, 0.78) 0%,
-      rgba(247, 244, 236, 0.62) 52%,
-      rgba(247, 244, 236, 0.28) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(247, 244, 236, 0.78) 0%,
+        rgba(247, 244, 236, 0.62) 52%,
+        rgba(247, 244, 236, 0.28) 100%);
   }
 
   .heading {
@@ -252,7 +249,7 @@
     gap: 6px;
   }
 
-  .stat + .stat {
+  .stat+.stat {
     border-left: 0;
     padding-left: 0;
   }

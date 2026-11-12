@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -15,6 +15,8 @@ import Step3DocumentUpload, {
 } from "./Step3DocumentUpload";
 import Step4Payment, { type Step4Data } from "./Step4Payment";
 import ApplicationSuccessModal from "./ApplicationSuccessModal";
+import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
+import { fetchBackendCategories } from "@/lib/backendApi";
 import {
   findMembershipPackage,
   type UnifiedMembershipPackage,
@@ -32,9 +34,71 @@ function MembershipApplyContent() {
 
   useEffect(() => {
     if (postParam) {
-      setSelectedPackage(findMembershipPackage(postParam));
+      const pkg = findMembershipPackage(postParam);
+      setSelectedPackage(pkg);
+      setStep4Data((prev) => ({
+        ...prev,
+        validity: pkg.item.validity,
+      }));
     }
   }, [postParam]);
+
+  // Synchronize category fees & validity dynamically with live database
+  useEffect(() => {
+    let isMounted = true;
+    fetchBackendCategories()
+      .then((cats) => {
+        if (!isMounted || !cats || cats.length === 0) return;
+        setSelectedPackage((prevPkg) => {
+          const postName = prevPkg.item.post.trim().toLowerCase();
+          const matched = cats.find((c) => {
+            const cName = c.name.trim().toLowerCase();
+            const cCode = c.code.toLowerCase().replace(/_/g, " ");
+            return (
+              cName === postName ||
+              postName.includes(cName) ||
+              cName.includes(postName) ||
+              postName.includes(cCode)
+            );
+          });
+          if (matched) {
+            const dbFee = `₹${Number(matched.fee).toLocaleString("en-IN")}`;
+            let dbValidity = "1 Year";
+            if (matched.validity_days >= 3600) dbValidity = "10 Years";
+            else if (matched.validity_days >= 1800) dbValidity = "5 Years";
+            else if (matched.validity_days >= 700) dbValidity = "2 Years";
+            else if (matched.validity_days >= 350) dbValidity = "1 Year";
+
+            return {
+              ...prevPkg,
+              item: {
+                ...prevPkg.item,
+                fees: dbFee,
+                validity: dbValidity,
+              },
+            };
+          }
+          return prevPkg;
+        });
+      })
+      .catch((err) => {
+        console.warn("Could not fetch categories from database:", err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Always keep step4Data validity synced with selected package
+  useEffect(() => {
+    if (selectedPackage?.item?.validity) {
+      setStep4Data((prev) => ({
+        ...prev,
+        validity: selectedPackage.item.validity,
+      }));
+    }
+  }, [selectedPackage]);
 
   // Current Step (1, 2, 3, or 4)
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
@@ -48,6 +112,7 @@ function MembershipApplyContent() {
     gender: "",
     phone: "",
     email: "",
+    password: "",
     priorConviction: "No",
     priorConvictionDetails: "",
   });
@@ -72,12 +137,14 @@ function MembershipApplyContent() {
     photograph: emptyDoc,
     agreePrivacy: false,
     agreeTerms: false,
+    agreePledge: false,
   });
 
-  // Step 4 State: Payment & Verification
+  // Step 4 State: Payment & Verification (Default to Online Cashfree Gateway)
   const [step4Data, setStep4Data] = useState<Step4Data>({
-    paymentMode: "upi_bank",
+    paymentMode: "online_gateway",
     paymentReference: "",
+    validity: selectedPackage.item.validity || "1 Year",
   });
 
   // Validation Errors
@@ -91,10 +158,50 @@ function MembershipApplyContent() {
   const [submissionResult, setSubmissionResult] = useState<{
     applicationRef: string;
     applicantName: string;
+    applicantEmail?: string;
+    applicantPhone?: string;
+    applicantAddress?: string;
     packageName: string;
     packageFee: string;
     submittedAt: string;
+    paymentStatus?: string;
+    applicationStatus?: string;
+    paymentSessionId?: string;
   } | null>(null);
+
+  // Keep track of active paid Cashfree order so user does not get double-charged on retry
+  const completedOrderIdRef = useRef<string | null>(null);
+
+  const formatDisplayError = (err: any, fallback: string): string => {
+    if (!err) return fallback;
+    if (typeof err === "string" && err.trim().length > 0) return err;
+    if (typeof err.message === "string" && err.message.trim().length > 0) return err.message;
+    if (Array.isArray(err.message) && err.message.length > 0) return err.message.join(", ");
+    if (typeof err.error === "string" && err.error.trim().length > 0) return err.error;
+    if (err.error && typeof err.error === "object") {
+      if (typeof err.error.message === "string") return err.error.message;
+      if (Array.isArray(err.error.details)) return err.error.details.join(", ");
+      if (typeof err.error.details === "string") return err.error.details;
+      if (err.error.code) return `Server Error (${err.error.code})`;
+    }
+    return fallback;
+  };
+
+  const parseResponseSafely = async (res: Response, context: string) => {
+    const text = await res.text();
+    if (res.status === 413 || text.includes("Request Entity Too Large") || text.includes("Payload Too Large")) {
+      throw new Error(
+        "Uploaded documents exceed server size limit (413 Request Entity Too Large). Please upload smaller or compressed document files."
+      );
+    }
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new Error(
+        `Server returned unexpected response (${res.status}) while ${context}. Please try again.`
+      );
+    }
+  };
 
   // Field change handlers
   const handleStep1Change = (field: keyof Step1Data, value: any) => {
@@ -141,6 +248,21 @@ function MembershipApplyContent() {
 
     if (!step1Data.dob) {
       errors.dob = "Please select your date of birth.";
+    } else {
+      const dobDate = new Date(step1Data.dob);
+      const today = new Date();
+      if (isNaN(dobDate.getTime()) || dobDate > today) {
+        errors.dob = "Future dates are not allowed. Please select a valid date of birth.";
+      } else {
+        let age = today.getFullYear() - dobDate.getFullYear();
+        const monthDiff = today.getMonth() - dobDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+          age--;
+        }
+        if (age < 18) {
+          errors.dob = "Applicant must be at least 18 years old to apply for membership.";
+        }
+      }
     }
 
     if (!step1Data.gender) {
@@ -160,6 +282,12 @@ function MembershipApplyContent() {
       errors.email = "Please enter your email address.";
     } else if (!emailRegex.test(trimmedEmail)) {
       errors.email = "Please enter a valid email address.";
+    }
+
+    if (!step1Data.password || step1Data.password.trim().length === 0) {
+      errors.password = "Please create a password for your account.";
+    } else if (step1Data.password.trim().length < 6) {
+      errors.password = "Password must be at least 6 characters.";
     }
 
     if (step1Data.priorConviction === "Yes" && !step1Data.priorConvictionDetails.trim()) {
@@ -205,34 +333,81 @@ function MembershipApplyContent() {
   const validateStep3 = (): boolean => {
     const errors: Record<string, string> = {};
 
-    if (!step3Data.idProof.file) {
-      errors.idProof = "Please upload Identity Proof.";
-    }
-    if (!step3Data.addressProof.file) {
-      errors.addressProof = "Please upload Address Proof.";
-    }
-    if (!step3Data.qualification.file) {
-      errors.qualification = "Please upload Qualification Certificate.";
-    }
-    if (!step3Data.photograph.file) {
-      errors.photograph = "Please upload Photograph.";
-    }
+    // Document uploads are optional
+
     if (!step3Data.agreePrivacy) {
       errors.agreePrivacy = "Please agree to the Privacy Policy.";
     }
     if (!step3Data.agreeTerms) {
       errors.agreeTerms = "Please accept the Terms & Conditions.";
     }
+    if (!step3Data.agreePledge) {
+      errors.agreePledge = "Please take the HRSJM Member Pledge.";
+    }
 
     setStep3Errors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  // Step Transitions
-  const handleContinueStep1 = () => {
-    if (validateStep1()) {
+  // Validate Step 4: Package & Fee
+  const validateStep4 = (): boolean => {
+    const errors: Record<string, string> = {};
+
+    if (!selectedPackage?.item?.post) {
+      errors.post = "Please select a membership post.";
+    }
+
+    if (!selectedPackage?.item?.fees) {
+      errors.fee = "Registration fee is required.";
+    }
+
+    setStep4Errors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Step Transitions & Duplicate Check
+  const [checkingDuplicate, setCheckingDuplicate] = useState(false);
+
+  const handleContinueStep1 = async () => {
+    if (!validateStep1()) {
+      return;
+    }
+
+    setCheckingDuplicate(true);
+    try {
+      const res = await fetch("/api/membership/check-duplicate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          phone: step1Data.phone.trim(),
+          email: step1Data.email.trim(),
+        }),
+      });
+
+      const data = await res.json();
+      if (data?.isDuplicate) {
+        const errorMsg = sanitizeDuplicateMessage(data.message);
+        const newErrors: Record<string, string> = {};
+        if (data.field === "phone") {
+          newErrors.phone = errorMsg;
+        } else if (data.field === "email") {
+          newErrors.email = errorMsg;
+        } else {
+          newErrors.phone = errorMsg;
+          newErrors.email = errorMsg;
+        }
+        setStep1Errors((prev) => ({ ...prev, ...newErrors }));
+        return;
+      }
+
       setCurrentStep(2);
       window.scrollTo({ top: 320, behavior: "smooth" });
+    } catch (err) {
+      console.warn("Could not check duplicate:", err);
+      setCurrentStep(2);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+    } finally {
+      setCheckingDuplicate(false);
     }
   };
 
@@ -252,14 +427,83 @@ function MembershipApplyContent() {
 
   // Final Submit from Step 4
   const handleFinalSubmit = async () => {
+    // Step 1 Check BEFORE Payment
+    if (!validateStep1()) {
+      setCurrentStep(1);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+      alert("Please resolve all errors in Step 1 (Personal Information) before making payment.");
+      return;
+    }
+
+    // Step 2 Check BEFORE Payment
+    if (!validateStep2()) {
+      setCurrentStep(2);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+      alert("Please complete all required fields in Step 2 (Address Details) before making payment.");
+      return;
+    }
+
+    // Step 3 Check BEFORE Payment
+    if (!validateStep3()) {
+      setCurrentStep(3);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+      alert("Please upload all 4 required documents and accept all declarations in Step 3 before making payment.");
+      return;
+    }
+
+    // Step 4 Validation BEFORE Payment
+    if (!validateStep4()) {
+      setCurrentStep(4);
+      window.scrollTo({ top: 320, behavior: "smooth" });
+      alert("Please ensure your membership details are complete before proceeding to payment.");
+      return;
+    }
+
+    const chosenValidity = step4Data.validity || selectedPackage?.item?.validity || "1 Year";
+
     setSubmitting(true);
     try {
+      // Pre-Payment Duplicate Verification: Do NOT take payment if mobile/email already exists!
+      try {
+        const dupRes = await fetch("/api/membership/check-duplicate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phone: step1Data.phone.trim(),
+            email: step1Data.email.trim(),
+          }),
+        });
+
+        const dupData = await dupRes.json();
+        if (dupData?.isDuplicate) {
+          const errorMsg = sanitizeDuplicateMessage(dupData.message);
+          const newErrors: Record<string, string> = {};
+          if (dupData.field === "phone") {
+            newErrors.phone = errorMsg;
+          } else if (dupData.field === "email") {
+            newErrors.email = errorMsg;
+          } else {
+            newErrors.phone = errorMsg;
+            newErrors.email = errorMsg;
+          }
+          setStep1Errors((prev) => ({ ...prev, ...newErrors }));
+          setCurrentStep(1);
+          window.scrollTo({ top: 320, behavior: "smooth" });
+          alert(errorMsg);
+          setSubmitting(false);
+          return;
+        }
+      } catch (dupErr) {
+        console.warn("Pre-payment duplicate check failed:", dupErr);
+      }
+
       const payload = {
         fullName: step1Data.fullName,
         dob: step1Data.dob,
         gender: step1Data.gender,
         phone: step1Data.phone,
         email: step1Data.email,
+        password: step1Data.password?.trim() || undefined,
         priorConviction: step1Data.priorConviction,
         priorConvictionDetails: step1Data.priorConvictionDetails,
         address1: step2Data.address1,
@@ -270,40 +514,179 @@ function MembershipApplyContent() {
         country: step2Data.country,
         policeStation: step2Data.policeStation,
         idProofName: step3Data.idProof.name,
+        idProofUri: step3Data.idProof.dataUrl,
         addressProofName: step3Data.addressProof.name,
+        addressProofUri: step3Data.addressProof.dataUrl,
         qualificationName: step3Data.qualification.name,
-        photoName: step3Data.photograph.name,
+        qualificationUri: step3Data.qualification.dataUrl,
+        photoName: step3Data.photograph.name || (step1Data.photoFile ? step1Data.photoFile.name : "photograph.png"),
+        photoUri: step3Data.photograph.dataUrl || step1Data.photoPreview || undefined,
+        avatarUrl: step3Data.photograph.dataUrl || step1Data.photoPreview || undefined,
         agreePrivacy: step3Data.agreePrivacy,
         agreeTerms: step3Data.agreeTerms,
+        agreePledge: step3Data.agreePledge,
         packageName: selectedPackage.item.post,
         packageFee: selectedPackage.item.fees,
-        packageValidity: selectedPackage.item.validity,
-        paymentMode: step4Data.paymentMode === "upi_bank" ? "UPI / Bank Transfer" : "Online Gateway (Pending Verification)",
+        packageValidity: chosenValidity,
+        termsAgreed: step3Data.agreeTerms,
+        pledgeAgreed: step3Data.agreePledge,
+        declarationAgreed: step3Data.agreePrivacy,
+        paymentMode: step4Data.paymentMode === "upi_bank" ? "UPI / Bank Transfer" : "Online Gateway",
         paymentReference: step4Data.paymentReference,
       };
 
-      const res = await fetch("/api/membership/apply", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const json = await res.json();
-      if (!res.ok || !json.success) {
-        alert(json.error || "Submission failed. Please check your data and retry.");
+      // Safeguard: Ensure total request payload does not exceed Vercel's 4.5MB serverless limit
+      const payloadString = JSON.stringify(payload);
+      if (payloadString.length > 3.8 * 1024 * 1024) {
+        alert(
+          "Total document upload size is too large (exceeds 3.8MB server limit). Please upload compressed images or smaller documents and try again."
+        );
+        setSubmitting(false);
         return;
       }
 
-      setSubmissionResult({
-        applicationRef: json.applicationRef,
-        applicantName: json.applicantName,
-        packageName: json.packageName,
-        packageFee: json.packageFee,
-        submittedAt: json.submittedAt,
-      });
-    } catch (err) {
-      console.error(err);
-      alert("Network error. Unable to connect to server. Please try again.");
+      if (step4Data.paymentMode !== "upi_bank") {
+        let orderId = completedOrderIdRef.current;
+        let paymentSessionId: string | undefined = undefined;
+
+        // Only create a new Cashfree session if we don't already have a paid order from this session
+        if (!orderId) {
+          // Request Cashfree payment session with verified validity and duplicate checks
+          const orderRes = await fetch("/api/membership/initiate-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              amount: selectedPackage.item.fees,
+              packageName: selectedPackage.item.post,
+              packageValidity: chosenValidity,
+              fullName: step1Data.fullName,
+              phone: step1Data.phone,
+              email: step1Data.email,
+            }),
+          });
+
+          const orderJson = await parseResponseSafely(orderRes, "initiating payment session");
+          if (!orderRes.ok || !orderJson.success) {
+            alert(formatDisplayError(orderJson, "Failed to initiate payment session. Please check your details and try again."));
+            setSubmitting(false);
+            return;
+          }
+
+          orderId = orderJson.orderId;
+          paymentSessionId = orderJson.paymentSessionId;
+
+          // Open Cashfree checkout popup
+          try {
+            const checkoutResult = await launchCashfreeCheckout({
+              paymentSessionId: paymentSessionId!,
+              redirectTarget: "_modal",
+            });
+
+            if (checkoutResult?.error) {
+              console.warn("Cashfree checkout interaction:", checkoutResult.error);
+              setSubmitting(false);
+              return;
+            }
+
+            completedOrderIdRef.current = orderId;
+          } catch (cfErr) {
+            console.warn("Cashfree checkout interaction:", cfErr);
+          }
+        }
+
+        // Verify payment with gateway before saving
+        const verifyRes = await fetch("/api/membership/apply", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...payload,
+            orderId,
+            paymentMode: "Online Gateway",
+          }),
+        });
+
+        const verifyJson = await parseResponseSafely(verifyRes, "verifying payment and submitting application");
+        if (!verifyRes.ok || !verifyJson.success) {
+          if (verifyJson.paymentStatus && verifyJson.paymentStatus !== "SUCCESS") {
+            completedOrderIdRef.current = null;
+          }
+          alert(
+            formatDisplayError(
+              verifyJson,
+              "Payment was not completed or failed. Your membership application has not been submitted. Please try again."
+            )
+          );
+          setSubmitting(false);
+          return;
+        }
+
+        completedOrderIdRef.current = null;
+
+        const fullAddress = [
+          step2Data.address1,
+          step2Data.city,
+          step2Data.state,
+          step2Data.country,
+        ].filter(Boolean).join(", ") || "Mumbai, Maharashtra, India";
+
+        setSubmissionResult({
+          applicationRef: verifyJson.applicationRef,
+          applicantName: verifyJson.applicantName || step1Data.fullName,
+          applicantEmail: step1Data.email,
+          applicantPhone: step1Data.phone,
+          applicantAddress: fullAddress,
+          packageName: verifyJson.packageName || selectedPackage.item.post,
+          packageFee: String(verifyJson.packageFee || selectedPackage.item.fees),
+          submittedAt: verifyJson.submittedAt || new Date().toISOString(),
+          paymentStatus: "Confirmed Paid",
+          applicationStatus: "Applied (Pending Review)",
+          paymentSessionId,
+        });
+      } else {
+        // Manual Bank Transfer / UPI with UTR
+        const res = await fetch("/api/membership/apply", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...payload,
+            paymentMode: "UPI / Bank Transfer",
+          }),
+        });
+
+        const json = await parseResponseSafely(res, "submitting membership application");
+        if (!res.ok || !json.success) {
+          alert(formatDisplayError(json, "Submission failed. Please check your data and retry."));
+          setSubmitting(false);
+          return;
+        }
+
+        const fullAddress = [
+          step2Data.address1,
+          step2Data.city,
+          step2Data.state,
+          step2Data.country,
+        ].filter(Boolean).join(", ") || "Mumbai, Maharashtra, India";
+
+        setSubmissionResult({
+          applicationRef: json.applicationRef,
+          applicantName: json.applicantName || step1Data.fullName,
+          applicantEmail: step1Data.email,
+          applicantPhone: step1Data.phone,
+          applicantAddress: fullAddress,
+          packageName: json.packageName || selectedPackage.item.post,
+          packageFee: String(json.packageFee || selectedPackage.item.fees),
+          submittedAt: json.submittedAt || new Date().toISOString(),
+          paymentStatus: "Pending Verification",
+          applicationStatus: "Applied (Pending Review)",
+        });
+      }
+    } catch (err: any) {
+      console.error("Submission error:", err);
+      const friendlyMessage =
+        err.message === "fetch failed"
+          ? "Unable to connect to the server. Please verify your internet connection and try again."
+          : err.message || "Network error. Unable to connect to server. Please try again.";
+      alert(friendlyMessage);
     } finally {
       setSubmitting(false);
     }
@@ -363,13 +746,56 @@ function MembershipApplyContent() {
             {/* Four-Step Progress Indicator */}
             <ProgressIndicator
               currentStep={currentStep}
-              onStepClick={(step) => setCurrentStep(step)}
+              onStepClick={(step) => {
+                if (step < currentStep) {
+                  setCurrentStep(step);
+                  window.scrollTo({ top: 320, behavior: "smooth" });
+                } else if (step === 2) {
+                  if (validateStep1()) {
+                    setCurrentStep(2);
+                    window.scrollTo({ top: 320, behavior: "smooth" });
+                  } else {
+                    alert("Please complete Step 1 (Personal Information) before moving forward.");
+                  }
+                } else if (step === 3) {
+                  if (!validateStep1()) {
+                    setCurrentStep(1);
+                    alert("Please complete Step 1 (Personal Information) first.");
+                  } else if (!validateStep2()) {
+                    setCurrentStep(2);
+                    alert("Please complete Step 2 (Address Details) before moving to Step 3.");
+                  } else {
+                    setCurrentStep(3);
+                    window.scrollTo({ top: 320, behavior: "smooth" });
+                  }
+                } else if (step === 4) {
+                  if (!validateStep1()) {
+                    setCurrentStep(1);
+                    alert("Please complete Step 1 (Personal Information) first.");
+                  } else if (!validateStep2()) {
+                    setCurrentStep(2);
+                    alert("Please complete Step 2 (Address Details) first.");
+                  } else if (!validateStep3()) {
+                    setCurrentStep(3);
+                    alert("Please complete Step 3 (Documents & Declarations) before moving to Step 4.");
+                  } else {
+                    setCurrentStep(4);
+                    window.scrollTo({ top: 320, behavior: "smooth" });
+                  }
+                }
+              }}
             />
 
             {/* Dynamic Membership Package Summary */}
             <MembershipSummaryCard
               selectedPackage={selectedPackage}
-              onSelectPackage={(pkg) => setSelectedPackage(pkg)}
+              onSelectPackage={(pkg) => {
+                setSelectedPackage(pkg);
+                setStep4Data((prev) => ({
+                  ...prev,
+                  validity: pkg.item.validity,
+                }));
+              }}
             />
 
             {/* Step 1: Personal Information */}
@@ -379,6 +805,7 @@ function MembershipApplyContent() {
                 onChange={handleStep1Change}
                 onNext={handleContinueStep1}
                 errors={step1Errors}
+                checkingDuplicate={checkingDuplicate}
               />
             )}
 
@@ -428,13 +855,30 @@ function MembershipApplyContent() {
         <ApplicationSuccessModal
           applicationRef={submissionResult.applicationRef}
           applicantName={submissionResult.applicantName}
+          applicantEmail={submissionResult.applicantEmail}
+          applicantPhone={submissionResult.applicantPhone}
+          applicantAddress={submissionResult.applicantAddress}
           packageName={submissionResult.packageName}
           packageFee={submissionResult.packageFee}
           submittedAt={submissionResult.submittedAt}
+          paymentStatus={submissionResult.paymentStatus}
+          applicationStatus={submissionResult.applicationStatus}
+          paymentSessionId={submissionResult.paymentSessionId}
         />
       )}
     </div>
   );
+}
+
+function sanitizeDuplicateMessage(rawMsg?: string): string {
+  if (!rawMsg) return "An active membership or account is already registered with this mobile number or email.";
+  return rawMsg
+    .replace(/\s*\([^)]*Membership No[^)]*\)/gi, "")
+    .replace(/\s*\([^)]*HRSJM-[^)]*\)/gi, "")
+    .replace(/\s*\([^)]*Active[^)]*\)/gi, "")
+    .replace(/\s*\([^)]*Under Review[^)]*\)/gi, "")
+    .replace(/\s*\([^)]*Pending[^)]*\)/gi, "")
+    .trim();
 }
 
 export default function MembershipApplyPage() {

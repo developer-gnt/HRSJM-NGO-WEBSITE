@@ -12,6 +12,13 @@ import {
   Users,
 } from "lucide-react";
 import allEventsData from "@/data/all-events.json";
+import activitiesData from "@/data/activities.json";
+import HRSJMOrgOverview from "./HRSJMOrgOverview";
+import HRSJM14YearsJourney from "./HRSJM14YearsJourney";
+import HRSJMHistoryVision from "./HRSJMHistoryVision";
+import HRSJMPovertyEradication from "./HRSJMPovertyEradication";
+import HRSJMAdvancingRights from "./HRSJMAdvancingRights";
+import HRSJMWorldFoodDay from "./HRSJMWorldFoodDay";
 import EventCard, { type EventItem } from "./EventCard";
 import shared from "./events.module.css";
 import styles from "./eventDetail.module.css";
@@ -21,7 +28,18 @@ type AllEventsItem = EventItem & { category: string };
 const events: AllEventsItem[] = allEventsData;
 
 export function generateStaticParams() {
-  return events.map((event) => ({ slug: event.id }));
+  const eventSlugs = events.map((event) => ({ slug: event.id }));
+  const activitySlugs = activitiesData.map((activity) => ({ slug: activity.id }));
+  return [
+    ...eventSlugs,
+    ...activitySlugs,
+    { slug: "hrsjm-organisation-overview" },
+    { slug: "organisation-overview" },
+    { slug: "human-rights-awareness-rally" },
+    { slug: "free-legal-aid-camp" },
+    { slug: "womens-rights-awareness-program" },
+    { slug: "community-cleanliness-drive" },
+  ];
 }
 
 export async function generateMetadata({
@@ -30,6 +48,29 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+
+  if (slug === "hrsjm-organisation-overview" || slug === "organisation-overview") {
+    return {
+      title: "Human Rights & Social Justice Mission (HRSJM) - Organisation Overview",
+      description:
+        "Justice. Equality. Dignity. Humanity. Learn about HRSJM's mission, key focus areas, leadership and community programs.",
+    };
+  }
+
+  const activity =
+    activitiesData.find((item) => item.id === slug) ||
+    (slug === "human-rights-awareness-rally" ? activitiesData[0] : undefined) ||
+    (slug === "free-legal-aid-camp" ? activitiesData[1] : undefined) ||
+    (slug === "womens-rights-awareness-program" ? activitiesData[2] : undefined) ||
+    (slug === "community-cleanliness-drive" ? activitiesData[3] : undefined);
+
+  if (activity) {
+    return {
+      title: `${activity.title} | HRSJM Activities in Action`,
+      description: `Explore ${activity.title} in ${activity.location} and HRSJM's organizational overview.`,
+    };
+  }
+
   const event = events.find((item) => item.id === slug);
   if (!event) return { title: "Event Not Found" };
   return { title: event.title, description: event.description };
@@ -41,6 +82,48 @@ export default async function EventDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  if (slug === "hrsjm-organisation-overview" || slug === "organisation-overview") {
+    return <HRSJMOrgOverview />;
+  }
+
+  const activity =
+    activitiesData.find((item) => item.id === slug) ||
+    (slug === "human-rights-awareness-rally" ? activitiesData[0] : undefined) ||
+    (slug === "free-legal-aid-camp" ? activitiesData[1] : undefined) ||
+    (slug === "womens-rights-awareness-program" ? activitiesData[2] : undefined) ||
+    (slug === "community-cleanliness-drive" ? activitiesData[3] : undefined);
+
+  if (slug === "human-rights-social-justice-mission-14-years-journey" || slug === "free-legal-aid-camp") {
+    return <HRSJM14YearsJourney activity={activity || activitiesData[1]} />;
+  }
+
+  if (
+    slug === "human-rights-social-justice-mission-history-vision-social-contribution" ||
+    slug === "womens-rights-awareness-program"
+  ) {
+    return <HRSJMHistoryVision activity={activity || activitiesData[2]} />;
+  }
+
+  if (
+    slug === "international-day-for-the-eradication-of-poverty-17-october" ||
+    slug === "community-cleanliness-drive"
+  ) {
+    return <HRSJMPovertyEradication activity={activity || activitiesData[3]} />;
+  }
+
+  if (slug === "advancing-human-rights-and-social-justice-in-india") {
+    return <HRSJMAdvancingRights activity={activity || activitiesData[4]} />;
+  }
+
+  if (slug === "world-food-day-human-rights-and-social-justice-mission") {
+    return <HRSJMWorldFoodDay activity={activity || activitiesData[5]} />;
+  }
+
+  if (activity) {
+    return <HRSJMOrgOverview activity={activity} />;
+  }
+
   const event = events.find((item) => item.id === slug);
   if (!event) notFound();
 

@@ -38,7 +38,7 @@ export default function ContributionSection() {
               More Than Individual Benefits
             </h2>
             <p className={styles.contributionText}>
-              Membership is more than access to opportunities — it&apos;s a way
+              Membership is more than access to opportunities - it&apos;s a way
               to actively support a cause, stand in solidarity with communities
               and help build a fairer, more just society.
             </p>

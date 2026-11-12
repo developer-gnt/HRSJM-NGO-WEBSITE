@@ -92,7 +92,7 @@ async function main() {
         ],
       },
       {
-        heading: "2. Workplace Safety — The POSH Act, 2013",
+        heading: "2. Workplace Safety - The POSH Act, 2013",
         paragraphs: [
           "The Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act mandates a safe and dignified work environment across public and private sectors.",
         ],
@@ -143,7 +143,7 @@ async function main() {
     subtitle: "A comprehensive guide on child safety laws, prevention of child abuse (POCSO Act), right to free education, eradication of child labour, and child helpline emergency mechanisms.",
     sections: [
       {
-        heading: "1. The POCSO Act, 2012 — Protection Against Abuse",
+        heading: "1. The POCSO Act, 2012 - Protection Against Abuse",
         paragraphs: [
           "The Protection of Children from Sexual Offences (POCSO) Act is a gender-neutral legislation protecting all individuals below 18 years from sexual harassment, assault, and exploitation.",
         ],
@@ -243,7 +243,7 @@ async function main() {
     helplines: [
       "Central RTI Online Portal: rtionline.gov.in",
       "Central Information Commission (CIC): 011-26183996",
-      "HRSJM Legal RTI Help Desk: rti-help@hrsjm.org",
+      "HRSJM Legal RTI Help Desk: rti-enquiry@hrsjm.org",
     ],
     outputPath: path.join(outDir, "rti-application-guide.pdf"),
   });
@@ -313,7 +313,7 @@ async function main() {
     subtitle: "A practical guide to the Right of Children to Free and Compulsory Education Act (RTE 2009), Article 21A, 25% quota in private schools, and student protection rules in India.",
     sections: [
       {
-        heading: "1. Constitutional Mandate — Article 21A",
+        heading: "1. Constitutional Mandate - Article 21A",
         paragraphs: [
           "Article 21A of the Constitution of India guarantees free and compulsory elementary education to all children aged 6 to 14 years as a fundamental right enforceable in court.",
         ],

@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, MapPin, Award } from "lucide-react";
 import { valuesList, leadershipMembers } from "./aboutData";
 import type { LeadershipMember } from "./aboutData";
+import AboutAimsSection from "./AboutAimsSection";
 import styles from "./about.module.css";
 
 interface ValuesAndLeadershipProps {
@@ -197,73 +198,106 @@ export default function ValuesAndLeadership({
         </div>
       </section>
 
+      {/* Aims & Objectives Section */}
+      <AboutAimsSection />
+
       {/* Section 2: Our Leadership */}
       <section id="leadership" className={styles.leadership}>
         <div className={styles.container}>
-          <div className={styles.leadGrid}>
-            {/* Left column */}
-            <div className={styles.leadLeft}>
+          {/* Introductory Header */}
+          <div className={styles.leadHeader}>
+            <div className={styles.leadHeaderMain}>
               <span className={styles.leadEyebrow}>Our Leadership</span>
-
               <h2 className={styles.sectionHeading}>
-                Guided by People <br />
+                Guided by People <br className={styles.leadBreak} />
                 Who Care
               </h2>
+            </div>
 
+            <div className={styles.leadHeaderRight}>
               <p className={styles.leadCopy}>
                 HRSJM is led by a group of committed individuals who bring
                 experience, integrity and a deep belief in human rights and
-                social justice.
+                social justice. The National Governing Body steers the
+                mission&apos;s constitutional advocacy, legal counseling, and
+                grassroots empowerment across India.
               </p>
 
               <div className={styles.leadCtaWrap}>
                 <button
+                  type="button"
                   onClick={onOpenAllLeadership}
                   className={styles.leadOutlineButton}
                 >
-                  <span>Meet Our Leadership</span>
-                  <ArrowRight className={styles.leadOutlineButtonIcon} size={16} />
+                  <ShieldCheck size={16} className={styles.leadOutlineBadgeIcon} />
+                  <span>National Governing Body ({leadershipMembers.length} Members)</span>
+                  <ArrowRight className={styles.leadOutlineButtonIcon} size={15} />
                 </button>
               </div>
             </div>
+          </div>
 
-            {/* Right column: 4 leadership cards */}
-            <div className={styles.leadRight}>
-              <div className={styles.leadCardGrid}>
-                {leadershipMembers.map((member) => (
-                  <div
-                    key={member.id}
-                    onClick={() => onSelectMember(member)}
-                    className={styles.leaderCard}
-                  >
-                    {/* Portrait photo */}
-                    <div className={styles.leaderPortrait}>
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                        className={styles.leaderImg}
-                      />
-                    </div>
+          {/* Verified Official Leadership Members Grid */}
+          <div className={styles.leadCardGrid}>
+            {leadershipMembers.map((member) => (
+              <div
+                key={member.id}
+                onClick={() => onSelectMember(member)}
+                className={styles.leaderCard}
+                tabIndex={0}
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onSelectMember(member);
+                  }
+                }}
+                aria-label={`View official profile of ${member.name}, ${member.designation}`}
+              >
+                {/* Portrait photo */}
+                <div className={styles.leaderPortrait}>
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    quality={95}
+                    sizes="(min-width: 1140px) 320px, (min-width: 880px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className={styles.leaderImg}
+                  />
+                  {member.location && (
+                    <span className={styles.leaderLocationBadge}>
+                      <MapPin size={11} />
+                      <span>{member.location}</span>
+                    </span>
+                  )}
+                </div>
 
-                    {/* Content */}
-                    <div className={styles.leaderBody}>
-                      <div>
-                        <h3 className={styles.leaderName}>{member.name}</h3>
-                        <p className={styles.leaderDesignation}>
-                          {member.designation}
-                        </p>
-                      </div>
+                {/* Content */}
+                <div className={styles.leaderBody}>
+                  <p className={styles.leaderCategory}>{member.designation}</p>
+                  <h3 className={styles.leaderName}>{member.name}</h3>
 
-                      <p className={styles.leaderQuote}>
-                        “{member.quote}”
+                  <div className={styles.leaderDetails}>
+                    {member.qualification && (
+                      <p className={styles.leaderDetailLine}>
+                        <Award size={13} className={styles.leaderDetailIcon} />
+                        <span>{member.qualification}</span>
                       </p>
-                    </div>
+                    )}
+                    <p className={styles.leaderStandingLine}>
+                      <span>{member.role || "Governing Body Member"}</span>
+                    </p>
                   </div>
-                ))}
+
+                  <div className={styles.leaderFooter}>
+                    <span className={styles.leaderMeta}>Official Profile</span>
+                    <span className={styles.leaderArrow} aria-hidden="true">
+                      <ArrowRight size={14} strokeWidth={2.2} />
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

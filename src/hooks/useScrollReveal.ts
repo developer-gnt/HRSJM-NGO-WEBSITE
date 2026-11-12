@@ -14,6 +14,7 @@ export function useScrollReveal(styles: Readonly<Record<string, string>>) {
     const node = ref.current;
     if (!node) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
     node.classList.add(styles.armed);
     const observer = new IntersectionObserver(
       (entries) => {
@@ -22,7 +23,9 @@ export function useScrollReveal(styles: Readonly<Record<string, string>>) {
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+      isMobile
+        ? { threshold: 0.01, rootMargin: "60px 0px 60px 0px" }
+        : { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
     );
     observer.observe(node);
     return () => observer.disconnect();

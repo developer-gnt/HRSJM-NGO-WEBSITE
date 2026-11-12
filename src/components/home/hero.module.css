@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 384px;
+  min-height: 396px;
   color: var(--color-white);
   background-color: var(--color-navy);
 }
@@ -23,14 +23,14 @@
 .frameInner {
   width: min(100%, var(--container));
   margin: 0 auto;
-  padding: 0 var(--page-padding) 20px;
+  padding: 0 var(--page-padding) 28px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 28px;
 }
 
-.frameInner > * {
+.frameInner>* {
   pointer-events: auto;
 }
 
@@ -67,5 +67,19 @@
   .frameInner {
     padding-bottom: 14px;
     gap: 0;
+  }
+}
+
+@media (min-width: 1300px) {
+  .hero {
+    min-height: 396px;
+  }
+
+  .frameInner {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 clamp(24px, 2.2vw, 40px) 28px;
+    gap: 20px;
   }
 }

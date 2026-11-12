@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------- */
 /* Know Your Rights page styles.                                    */
-/* Section 01 — Rights Hero                                         */
+/* Section 01 - Rights Hero                                         */
 /* (breadcrumb, eyebrow, heading, CTAs, handwritten note,           */
 /* bottom feature strip)                                            */
 /* ---------------------------------------------------------------- */
@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   /* Compact cinematic height: sized to the space below the sticky
-     navbar (~110px) so the whole hero — feature strip included —
+     navbar (~110px) so the whole hero - feature strip included -
      stays inside one viewport without scrolling. */
   min-height: clamp(520px, calc(100vh - 128px), 600px);
 }
@@ -29,7 +29,7 @@
   object-position: 62% center;
 }
 
-/* Soft left scrim — the image already carries deep navy negative
+/* Soft left scrim - the image already carries deep navy negative
    space on the left, so only reinforce the side the text sits on. */
 .heroScrim {
   position: absolute;
@@ -300,7 +300,7 @@
   color: rgba(255, 255, 255, 0.75);
 }
 
-/* Load-in animations — subtle fade + upward stagger */
+/* Load-in animations - subtle fade + upward stagger */
 @keyframes heroFadeUp {
   from {
     opacity: 0;
@@ -351,7 +351,7 @@
   animation-delay: calc(560ms + var(--stagger, 0) * 90ms);
 }
 
-/* Tablet — 640–1024px */
+/* Tablet - 640–1024px */
 @media (max-width: 1023px) {
 
   /* Same viewport-fit strategy as desktop with a shorter navbar */
@@ -377,10 +377,10 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
 
-  /* Content-driven height on mobile — no fixed min-height, so the
+  /* Content-driven height on mobile - no fixed min-height, so the
      hero is never taller than its copy needs. */
   .hero {
     min-height: 0;
@@ -431,7 +431,7 @@
     margin-top: 22px;
   }
 
-  /* Note moves into the flow so it never overlaps the heading —
+  /* Note moves into the flow so it never overlaps the heading -
      kept small so it does not bloat the hero height. */
   .heroNote {
     position: static;
@@ -452,7 +452,7 @@
     color: var(--color-gold);
   }
 
-  /* Compact 2×2 strip — icon beside text so the hero never grows
+  /* Compact 2×2 strip - icon beside text so the hero never grows
      four stacked rows tall on small screens. */
   .featureList {
     grid-template-columns: repeat(2, 1fr);
@@ -502,7 +502,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section 02 — Featured Video                                      */
+/* Section 02 - Featured Video                                      */
 /* (eyebrow, heading, description, YouTube CTA, embedded video)     */
 /* ---------------------------------------------------------------- */
 
@@ -573,7 +573,7 @@
   line-height: 1.6;
 }
 
-/* Shares the hero's gold CTA styles — only adds top spacing */
+/* Shares the hero's gold CTA styles - only adds top spacing */
 .videoCta {
   margin-top: 24px;
 }
@@ -593,7 +593,7 @@
   border: 0;
 }
 
-/* Load-in — same CSS-only fade-up convention as the hero */
+/* Load-in - same CSS-only fade-up convention as the hero */
 .videoEyebrow,
 .videoHeading,
 .videoDescription,
@@ -622,7 +622,7 @@
   animation-delay: 260ms;
 }
 
-/* Tablet — keep the two-column layout, tighten the gap */
+/* Tablet - keep the two-column layout, tighten the gap */
 @media (max-width: 1023px) {
   .videoInner {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
@@ -630,7 +630,7 @@
   }
 }
 
-/* Mobile — single column: copy stack, then the video */
+/* Mobile - single column: copy stack, then the video */
 @media (max-width: 639px) {
   .videoSection {
     padding: 45px 0 50px;

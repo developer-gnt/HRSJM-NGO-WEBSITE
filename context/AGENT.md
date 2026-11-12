@@ -1,8 +1,8 @@
-# HRSJM Project — Agent Instructions
+# HRSJM Project - Agent Instructions
 
 ## 1. Project Overview
 
-This repository contains the website for **HRSJM — Human Rights & Social Justice Mission**.
+This repository contains the website for **HRSJM - Human Rights & Social Justice Mission**.
 
 The website must communicate:
 
@@ -545,26 +545,26 @@ Do not communicate important status information using color alone.
 
 # 16. Responsive Rules
 
-### Mobile — under 640px
+### Mobile - under 640px
 
 - 20px page padding
 - Single-column content where appropriate
 - Minimum touch target 44×44px
 - Prefer 48×48px
 
-### Tablet — 640–1024px
+### Tablet - 640–1024px
 
 - 32px page padding
 - Reorganize layouts appropriately
 - Two-column cards where suitable
 
-### Desktop — 1024–1440px
+### Desktop - 1024–1440px
 
 - Full navigation
 - 12-column layout
 - Editorial compositions
 
-### Large Desktop — above 1440px
+### Large Desktop - above 1440px
 
 - Center content
 - Prevent excessive line lengths

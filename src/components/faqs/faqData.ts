@@ -24,7 +24,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: "What is HRSJM?",
         answer:
-          "HRSJM — the Human Rights & Social Justice Mission — is a non-profit organisation dedicated to upholding human rights, dignity, equality and access to justice for every person. We work through community outreach, legal support, awareness campaigns and advocacy.",
+          "HRSJM - the Human Rights & Social Justice Mission - is a non-profit organisation dedicated to upholding human rights, dignity, equality and access to justice for every person. We work through community outreach, legal support, awareness campaigns and advocacy.",
       },
       {
         question: "How can I get involved?",
@@ -47,14 +47,14 @@ export const faqCategories: FaqCategory[] = [
     id: "rights",
     label: "Your Rights",
     eyebrow: "Know Your Rights",
-    heading: "Your Rights — FAQs",
+    heading: "Your Rights - FAQs",
     description:
       "Common questions about human rights, legal protections and how to seek support.",
     items: [
       {
         question: "What are fundamental rights?",
         answer:
-          "Fundamental rights are the basic freedoms and protections every person is entitled to — equality, dignity, freedom of expression and protection from discrimination. They are guaranteed by the Constitution and cannot be taken away arbitrarily.",
+          "Fundamental rights are the basic freedoms and protections every person is entitled to - equality, dignity, freedom of expression and protection from discrimination. They are guaranteed by the Constitution and cannot be taken away arbitrarily.",
       },
       {
         question: "How can I file a complaint if my rights are violated?",
@@ -89,7 +89,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: "Who can become an HRSJM member?",
         answer:
-          "Anyone who supports human rights, equality and social justice can apply. Members come from all backgrounds — students, professionals, community workers and concerned citizens.",
+          "Anyone who supports human rights, equality and social justice can apply. Members come from all backgrounds - students, professionals, community workers and concerned citizens.",
       },
       {
         question: "What are the benefits of membership?",
@@ -127,29 +127,49 @@ export const faqCategories: FaqCategory[] = [
     id: "complaint",
     label: "Get Help",
     eyebrow: "Filing a Complaint",
-    heading: "Get Help — FAQs",
+    heading: "Get Help - FAQs",
     description:
-      "Common questions about filing a complaint and how HRSJM supports you through the process.",
+      "Common questions about the complaint process, filing a grievance, and how HRSJM supports you.",
     items: [
+      {
+        question: "How does the HRSJM complaint process work?",
+        answer:
+          "Our complaint process follows four clear steps: (1) Submit your grievance on the File a Complaint page with accurate incident details; (2) Receive a unique Ticket Reference ID upon submission; (3) Our legal and grievance review team evaluates your case confidentially within 24 to 48 hours; and (4) Our team contacts you with guidance on legal remedies, documentation, or escalation to the appropriate authority.",
+      },
       {
         question: "What types of complaints can I file?",
         answer:
-          "You can file complaints related to human rights violations, discrimination, harassment, denial of legal rights, or any situation requiring legal, social or community support.",
+          "You can file complaints related to human rights violations, custodial death, child labor, consumer issues, communal or domestic violence, dowry-related issues, environment destruction, human trafficking, labor issues, sexual harassment, suspicious death, civil issues, or any situation requiring legal, social, or community support.",
+      },
+      {
+        question: "What documents are required for the complaint process?",
+        answer:
+          "You should keep a valid identity proof (such as an Aadhaar Card) ready along with any supporting evidence or a handwritten statement explaining the incident. If you have already reported the issue to a police station or government department, you may also attach that acknowledgement.",
+      },
+      {
+        question: "Is there any fee to file a complaint through HRSJM?",
+        answer:
+          "No. The HRSJM complaint process is completely free of charge for citizens seeking grievance registration, legal guidance, and human rights support.",
       },
       {
         question: "Is my information kept confidential?",
         answer:
-          "Yes. Your information is strictly confidential and is shared only with the team members reviewing your case, solely to provide you with support.",
+          "Yes. Your information is strictly confidential throughout the complaint process and is shared only with the team members reviewing your case, solely to provide you with support.",
       },
       {
-        question: "What happens after I submit the form?",
+        question: "What happens after I submit the complaint form?",
         answer:
-          "Our team carefully reviews every submission and contacts you with the next steps and the support options available for your situation.",
+          "Once you submit the form, your grievance is logged with a Ticket Reference ID and confirmation email. Our team carefully reviews every submission and contacts you with the next steps and available support options.",
       },
       {
         question: "How long does it take to get a response?",
         answer:
-          "We aim to respond to every complaint as quickly as possible, typically within a few working days of receiving your submission.",
+          "We aim to respond to every complaint as quickly as possible, typically within 24 to 48 hours (a few working days) of receiving your submission.",
+      },
+      {
+        question: "How can I track or follow up on my complaint?",
+        answer:
+          "Use the Ticket Reference ID provided in your confirmation acknowledgement when following up. You can contact our helpline at +91 70210 57853 or email help@hrsjm.org with your reference ID for status updates.",
       },
       {
         question: "Can I file a complaint on behalf of someone else?",

@@ -1,17 +1,17 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import styles from "./membership.module.css";
 
-/* Contact values mirror src/config/footer.ts (placeholders there — update
+/* Contact values mirror src/config/footer.ts (placeholders there - update
    both when real details are connected). */
 const channels = [
   {
     title: "Helpline",
-    lines: ["+91 98765 43210", "Mon - Sat, 10:00 AM - 6:00 PM"],
+    lines: ["+91 70210 57853", "Mon - Sat, 10:00 AM - 6:00 PM"],
     icon: Phone,
   },
   {
     title: "Email Support",
-    lines: ["help@hrsjm.org", "We usually respond within 24 - 48 hours"],
+    lines: ["enquiry@hrsjm.org", "We usually respond within 24 - 48 hours"],
     icon: Mail,
   },
   {

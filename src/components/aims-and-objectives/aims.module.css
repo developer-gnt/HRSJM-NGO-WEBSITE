@@ -1,0 +1,617 @@
+/* ==========================================================================
+   HRSJM Aims & Objectives Dedicated Page Styles
+   Theme: Deep Navy (#062a4f), Dark Navy (#031d38), Gold (#fad25c, #d9a928),
+          Cream (#faf8f2), White (#ffffff)
+   ========================================================================== */
+
+.page {
+  width: 100%;
+  background: #faf8f2;
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 40px);
+}
+
+/* --------------------------------------------------------------------------
+   1. Hero Banner
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  background: #031d38;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding-top: clamp(48px, 6vw, 72px);
+  padding-bottom: clamp(48px, 6vw, 72px);
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 440px;
+  }
+}
+
+.heroBgLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heroBgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.heroGradientOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(3, 29, 56, 0.96) 0%,
+    rgba(3, 29, 56, 0.9) 35%,
+    rgba(3, 29, 56, 0.72) 65%,
+    rgba(3, 29, 56, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .heroGradientOverlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(3, 29, 56, 0.95) 0%,
+      rgba(3, 29, 56, 0.88) 50%,
+      rgba(3, 29, 56, 0.97) 100%
+    );
+  }
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 40px);
+}
+
+.heroLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .heroLayout {
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+  }
+}
+
+.heroContent {
+  max-width: 640px;
+}
+
+.heroEyebrowGroup {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.heroEyebrow {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #fad25c;
+  line-height: 1;
+}
+
+.heroEyebrowUnderline {
+  width: 28px;
+  height: 2.5px;
+  background: #fad25c;
+  border-radius: 9999px;
+  margin-top: 6px;
+}
+
+.heroHeading {
+  font-family: var(--font-display), Cormorant Garamond, Georgia, serif;
+  font-size: clamp(34px, 4.4vw, 54px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px 0;
+}
+
+.heroGold {
+  color: #fad25c;
+}
+
+.heroText {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: clamp(14.5px, 1.15vw, 16.5px);
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin: 0 0 28px 0;
+  max-width: 540px;
+}
+
+/* Calligraphic slogan on hero right */
+.heroSloganWrap {
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .heroSloganWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    font-family: var(--font-script), Caveat, cursive;
+    font-size: 32px;
+    line-height: 1.15;
+    color: #fad25c;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    user-select: none;
+    opacity: 0.95;
+  }
+}
+
+.heroPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pillBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(250, 210, 92, 0.35);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.pillBadge:hover {
+  background: rgba(250, 210, 92, 0.16);
+  border-color: #fad25c;
+}
+
+.pillIcon {
+  color: #fad25c;
+}
+
+/* --------------------------------------------------------------------------
+   2. Our Commitment Section
+   -------------------------------------------------------------------------- */
+
+.commitmentSection {
+  width: 100%;
+  background: #ffffff;
+  padding-block: clamp(48px, 5.5vw, 76px);
+  border-bottom: 1px solid #ebe5d8;
+}
+
+.commitmentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .commitmentGrid {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(40px, 5vw, 64px);
+  }
+}
+
+.commitmentImgWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e5e0d5;
+  box-shadow: 0 6px 20px rgba(6, 42, 79, 0.06);
+}
+
+.commitmentImg {
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.commitmentImgWrap:hover .commitmentImg {
+  transform: scale(1.03);
+}
+
+.commitmentContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sectionHeading {
+  font-family: var(--font-display), Cormorant Garamond, Georgia, serif;
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.sectionUnderline {
+  width: 46px;
+  height: 3.5px;
+  background: #d9a928;
+  border-radius: 9999px;
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+
+.commitmentCopy {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: clamp(14.5px, 1.05vw, 16px);
+  line-height: 1.8;
+  color: #52606d;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Main Aims & Objectives Cards Grid (01 to 08)
+   -------------------------------------------------------------------------- */
+
+.aimsCardsSection {
+  width: 100%;
+  background: #faf8f2;
+  padding-block: clamp(52px, 6vw, 84px);
+}
+
+.sectionSubtext {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 14.5px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 32px 0;
+}
+
+.aimsGridTwoCol {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin-bottom: 26px;
+}
+
+@media (min-width: 900px) {
+  .aimsGridTwoCol {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+.aimCard {
+  background: #ffffff;
+  border: 1px solid #ebe5d8;
+  border-radius: 16px;
+  padding: clamp(20px, 2.5vw, 26px);
+  box-shadow: 0 3px 12px rgba(6, 42, 79, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.aimCard:hover {
+  transform: translateY(-3px);
+  border-color: #d9a928;
+  box-shadow: 0 8px 24px rgba(6, 42, 79, 0.07);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.numBadge {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: #fad25c;
+  color: #062a4f;
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(217, 169, 40, 0.35);
+}
+
+.iconWrap {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #fdf5df;
+  border: 1px solid rgba(217, 169, 40, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b8861b;
+  transition: transform 180ms ease;
+}
+
+.aimCard:hover .iconWrap {
+  transform: scale(1.05);
+  background: #fae8b4;
+  color: #062a4f;
+}
+
+.cardTitle {
+  font-family: var(--font-display), Cormorant Garamond, Georgia, serif;
+  font-size: clamp(19px, 2vw, 22px);
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.cardBody {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+@media (min-width: 580px) {
+  .cardBody {
+    grid-template-columns: 160px 1fr;
+    gap: 18px;
+  }
+}
+
+.cardThumbnail {
+  width: 100%;
+  height: 120px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f1f5f9;
+  flex-shrink: 0;
+}
+
+.cardImg {
+  object-fit: cover;
+  transition: transform 350ms ease;
+}
+
+.aimCard:hover .cardImg {
+  transform: scale(1.05);
+}
+
+.bulletList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #52606d;
+}
+
+.bulletIcon {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #d9a928;
+}
+
+/* --------------------------------------------------------------------------
+   4. Section 09: Understanding Our Rights (Full Width Card)
+   -------------------------------------------------------------------------- */
+
+.rightsWideCard {
+  background: #ffffff;
+  border: 1px solid #ebe5d8;
+  border-radius: 16px;
+  padding: clamp(22px, 3vw, 32px);
+  box-shadow: 0 4px 16px rgba(6, 42, 79, 0.04);
+  margin-top: 24px;
+}
+
+.rightsHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.rightsHeaderText {
+  flex: 1;
+}
+
+.rightsSubtitle {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 14px;
+  color: #64748b;
+  margin: 4px 0 0 0;
+}
+
+.rightsSubCardsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 600px) {
+  .rightsSubCardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .rightsSubCardsGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+}
+
+.rightsSubCard {
+  background: #faf8f2;
+  border: 1px solid #e8e3d8;
+  border-radius: 12px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.rightsSubCard:hover {
+  transform: translateY(-3px);
+  border-color: #d9a928;
+  box-shadow: 0 6px 16px rgba(6, 42, 79, 0.06);
+}
+
+.subCardIconWrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fad25c;
+  color: #062a4f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.subCardTitle {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #062a4f;
+  line-height: 1.35;
+  margin: 0 0 8px 0;
+}
+
+.subCardText {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #52606d;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Call to Action Banner (Together for a Just and Equal India)
+   -------------------------------------------------------------------------- */
+
+.ctaSection {
+  position: relative;
+  width: 100%;
+  background: #031d38;
+  padding-block: clamp(52px, 6vw, 76px);
+  overflow: hidden;
+  text-align: center;
+}
+
+.ctaBgLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.ctaBgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.ctaContainer {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 880px);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ctaHeading {
+  font-family: var(--font-display), Cormorant Garamond, Georgia, serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  margin: 0 0 14px 0;
+}
+
+.ctaGold {
+  color: #fad25c;
+}
+
+.ctaText {
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: clamp(14.5px, 1.1vw, 16px);
+  line-height: 1.65;
+  color: #cbd5e1;
+  margin: 0 0 26px 0;
+  max-width: 680px;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: #fad25c;
+  color: #062a4f;
+  font-family: var(--font-body), Manrope, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(250, 210, 92, 0.4);
+  transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.ctaButton:hover {
+  background: #e6ab23;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(250, 210, 92, 0.55);
+}

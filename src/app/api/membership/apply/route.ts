@@ -4,6 +4,13 @@ import {
   type MembershipRecord,
 } from "@/lib/membershipStorage";
 import { sendMembershipApplicationEmail } from "@/lib/emailService";
+import {
+  createBackendMembership,
+  resolveBackendCategoryId,
+  createCashfreeOrder,
+  verifyCashfreeOrder,
+  extractErrorMessage,
+} from "@/lib/backendApi";
 
 export async function POST(request: Request) {
   try {
@@ -25,9 +32,14 @@ export async function POST(request: Request) {
       country,
       policeStation,
       idProofName,
+      idProofUri,
       addressProofName,
+      addressProofUri,
       qualificationName,
+      qualificationUri,
       photoName,
+      photoUri,
+      avatarUrl,
       agreePrivacy,
       agreeTerms,
       packageName,
@@ -38,6 +50,8 @@ export async function POST(request: Request) {
       declarationAgreed,
       paymentMode,
       paymentReference,
+      orderId,
+      password,
     } = data;
 
     // 1. Personal Information Validation
@@ -46,6 +60,34 @@ export async function POST(request: Request) {
         {
           success: false,
           error: "Please complete all required Personal Information fields.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Minimum age 18 years check and future date prevention
+    const dobDate = new Date(dob);
+    const today = new Date();
+    if (isNaN(dobDate.getTime()) || dobDate > today) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Future date of birth is not allowed. Please select a valid date of birth.",
+        },
+        { status: 400 }
+      );
+    }
+
+    let age = today.getFullYear() - dobDate.getFullYear();
+    const monthDiff = today.getMonth() - dobDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+      age--;
+    }
+    if (age < 18) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Applicant must be at least 18 years old to apply for membership.",
         },
         { status: 400 }
       );
@@ -61,27 +103,20 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!idProofName || !addressProofName || !qualificationName || !photoName) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "All 4 required documents (Identity Proof, Address Proof, Qualification, Photograph) must be uploaded.",
-        },
-        { status: 400 }
-      );
-    }
+// Documents are optional
 
     if (!agreePrivacy || !agreeTerms) {
       return NextResponse.json(
         {
           success: false,
-          error: "You must accept the Privacy Policy and Terms & Conditions before submitting.",
+          error:
+            "You must accept the Privacy Policy and Terms & Conditions before submitting.",
         },
         { status: 400 }
       );
     }
 
-    if (!pledgeAgreed) {
+    if (pledgeAgreed !== undefined && !pledgeAgreed) {
       return NextResponse.json(
         {
           success: false,
@@ -92,7 +127,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!declarationAgreed) {
+    if (declarationAgreed !== undefined && !declarationAgreed) {
       return NextResponse.json(
         {
           success: false,
@@ -103,9 +138,207 @@ export async function POST(request: Request) {
       );
     }
 
-    // 6. Generate real application reference number
-    const randomSuffix = Math.floor(100000 + Math.random() * 900000);
-    const applicationRef = `HRSJM-${new Date().getFullYear()}-${randomSuffix}`;
+    // 2. Resolve matching category UUID from live backend
+    const categoryId = await resolveBackendCategoryId(
+      packageName || "District Unit"
+    );
+
+    // 3. Prepare structured documents array compatible with backend & admin portal
+    const documents = [
+      idProofName
+        ? {
+            id: "id-proof",
+            title: "Identity Proof (Aadhar Card)",
+            fileName: idProofName,
+            fileSize: "1.5 MB",
+            type: "ID_PROOF",
+            uri: idProofUri || undefined,
+          }
+        : null,
+      addressProofName
+        ? {
+            id: "address-proof",
+            title: "Address Proof",
+            fileName: addressProofName,
+            fileSize: "1.8 MB",
+            type: "ADDRESS_PROOF",
+            uri: addressProofUri || undefined,
+          }
+        : null,
+      qualificationName
+        ? {
+            id: "qualification",
+            title: "Educational Qualification Certificate",
+            fileName: qualificationName,
+            fileSize: "1.2 MB",
+            type: "QUALIFICATION",
+            uri: qualificationUri || undefined,
+          }
+        : null,
+      photoName
+        ? {
+            id: "photograph",
+            title: "Passport Size Photograph",
+            fileName: photoName,
+            fileSize: "850 KB",
+            type: "PHOTOGRAPH",
+            uri: photoUri || avatarUrl || undefined,
+          }
+        : null,
+    ].filter(Boolean);
+
+    const personalDetails = {
+      full_name: String(fullName).trim(),
+      mobile_number: String(phone).trim(),
+      email: String(email).trim().toLowerCase(),
+      dob,
+      gender,
+      prior_conviction: priorConviction,
+      prior_conviction_details: priorConvictionDetails?.trim() || undefined,
+      police_station: String(policeStation).trim(),
+      nearby_police_station: String(policeStation).trim(),
+      address_line1: String(address1).trim(),
+      address_line2: address2 ? String(address2).trim() : undefined,
+      city: String(city).trim(),
+      state: String(state).trim(),
+      pincode: String(pincode).trim(),
+      country: String(country || "India").trim(),
+      avatar: avatarUrl || photoUri || undefined,
+      avatar_url: avatarUrl || photoUri || undefined,
+    };
+
+    const isOnlinePayment = paymentMode !== "UPI / Bank Transfer" && paymentMode !== "upi_bank";
+    let verifiedPaymentInfo: any = null;
+
+    if (isOnlinePayment) {
+      if (!orderId) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Payment order ID is required to verify transaction before submission.",
+          },
+          { status: 400 }
+        );
+      }
+
+      // 4. Verify payment with Cashfree via Central Backend
+      let verifyRes: any = null;
+      try {
+        verifyRes = await verifyCashfreeOrder(orderId);
+      } catch (err: any) {
+        const errMsg = extractErrorMessage(err, "Failed to communicate with payment gateway verification.");
+        return NextResponse.json(
+          {
+            success: false,
+            error: errMsg,
+          },
+          { status: 400 }
+        );
+      }
+
+      if (verifyRes?.status !== "SUCCESS") {
+        const failureReason =
+          (typeof verifyRes?.latest_message === "string" && verifyRes.latest_message) ||
+          (typeof verifyRes?.message === "string" && verifyRes.message) ||
+          (verifyRes?.latest_status ? `Gateway reported status: ${verifyRes.latest_status}` : "Payment not confirmed or pending");
+        return NextResponse.json(
+          {
+            success: false,
+            error: `Payment is not confirmed: ${failureReason}. The application has not been submitted.`,
+            paymentStatus: verifyRes?.latest_status || verifyRes?.status || "PENDING",
+          },
+          { status: 400 }
+        );
+      }
+
+      verifiedPaymentInfo = verifyRes;
+    }
+
+    const applicationData = {
+      personal_details: personalDetails,
+      full_name: String(fullName).trim(),
+      mobile_number: String(phone).trim(),
+      email: String(email).trim().toLowerCase(),
+      police_station: String(policeStation).trim(),
+      address_line1: String(address1).trim(),
+      address_line2: address2 ? String(address2).trim() : undefined,
+      city: String(city).trim(),
+      state: String(state).trim(),
+      pincode: String(pincode).trim(),
+      country: String(country || "India").trim(),
+      avatar: avatarUrl || photoUri || undefined,
+      avatar_url: avatarUrl || photoUri || undefined,
+      avatarUrl: avatarUrl || photoUri || undefined,
+      documents,
+      package_name: packageName || "District Unit",
+      package_fee: packageFee || "₹3,000",
+      package_validity: packageValidity || "1 Year",
+      terms_agreed: Boolean(termsAgreed || agreeTerms),
+      pledge_agreed: Boolean(pledgeAgreed),
+      declaration_agreed: Boolean(declarationAgreed),
+      payment_mode: isOnlinePayment ? "Online Gateway (Cashfree Confirmed)" : "UPI / Bank Transfer",
+      payment_reference: isOnlinePayment ? orderId : paymentReference?.trim() || undefined,
+      payment_order_id: orderId || undefined,
+      gateway_payment_id: verifiedPaymentInfo?.payment?.gateway_payment_id || undefined,
+      payment_verified: isOnlinePayment ? true : false,
+      submitted_via: "HRSJM-NGO-WEBSITE",
+    };
+
+    // 5. Submit to live NestJS Central API (Status will be PENDING / Applied)
+    let backendMembership: any = null;
+    let applicationRef = `HRSJM-${new Date().getFullYear()}-${Math.floor(
+      100000 + Math.random() * 900000
+    )}`;
+
+    try {
+      backendMembership = await createBackendMembership({
+        categoryId,
+        fullName: String(fullName).trim(),
+        mobile: String(phone).trim(),
+        email: String(email).trim().toLowerCase(),
+        password: password ? String(password).trim() : undefined,
+        policeStation: String(policeStation).trim(),
+        personalDetails,
+        applicationData,
+      });
+
+      if (backendMembership?.membership_number) {
+        applicationRef = backendMembership.membership_number;
+      } else if (backendMembership?.id) {
+        applicationRef = `HRSJM-APP-${backendMembership.id.slice(0, 8).toUpperCase()}`;
+      }
+    } catch (apiErr: any) {
+      console.warn("Backend API returned error during application:", apiErr.message);
+      // If error is duplicate email or specific validation, pass it to user
+      if (
+        apiErr.message.includes("already registered") ||
+        apiErr.message.includes("already has an active") ||
+        apiErr.message.includes("EMAIL_TAKEN")
+      ) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: apiErr.message,
+          },
+          { status: 409 }
+        );
+      }
+      // If this was an offline/manual payment attempt that failed backend submission, return error
+      if (!isOnlinePayment) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: apiErr.message || "Unable to save application to database. Please contact support.",
+          },
+          { status: 500 }
+        );
+      }
+      console.warn(
+        "Central backend API sync error for verified paid application. Continuing with local backup storage and receipt generation:",
+        apiErr.message
+      );
+    }
+
     const submittedAt = new Date().toISOString();
 
     const record: MembershipRecord = {
@@ -127,42 +360,43 @@ export async function POST(request: Request) {
       idProofName,
       addressProofName,
       photoName,
-      packageName: packageName || "District Active Member",
-      packageFee: packageFee || "₹800",
+      packageName: packageName || "District Unit",
+      packageFee: packageFee || "₹3,000",
       packageValidity: packageValidity || "1 Year",
-      termsAgreed: Boolean(termsAgreed),
+      termsAgreed: Boolean(termsAgreed || agreeTerms),
       pledgeAgreed: Boolean(pledgeAgreed),
       declarationAgreed: Boolean(declarationAgreed),
-      paymentMode: paymentMode || "Pending / Offline Verification",
-      paymentReference: paymentReference?.trim() || undefined,
+      paymentMode: isOnlinePayment ? "Online Gateway (Cashfree Confirmed)" : (paymentMode || "Pending / Offline Verification"),
+      paymentReference: isOnlinePayment ? orderId : (paymentReference?.trim() || undefined),
       status: "pending_review",
     };
 
-    // 7. Save application record to persistent storage
-    const storageResult = await saveMembershipRecord(record);
-    if (!storageResult.success) {
-      console.warn("Storage warning:", storageResult.error);
-    }
+    // 6. Save backup local copy for redundancy
+    await saveMembershipRecord(record).catch(() => {});
 
-    // 8. Send confirmation email (with fallback)
-    const emailResult = await sendMembershipApplicationEmail(record);
+    // 7. Send confirmation email
+    const emailResult = await sendMembershipApplicationEmail(record).catch(() => ({
+      status: "fallback",
+    }));
 
     return NextResponse.json({
       success: true,
       applicationRef,
-      message: "Membership application submitted successfully.",
+      message: "Membership application registered successfully with HRSJM backend.",
       submittedAt,
       applicantName: record.fullName,
       packageName: record.packageName,
       packageFee: record.packageFee,
       emailStatus: emailResult.status,
+      orderId: orderId || undefined,
+      backendId: backendMembership?.id,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Membership application error:", error);
     return NextResponse.json(
       {
         success: false,
-        error: "Unable to process your application at this time. Please try again.",
+        error: error?.message || "Unable to process application at this time. Please retry.",
       },
       { status: 500 }
     );

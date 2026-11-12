@@ -69,7 +69,7 @@ export default function WhoWeAre({ onOpenStory }: WhoWeAreProps) {
             </span>
           </nav>
 
-          {/* Sub navigation — scrollable on mobile */}
+          {/* Sub navigation - scrollable on mobile */}
           <nav
             aria-label="Section Navigation"
             className={`${styles.subNav} ${styles.noScrollbar}`}

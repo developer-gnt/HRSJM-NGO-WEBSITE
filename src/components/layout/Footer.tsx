@@ -2,19 +2,32 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { contactItems, legalLinks, quickLinks, socialLinks, usefulLinks, type FooterLink } from "@/config/footer";
 import Icon, { type IconName } from "@/components/ui/Icon";
 import Logo from "./Logo";
 import { maintenanceConfig } from "@/config/maintenance";
 import styles from "./layout.module.css";
 
-function FooterLinks({ links }: { links: FooterLink[] }) {
+function FooterLinks({
+  links,
+  onLinkClick,
+}: {
+  links: FooterLink[];
+  onLinkClick?: () => void;
+}) {
   return (
     <ul className={styles.footerLinks}>
       {links.map((link) => (
         <li key={link.href + link.label}>
-          <Link href={link.href}>{link.label}</Link>
+          <Link
+            href={link.href}
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              onLinkClick?.();
+            }}
+          >
+            {link.label}
+          </Link>
         </li>
       ))}
     </ul>
@@ -23,15 +36,6 @@ function FooterLinks({ links }: { links: FooterLink[] }) {
 
 export default function Footer() {
   const pathname = usePathname();
-  const [showBackToTop, setShowBackToTop] = useState(false);
-
-  useEffect(() => {
-    if (pathname === "/maintenance" || maintenanceConfig.enabled) return;
-    const handleScroll = () => setShowBackToTop(window.scrollY > 320);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
 
   if (pathname === "/maintenance" || maintenanceConfig.enabled) {
     return null;
@@ -52,6 +56,8 @@ export default function Footer() {
                 <a
                   href={social.href}
                   aria-label={`${social.label}${social.placeholder ? " (link pending)" : ""}`}
+                  target={social.placeholder ? undefined : "_blank"}
+                  rel={social.placeholder ? undefined : "noopener noreferrer"}
                   onClick={social.placeholder ? (event) => event.preventDefault() : undefined}
                 >
                   <Icon name={social.icon as IconName} />
@@ -63,12 +69,12 @@ export default function Footer() {
 
         <section className={styles.footerColumn} aria-labelledby="quick-links-heading">
           <h2 id="quick-links-heading">Quick Links</h2>
-          <FooterLinks links={quickLinks} />
+          <FooterLinks links={quickLinks} onLinkClick={scrollToTop} />
         </section>
 
         <section className={styles.footerColumn} aria-labelledby="useful-links-heading">
           <h2 id="useful-links-heading">Useful Links</h2>
-          <FooterLinks links={usefulLinks} />
+          <FooterLinks links={usefulLinks} onLinkClick={scrollToTop} />
         </section>
 
         <section className={styles.footerColumn} aria-labelledby="contact-heading">
@@ -98,19 +104,24 @@ export default function Footer() {
         <p>© 2026 HRSJM. All rights reserved.</p>
         <nav aria-label="Legal navigation">
           <ul>
-            {legalLinks.map((link) => (
-              <li key={link.href}><Link href={link.href}>{link.label}</Link></li>
-            ))}
+            {legalLinks.map((link) => {
+              const cleanHref = link.href.replace(/\/$/, "");
+              const cleanPath = pathname?.replace(/\/$/, "");
+              const isActive = cleanPath === cleanHref;
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={isActive ? styles.legalLinkActive : undefined}
+                    onClick={scrollToTop}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
-        <button
-          className={`${styles.backToTop} ${showBackToTop ? styles.backToTopVisible : ""}`}
-          type="button"
-          aria-label="Back to top"
-          onClick={scrollToTop}
-        >
-          Back to Top <span aria-hidden="true">↑</span>
-        </button>
       </div>
     </footer>
   );

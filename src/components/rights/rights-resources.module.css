@@ -1,13 +1,13 @@
 /* ---------------------------------------------------------------- */
 /* Know Your Rights page styles.                                    */
-/* Section 03 — Helpful Resources                                   */
+/* Section 03 - Helpful Resources                                   */
 /* (section header, "View All Resources" link, 5 PDF resource cards) */
 /* ---------------------------------------------------------------- */
 
 .section {
   background: var(--color-cream);
   padding: clamp(56px, 6.5vw, 96px) 0;
-  /* Anchor target of the hero CTA — clear the sticky navbar */
+  /* Anchor target of the hero CTA - clear the sticky navbar */
   scroll-margin-top: 120px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Section header — copy left, "View All Resources" right           */
+/* Section header - copy left, "View All Resources" right           */
 /* ---------------------------------------------------------------- */
 
 .header {
@@ -93,7 +93,7 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Resource cards — 5 across on desktop                             */
+/* Resource cards - 5 across on desktop                             */
 /* ---------------------------------------------------------------- */
 
 .grid {
@@ -129,7 +129,7 @@
   box-shadow: 0 16px 30px rgba(16, 42, 67, 0.1);
 }
 
-/* Cover image — the source files are ~2:3 portrait, so that ratio
+/* Cover image - the source files are ~2:3 portrait, so that ratio
    shows the artwork essentially uncropped */
 .media {
   position: relative;
@@ -160,7 +160,8 @@
   border: 1px solid var(--color-border);
   border-radius: 9px;
   box-shadow: 0 4px 10px rgba(16, 42, 67, 0.12);
-  color: var(--color-gold-dark); /* #B88916 */
+  color: var(--color-gold-dark);
+  /* #B88916 */
 }
 
 .body {
@@ -203,7 +204,8 @@
   margin-top: auto;
   padding-top: 12px;
   border-top: 1px solid var(--color-border);
-  color: var(--color-gold-dark); /* #B88916 */
+  color: var(--color-gold-dark);
+  /* #B88916 */
   font-size: var(--type-body-small);
   font-weight: 700;
   transition: color 200ms ease;
@@ -254,7 +256,7 @@
   }
 }
 
-/* Mobile — under 640px: 2-column grid keeps cards compact */
+/* Mobile - under 640px: 2-column grid keeps cards compact */
 @media (max-width: 639px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -263,7 +265,7 @@
 
   /* Cap cover image height so it never dominates the viewport.
      The 2/3 aspect-ratio on a half-viewport card (~185px wide) naturally
-     renders ~277px — max-height adds a hard ceiling on wider phones. */
+     renders ~277px - max-height adds a hard ceiling on wider phones. */
   .media {
     max-height: 300px;
   }
@@ -301,6 +303,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .card,
   .mediaImg,
   .viewAll,

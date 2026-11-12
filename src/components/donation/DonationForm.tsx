@@ -1,16 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
+  CreditCard,
   HandCoins,
   Landmark,
   Lock,
   RefreshCw,
   Scale,
   Users,
+  Loader2,
 } from "lucide-react";
+import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
 import styles from "./donation.module.css";
 
 
@@ -45,6 +49,12 @@ const formatINR = (value: number) =>
 export default function DonationForm() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(5000);
   const [customValue, setCustomValue] = useState("5000");
+  const [donorName, setDonorName] = useState("");
+  const [donorPhone, setDonorPhone] = useState("");
+  const [donorEmail, setDonorEmail] = useState("");
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState<{
     type: "error" | "info";
     text: string;
@@ -52,13 +62,32 @@ export default function DonationForm() {
   const customInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.location.hash === "#donate") {
-      const el = document.getElementById("donate");
-      if (el) {
-        const timer = setTimeout(() => {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 120);
-        return () => clearTimeout(timer);
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      const paramAmount = searchParams.get("amount");
+      const paramName = searchParams.get("name");
+      const paramPhone = searchParams.get("phone");
+      const paramEmail = searchParams.get("email");
+
+      if (paramAmount) {
+        const parsed = parseInt(paramAmount, 10);
+        if (!isNaN(parsed) && parsed > 0) {
+          setSelectedAmount(parsed);
+          setCustomValue(String(parsed));
+        }
+      }
+      if (paramName) setDonorName(paramName);
+      if (paramPhone) setDonorPhone(paramPhone);
+      if (paramEmail) setDonorEmail(paramEmail);
+
+      if (window.location.hash === "#donate" || paramAmount) {
+        const el = document.getElementById("donate");
+        if (el) {
+          const timer = setTimeout(() => {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 120);
+          return () => clearTimeout(timer);
+        }
       }
     }
   }, []);
@@ -82,7 +111,7 @@ export default function DonationForm() {
     setMessage(null);
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const amount = selectedAmount ?? (customValue ? Number(customValue) : null);
     if (!amount || amount < 10) {
@@ -92,12 +121,66 @@ export default function DonationForm() {
       });
       return;
     }
-    setMessage({
-      type: "info",
-      text: `Your donation of ${formatINR(
-        amount
-      )} is ready. Payment integration can be connected here.`,
-    });
+
+    if (!agreeTerms) {
+      setMessage({
+        type: "error",
+        text: "Please accept the Terms & Conditions to proceed with the donation.",
+      });
+      return;
+    }
+
+    setSubmitting(true);
+    setMessage(null);
+
+    try {
+      const res = await fetch("/api/donation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount,
+          donorName: isAnonymous ? "Anonymous Donation from Website" : donorName.trim() || "Anonymous Donation from Website",
+          donorMobile: donorPhone.trim() || undefined,
+          donorEmail: donorEmail.trim() || undefined,
+          isAnonymous,
+          cause: "Human Rights Protection & Legal Aid",
+          remark: "Donation from Website - NGO General Support",
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setMessage({
+          type: "error",
+          text: data.error || "Failed to process donation. Please try again.",
+        });
+        return;
+      }
+
+      if (data.cashfreeOrder?.payment_session_id) {
+        setMessage({
+          type: "info",
+          text: "Redirecting to Cashfree secure payment gateway...",
+        });
+        await launchCashfreeCheckout({
+          paymentSessionId: data.cashfreeOrder.payment_session_id,
+          redirectTarget: "_self",
+        });
+      } else {
+        setMessage({
+          type: "error",
+          text: "Could not create payment gateway session. Please try again.",
+        });
+        setSubmitting(false);
+      }
+    } catch (err: any) {
+      setMessage({
+        type: "error",
+        text: "Network error. Unable to connect to payment server. Please retry.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -202,10 +285,140 @@ export default function DonationForm() {
               </div>
             </div>
 
-            <button type="submit" className={styles.donateButton}>
-              Donate Now
-              <ArrowRight size={17} strokeWidth={2.2} aria-hidden="true" />
+            {/* Donor Information */}
+            <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "12px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "var(--color-navy)", marginBottom: "4px" }}>
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    disabled={isAnonymous}
+                    placeholder={isAnonymous ? "Anonymous" : "Enter your full name"}
+                    value={donorName}
+                    onChange={(e) => setDonorName(e.target.value)}
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      border: "1px solid var(--color-border)",
+                      borderRadius: "8px",
+                      background: isAnonymous ? "#f1f5f9" : "var(--color-white)",
+                      fontSize: "14px",
+                      color: "var(--color-navy)",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "var(--color-navy)", marginBottom: "4px" }}>
+                    Mobile Number
+                  </label>
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    maxLength={10}
+                    placeholder="10-digit mobile"
+                    value={donorPhone}
+                    onChange={(e) => setDonorPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                    style={{
+                      width: "100%",
+                      padding: "10px 14px",
+                      border: "1px solid var(--color-border)",
+                      borderRadius: "8px",
+                      background: "var(--color-white)",
+                      fontSize: "14px",
+                      color: "var(--color-navy)",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "var(--color-navy)", marginBottom: "4px" }}>
+                  Email Address (for Tax Receipt)
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter email address (optional)"
+                  value={donorEmail}
+                  onChange={(e) => setDonorEmail(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "10px 14px",
+                    border: "1px solid var(--color-border)",
+                    borderRadius: "8px",
+                    background: "var(--color-white)",
+                    fontSize: "14px",
+                    color: "var(--color-navy)",
+                    outline: "none",
+                  }}
+                />
+              </div>
+
+              <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", fontSize: "13px", color: "var(--color-text-secondary)" }}>
+                <input
+                  type="checkbox"
+                  checked={isAnonymous}
+                  onChange={(e) => setIsAnonymous(e.target.checked)}
+                  style={{ accentColor: "var(--color-gold)", width: "16px", height: "16px" }}
+                />
+                Keep my donation anonymous on public recognition lists
+              </label>
+
+              <label style={{ display: "flex", alignItems: "flex-start", gap: "10px", margin: "14px 0 6px", cursor: "pointer", fontSize: "13px", lineHeight: "1.5", color: "var(--color-navy)" }}>
+                <input
+                  type="checkbox"
+                  checked={agreeTerms}
+                  onChange={(e) => {
+                    setAgreeTerms(e.target.checked);
+                    if (message?.type === "error") setMessage(null);
+                  }}
+                  style={{ marginTop: "3px", accentColor: "var(--color-gold)", width: "16px", height: "16px", flexShrink: 0 }}
+                  required
+                />
+                <span>
+                  I agree to the <Link href="/terms" target="_blank" style={{ color: "var(--color-gold)", fontWeight: 600, textDecoration: "underline" }}>Terms &amp; Conditions</Link> (including voluntary &amp; non-refundable donation terms). <span style={{ color: "#dc2626" }}>*</span>
+                </span>
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className={styles.donateButton}
+              disabled={submitting}
+              style={{
+                cursor: submitting ? "not-allowed" : "pointer",
+                opacity: submitting ? 0.8 : 1,
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              {submitting ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Connecting to Cashfree Gateway...
+                </>
+              ) : (
+                <>
+                  Donate Now
+                  <ArrowRight size={17} strokeWidth={2.2} aria-hidden="true" />
+                </>
+              )}
             </button>
+
+
+            <p className={styles.policyNotice}>
+              Please review our{" "}
+              <Link href="/refund-and-cancellation-policy/" className={styles.policyNoticeLink}>
+                Refund &amp; Cancellation Policy
+              </Link>{" "}
+              before completing your payment.
+            </p>
 
             {message ? (
               <p

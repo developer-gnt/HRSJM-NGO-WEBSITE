@@ -1,4 +1,4 @@
-/* ── What HRSJM Does — three-zone editorial section on warm cream ── */
+/* ── What HRSJM Does - three-zone editorial section on warm cream ── */
 
 .section {
   background: var(--color-cream);
@@ -61,6 +61,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .armed [data-reveal],
   .armed [data-reveal-fade],
   .armed [data-reveal-item],

@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------- */
 /* Know Your Rights page styles.                                    */
-/* Section 05 — Our Impact                                          */
+/* Section 05 - Our Impact                                          */
 /* (full-width navy photo banner: eyebrow, heading, description,    */
 /* four statistics with gold ring icons)                            */
 /* ---------------------------------------------------------------- */
@@ -14,7 +14,7 @@
   scroll-margin-top: 120px;
 }
 
-/* Background community scene — crop follows the copy column on small
+/* Background community scene - crop follows the copy column on small
    screens so the speaker stays in frame. */
 .bg {
   object-fit: cover;
@@ -30,21 +30,17 @@
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(
-      90deg,
+    linear-gradient(90deg,
       rgba(3, 29, 56, 0.92) 0%,
       rgba(3, 29, 56, 0.72) 30%,
       rgba(3, 29, 56, 0.42) 56%,
       rgba(3, 29, 56, 0.14) 78%,
-      rgba(3, 29, 56, 0.3) 100%
-    ),
-    linear-gradient(
-      180deg,
+      rgba(3, 29, 56, 0.3) 100%),
+    linear-gradient(180deg,
       rgba(3, 29, 56, 0.3) 0%,
       rgba(3, 29, 56, 0) 28%,
       rgba(3, 29, 56, 0) 68%,
-      rgba(3, 29, 56, 0.42) 100%
-    );
+      rgba(3, 29, 56, 0.42) 100%);
 }
 
 .inner {
@@ -151,7 +147,7 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
-/* ---------- reveal — same armed/revealed system as Explore Rights ---------- */
+/* ---------- reveal - same armed/revealed system as Explore Rights ---------- */
 
 .section.armed .eyebrow,
 .section.armed .heading,
@@ -185,6 +181,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .section.armed .eyebrow,
   .section.armed .heading,
   .section.armed .description,
@@ -223,18 +220,14 @@
      all stay readable while the scene still shows through. */
   .scrim {
     background:
-      linear-gradient(
-        180deg,
+      linear-gradient(180deg,
         rgba(3, 29, 56, 0.6) 0%,
         rgba(3, 29, 56, 0.38) 42%,
-        rgba(3, 29, 56, 0.62) 100%
-      ),
-      linear-gradient(
-        90deg,
+        rgba(3, 29, 56, 0.62) 100%),
+      linear-gradient(90deg,
         rgba(3, 29, 56, 0.86) 0%,
         rgba(3, 29, 56, 0.58) 55%,
-        rgba(3, 29, 56, 0.32) 100%
-      );
+        rgba(3, 29, 56, 0.32) 100%);
   }
 
   .inner {

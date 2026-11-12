@@ -96,6 +96,8 @@ export default function ContactForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   // Full Name: No special characters or numbers allowed (letters & spaces only)
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +137,7 @@ export default function ContactForm() {
     }
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validate(values);
     setErrors(nextErrors);
@@ -145,9 +147,34 @@ export default function ContactForm() {
       return;
     }
 
-    // Client-side validation only; connect a mail/endpoint handler here later.
-    setSubmitted(true);
-    setValues(initialValues);
+    setSubmitting(true);
+    setApiError(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          subject: values.subject,
+          message: values.message,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to send message. Please try again.");
+      }
+
+      setSubmitted(true);
+      setValues(initialValues);
+    } catch (err: any) {
+      setApiError(err.message || "An unexpected error occurred. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const fieldClassName = (invalid?: boolean) =>
@@ -165,7 +192,14 @@ export default function ContactForm() {
       {submitted && (
         <div className={styles.contactSection__success} role="status">
           <CircleCheck size={20} strokeWidth={2} aria-hidden="true" />
-          <p>Thank you. Your message has been received.</p>
+          <p>Thank you. Your message has been received and a confirmation email has been sent to you.</p>
+        </div>
+      )}
+
+      {apiError && (
+        <div className={styles.contactSection__error} role="alert" style={{ marginBottom: "1rem" }}>
+          <AlertTriangle size={16} strokeWidth={2} aria-hidden="true" />
+          <span>{apiError}</span>
         </div>
       )}
 
@@ -313,8 +347,8 @@ export default function ContactForm() {
 
         {/* Submit */}
         <div className={`${styles.contactSection__field} ${styles.contactSection__fieldFull}`}>
-          <button type="submit" className={styles.contactSection__submit}>
-            Send Message
+          <button type="submit" className={styles.contactSection__submit} disabled={submitting}>
+            {submitting ? "Sending..." : "Send Message"}
             <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
           </button>
         </div>

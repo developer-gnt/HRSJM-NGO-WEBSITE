@@ -310,6 +310,7 @@ export default function RightsDetailView({
             {data.keyRights.eyebrow}
           </p>
           <h2 className={styles.sectionHeading}>{data.keyRights.heading}</h2>
+          <div className={styles.headingGoldBar} aria-hidden="true" />
 
           <div className={styles.keyRightsSplit}>
             {/* Left: Cards Grid */}
@@ -335,7 +336,10 @@ export default function RightsDetailView({
             ) : (
               <div className={styles.rightsGrid}>
                 {data.keyRights.items.map((item) => (
-                  <div key={item.title} className={styles.rightCard}>
+                  <div
+                    key={item.title}
+                    className={`${styles.rightCard} ${item.featured ? styles.rightCardFeatured : ""}`}
+                  >
                     <div className={styles.cardIconCircle}>
                       {renderCardIcon(item.icon)}
                     </div>
@@ -348,37 +352,35 @@ export default function RightsDetailView({
               </div>
             )}
 
-            {/* Right: Deep Navy Feature Quote Card */}
-            <div
-              className={`${styles.featureQuoteCard} ${
-                data.keyRights.quoteCard?.image ? styles.featureQuoteCardWithImg : ""
-              }`}
-            >
-              {data.keyRights.quoteCard?.image ? (
-                <div className={styles.featureQuoteImgWrapper}>
+            {/* Right: Feature Card / Side Image */}
+            {data.keyRights.quoteCard?.image ? (
+              <div className={styles.sideImageWrapper}>
+                <div className={styles.sideImageAccentTop} aria-hidden="true" />
+                <div className={styles.sideImageFrame}>
                   <Image
                     src={data.keyRights.quoteCard.image}
-                    alt={`${data.title} Feature Quote`}
+                    alt={`${data.title} Key Rights`}
                     fill
-                    className={styles.featureQuoteImg}
-                    sizes="(max-width: 768px) 100vw, 360px"
+                    className={styles.sideImageCover}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 320px, 360px"
                   />
                 </div>
-              ) : (
-                <>
-                  <div className={styles.featureEmblem} aria-hidden="true">
-                    <Scale className="w-16 h-16 mx-auto stroke-1" />
-                  </div>
-                  <p className={styles.featureQuoteText}>
-                    {data.keyRights.quoteCard.quote}
-                  </p>
-                  <p className={styles.featureQuoteSource}>
-                    {data.keyRights.quoteCard.source}
-                  </p>
-                  <div className={styles.featureDivider} aria-hidden="true" />
-                </>
-              )}
-            </div>
+                <div className={styles.sideImageAccentBottom} aria-hidden="true" />
+              </div>
+            ) : (
+              <div className={styles.featureQuoteCard}>
+                <div className={styles.featureEmblem} aria-hidden="true">
+                  <Scale className="w-16 h-16 mx-auto stroke-1" />
+                </div>
+                <p className={styles.featureQuoteText}>
+                  {data.keyRights.quoteCard.quote}
+                </p>
+                <p className={styles.featureQuoteSource}>
+                  {data.keyRights.quoteCard.source}
+                </p>
+                <div className={styles.featureDivider} aria-hidden="true" />
+              </div>
+            )}
           </div>
         </div>
       </section>

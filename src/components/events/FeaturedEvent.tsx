@@ -41,10 +41,10 @@ export default function FeaturedEvent() {
 
           <div className={styles.featuredMedia}>
             <Image
-              src="/images/events-featured-legal-camp.png"
+              src="/images/events-featured-legal-camp.jpg"
               alt="Legal Awareness Camp in Mumbai"
-              width={1828}
-              height={860}
+              width={1024}
+              height={481}
               sizes="(min-width: 1024px) 55vw, (min-width: 640px) 58vw, 100vw"
             />
           </div>

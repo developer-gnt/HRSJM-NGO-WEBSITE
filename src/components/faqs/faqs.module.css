@@ -1,5 +1,5 @@
 /* ================================================================ */
-/* FAQs Page — faqs.module.css                                      */
+/* FAQs Page - faqs.module.css                                      */
 /* Theme: HRSJM navy (#062a4f) + gold (#fad25c) on cream (#f7f4ec)  */
 /* ================================================================ */
 
@@ -29,11 +29,9 @@
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(250, 210, 92, 0.12) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(250, 210, 92, 0.12) 0%,
+      transparent 70%);
   pointer-events: none;
 }
 
@@ -45,11 +43,9 @@
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(250, 210, 92, 0.07) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(250, 210, 92, 0.07) 0%,
+      transparent 70%);
   pointer-events: none;
 }
 
@@ -180,7 +176,7 @@
 }
 
 /* ================================================================ */
-/* BODY — full-width FAQ content                                     */
+/* BODY - full-width FAQ content                                     */
 /* ================================================================ */
 
 .body {
@@ -378,11 +374,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at 50% 0%,
-    rgba(250, 210, 92, 0.1) 0%,
-    transparent 65%
-  );
+  background: radial-gradient(ellipse at 50% 0%,
+      rgba(250, 210, 92, 0.1) 0%,
+      transparent 65%);
   pointer-events: none;
 }
 

@@ -67,7 +67,7 @@ export default function NewsSidebar() {
         </form>
         {subscribed && (
           <p className={styles.newsletterThanks} role="status">
-            Thank you — you&apos;re on the list.
+            Thank you - you&apos;re on the list.
           </p>
         )}
       </div>

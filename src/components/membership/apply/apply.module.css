@@ -1159,6 +1159,11 @@
 }
 
 @media (max-width: 639px) {
+  .cardContainer {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
   .formGrid {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -1192,5 +1197,12 @@
   .btnOutline,
   .btnGold {
     width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .cardContainer {
+    padding: 16px 12px;
+    border-radius: 10px;
   }
 }

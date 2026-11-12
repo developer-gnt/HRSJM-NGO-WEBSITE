@@ -13,11 +13,13 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import styles from "./apply.module.css";
+import { compressImageToDataUrl } from "@/lib/imageCompression";
 
 export interface DocumentUploadItem {
   file: File | null;
   name: string;
   size: number;
+  dataUrl?: string;
 }
 
 export interface Step3Data {
@@ -27,6 +29,7 @@ export interface Step3Data {
   photograph: DocumentUploadItem;
   agreePrivacy: boolean;
   agreeTerms: boolean;
+  agreePledge: boolean;
 }
 
 interface Step3Props {
@@ -49,17 +52,12 @@ export default function Step3DocumentUpload({
   const browseQualRef = useRef<HTMLInputElement>(null);
   const browsePhotoRef = useRef<HTMLInputElement>(null);
 
-  const handleFile = (
+  const handleFile = async (
     field: "idProof" | "addressProof" | "qualification" | "photograph",
     e: ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    if (file.size > 5 * 1024 * 1024) {
-      alert("File size exceeds 5MB limit. Please upload a smaller file.");
-      return;
-    }
 
     const validTypes = [
       "application/pdf",
@@ -70,26 +68,58 @@ export default function Step3DocumentUpload({
     ];
     if (
       !validTypes.includes(file.type) &&
-      !file.name.match(/\.(pdf|jpg|jpeg|png)$/i)
+      !file.name.match(/\.(pdf|jpg|jpeg|png|webp)$/i)
     ) {
       alert("Please upload a valid file format (PDF, JPG, or PNG).");
       return;
     }
 
-    onChange(field, {
-      file,
-      name: file.name,
-      size: file.size,
-    });
+    const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+
+    if (isPdf && file.size > 2 * 1024 * 1024) {
+      alert("PDF document size must not exceed 2MB. Please upload a smaller PDF or a photo (JPG/PNG) of the document.");
+      return;
+    }
+
+    if (!isPdf && file.size > 12 * 1024 * 1024) {
+      alert("Image file size exceeds 12MB limit. Please choose a smaller photo.");
+      return;
+    }
+
+    try {
+      const maxDim = field === "photograph" ? 600 : 1200;
+      const quality = field === "photograph" ? 0.8 : 0.75;
+      const { dataUrl, size } = await compressImageToDataUrl(file, {
+        maxDimension: maxDim,
+        quality,
+      });
+
+      onChange(field, {
+        file,
+        name: file.name,
+        size,
+        dataUrl,
+      });
+    } catch {
+      const reader = new FileReader();
+      reader.onload = () => {
+        onChange(field, {
+          file,
+          name: file.name,
+          size: file.size,
+          dataUrl: reader.result as string,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
-  const handleRemove = (
-    field: "idProof" | "addressProof" | "qualification" | "photograph"
-  ) => {
+  const handleRemove = (field: "idProof" | "addressProof" | "qualification" | "photograph") => {
     onChange(field, {
       file: null,
       name: "",
       size: 0,
+      dataUrl: undefined,
     });
   };
 
@@ -99,7 +129,9 @@ export default function Step3DocumentUpload({
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
-  const isConsentChecked = Boolean(data.agreePrivacy && data.agreeTerms);
+  const isConsentChecked = Boolean(
+    data.agreePrivacy && data.agreeTerms && data.agreePledge
+  );
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -112,7 +144,7 @@ export default function Step3DocumentUpload({
       <div className={styles.stepHeader}>
         <h2 className={styles.sectionHeading}>Documents &amp; Declarations</h2>
         <p className={styles.sectionSubtitle}>
-          Please upload the required documents (4 documents).
+          Please upload supporting documents (optional).
         </p>
       </div>
 
@@ -129,7 +161,7 @@ export default function Step3DocumentUpload({
             </span>
             <div className={styles.docMetaText}>
               <h3 className={styles.docTitle}>
-                Identity Proof <span className={styles.fieldRequired}>*</span>
+                Identity Proof (Aadhar Card)
               </h3>
               <p className={styles.docSubtitle}>
                 Aadhaar Card, PAN Card or Passport
@@ -222,7 +254,7 @@ export default function Step3DocumentUpload({
             </span>
             <div className={styles.docMetaText}>
               <h3 className={styles.docTitle}>
-                Address Proof <span className={styles.fieldRequired}>*</span>
+                Address Proof
               </h3>
               <p className={styles.docSubtitle}>
                 Electricity Bill, Rent Agreement or Bank Statement
@@ -315,7 +347,7 @@ export default function Step3DocumentUpload({
             </span>
             <div className={styles.docMetaText}>
               <h3 className={styles.docTitle}>
-                Qualification <span className={styles.fieldRequired}>*</span>
+                Qualification
               </h3>
               <p className={styles.docSubtitle}>
                 Marksheet, Degree or Certificate
@@ -408,7 +440,7 @@ export default function Step3DocumentUpload({
             </span>
             <div className={styles.docMetaText}>
               <h3 className={styles.docTitle}>
-                Photograph <span className={styles.fieldRequired}>*</span>
+                Photograph
               </h3>
               <p className={styles.docSubtitle}>
                 Recent passport size photograph
@@ -556,7 +588,7 @@ export default function Step3DocumentUpload({
                 Terms &amp; Conditions
               </Link>{" "}
               of Human Rights &amp; Social Justice Mission, and agree to abide by the
-              rules, aims, and code of conduct of the organization.{" "}
+              rules, aims, and constitution of the organization.{" "}
               <span className={styles.fieldRequired}>*</span>
             </label>
           </div>
@@ -566,12 +598,39 @@ export default function Step3DocumentUpload({
               {errors.agreeTerms}
             </p>
           )}
+
+          {/* 3. HRSJM Member Pledge */}
+          <div
+            className={`${styles.consentItem} ${
+              data.agreePledge ? styles.consentItemChecked : ""
+            } ${errors.agreePledge ? styles.consentItemError : ""}`}
+          >
+            <input
+              id="consent-pledge"
+              type="checkbox"
+              checked={data.agreePledge}
+              onChange={(e) => onChange("agreePledge", e.target.checked)}
+              className={styles.consentCheckbox}
+            />
+            <label htmlFor="consent-pledge" className={styles.consentLabel}>
+              <strong>Solemn Member Pledge:</strong> I solemnly take the HRSJM Membership Pledge:
+              I pledge to dedicate myself to the protection of human rights, observe the NGO&apos;s
+              Code of Conduct, refrain from corrupt or anti-social activities, and certify that all
+              documents and information provided are genuine. <span className={styles.fieldRequired}>*</span>
+            </label>
+          </div>
+          {errors.agreePledge && (
+            <p className={styles.fieldError} role="alert">
+              <AlertCircle size={12} strokeWidth={2} />
+              {errors.agreePledge}
+            </p>
+          )}
         </div>
 
         {!isConsentChecked && (
           <div className={styles.consentNotice} role="status">
             <AlertCircle size={14} />
-            <span>Please check both consent boxes above to enable application submission.</span>
+            <span>Please check all three consent boxes (Privacy Policy, Terms &amp; Conditions, and Member Pledge) above to proceed.</span>
           </div>
         )}
       </div>

@@ -17,7 +17,7 @@ const faqs: FaqItem[] = [
     icon: "scale",
     question: "What are fundamental rights?",
     answer:
-      "Fundamental rights are the basic freedoms and protections every person is entitled to — equality, dignity, freedom of expression and protection from discrimination. They are guaranteed by the Constitution and cannot be taken away arbitrarily.",
+      "Fundamental rights are the basic freedoms and protections every person is entitled to - equality, dignity, freedom of expression and protection from discrimination. They are guaranteed by the Constitution and cannot be taken away arbitrarily.",
   },
   {
     icon: "fileText",
@@ -90,7 +90,7 @@ export default function RightsFAQ() {
             Frequently Asked Questions
           </p>
           <h2 id="rights-faq-heading" className={styles.heading}>
-            Know Your Rights — FAQs
+            Know Your Rights - FAQs
           </h2>
           <p className={styles.description}>
             Find answers to common questions about human rights, legal

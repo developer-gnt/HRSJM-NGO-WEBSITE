@@ -1,31 +1,26 @@
 /* ---------------------------------------------------------------- */
 /* Contact page styles.                                             */
-/* Section 01 — Contact Hero                                        */
-/* Section 02 — Breadcrumb                                          */
+/* Section 01 - Contact Hero                                        */
+/* Section 02 - Breadcrumb                                          */
 /* ---------------------------------------------------------------- */
 
 .hero {
   position: relative;
   overflow: hidden;
-  background: var(--color-navy)
-    url("/images/contact-hero-bg.jpg")
-    center 30% / cover
-    no-repeat;
+  background: var(--color-navy) url("/images/contact-hero-bg.jpg") center 30% / cover no-repeat;
 }
 
-/* Navy overlay — strongest on the left where the heading sits,
+/* Navy overlay - strongest on the left where the heading sits,
    easing off to the right so the community visual stays visible. */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(3, 29, 56, 0.94) 0%,
-    rgba(3, 29, 56, 0.82) 32%,
-    rgba(3, 29, 56, 0.42) 62%,
-    rgba(3, 29, 56, 0.12) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(3, 29, 56, 0.94) 0%,
+      rgba(3, 29, 56, 0.82) 32%,
+      rgba(3, 29, 56, 0.42) 62%,
+      rgba(3, 29, 56, 0.12) 100%);
 }
 
 .heroInner {
@@ -73,7 +68,7 @@
   line-height: 1.6;
 }
 
-/* Tablet — 640–1024px */
+/* Tablet - 640–1024px */
 @media (max-width: 1023px) {
   .heroInner {
     min-height: 240px;
@@ -84,19 +79,17 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .hero {
     background-position: 72% 30%;
   }
 
   .hero::before {
-    background: linear-gradient(
-      90deg,
-      rgba(3, 29, 56, 0.95) 0%,
-      rgba(3, 29, 56, 0.82) 52%,
-      rgba(3, 29, 56, 0.45) 100%
-    );
+    background: linear-gradient(90deg,
+        rgba(3, 29, 56, 0.95) 0%,
+        rgba(3, 29, 56, 0.82) 52%,
+        rgba(3, 29, 56, 0.45) 100%);
   }
 
   .heroInner {
@@ -117,7 +110,8 @@
     font-size: 14px;
   }
 }
-/* Section 02 — Breadcrumb */
+
+/* Section 02 - Breadcrumb */
 .contactBreadcrumb {
   min-height: 56px;
   display: flex;
@@ -184,12 +178,9 @@
   }
 }
 
-/* Section 03 — Contact Information + Contact Form (one section) */
+/* Section 03 - Contact Information + Contact Form (one section) */
 .contactSection {
-  background: var(--color-cream)
-    url("/images/contact/contact-section-bg.jpg")
-    center / cover
-    no-repeat;
+  background: var(--color-cream) url("/images/contact/contact-section-bg.jpg") center / cover no-repeat;
 }
 
 .contactSection__container {
@@ -528,7 +519,7 @@
   outline-offset: 3px;
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .contactSection__container {
     padding: 60px 40px;
@@ -544,7 +535,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .contactSection__container {
     grid-template-columns: 1fr;
@@ -568,6 +559,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .contactSection__input,
   .contactSection__submit,
   .contactSection__terms a,
@@ -576,7 +568,7 @@
   }
 }
 
-/* Section 05 — Location Information (no map; map is Section 06) */
+/* Section 05 - Location Information (no map; map is Section 06) */
 .contactLocation {
   background: var(--color-cream);
 }
@@ -666,7 +658,7 @@
   line-height: 1.5;
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .contactLocation__container {
     padding: 60px 40px 56px;
@@ -678,7 +670,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .contactLocation__container {
     grid-template-columns: 1fr;
@@ -696,7 +688,7 @@
   }
 }
 
-/* Section 06 — Google Map */
+/* Section 06 - Google Map */
 .contactMap {
   background: var(--color-cream);
   padding-bottom: 20px;
@@ -737,7 +729,7 @@
   border: 0;
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .contactMap {
     padding-bottom: 70px;
@@ -748,7 +740,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .contactMap {
     padding-bottom: 60px;
@@ -762,10 +754,7 @@
 
 /* HRSJM Community CTA banner (reusable; place above Footer) */
 .contactCta {
-  background: var(--color-cream)
-    url("/images/contact/contact-cta.jpg")
-    32% 42% / cover
-    no-repeat;
+  background: var(--color-cream) url("/images/contact/contact-cta.jpg") 32% 42% / cover no-repeat;
 }
 
 .contactCta__container {
@@ -864,7 +853,7 @@
   background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='5' viewBox='0 0 92 5'%3E%3Cpath d='M1 3.5C18 1.2 40 1.4 60 2.4c11 .5 21 1.2 31 .6' fill='none' stroke='%23ddaa3a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-/* Tablet — 640–1023px */
+/* Tablet - 640–1023px */
 @media (max-width: 1023px) {
   .contactCta {
     background-position: 38% 42%;
@@ -899,7 +888,7 @@
   }
 }
 
-/* Mobile — under 640px */
+/* Mobile - under 640px */
 @media (max-width: 639px) {
   .contactCta {
     background-position: 15% center;

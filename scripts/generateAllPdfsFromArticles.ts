@@ -55,7 +55,7 @@ async function main() {
         ...childArticle,
         title: "Child Protection Guide",
         subtitle:
-          "Building a Safer and Brighter Future — Comprehensive Rights, POCSO Safeguards & Child Welfare in India",
+          "Building a Safer and Brighter Future - Comprehensive Rights, POCSO Safeguards & Child Welfare in India",
         category: "Child Rights & Protection",
       },
       "child-protection-guide.pdf",
@@ -83,7 +83,7 @@ async function main() {
       [
         "Central RTI Online Portal: rtionline.gov.in",
         "Central Information Commission (CIC): 011-26183996",
-        "HRSJM Legal RTI Guidance Desk: rti-help@hrsjm.org",
+        "HRSJM Legal RTI Guidance Desk:enquiry@hrsjm.org",
       ]
     );
   }
