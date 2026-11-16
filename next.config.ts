@@ -24,8 +24,8 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/login",
-        destination: "/membership/login",
-        permanent: true,
+        destination: "https://hrsjm-web-application-new.vercel.app/",
+        permanent: false,
       },
     ];
   },

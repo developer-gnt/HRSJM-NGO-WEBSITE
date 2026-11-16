@@ -107,7 +107,7 @@ export default function Header({ className }: HeaderProps) {
             </nav>
 
             <div className={styles.headerActions}>
-              <Link className={styles.loginButton} href="/membership/login">
+              <Link className={styles.loginButton} href="https://hrsjm-web-application-new.vercel.app/">
                 <span>LOGIN</span>
               </Link>
               <Link className={styles.donateButton} href="/donation">
@@ -177,7 +177,7 @@ export default function Header({ className }: HeaderProps) {
 
           <div className={styles.mobileActionsGroup}>
             <div className={styles.mobileMainActions}>
-              <Link className={styles.mobileLoginButton} href="/membership/login" onClick={closeMenu}>
+              <Link className={styles.mobileLoginButton} href="https://hrsjm-web-application-new.vercel.app/" onClick={closeMenu}>
                 LOGIN
               </Link>
               <Link className={styles.mobileDonateButton} href="/donation" onClick={closeMenu}>
