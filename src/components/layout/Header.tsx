@@ -107,9 +107,11 @@ export default function Header({ className }: HeaderProps) {
             </nav>
 
             <div className={styles.headerActions}>
+              <Link className={styles.loginButton} href="/membership/login">
+                <span>LOGIN</span>
+              </Link>
               <Link className={styles.donateButton} href="/donation">
-                <span>Donate Now</span>
-                <Icon name="arrow" />
+                <span>DONATE</span>
               </Link>
             </div>
 
@@ -174,9 +176,14 @@ export default function Header({ className }: HeaderProps) {
           </div>
 
           <div className={styles.mobileActionsGroup}>
-            <Link className={styles.mobileDonateButton} href="/donation" onClick={closeMenu}>
-              Donate Now <Icon name="arrow" />
-            </Link>
+            <div className={styles.mobileMainActions}>
+              <Link className={styles.mobileLoginButton} href="/membership/login" onClick={closeMenu}>
+                LOGIN
+              </Link>
+              <Link className={styles.mobileDonateButton} href="/donation" onClick={closeMenu}>
+                DONATE
+              </Link>
+            </div>
             <div className={styles.mobileSubActions}>
               <Link className={styles.mobileSubBtn} href="/complaint" onClick={closeMenu}>
                 File a Complaint

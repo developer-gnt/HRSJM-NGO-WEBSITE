@@ -17,12 +17,12 @@ export interface TestingNoticeConfig {
 
 export const testingNoticeConfig: TestingNoticeConfig = {
   enabled: true,
-  badge: "Website Under Testing",
-  title: "Welcome to HRSJM",
-  subtitle: "Our website is currently in the testing phase.",
+  badge: "Celebrating 15 Years",
+  title: "A New Chapter Begins!",
+  subtitle: "15 Years of Human Rights and Social Justice Mission",
   description:
-    "We are working to improve your experience. Some pages or features may be incomplete or temporarily unavailable. Thank you for your patience and cooperation.",
-  continueButtonText: "Okay, I understood",
+    "We are celebrating 15 years of commitment with an exciting new digital experience!\n\nDiscover our New Website with Members Login, Upcoming Mobile App, New Logo, and New Membership ID & Kit.\n\nThe journey continues with new possibilities!",
+  continueButtonText: "Explore What's New",
   footerText: "Thank you for your understanding and support.",
   displayFrequency: "always",
 };

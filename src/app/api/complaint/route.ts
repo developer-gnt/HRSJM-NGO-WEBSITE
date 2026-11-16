@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createBackendComplaint } from "@/lib/backendApi";
 import { saveComplaintDocuments } from "@/lib/db";
+import { sendComplaintConfirmationEmail } from "@/lib/emailService";
 
 export async function POST(request: Request) {
   try {
@@ -130,6 +131,28 @@ export async function POST(request: Request) {
       (backendResult?.id
         ? `HRSJM-CMP-${backendResult.id.slice(0, 8).toUpperCase()}`
         : `HRSJM-CMP-${Date.now().toString(36).toUpperCase()}`);
+
+    // Send confirmation email to citizen and notification to admin
+    if (email && String(email).trim()) {
+      sendComplaintConfirmationEmail({
+        complaintRef,
+        fullName: String(fullName).trim(),
+        phone: String(phone).trim(),
+        email: String(email).trim().toLowerCase(),
+        state: String(state).trim(),
+        policeStation: String(policeStation).trim(),
+        complaintType: String(complaintType).trim(),
+        details: String(details).trim(),
+        aadhaarFileName,
+        handwrittenFileName,
+        reportedToOtherDept: Boolean(reportedToOtherDept),
+        otherDeptName: otherDeptName?.trim() || undefined,
+        otherDeptFileName: otherDeptFileName || undefined,
+        submittedAt: new Date().toISOString(),
+      }).catch((emailErr) => {
+        console.error("Failed to dispatch complaint confirmation email:", emailErr);
+      });
+    }
 
     return NextResponse.json({
       success: true,

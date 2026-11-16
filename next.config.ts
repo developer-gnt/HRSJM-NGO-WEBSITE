@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         destination: "/success-stories",
         permanent: true,
       },
+      {
+        source: "/login",
+        destination: "/membership/login",
+        permanent: true,
+      },
     ];
   },
 };

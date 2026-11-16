@@ -88,8 +88,8 @@ export default function ApplicationSuccessModal({
           </h3>
           <p className={styles.successSubtitle}>
             Thank you for applying to Human Rights &amp; Social Justice Mission.
-            Your application has been received and our team will get in touch with
-            you soon.
+            Your payment has been confirmed and a thank-you receipt has been sent to{" "}
+            {applicantEmail ? <strong>{applicantEmail}</strong> : "your registered email"}.
           </p>
 
           <div className={styles.receiptCard}>

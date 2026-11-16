@@ -202,8 +202,35 @@
 .headerActions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   flex: 0 0 auto;
+}
+
+.loginButton,
+.donateButton {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  border-radius: 999px;
+  color: var(--color-navy-dark, #031d38);
+  background: var(--color-gold, #fad25c);
+  border: 1.5px solid var(--color-gold, #fad25c);
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.loginButton:hover,
+.donateButton:hover {
+  background: #fce49c;
+  border-color: #fce49c;
+  transform: translateY(-1px);
 }
 
 .menuButton {
@@ -230,36 +257,6 @@
 
 .menuButton:hover {
   color: var(--color-gold);
-}
-
-.donateButton,
-.mobileDonateButton {
-  min-height: 45px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 0 17px;
-  border-radius: 999px;
-  color: var(--color-navy);
-  background: #fad25c;
-  font-size: var(--type-button);
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
-  transition: transform 200ms ease, background-color 200ms ease;
-}
-
-.donateButton:hover,
-.mobileDonateButton:hover {
-  background: #fce49c;
-  transform: translateY(-1px);
-}
-
-.donateButton svg,
-.mobileDonateButton svg {
-  width: 15px;
-  height: 15px;
 }
 
 .menuButton,
@@ -527,11 +524,14 @@
   }
 
   .headerActions {
-    gap: 5px;
+    gap: 8px;
   }
 
+  .loginButton,
   .donateButton {
-    padding: 0 13px;
+    min-height: 38px;
+    padding: 0 16px;
+    font-size: 12.5px;
   }
 
   .footerMain {
@@ -649,13 +649,32 @@
     gap: 10px;
   }
 
+  .mobileMainActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .mobileLoginButton,
   .mobileDonateButton {
-    width: 100%;
-    min-height: 48px;
-    border-radius: var(--radius-sm);
-    font-size: 15px;
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--color-gold, #fad25c);
+    border: 1.5px solid var(--color-gold, #fad25c);
+    color: var(--color-navy-dark, #031d38);
+    font-size: 14px;
     font-weight: 700;
-    box-shadow: 0 3px 10px rgba(250, 210, 92, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: transform 180ms ease, background-color 180ms ease;
+  }
+
+  .mobileLoginButton:hover,
+  .mobileDonateButton:hover {
+    background: #fce49c;
   }
 
   .mobileSubActions {
@@ -975,10 +994,11 @@
     justify-self: end;
   }
 
+  .loginButton,
   .donateButton {
-    min-height: 44px;
-    padding: 0 20px;
-    font-size: 14.5px;
+    min-height: 42px;
+    padding: 0 22px;
+    font-size: 14px;
     font-weight: 700;
   }
 
@@ -1004,7 +1024,9 @@
   .header,
   .navLink::after,
   .navLinkSecondary::after,
+  .loginButton,
   .donateButton,
+  .mobileLoginButton,
   .mobileDonateButton,
   .mobilePanel,
   .socialLinks a,

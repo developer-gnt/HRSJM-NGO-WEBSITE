@@ -21,6 +21,7 @@ import {
   X,
   Check,
   Copy,
+  Mail,
 } from "lucide-react";
 import { useScrollReveal, revealDelay, revealStagger } from "@/hooks/useScrollReveal";
 import styles from "./complaint.module.css";
@@ -1044,7 +1045,7 @@ export default function ComplaintForm() {
                   </p>
                   {complaintRef && (
                     <p style={{ margin: "4px 0 0", fontSize: "13px", lineHeight: "1.5" }}>
-                      Complaint ID / Ticket Reference: <strong style={{ color: "#14532d" }}>{complaintRef}</strong>. A confirmation email has been sent to your registered email address. Our human rights grievance team will review your case.
+                      Ticket No: <strong style={{ color: "#14532d" }}>{complaintRef}</strong>. A confirmation email has been sent to your registered email address. Our human rights grievance team will review your case.
                     </p>
                   )}
                 </div>
@@ -1172,7 +1173,7 @@ export default function ComplaintForm() {
               <div className={styles.ackReferenceBar}>
                 <div className={styles.ackTicketBadge}>
                   <ShieldCheck size={16} className={styles.ackShieldIcon} />
-                  <span className={styles.ackTicketLabel}>Reference No:</span>
+                  <span className={styles.ackTicketLabel}>Ticket No:</span>
                   <span className={styles.ackTicketCode}>{ackData.complaintRef}</span>
                 </div>
 
@@ -1186,10 +1187,10 @@ export default function ComplaintForm() {
                       setTimeout(() => setCopiedRef(false), 2200);
                     }
                   }}
-                  title="Copy Reference Number"
+                  title="Copy Ticket No"
                 >
                   {copiedRef ? <Check size={13} /> : <Copy size={13} />}
-                  <span>{copiedRef ? "Copied to Clipboard" : "Copy Reference"}</span>
+                  <span>{copiedRef ? "Copied to Clipboard" : "Copy Ticket No"}</span>
                 </button>
               </div>
             </div>
@@ -1211,9 +1212,32 @@ export default function ComplaintForm() {
                   Your grievance regarding <strong>{ackData.complaintType}</strong> has been successfully registered in the central intake docket of the <strong>Human Rights &amp; Social Justice Mission (HRSJM)</strong>.
                 </p>
                 <p className={styles.ackDocketParagraph}>
-                  All attached citizen identification and signed complaint letters have been logged under Registration Number <strong>{ackData.complaintRef}</strong>. Our designated legal and human rights officer will examine the case and contact you within <strong>2 to 3 business days</strong>. Please keep this reference number safe for all future updates.
+                  All attached citizen identification and signed complaint letters have been logged under Ticket No <strong>{ackData.complaintRef}</strong>. Our designated legal and human rights officer will examine the case and contact you within <strong>2 to 3 business days</strong>. An official confirmation email has been sent to <strong>{ackData.email}</strong>. Please keep this ticket number safe for all future updates.
                 </p>
               </div>
+
+              {ackData.email && (
+                <div
+                  style={{
+                    background: "#f0fdf4",
+                    border: "1px solid #bbf7d0",
+                    borderRadius: "8px",
+                    padding: "11px 16px",
+                    fontSize: "13px",
+                    color: "#166534",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "9px",
+                    margin: "14px 0 16px",
+                    fontWeight: 500,
+                  }}
+                >
+                  <Mail size={16} style={{ flexShrink: 0, color: "#16a34a" }} />
+                  <span>
+                    A formal confirmation receipt with Ticket No <strong>{ackData.complaintRef}</strong> has been emailed to <strong>{ackData.email}</strong>.
+                  </span>
+                </div>
+              )}
 
               {/* Verified Case Summary Grid */}
               <div className={styles.ackSummaryGrid}>
@@ -1225,6 +1249,12 @@ export default function ComplaintForm() {
                   <span className={styles.ackSummaryLabel}>Contact Phone</span>
                   <span className={styles.ackSummaryValue}>+91 {ackData.phone}</span>
                 </div>
+                {ackData.email && (
+                  <div className={styles.ackSummaryItem}>
+                    <span className={styles.ackSummaryLabel}>Registered Email</span>
+                    <span className={styles.ackSummaryValue}>{ackData.email}</span>
+                  </div>
+                )}
                 <div className={styles.ackSummaryItem}>
                   <span className={styles.ackSummaryLabel}>State / Jurisdiction</span>
                   <span className={styles.ackSummaryValue}>{ackData.state}</span>
