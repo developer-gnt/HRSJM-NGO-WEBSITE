@@ -26,13 +26,13 @@ export default async function UpcomingEvents() {
         location: event.location || event.address || "India",
         status: "Upcoming",
         statusType: "open",
-        isDonationEnabled: Boolean(event.is_donation_enabled),
         image: resolveEventCoverImage(event.cover_image_url, event.category),
         action: {
           label: "Event Details",
           type: "link",
         },
         href: `/events/${event.id}`,
+        isDonationEnabled: Boolean(event.is_donation_enabled),
       }));
     }
   } catch (err) {

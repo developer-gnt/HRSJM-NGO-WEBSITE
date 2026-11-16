@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, MapPin, Heart } from "lucide-react";
+import { ArrowRight, Heart, MapPin } from "lucide-react";
 import styles from "./events.module.css";
 
 export type EventItem = {
@@ -38,9 +38,9 @@ export default function EventCard({ event }: { event: EventItem }) {
           style={{ objectFit: "cover" }}
         />
         {event.isDonationEnabled && (
-          <span className={styles.cardDonationBadge}>
+          <span className={styles.donationBadgeOverMedia}>
             <Heart size={11} fill="currentColor" aria-hidden="true" />
-            Donations Open
+            Featured for Donation
           </span>
         )}
       </Link>

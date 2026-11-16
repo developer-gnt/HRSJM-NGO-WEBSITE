@@ -229,14 +229,28 @@ export default async function EventDetailPage({
               unoptimized={matchedEvent.image?.startsWith("data:")}
               style={{ objectFit: "cover" }}
             />
+            {isDonationEnabled && (
+              <span className={styles.donationBadgeOverMedia}>
+                <Heart size={11} fill="currentColor" aria-hidden="true" />
+                Featured for Donation
+              </span>
+            )}
           </div>
 
           <div className={styles.body}>
             <div className={styles.metaRow}>
               <span className={styles.date}>{matchedEvent.date}</span>
-              <span className={`${styles.status} ${statusClass}`}>
-                {matchedEvent.status}
-              </span>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                {isDonationEnabled && (
+                  <span className={styles.donationBadge}>
+                    <Heart size={10} fill="currentColor" aria-hidden="true" />
+                    Featured for Donation
+                  </span>
+                )}
+                <span className={`${styles.status} ${statusClass}`}>
+                  {matchedEvent.status}
+                </span>
+              </div>
             </div>
 
             <h1 id="event-detail-heading" className={styles.title}>

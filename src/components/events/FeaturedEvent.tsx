@@ -58,10 +58,18 @@ export default async function FeaturedEvent() {
       <div className={styles.sectionInner}>
         <div className={styles.featuredGrid}>
           <div className={styles.featuredBody}>
-            <p className={styles.sectionEyebrow}>
-              <span className={styles.eyebrowDot} aria-hidden="true" />
-              Featured Event
-            </p>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", marginBottom: "6px" }}>
+              <p className={styles.sectionEyebrow} style={{ margin: 0 }}>
+                <span className={styles.eyebrowDot} aria-hidden="true" />
+                Featured Event
+              </p>
+              {Boolean(featuredEvent.is_donation_enabled) && (
+                <span className={styles.donationBadgeInline}>
+                  <Heart size={11} fill="currentColor" aria-hidden="true" />
+                  Featured for Donation
+                </span>
+              )}
+            </div>
             <h2 id="featured-event-heading" className={styles.featuredTitle}>
               <span className={styles.titleLine}>{title}</span>
             </h2>
@@ -106,6 +114,12 @@ export default async function FeaturedEvent() {
               unoptimized={imageSrc.startsWith("data:")}
               style={{ objectFit: "cover", borderRadius: "12px" }}
             />
+            {Boolean(featuredEvent.is_donation_enabled) && (
+              <span className={styles.donationBadgeOverMedia}>
+                <Heart size={11} fill="currentColor" aria-hidden="true" />
+                Featured for Donation
+              </span>
+            )}
           </div>
         </div>
       </div>

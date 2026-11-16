@@ -755,24 +755,51 @@
   color: var(--color-gold-dark);
 }
 
-.cardDonationBadge {
+/* Featured for Donation Badge */
+.donationBadgeOverMedia {
   position: absolute;
   top: 10px;
-  right: 10px;
-  z-index: 2;
+  left: 10px;
+  z-index: 3;
   display: inline-flex;
   align-items: center;
   gap: 5px;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 9999px;
+  background: var(--color-gold, #fad25c);
+  color: var(--color-navy-dark, #031d38);
   font-family: var(--font-body), Arial, sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(3, 29, 56, 0.22);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.donationBadgeOverMedia svg {
+  color: var(--color-navy-dark, #031d38);
+  flex-shrink: 0;
+}
+
+.donationBadgeInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
   background: var(--color-gold, #fad25c);
   color: var(--color-navy-dark, #031d38);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
-  pointer-events: none;
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.donationBadgeInline svg {
+  color: var(--color-navy-dark, #031d38);
+  flex-shrink: 0;
 }
 
 .eventTitle {

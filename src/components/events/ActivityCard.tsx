@@ -31,9 +31,9 @@ export default function ActivityCard({ activity }: { activity: ActivityItem }) {
             style={{ objectFit: "cover" }}
           />
           {activity.isDonationEnabled && (
-            <span className={styles.cardDonationBadge}>
+            <span className={styles.donationBadgeOverMedia}>
               <Heart size={11} fill="currentColor" aria-hidden="true" />
-              Donations Open
+              Featured for Donation
             </span>
           )}
         </div>

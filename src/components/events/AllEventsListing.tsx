@@ -55,13 +55,13 @@ export default function AllEventsListing() {
               location: event.location || event.address || "India",
               status: isUpcoming ? "Upcoming" : "Completed",
               statusType: isUpcoming ? "open" : "completed",
-              isDonationEnabled: Boolean(event.is_donation_enabled),
               image: resolveEventCoverImage(event.cover_image_url, event.category),
               action: {
                 label: "Event Details",
                 type: "link",
               },
               href: `/events/${event.id}`,
+              isDonationEnabled: Boolean(event.is_donation_enabled),
             };
           });
 
