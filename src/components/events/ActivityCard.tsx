@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, ArrowRight, Heart } from "lucide-react";
 import styles from "./events.module.css";
 
 export type ActivityItem = {
@@ -12,6 +12,7 @@ export type ActivityItem = {
   category: string;
   image: string;
   href?: string;
+  isDonationEnabled?: boolean;
 };
 
 export default function ActivityCard({ activity }: { activity: ActivityItem }) {
@@ -29,6 +30,12 @@ export default function ActivityCard({ activity }: { activity: ActivityItem }) {
             unoptimized={activity.image?.startsWith("data:")}
             style={{ objectFit: "cover" }}
           />
+          {activity.isDonationEnabled && (
+            <span className={styles.cardDonationBadge}>
+              <Heart size={11} fill="currentColor" aria-hidden="true" />
+              Donations Open
+            </span>
+          )}
         </div>
         <div className={styles.activityBody}>
           <h3 className={styles.activityTitle}>{activity.title}</h3>

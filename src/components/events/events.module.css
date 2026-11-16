@@ -755,6 +755,26 @@
   color: var(--color-gold-dark);
 }
 
+.cardDonationBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: var(--color-gold, #fad25c);
+  color: var(--color-navy-dark, #031d38);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+}
+
 .eventTitle {
   margin-top: 12px;
   font-family: var(--font-body), Arial, sans-serif;

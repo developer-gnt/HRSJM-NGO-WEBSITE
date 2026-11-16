@@ -57,6 +57,7 @@ export default function PastActivities({
             category: event.category || "Community",
             image: resolveEventCoverImage(event.cover_image_url, event.category),
             href: `/events/${event.id}`,
+            isDonationEnabled: Boolean(event.is_donation_enabled),
           }));
           if (isMounted) {
             setActivities(mapped);
