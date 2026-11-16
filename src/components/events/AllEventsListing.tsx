@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, RotateCcw, Search, X } from "lucide-react";
-import allEventsData from "@/data/all-events.json";
 import { formatEventDate, resolveEventCoverImage, type BackendEvent } from "@/lib/backendApi";
 import EventCard, { type EventItem } from "./EventCard";
 import shared from "./events.module.css";
@@ -10,14 +9,13 @@ import styles from "./allEvents.module.css";
 
 type AllEventsItem = EventItem & { category: string };
 
-const staticEvents: AllEventsItem[] = allEventsData;
-
 const baseFilters = [
   "All Events",
-  "Workshops",
-  "Seminars",
-  "Community Drives",
-  "Awareness Programs",
+  "Community",
+  "Legal Awareness",
+  "Relief",
+  "Workshop",
+  "Seminar",
 ] as const;
 
 const PAGE_SIZE = 6;
@@ -26,24 +24,25 @@ export default function AllEventsListing() {
   const [activeFilter, setActiveFilter] = useState<string>("All Events");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [page, setPage] = useState(1);
-  const [eventsList, setEventsList] = useState<AllEventsItem[]>(staticEvents);
+  const [eventsList, setEventsList] = useState<AllEventsItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // Fetch dynamic upcoming events from backend database on mount
+  // Fetch dynamic events from backend database on mount
   useEffect(() => {
     let isMounted = true;
     async function loadDynamicEvents() {
       try {
-        const res = await fetch("/api/events?status=UPCOMING&limit=100", {
+        const res = await fetch("/api/events?limit=100", {
           cache: "no-store",
         });
         if (!res.ok) return;
         const data = await res.json();
-        if (data.success && Array.isArray(data.items) && data.items.length > 0) {
+        if (data.success && Array.isArray(data.items)) {
           const mappedDbEvents: AllEventsItem[] = data.items.map((event: BackendEvent) => {
-            const rawCat = (event.category || "Workshops").trim();
-            // Capitalize or normalize category
+            const rawCat = (event.category || "Community").trim();
             const category = rawCat.charAt(0).toUpperCase() + rawCat.slice(1);
+            const isUpcoming = event.status === "UPCOMING";
             return {
               id: event.id,
               title: event.title,
@@ -54,8 +53,8 @@ export default function AllEventsListing() {
                 "HRSJM grassroots initiative for social empowerment and legal protection.",
               date: formatEventDate(event.start_at),
               location: event.location || event.address || "India",
-              status: "Upcoming",
-              statusType: "open",
+              status: isUpcoming ? "Upcoming" : "Completed",
+              statusType: isUpcoming ? "open" : "completed",
               image: resolveEventCoverImage(event.cover_image_url, event.category),
               action: {
                 label: "Event Details",
@@ -66,14 +65,13 @@ export default function AllEventsListing() {
           });
 
           if (isMounted) {
-            // Put database events first, followed by curated non-conflicting static events
-            const dbIds = new Set(mappedDbEvents.map((e) => e.id));
-            const remainingStatic = staticEvents.filter((se) => !dbIds.has(se.id));
-            setEventsList([...mappedDbEvents, ...remainingStatic]);
+            setEventsList(mappedDbEvents);
           }
         }
       } catch (err) {
         console.warn("Could not fetch live events for listing:", err);
+      } finally {
+        if (isMounted) setLoading(false);
       }
     }
     loadDynamicEvents();
@@ -84,10 +82,10 @@ export default function AllEventsListing() {
 
   // Compute dynamic filter categories including any custom categories in database
   const filters = useMemo(() => {
-    const categoriesSet = new Set<string>(baseFilters);
+    const categoriesSet = new Set<string>(["All Events"]);
     eventsList.forEach((e) => {
-      if (e.category && typeof e.category === "string") {
-        categoriesSet.add(e.category);
+      if (e.category && typeof e.category === "string" && e.category.trim()) {
+        categoriesSet.add(e.category.trim());
       }
     });
     return Array.from(categoriesSet);
@@ -149,54 +147,47 @@ export default function AllEventsListing() {
     setPage(1);
   }
 
-  function goToPage(nextPage: number) {
-    setPage(nextPage);
-    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  function goToPage(targetPage: number) {
+    setPage(targetPage);
+    if (gridRef.current) {
+      gridRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
   return (
-    <section className={styles.listing} aria-label="Upcoming events directory">
-      <div className={shared.sectionInner}>
+    <section className={styles.listingSection} aria-label="Browse and filter events">
+      <div className={styles.sectionInner}>
         <div className={styles.toolbar}>
-          <div className={styles.searchAndMeta}>
-            <div className={styles.searchWrap}>
+          <div className={styles.searchContainer}>
+            <div className={styles.searchBox}>
               <Search
-                size={16}
+                size={18}
                 strokeWidth={2}
                 className={styles.searchIcon}
                 aria-hidden="true"
               />
               <input
                 type="text"
-                placeholder="Search events by title, category or city..."
+                className={styles.searchInput}
+                placeholder="Search by title, location or topic..."
                 value={searchQuery}
                 onChange={handleSearchChange}
-                className={styles.searchInput}
                 aria-label="Search events"
               />
               {searchQuery && (
                 <button
                   type="button"
+                  className={styles.clearBtn}
                   onClick={clearSearch}
-                  className={styles.searchClear}
-                  aria-label="Clear search"
+                  aria-label="Clear search query"
                 >
                   <X size={15} strokeWidth={2.2} />
                 </button>
               )}
             </div>
-
-            <p className={styles.resultsMeta} aria-live="polite">
-              Showing{" "}
-              <span className={styles.resultsMetaCount}>
-                {visibleEvents.length}
-              </span>{" "}
-              of{" "}
-              <span className={styles.resultsMetaCount}>
-                {filteredEvents.length}
-              </span>{" "}
-              events
-              {activeFilter !== "All Events" ? ` - ${activeFilter}` : ""}
+            <p className={styles.resultsCount} aria-live="polite">
+              Showing <strong>{filteredEvents.length}</strong> event
+              {filteredEvents.length === 1 ? "" : "s"}
               {searchQuery.trim() ? ` matching "${searchQuery.trim()}"` : ""}
             </p>
           </div>

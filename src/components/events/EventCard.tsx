@@ -33,6 +33,7 @@ export default function EventCard({ event }: { event: EventItem }) {
           alt={event.title}
           fill
           sizes="(min-width: 1024px) 432px, (min-width: 640px) 50vw, 100vw"
+          unoptimized={event.image?.startsWith("data:")}
           style={{ objectFit: "cover" }}
         />
       </Link>

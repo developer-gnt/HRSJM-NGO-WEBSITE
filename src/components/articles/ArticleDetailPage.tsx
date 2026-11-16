@@ -49,6 +49,7 @@ export default function ArticleDetailPage({ article }: { article: Article }) {
               fill
               priority
               sizes="(max-width: 700px) 100vw, (max-width: 1023px) 55vw, 720px"
+              unoptimized={article.image?.startsWith("data:")}
               style={{
                 objectFit: "cover",
                 ...(article.imagePosition ? { objectPosition: article.imagePosition } : {}),

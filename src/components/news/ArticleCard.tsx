@@ -25,6 +25,7 @@ export default function ArticleCard({
       alt={alt}
       fill
       sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 340px"
+      unoptimized={image?.startsWith("data:")}
       style={{
         objectFit: "cover",
         ...(imagePosition ? { objectPosition: imagePosition } : {}),

@@ -1,34 +1,14 @@
-import type { Metadata } from "next";
-import FeaturedArticlePage from "@/components/news/FeaturedArticlePage";
-import { featuredArticle } from "@/data/articles";
+import { redirect } from "next/navigation";
+import { fetchNews } from "@/lib/backendApi";
 
-export const metadata: Metadata = {
-  title: `${featuredArticle.title} | HRSJM Special Report`,
-  description: featuredArticle.description,
-  keywords: [
-    "Human Rights Featured Article",
-    "HRSJM Special Report",
-    "Legal Analysis India",
-    "Constitutional Awareness",
-  ],
-  alternates: {
-    canonical: "/featured-article",
-  },
-  openGraph: {
-    title: featuredArticle.title,
-    description: featuredArticle.description,
-    url: "https://hrsjm.org/featured-article",
-    images: [
-      {
-        url: featuredArticle.image,
-        width: 1200,
-        height: 630,
-        alt: featuredArticle.title,
-      },
-    ],
-  },
-};
+export const dynamic = "force-dynamic";
 
-export default function FeaturedArticleRoute() {
-  return <FeaturedArticlePage />;
+export default async function FeaturedArticleRoute() {
+  try {
+    const data = await fetchNews({ status: "PUBLISHED", limit: 1 });
+    if (data.items.length > 0) {
+      redirect(`/news/${data.items[0].slug || data.items[0].id}`);
+    }
+  } catch {}
+  redirect("/news");
 }

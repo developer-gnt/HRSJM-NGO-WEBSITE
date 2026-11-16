@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import ArticleDetailPage from "@/components/articles/ArticleDetailPage";
 import NewsArticleDetailView from "@/components/news/NewsArticleDetailView";
-import { findLatestArticleBySlug, latestArticles } from "@/data/articles";
+import { findLatestArticleBySlug } from "@/data/articles";
 import { newsArticlesData } from "@/data/newsDetailData";
+import { fetchNewsByIdOrSlug } from "@/lib/backendApi";
 
-export function generateStaticParams() {
-  const slugs = new Set([
-    ...Object.keys(newsArticlesData),
-    ...latestArticles
-      .filter((article) => article.slug)
-      .map((article) => article.slug as string),
-  ]);
-  return Array.from(slugs).map((slug) => ({ slug }));
-}
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -21,6 +15,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const dbNews = await fetchNewsByIdOrSlug(slug);
+  if (dbNews) {
+    return { title: `${dbNews.title} | HRSJM`, description: dbNews.summary };
+  }
   const richArticle = newsArticlesData[slug];
   if (richArticle) {
     return { title: richArticle.title, description: richArticle.subtitle };
@@ -36,6 +34,12 @@ export default async function ArticleRoute({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  // Check database first
+  const dbNews = await fetchNewsByIdOrSlug(slug);
+  if (dbNews) {
+    redirect(`/news/${dbNews.slug || dbNews.id}`);
+  }
 
   if (newsArticlesData[slug]) {
     return <NewsArticleDetailView data={newsArticlesData[slug]} />;

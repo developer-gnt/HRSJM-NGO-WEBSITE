@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import fallbackEventsData from "@/data/upcoming-events.json";
 import {
   fetchUpcomingEvents,
   formatEventDate,
@@ -39,11 +38,6 @@ export default async function UpcomingEvents() {
     console.warn("Could not fetch upcoming events from database:", err);
   }
 
-  // Graceful fallback to verified curated items if database has no active upcoming events
-  if (events.length === 0) {
-    events = fallbackEventsData;
-  }
-
   return (
     <section
       id="upcoming-events"
@@ -73,11 +67,19 @@ export default async function UpcomingEvents() {
           </div>
         </div>
 
-        <div className={styles.upcomingGrid}>
-          {events.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
+        {events.length > 0 ? (
+          <div className={styles.upcomingGrid}>
+            {events.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+        ) : (
+          <div style={{ textAlign: "center", padding: "48px 24px", background: "rgba(0,0,0,0.02)", borderRadius: "12px", margin: "24px 0" }}>
+            <p style={{ color: "var(--color-navy-muted, #556987)", fontSize: "1.05rem" }}>
+              No upcoming events are currently scheduled. Please check back soon or browse our completed activities.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

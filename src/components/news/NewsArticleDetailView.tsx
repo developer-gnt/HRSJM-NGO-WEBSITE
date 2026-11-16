@@ -214,6 +214,7 @@ export default function NewsArticleDetailView({ data }: Props) {
                 fill
                 priority
                 sizes="(max-width: 991px) 100vw, 820px"
+                unoptimized={data.bannerImage?.startsWith("data:")}
                 className={styles.bannerImage}
               />
             </div>

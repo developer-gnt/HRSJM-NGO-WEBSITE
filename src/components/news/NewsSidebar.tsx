@@ -1,41 +1,65 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Quote as QuoteIcon } from "lucide-react";
 import { revealDelay, revealStagger } from "@/hooks/useScrollReveal";
 import styles from "./news.module.css";
 
-/* Trending + Newsletter sidebar shared by the Latest News section (News &
-   Blog page) and the All Articles page, so both stay identical. */
-const trending = [
-  "New Guidelines on Child Rights Protection",
-  "Success Story: Community Support in Action",
-  "Women's Rights and Legal Protection in India",
-  "HRSJM Support for Community Initiatives",
-  "Civic Rights Challenges and Opportunities",
-];
+interface TrendingItem {
+  title: string;
+  href: string;
+}
 
 export default function NewsSidebar() {
   const [subscribed, setSubscribed] = useState(false);
+  const [trendingList, setTrendingList] = useState<TrendingItem[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadTrending() {
+      try {
+        const res = await fetch("/api/news?status=PUBLISHED&limit=5", {
+          cache: "no-store",
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.success && Array.isArray(data.items) && data.items.length > 0) {
+          const mapped = data.items.slice(0, 5).map((item: any) => ({
+            title: item.title,
+            href: `/news/${item.slug || item.id}`,
+          }));
+          if (isMounted) setTrendingList(mapped);
+        }
+      } catch (err) {
+        console.warn("Could not load trending news:", err);
+      }
+    }
+    loadTrending();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <aside className={styles.latestSidebar}>
-      <div className={styles.trendingCard} data-reveal style={revealDelay(1)}>
-        <h3 className={styles.sidebarTitle}>Trending Articles</h3>
-        <ol className={styles.trendingList}>
-          {trending.map((title, index) => (
-            <li key={title} data-reveal-item style={revealStagger(index)}>
-              <Link href="/articles" className={styles.trendingItem}>
-                <span className={styles.trendingNumber} aria-hidden="true">
-                  {index + 1}
-                </span>
-                <span className={styles.trendingTitle}>{title}</span>
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </div>
+      {trendingList.length > 0 && (
+        <div className={styles.trendingCard} data-reveal style={revealDelay(1)}>
+          <h3 className={styles.sidebarTitle}>Trending Articles</h3>
+          <ol className={styles.trendingList}>
+            {trendingList.map((item, index) => (
+              <li key={item.title} data-reveal-item style={revealStagger(index)}>
+                <Link href={item.href} className={styles.trendingItem}>
+                  <span className={styles.trendingNumber} aria-hidden="true">
+                    {index + 1}
+                  </span>
+                  <span className={styles.trendingTitle}>{item.title}</span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
 
       <div className={styles.newsletterCard} data-reveal style={revealDelay(2)}>
         <h3 className={styles.sidebarTitle}>Subscribe to Our Newsletter</h3>
@@ -60,27 +84,32 @@ export default function NewsSidebar() {
             placeholder="Enter your email address"
             className={styles.newsletterInput}
           />
-          <button type="submit" className={styles.newsletterButton}>
-            Subscribe
-            <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+          <button
+            type="submit"
+            className={styles.newsletterSubmit}
+            aria-label="Subscribe to newsletter"
+          >
+            <ArrowRight size={16} strokeWidth={2.4} aria-hidden="true" />
           </button>
         </form>
         {subscribed && (
-          <p className={styles.newsletterThanks} role="status">
-            Thank you - you&apos;re on the list.
+          <p className={styles.newsletterSuccess} role="status">
+            Thank you for subscribing!
           </p>
         )}
       </div>
 
-      <p className={styles.sidebarQuote} aria-hidden="true">
-        <span className={styles.quoteMark}>
-          <QuoteIcon size={30} strokeWidth={0} fill="currentColor" aria-hidden="true" />
+      <div className={styles.quoteCard} data-reveal style={revealDelay(3)}>
+        <span className={styles.quoteIcon} aria-hidden="true">
+          <QuoteIcon size={24} />
         </span>
-        Awareness today,
-        <br />
-        a fairer tomorrow.
-        <span className={styles.scriptStroke} />
-      </p>
+        <blockquote className={styles.quoteText}>
+          &ldquo;Where, after all, do universal human rights begin? In small
+          places, close to home - so close and so small that they cannot be
+          seen on any maps of the world.&rdquo;
+        </blockquote>
+        <cite className={styles.quoteAuthor}>- Eleanor Roosevelt</cite>
+      </div>
     </aside>
   );
 }

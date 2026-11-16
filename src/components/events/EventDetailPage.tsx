@@ -79,13 +79,7 @@ export async function generateMetadata({
     };
   }
 
-  // 1. Check static data
-  const staticEvent = events.find((item) => item.id === slug);
-  if (staticEvent) {
-    return { title: staticEvent.title, description: staticEvent.description };
-  }
-
-  // 2. Check central database
+  // 1. Check central database first
   try {
     const dbEvent = await fetchEventById(slug);
     if (dbEvent) {
@@ -95,6 +89,12 @@ export async function generateMetadata({
       };
     }
   } catch {}
+
+  // 2. Check static data
+  const staticEvent = events.find((item) => item.id === slug);
+  if (staticEvent) {
+    return { title: staticEvent.title, description: staticEvent.description };
+  }
 
   return { title: "Event Not Found | HRSJM" };
 }
@@ -147,32 +147,34 @@ export default async function EventDetailPage({
     return <HRSJMOrgOverview activity={activity} />;
   }
 
-  // 1. Check static events
-  let matchedEvent: AllEventsItem | null = events.find((item) => item.id === slug) || null;
+  // 1. Query central database by ID
   let rawDbEvent: BackendEvent | null = null;
+  let matchedEvent: AllEventsItem | null = null;
 
-  // 2. If not found in static JSON, query central database
-  if (!matchedEvent) {
-    try {
-      rawDbEvent = await fetchEventById(slug);
-      if (rawDbEvent) {
-        matchedEvent = {
-          id: rawDbEvent.id,
-          title: rawDbEvent.title,
-          category: rawDbEvent.category || "General Event",
-          description: rawDbEvent.description || rawDbEvent.short_information || "",
-          date: formatEventDate(rawDbEvent.start_at),
-          location: rawDbEvent.location || rawDbEvent.address || "India",
-          status: "Upcoming",
-          statusType: "open",
-          image: resolveEventCoverImage(rawDbEvent.cover_image_url, rawDbEvent.category),
-          action: { label: "Event Details", type: "link" },
-          href: `/events/${rawDbEvent.id}`,
-        };
-      }
-    } catch (err) {
-      console.warn("Event lookup error:", err);
+  try {
+    rawDbEvent = await fetchEventById(slug);
+    if (rawDbEvent) {
+      matchedEvent = {
+        id: rawDbEvent.id,
+        title: rawDbEvent.title,
+        category: rawDbEvent.category || "General Event",
+        description: rawDbEvent.description || rawDbEvent.short_information || "",
+        date: formatEventDate(rawDbEvent.start_at),
+        location: rawDbEvent.location || rawDbEvent.address || "India",
+        status: rawDbEvent.status === "UPCOMING" ? "Upcoming" : "Completed",
+        statusType: rawDbEvent.status === "UPCOMING" ? "open" : "completed",
+        image: resolveEventCoverImage(rawDbEvent.cover_image_url, rawDbEvent.category),
+        action: { label: "Event Details", type: "link" },
+        href: `/events/${rawDbEvent.id}`,
+      };
     }
+  } catch (err) {
+    console.warn("Event lookup error:", err);
+  }
+
+  // 2. Check static events as fallback for legacy named routes
+  if (!matchedEvent) {
+    matchedEvent = events.find((item) => item.id === slug) || null;
   }
 
   if (!matchedEvent) {
@@ -223,6 +225,7 @@ export default async function EventDetailPage({
               alt={matchedEvent.title}
               fill
               sizes="(min-width: 768px) 48vw, 100vw"
+              unoptimized={matchedEvent.image?.startsWith("data:")}
               style={{ objectFit: "cover" }}
             />
           </div>

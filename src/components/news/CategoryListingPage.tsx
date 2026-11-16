@@ -1,28 +1,67 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { findArticleCategory } from "@/data/articleCategories";
-import { featuredArticle, latestArticles } from "@/data/articles";
 import { notFound } from "next/navigation";
 import { useScrollReveal, revealDelay } from "@/hooks/useScrollReveal";
 import ArticleCard from "./ArticleCard";
 import CategorySidebar from "./CategorySidebar";
 import shared from "./news.module.css";
 import styles from "./categoryListing.module.css";
+import { formatNewsDate, resolveNewsThumbnail, type BackendNews } from "@/lib/backendApi";
+import type { Article } from "@/data/articles";
 
-/* Category listing page. Articles come from the shared article data -
-   the Featured Article leads its own category. Cards without a detail
-   page render as previews; the Featured Article links through. */
 export default function CategoryListingPage({ slug }: { slug: string }) {
   const sectionRef = useScrollReveal(shared);
-
   const category = findArticleCategory(slug);
-  if (!category) notFound();
 
-  const articles = [
-    ...(featuredArticle.category === category.label ? [featuredArticle] : []),
-    ...latestArticles.filter((article) => article.category === category.label),
-  ];
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!category) return;
+    const catLabel = category.label;
+    let isMounted = true;
+    async function loadCategoryNews() {
+      try {
+        const res = await fetch(
+          `/api/news?status=PUBLISHED&category=${encodeURIComponent(catLabel)}&limit=50`,
+          { cache: "no-store" }
+        );
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.success && Array.isArray(data.items)) {
+          const mapped: Article[] = data.items.map((item: BackendNews) => ({
+            slug: item.slug || item.id,
+            href: `/news/${item.slug || item.id}`,
+            image: resolveNewsThumbnail(item.thumbnail_url, item.category),
+            alt: item.title,
+            category: item.category || catLabel,
+            title: item.title,
+            description: item.summary || item.content?.slice(0, 140) || "",
+            date: formatNewsDate(item.published_at),
+            readTime: `${Math.max(
+              1,
+              Math.ceil((item.content?.split(/\s+/).length || 100) / 200)
+            )} min read`,
+            author: item.author || "HRSJM Team",
+          }));
+          if (isMounted) setArticles(mapped);
+        }
+      } catch (err) {
+        console.warn("Could not load category news:", err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+    loadCategoryNews();
+    return () => {
+      isMounted = false;
+    };
+  }, [category]);
+
+  if (!category) notFound();
 
   return (
     <section ref={sectionRef} aria-labelledby="category-heading">
@@ -79,7 +118,7 @@ export default function CategoryListingPage({ slug }: { slug: string }) {
               <div className={shared.articleGrid}>
                 {articles.map((article, index) => (
                   <ArticleCard
-                    key={article.title}
+                    key={article.slug || article.title}
                     article={article}
                     index={index}
                   />

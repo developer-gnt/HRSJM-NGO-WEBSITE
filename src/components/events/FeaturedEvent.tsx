@@ -21,22 +21,37 @@ export default async function FeaturedEvent() {
     console.warn("Could not fetch featured event from database:", err);
   }
 
-  const title = featuredEvent?.title || "Legal Awareness Camp in Mumbai";
-  const dateStr = featuredEvent ? formatEventDate(featuredEvent.start_at) : "15 Oct 2026";
-  const locationStr = featuredEvent
-    ? featuredEvent.location || featuredEvent.address || "Maharashtra, India"
-    : "Mumbai, Maharashtra";
+  if (!featuredEvent) {
+    return (
+      <section id="featured-event" className={styles.featured} aria-labelledby="featured-event-heading">
+        <div className={styles.sectionInner}>
+          <div style={{ textAlign: "center", padding: "40px 20px" }}>
+            <p className={styles.sectionEyebrow}>
+              <span className={styles.eyebrowDot} aria-hidden="true" />
+              Featured Event
+            </p>
+            <h2 id="featured-event-heading" className={styles.featuredTitle}>
+              No Featured Event Scheduled
+            </h2>
+            <p className={styles.featuredDesc} style={{ maxWidth: "600px", margin: "12px auto" }}>
+              There are currently no upcoming events scheduled. Please check back later or explore our past activities.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const title = featuredEvent.title;
+  const dateStr = formatEventDate(featuredEvent.start_at);
+  const locationStr = featuredEvent.location || featuredEvent.address || "India";
   const description =
-    featuredEvent?.short_information ||
-    featuredEvent?.description ||
-    "A special legal awareness camp to educate citizens about their fundamental rights, RTI, and how to seek legal help when their rights are violated.";
-  const imageSrc = featuredEvent
-    ? resolveEventCoverImage(featuredEvent.cover_image_url, featuredEvent.category)
-    : "/images/events-featured-legal-camp.jpg";
-  const detailHref = featuredEvent ? `/events/${featuredEvent.id}` : "/events/all";
-  const donateHref = featuredEvent
-    ? `/donation?event_id=${featuredEvent.id}&cause=${encodeURIComponent("Event: " + featuredEvent.title)}`
-    : "/donation";
+    featuredEvent.short_information ||
+    featuredEvent.description ||
+    "Join our community initiative for human rights and public welfare.";
+  const imageSrc = resolveEventCoverImage(featuredEvent.cover_image_url, featuredEvent.category);
+  const detailHref = `/events/${featuredEvent.id}`;
+  const donateHref = `/donation?event_id=${featuredEvent.id}&cause=${encodeURIComponent("Event: " + featuredEvent.title)}`;
 
   return (
     <section id="featured-event" className={styles.featured} aria-labelledby="featured-event-heading">
@@ -65,18 +80,20 @@ export default async function FeaturedEvent() {
               <Link href={detailHref} className={styles.btnLight}>
                 View Details
               </Link>
-              <Link
-                href={donateHref}
-                className={styles.btnGold}
-                style={{
-                  color: "#0a2540",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                }}
-              >
-                <Heart size={15} fill="currentColor" aria-hidden="true" />
-                Donate for Event
-              </Link>
+              {featuredEvent.is_donation_enabled !== false && (
+                <Link
+                  href={donateHref}
+                  className={styles.btnGold}
+                  style={{
+                    color: "#0a2540",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                  }}
+                >
+                  <Heart size={15} fill="currentColor" aria-hidden="true" />
+                  Donate for Event
+                </Link>
+              )}
             </div>
           </div>
 
@@ -86,6 +103,7 @@ export default async function FeaturedEvent() {
               alt={title}
               fill
               sizes="(min-width: 1024px) 55vw, (min-width: 640px) 58vw, 100vw"
+              unoptimized={imageSrc.startsWith("data:")}
               style={{ objectFit: "cover", borderRadius: "12px" }}
             />
           </div>

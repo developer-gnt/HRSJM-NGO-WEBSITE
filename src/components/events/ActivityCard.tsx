@@ -26,6 +26,7 @@ export default function ActivityCard({ activity }: { activity: ActivityItem }) {
             alt={activity.title}
             fill
             sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
+            unoptimized={activity.image?.startsWith("data:")}
             style={{ objectFit: "cover" }}
           />
         </div>

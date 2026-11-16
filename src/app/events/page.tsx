@@ -7,6 +7,12 @@ import EventsImpact from "@/components/events/EventsImpact";
 import Testimonials from "@/components/events/Testimonials";
 import EventsNewsletter from "@/components/events/EventsNewsletter";
 import EventsCTA from "@/components/events/EventsCTA";
+import {
+  fetchUpcomingEvents,
+  formatEventDate,
+  resolveEventCoverImage,
+} from "@/lib/backendApi";
+import type { ActivityItem } from "@/components/events/ActivityCard";
 
 export const metadata: Metadata = {
   title: "Events & Community Activities - Human Rights & Social Justice Mission",
@@ -34,13 +40,33 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  let pastActivities: ActivityItem[] = [];
+
+  try {
+    const data = await fetchUpcomingEvents({ status: "COMPLETED", limit: 50 });
+    if (data.items && data.items.length > 0) {
+      pastActivities = data.items.map((event) => ({
+        id: event.id,
+        title: event.title,
+        subtitle: event.short_information || event.description?.slice(0, 80) || undefined,
+        date: formatEventDate(event.start_at),
+        location: event.location || event.address || "India",
+        category: event.category || "Community",
+        image: resolveEventCoverImage(event.cover_image_url, event.category),
+        href: `/events/${event.id}`,
+      }));
+    }
+  } catch (err) {
+    console.warn("Could not fetch past events for SSR:", err);
+  }
+
   return (
     <>
       <EventsHero />
       <FeaturedEvent />
       <UpcomingEvents />
-      <PastActivities />
+      <PastActivities initialActivities={pastActivities} />
       <EventsImpact />
       <Testimonials />
       <EventsNewsletter />

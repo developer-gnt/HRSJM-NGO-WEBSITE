@@ -905,7 +905,8 @@ export function resolveEventCoverImage(
     coverImageUrl.trim().length > 0 &&
     (coverImageUrl.startsWith("http://") ||
       coverImageUrl.startsWith("https://") ||
-      coverImageUrl.startsWith("/"))
+      coverImageUrl.startsWith("/") ||
+      coverImageUrl.startsWith("data:"))
   ) {
     return coverImageUrl.trim();
   }
@@ -998,6 +999,191 @@ export async function fetchEventById(id: string): Promise<BackendEvent | null> {
   } catch (err: any) {
     console.warn(`fetchEventById for ${id} warning:`, err.message);
   }
+  return null;
+}
+
+// ============================================================================
+// NEWS API (Central Database Synchronization)
+// ============================================================================
+
+export interface BackendNews {
+  id: string;
+  title: string;
+  slug: string;
+  summary: string;
+  summary_detailed?: string | null;
+  content: string;
+  category: string;
+  status: "PUBLISHED" | "DRAFT" | "ARCHIVED";
+  published_at: string;
+  views?: number;
+  thumbnail_url?: string | null;
+  author?: string | null;
+  tags?: string[] | null;
+  highlights?: string[] | null;
+  gallery?: string[] | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface NewsStatsSummary {
+  total: number;
+  published: number;
+  drafts: number;
+  archived: number;
+}
+
+export interface NewsListApiResponse {
+  items: BackendNews[];
+  stats?: NewsStatsSummary;
+  totalCount: number;
+  page: number;
+  limit: number;
+}
+
+export function formatNewsDate(dateStr?: string | null): string {
+  if (!dateStr) return "Recent";
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    return d.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  } catch {
+    return dateStr;
+  }
+}
+
+export function resolveNewsThumbnail(
+  thumbnailUrl?: string | null,
+  category?: string
+): string {
+  if (
+    thumbnailUrl &&
+    typeof thumbnailUrl === "string" &&
+    thumbnailUrl.trim().length > 0 &&
+    (thumbnailUrl.startsWith("http://") ||
+      thumbnailUrl.startsWith("https://") ||
+      thumbnailUrl.startsWith("/") ||
+      thumbnailUrl.startsWith("data:"))
+  ) {
+    return thumbnailUrl.trim();
+  }
+
+  const cat = (category || "").toLowerCase();
+  if (cat.includes("legal") || cat.includes("court") || cat.includes("law")) {
+    return "/images/news-featured-supreme-court.png";
+  }
+  if (cat.includes("relief") || cat.includes("aid") || cat.includes("flood")) {
+    return "/images/events-community-tree-drive.jpg";
+  }
+  if (cat.includes("health") || cat.includes("blood") || cat.includes("camp")) {
+    return "/images/events-featured-legal-camp.jpg";
+  }
+  return "/images/events-child-rights-workshop.jpg";
+}
+
+/**
+ * Fetch published news articles directly from the central database API.
+ */
+export async function fetchNews(params?: {
+  status?: string;
+  category?: string;
+  search?: string;
+  page?: number;
+  limit?: number;
+}): Promise<NewsListApiResponse> {
+  const query = new URLSearchParams();
+  query.append("status", params?.status || "PUBLISHED");
+  if (
+    params?.category &&
+    params.category !== "All" &&
+    params.category !== "All Articles" &&
+    params.category !== "All Posts"
+  ) {
+    query.append("category", params.category);
+  }
+  if (params?.search && params.search.trim()) {
+    query.append("search", params.search.trim());
+  }
+  if (params?.page) {
+    query.append("page", String(params.page));
+  }
+  query.append("limit", String(params?.limit || 50));
+
+  try {
+    const res = await backendFetch(`/news?${query.toString()}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      const data = json?.data || json;
+      const items: BackendNews[] = Array.isArray(data?.items)
+        ? data.items
+        : Array.isArray(data)
+        ? data
+        : [];
+
+      return {
+        items,
+        stats: data?.stats,
+        totalCount: typeof data?.totalCount === "number" ? data.totalCount : items.length,
+        page: data?.page || 1,
+        limit: data?.limit || 50,
+      };
+    }
+  } catch (err: any) {
+    console.warn("fetchNews warning:", err.message);
+  }
+
+  return {
+    items: [],
+    totalCount: 0,
+    page: 1,
+    limit: 50,
+  };
+}
+
+/**
+ * Fetch a single news article by UUID or Slug directly from the database API.
+ */
+export async function fetchNewsByIdOrSlug(idOrSlug: string): Promise<BackendNews | null> {
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+    idOrSlug
+  );
+
+  if (isUuid) {
+    try {
+      const res = await backendFetch(`/news/${encodeURIComponent(idOrSlug)}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+      });
+      if (res.ok) {
+        const json = await res.json();
+        return json?.data || json;
+      }
+    } catch (err: any) {
+      console.warn(`fetchNewsById for ${idOrSlug} warning:`, err.message);
+    }
+  }
+
+  // If not UUID or not found by direct ID, search in news list by slug
+  try {
+    const listRes = await fetchNews({ limit: 100 });
+    const match = listRes.items.find(
+      (item) => item.slug === idOrSlug || item.id === idOrSlug
+    );
+    if (match) return match;
+  } catch (err: any) {
+    console.warn(`fetchNewsByIdOrSlug search warning:`, err.message);
+  }
+
   return null;
 }
 
