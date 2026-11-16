@@ -5,19 +5,23 @@ import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
+  Calendar,
   CreditCard,
   HandCoins,
+  Heart,
   Landmark,
   Lock,
   RefreshCw,
   Scale,
+  Sparkles,
   Users,
   Loader2,
+  MapPin,
+  CheckCircle2,
 } from "lucide-react";
 import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
+import { formatEventDate, type BackendEvent } from "@/lib/backendApi";
 import styles from "./donation.module.css";
-
-
 
 const amountOptions = [
   { value: 500, label: "₹500", description: "Supports awareness programs" },
@@ -55,12 +59,46 @@ export default function DonationForm() {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
+  // Dynamic campaign and event states
+  const [selectedCause, setSelectedCause] = useState<string>("General Support & Human Rights Protection");
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
+  const [selectedEventDetails, setSelectedEventDetails] = useState<BackendEvent | null>(null);
+  const [upcomingEvents, setUpcomingEvents] = useState<BackendEvent[]>([]);
+  const [isLoadingEvents, setIsLoadingEvents] = useState(false);
+
   const [message, setMessage] = useState<{
     type: "error" | "info";
     text: string;
   } | null>(null);
   const customInputRef = useRef<HTMLInputElement>(null);
 
+  // 1. Fetch upcoming events from central database
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchEvents() {
+      setIsLoadingEvents(true);
+      try {
+        const res = await fetch("/api/events?status=UPCOMING&limit=30", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.success && Array.isArray(data.items)) {
+            setUpcomingEvents(data.items);
+          }
+        }
+      } catch (err) {
+        console.warn("Could not fetch database events for donation opportunities:", err);
+      } finally {
+        if (isMounted) setIsLoadingEvents(false);
+      }
+    }
+    fetchEvents();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // 2. Read query params (amount, cause, event_id, name, phone, email)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams(window.location.search);
@@ -68,6 +106,8 @@ export default function DonationForm() {
       const paramName = searchParams.get("name");
       const paramPhone = searchParams.get("phone");
       const paramEmail = searchParams.get("email");
+      const paramCause = searchParams.get("cause");
+      const paramEventId = searchParams.get("event_id");
 
       if (paramAmount) {
         const parsed = parseInt(paramAmount, 10);
@@ -79,8 +119,24 @@ export default function DonationForm() {
       if (paramName) setDonorName(paramName);
       if (paramPhone) setDonorPhone(paramPhone);
       if (paramEmail) setDonorEmail(paramEmail);
+      if (paramCause) setSelectedCause(paramCause);
+      if (paramEventId) {
+        setSelectedEventId(paramEventId);
+        // Look up event details
+        fetch(`/api/events/${encodeURIComponent(paramEventId)}`)
+          .then((r) => r.json())
+          .then((d) => {
+            if (d.success && d.event) {
+              setSelectedEventDetails(d.event);
+              if (!paramCause) {
+                setSelectedCause(`Event: ${d.event.title}`);
+              }
+            }
+          })
+          .catch(() => {});
+      }
 
-      if (window.location.hash === "#donate" || paramAmount) {
+      if (window.location.hash === "#donate" || paramAmount || paramEventId || paramCause) {
         const el = document.getElementById("donate");
         if (el) {
           const timer = setTimeout(() => {
@@ -91,6 +147,31 @@ export default function DonationForm() {
       }
     }
   }, []);
+
+  // When user selects a campaign / event from selector
+  const handleCauseChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    if (val === "GENERAL") {
+      setSelectedCause("General Support & Human Rights Protection");
+      setSelectedEventId(null);
+      setSelectedEventDetails(null);
+    } else if (val.startsWith("EVENT:")) {
+      const eventId = val.replace("EVENT:", "");
+      const matched = upcomingEvents.find((ev) => ev.id === eventId);
+      setSelectedEventId(eventId);
+      if (matched) {
+        setSelectedCause(`Event: ${matched.title}`);
+        setSelectedEventDetails(matched);
+      } else {
+        setSelectedCause("Event Support");
+      }
+    } else {
+      setSelectedCause(val);
+      setSelectedEventId(null);
+      setSelectedEventDetails(null);
+    }
+    setMessage(null);
+  };
 
   const selectAmount = (value: number) => {
     setSelectedAmount(value);
@@ -139,12 +220,18 @@ export default function DonationForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           amount,
-          donorName: isAnonymous ? "Anonymous Donation from Website" : donorName.trim() || "Anonymous Donation from Website",
+          donorName: isAnonymous
+            ? "Anonymous Donor"
+            : donorName.trim() || "Kind Citizen",
           donorMobile: donorPhone.trim() || undefined,
           donorEmail: donorEmail.trim() || undefined,
           isAnonymous,
-          cause: "Human Rights Protection & Legal Aid",
-          remark: "Donation from Website - NGO General Support",
+          cause: selectedCause || "General Support & Human Rights Protection",
+          eventId: selectedEventId || undefined,
+          remark: selectedEventDetails
+            ? `Website Donation for Event: ${selectedEventDetails.title} (${selectedEventDetails.location})`
+            : "Donation from Public Website",
+          source: "Website",
         }),
       });
 
@@ -224,6 +311,117 @@ export default function DonationForm() {
             onSubmit={onSubmit}
             aria-label="Donation form"
           >
+            {/* Donation Purpose & Campaign Selector */}
+            <div style={{ marginBottom: "20px" }}>
+              <label
+                htmlFor="cause-select"
+                style={{
+                  display: "block",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  color: "var(--color-navy, #0a3a6b)",
+                  marginBottom: "6px",
+                }}
+              >
+                Select Donation Purpose or Event
+              </label>
+              <select
+                id="cause-select"
+                value={
+                  selectedEventId
+                    ? `EVENT:${selectedEventId}`
+                    : selectedCause === "General Support & Human Rights Protection"
+                    ? "GENERAL"
+                    : selectedCause
+                }
+                onChange={handleCauseChange}
+                style={{
+                  width: "100%",
+                  padding: "11px 14px",
+                  borderRadius: "8px",
+                  border: "1px solid var(--color-border, #cbd5e1)",
+                  background: "#ffffff",
+                  fontSize: "14px",
+                  color: "var(--color-navy, #0a3a6b)",
+                  outline: "none",
+                  fontWeight: 500,
+                }}
+              >
+                <option value="GENERAL">General NGO Activities &amp; Human Rights Mission</option>
+                {upcomingEvents.length > 0 && (
+                  <optgroup label="Upcoming NGO Events (Direct Contribution)">
+                    {upcomingEvents.map((ev) => (
+                      <option key={ev.id} value={`EVENT:${ev.id}`}>
+                        Event: {ev.title} ({ev.location})
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
+                <optgroup label="Key Focus Areas">
+                  <option value="Legal Aid &amp; Constitutional Protection">
+                    Free Legal Aid &amp; Constitutional Protection
+                  </option>
+                  <option value="Women Empowerment &amp; Crisis Support">
+                    Women Empowerment &amp; Safety Programs
+                  </option>
+                  <option value="Child Education &amp; Rights">
+                    Child Education &amp; Welfare
+                  </option>
+                  <option value="Emergency Relief &amp; Medical Camps">
+                    Emergency Relief &amp; Medical Health Camps
+                  </option>
+                </optgroup>
+              </select>
+
+              {/* Event Information Card if specific event is selected */}
+              {selectedEventDetails && (
+                <div
+                  style={{
+                    background: "#f0fdf4",
+                    border: "1px solid #bbf7d0",
+                    borderRadius: "10px",
+                    padding: "12px 16px",
+                    marginTop: "12px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "4px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      color: "#166534",
+                      fontWeight: 700,
+                      fontSize: "13px",
+                    }}
+                  >
+                    <CheckCircle2 size={16} /> Contributing towards: {selectedEventDetails.title}
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "14px",
+                      fontSize: "12px",
+                      color: "#374151",
+                      marginTop: "2px",
+                    }}
+                  >
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                      <Calendar size={13} color="#059669" />
+                      {formatEventDate(selectedEventDetails.start_at)}
+                    </span>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                      <MapPin size={13} color="#059669" />
+                      {selectedEventDetails.address || selectedEventDetails.location}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <h3 className={styles.formHeading}>Choose an Amount</h3>
             <p className={styles.formSubheading}>
               Your contribution helps us continue our mission for human rights
@@ -295,7 +493,7 @@ export default function DonationForm() {
                   <input
                     type="text"
                     disabled={isAnonymous}
-                    placeholder={isAnonymous ? "Anonymous" : "Enter your full name"}
+                    placeholder={isAnonymous ? "Anonymous Donor" : "Enter your full name"}
                     value={donorName}
                     onChange={(e) => setDonorName(e.target.value)}
                     style={{
@@ -338,11 +536,11 @@ export default function DonationForm() {
 
               <div>
                 <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "var(--color-navy)", marginBottom: "4px" }}>
-                  Email Address (for Tax Receipt)
+                  Email Address (for Official Receipt)
                 </label>
                 <input
                   type="email"
-                  placeholder="Enter email address (optional)"
+                  placeholder="Enter email address"
                   value={donorEmail}
                   onChange={(e) => setDonorEmail(e.target.value)}
                   style={{
@@ -405,12 +603,12 @@ export default function DonationForm() {
                 </>
               ) : (
                 <>
-                  Donate Now
+                  <Heart size={16} fill="currentColor" aria-hidden="true" />
+                  Proceed to Donate {selectedAmount ? formatINR(selectedAmount) : customValue ? `₹${customValue}` : ""}
                   <ArrowRight size={17} strokeWidth={2.2} aria-hidden="true" />
                 </>
               )}
             </button>
-
 
             <p className={styles.policyNotice}>
               Please review our{" "}
@@ -433,7 +631,7 @@ export default function DonationForm() {
             <div className={styles.secureRow}>
               <span className={styles.secureText}>
                 <Lock size={13} strokeWidth={2} aria-hidden="true" />
-                Secure and Trusted Payment
+                Encrypted &amp; Authorized Cashfree Payment
               </span>
               <span className={styles.paymentMarks} aria-label="Accepted payment methods">
                 {paymentMarks.map((mark) => (

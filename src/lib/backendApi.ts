@@ -591,6 +591,7 @@ export async function createBackendDonation(payload: {
   cause?: string;
   isAnonymous?: boolean;
   remark?: string;
+  source?: string;
 }): Promise<any> {
   const body = {
     donor_name: payload.donorName.trim(),
@@ -600,6 +601,7 @@ export async function createBackendDonation(payload: {
     cause: payload.cause || "General Support",
     is_anonymous: Boolean(payload.isAnonymous),
     remark: payload.remark?.trim() || undefined,
+    source: payload.source?.trim() || "Website",
   };
 
   const res = await backendFetch("/donations", {
@@ -799,5 +801,203 @@ export async function verifyMemberStatus(
       message: "Network or server connection issue while checking member status.",
     };
   }
+}
+
+// ============================================================================
+// EVENTS API (Central Database Synchronization)
+// ============================================================================
+
+export interface BackendEvent {
+  id: string;
+  title: string;
+  description: string;
+  short_information?: string | null;
+  category: string;
+  event_type: string;
+  cover_image_url?: string | null;
+  start_at: string;
+  end_at?: string | null;
+  all_day: boolean;
+  location: string;
+  address?: string | null;
+  organized_by?: string | null;
+  registration_required: boolean;
+  capacity: number;
+  registrations: number;
+  per_person_limit: number;
+  target_audience?: string | null;
+  language?: string | null;
+  tags?: string[] | null;
+  status: "UPCOMING" | "COMPLETED" | "CANCELLED" | "DRAFT";
+  is_donation_enabled?: boolean;
+  donation_message?: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface EventStatsSummary {
+  total: number;
+  upcoming: number;
+  completed: number;
+  cancelled: number;
+}
+
+export interface EventsListApiResponse {
+  items: BackendEvent[];
+  stats?: EventStatsSummary;
+  totalCount: number;
+  page: number;
+  limit: number;
+}
+
+export function formatEventDate(dateStr: string): string {
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    return d.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  } catch {
+    return dateStr;
+  }
+}
+
+export function formatEventTime(
+  startStr: string,
+  endStr?: string | null,
+  allDay?: boolean
+): string {
+  if (allDay) return "Full Day Event";
+  try {
+    const start = new Date(startStr);
+    if (isNaN(start.getTime())) return "10:00 AM onwards";
+
+    const formatClock = (d: Date) => {
+      let hours = d.getHours();
+      const minutes = String(d.getMinutes()).padStart(2, "0");
+      const ampm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12 || 12;
+      return `${hours}:${minutes} ${ampm}`;
+    };
+
+    const startTime = formatClock(start);
+    if (endStr) {
+      const end = new Date(endStr);
+      if (!isNaN(end.getTime())) {
+        return `${startTime} – ${formatClock(end)}`;
+      }
+    }
+    return `${startTime} onwards`;
+  } catch {
+    return "10:00 AM onwards";
+  }
+}
+
+export function resolveEventCoverImage(
+  coverImageUrl?: string | null,
+  category?: string
+): string {
+  if (
+    coverImageUrl &&
+    typeof coverImageUrl === "string" &&
+    coverImageUrl.trim().length > 0 &&
+    (coverImageUrl.startsWith("http://") ||
+      coverImageUrl.startsWith("https://") ||
+      coverImageUrl.startsWith("/"))
+  ) {
+    return coverImageUrl.trim();
+  }
+
+  const cat = (category || "").toLowerCase();
+  if (cat.includes("legal") || cat.includes("camp") || cat.includes("rights")) {
+    return "/images/events-featured-legal-camp.jpg";
+  }
+  if (cat.includes("clean") || cat.includes("tree") || cat.includes("relief") || cat.includes("food")) {
+    return "/images/events-community-tree-drive.jpg";
+  }
+  return "/images/events-child-rights-workshop.jpg";
+}
+
+/**
+ * Fetch approved & active upcoming events directly from the central database API.
+ * Automatically excludes past events, draft, rejected, cancelled or deleted events.
+ */
+export async function fetchUpcomingEvents(params?: {
+  status?: string;
+  category?: string;
+  search?: string;
+  page?: number;
+  limit?: number;
+}): Promise<EventsListApiResponse> {
+  const query = new URLSearchParams();
+  query.append("status", params?.status || "UPCOMING");
+  if (params?.category && params.category !== "All Events") {
+    query.append("category", params.category);
+  }
+  if (params?.search && params.search.trim()) {
+    query.append("search", params.search.trim());
+  }
+  if (params?.page) {
+    query.append("page", String(params.page));
+  }
+  query.append("limit", String(params?.limit || 50));
+
+  try {
+    const res = await backendFetch(`/events?${query.toString()}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      const data = json?.data || json;
+      const items: BackendEvent[] = Array.isArray(data?.items)
+        ? data.items
+        : Array.isArray(data)
+        ? data
+        : [];
+
+      return {
+        items,
+        stats: data?.stats,
+        totalCount: typeof data?.totalCount === "number" ? data.totalCount : items.length,
+        page: data?.page || 1,
+        limit: data?.limit || 50,
+      };
+    }
+  } catch (err: any) {
+    console.warn("fetchUpcomingEvents warning:", err.message);
+  }
+
+  return {
+    items: [],
+    totalCount: 0,
+    page: 1,
+    limit: 50,
+  };
+}
+
+/**
+ * Fetch single event by ID directly from central database
+ */
+export async function fetchEventById(id: string): Promise<BackendEvent | null> {
+  try {
+    const res = await backendFetch(`/events/${encodeURIComponent(id)}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      return json?.data || json;
+    }
+  } catch (err: any) {
+    console.warn(`fetchEventById for ${id} warning:`, err.message);
+  }
+  return null;
 }
 

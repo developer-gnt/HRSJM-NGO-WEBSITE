@@ -1,3 +1,5 @@
+export const dynamicParams = true;
+
 export {
   generateStaticParams,
   generateMetadata,

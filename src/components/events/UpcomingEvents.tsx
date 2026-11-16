@@ -1,12 +1,49 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import eventsData from "@/data/upcoming-events.json";
+import fallbackEventsData from "@/data/upcoming-events.json";
+import {
+  fetchUpcomingEvents,
+  formatEventDate,
+  resolveEventCoverImage,
+  type BackendEvent,
+} from "@/lib/backendApi";
 import EventCard, { type EventItem } from "./EventCard";
 import styles from "./events.module.css";
 
-const events: EventItem[] = eventsData;
+export default async function UpcomingEvents() {
+  let events: EventItem[] = [];
 
-export default function UpcomingEvents() {
+  try {
+    const data = await fetchUpcomingEvents({ status: "UPCOMING", limit: 6 });
+    if (data.items && data.items.length > 0) {
+      events = data.items.map((event: BackendEvent) => ({
+        id: event.id,
+        title: event.title,
+        description:
+          event.short_information ||
+          event.description ||
+          "Join our community initiative for human rights and public welfare.",
+        date: formatEventDate(event.start_at),
+        location: event.location || event.address || "India",
+        status: "Upcoming",
+        statusType: "open",
+        image: resolveEventCoverImage(event.cover_image_url, event.category),
+        action: {
+          label: "Event Details",
+          type: "link",
+        },
+        href: `/events/${event.id}`,
+      }));
+    }
+  } catch (err) {
+    console.warn("Could not fetch upcoming events from database:", err);
+  }
+
+  // Graceful fallback to verified curated items if database has no active upcoming events
+  if (events.length === 0) {
+    events = fallbackEventsData;
+  }
+
   return (
     <section
       id="upcoming-events"

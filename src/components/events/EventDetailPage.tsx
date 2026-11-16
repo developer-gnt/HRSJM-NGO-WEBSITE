@@ -7,12 +7,20 @@ import {
   CalendarDays,
   ChevronRight,
   Clock,
+  Heart,
   MapPin,
   Tag,
   Users,
 } from "lucide-react";
 import allEventsData from "@/data/all-events.json";
 import activitiesData from "@/data/activities.json";
+import {
+  fetchEventById,
+  formatEventDate,
+  formatEventTime,
+  resolveEventCoverImage,
+  type BackendEvent,
+} from "@/lib/backendApi";
 import HRSJMOrgOverview from "./HRSJMOrgOverview";
 import HRSJM14YearsJourney from "./HRSJM14YearsJourney";
 import HRSJMHistoryVision from "./HRSJMHistoryVision";
@@ -71,9 +79,24 @@ export async function generateMetadata({
     };
   }
 
-  const event = events.find((item) => item.id === slug);
-  if (!event) return { title: "Event Not Found" };
-  return { title: event.title, description: event.description };
+  // 1. Check static data
+  const staticEvent = events.find((item) => item.id === slug);
+  if (staticEvent) {
+    return { title: staticEvent.title, description: staticEvent.description };
+  }
+
+  // 2. Check central database
+  try {
+    const dbEvent = await fetchEventById(slug);
+    if (dbEvent) {
+      return {
+        title: `${dbEvent.title} | HRSJM Events`,
+        description: dbEvent.short_information || dbEvent.description,
+      };
+    }
+  } catch {}
+
+  return { title: "Event Not Found | HRSJM" };
 }
 
 export default async function EventDetailPage({
@@ -124,17 +147,55 @@ export default async function EventDetailPage({
     return <HRSJMOrgOverview activity={activity} />;
   }
 
-  const event = events.find((item) => item.id === slug);
-  if (!event) notFound();
+  // 1. Check static events
+  let matchedEvent: AllEventsItem | null = events.find((item) => item.id === slug) || null;
+  let rawDbEvent: BackendEvent | null = null;
+
+  // 2. If not found in static JSON, query central database
+  if (!matchedEvent) {
+    try {
+      rawDbEvent = await fetchEventById(slug);
+      if (rawDbEvent) {
+        matchedEvent = {
+          id: rawDbEvent.id,
+          title: rawDbEvent.title,
+          category: rawDbEvent.category || "General Event",
+          description: rawDbEvent.description || rawDbEvent.short_information || "",
+          date: formatEventDate(rawDbEvent.start_at),
+          location: rawDbEvent.location || rawDbEvent.address || "India",
+          status: "Upcoming",
+          statusType: "open",
+          image: resolveEventCoverImage(rawDbEvent.cover_image_url, rawDbEvent.category),
+          action: { label: "Event Details", type: "link" },
+          href: `/events/${rawDbEvent.id}`,
+        };
+      }
+    } catch (err) {
+      console.warn("Event lookup error:", err);
+    }
+  }
+
+  if (!matchedEvent) {
+    notFound();
+  }
 
   const statusClass =
-    event.statusType === "open" ? styles.statusOpen : styles.statusSoon;
+    matchedEvent.statusType === "open" ? styles.statusOpen : styles.statusSoon;
 
   const relatedEvents = events
     .filter(
-      (item) => item.id !== event.id && item.category === event.category
+      (item) => item.id !== matchedEvent!.id && item.category === matchedEvent!.category
     )
     .slice(0, 3);
+
+  const eventTimeStr = rawDbEvent
+    ? formatEventTime(rawDbEvent.start_at, rawDbEvent.end_at, rawDbEvent.all_day)
+    : "10:00 AM onwards";
+
+  const eventVenueStr = rawDbEvent?.address || matchedEvent.location;
+  const donateHref = `/donation?event_id=${matchedEvent.id}&cause=${encodeURIComponent(
+    "Event: " + matchedEvent.title
+  )}`;
 
   return (
     <div className={shared.sectionInner}>
@@ -152,37 +213,38 @@ export default async function EventDetailPage({
             Upcoming Events
           </Link>
           <ChevronRight size={13} strokeWidth={2} className={styles.breadcrumbSeparator} aria-hidden="true" />
-          <span className={styles.breadcrumbCurrent}>{event.title}</span>
+          <span className={styles.breadcrumbCurrent}>{matchedEvent.title}</span>
         </nav>
 
         <article className={styles.card}>
           <div className={styles.media}>
             <Image
-              src={event.image}
-              alt={event.title}
+              src={matchedEvent.image}
+              alt={matchedEvent.title}
               fill
               sizes="(min-width: 768px) 48vw, 100vw"
+              style={{ objectFit: "cover" }}
             />
           </div>
 
           <div className={styles.body}>
             <div className={styles.metaRow}>
-              <span className={styles.date}>{event.date}</span>
+              <span className={styles.date}>{matchedEvent.date}</span>
               <span className={`${styles.status} ${statusClass}`}>
-                {event.status}
+                {matchedEvent.status}
               </span>
             </div>
 
             <h1 id="event-detail-heading" className={styles.title}>
-              {event.title}
+              {matchedEvent.title}
             </h1>
 
             <p className={styles.location}>
               <MapPin size={14} strokeWidth={2} aria-hidden="true" />
-              {event.location}
+              {matchedEvent.location}
             </p>
 
-            <p className={styles.desc}>{event.description}</p>
+            <p className={styles.desc}>{matchedEvent.description}</p>
 
             <ul className={styles.facts} style={{ listStyle: "none" }}>
               <li className={styles.fact}>
@@ -190,42 +252,74 @@ export default async function EventDetailPage({
                   <CalendarDays size={14} strokeWidth={2} aria-hidden="true" />
                   Date
                 </span>
-                <span className={styles.factValue}>{event.date}</span>
-              </li>
-              <li className={styles.fact}>
-                <span className={styles.factLabel}>
-                  <MapPin size={14} strokeWidth={2} aria-hidden="true" />
-                  Location
-                </span>
-                <span className={styles.factValue}>{event.location}</span>
-              </li>
-              <li className={styles.fact}>
-                <span className={styles.factLabel}>
-                  <Tag size={14} strokeWidth={2} aria-hidden="true" />
-                  Category
-                </span>
-                <span className={styles.factValue}>{event.category}</span>
-              </li>
-              <li className={styles.fact}>
-                <span className={styles.factLabel}>
-                  <Users size={14} strokeWidth={2} aria-hidden="true" />
-                  Entry
-                </span>
-                <span className={styles.factValue}>Free for all</span>
+                <span className={styles.factValue}>{matchedEvent.date}</span>
               </li>
               <li className={styles.fact}>
                 <span className={styles.factLabel}>
                   <Clock size={14} strokeWidth={2} aria-hidden="true" />
                   Timings
                 </span>
-                <span className={styles.factValue}>10:00 AM onwards</span>
+                <span className={styles.factValue}>{eventTimeStr}</span>
               </li>
+              <li className={styles.fact}>
+                <span className={styles.factLabel}>
+                  <MapPin size={14} strokeWidth={2} aria-hidden="true" />
+                  Venue / Location
+                </span>
+                <span className={styles.factValue}>{eventVenueStr}</span>
+              </li>
+              <li className={styles.fact}>
+                <span className={styles.factLabel}>
+                  <Tag size={14} strokeWidth={2} aria-hidden="true" />
+                  Category
+                </span>
+                <span className={styles.factValue}>{matchedEvent.category}</span>
+              </li>
+              <li className={styles.fact}>
+                <span className={styles.factLabel}>
+                  <Users size={14} strokeWidth={2} aria-hidden="true" />
+                  Entry
+                </span>
+                <span className={styles.factValue}>
+                  {rawDbEvent?.registration_required
+                    ? "Registration Required"
+                    : "Free Entry / Open to Public"}
+                </span>
+              </li>
+              {rawDbEvent?.capacity ? (
+                <li className={styles.fact}>
+                  <span className={styles.factLabel}>
+                    <Users size={14} strokeWidth={2} aria-hidden="true" />
+                    Capacity
+                  </span>
+                  <span className={styles.factValue}>
+                    {rawDbEvent.capacity} Attendees
+                  </span>
+                </li>
+              ) : null}
             </ul>
 
-            <div className={styles.actions}>
+            <div className={styles.actions} style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
               <Link href="/events/all" className={styles.btnLight}>
                 <ArrowLeft size={15} strokeWidth={2.2} aria-hidden="true" />
                 Back to All Events
+              </Link>
+              <Link
+                href={donateHref}
+                className={shared.btnGold}
+                style={{
+                  color: "#0a2540",
+                  fontWeight: 700,
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "12px 24px",
+                  borderRadius: "8px",
+                }}
+              >
+                <Heart size={16} fill="currentColor" aria-hidden="true" />
+                Donate for this Event
               </Link>
             </div>
           </div>

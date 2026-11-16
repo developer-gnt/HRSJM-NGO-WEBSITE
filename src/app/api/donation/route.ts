@@ -12,6 +12,7 @@ export async function POST(request: Request) {
       cause,
       isAnonymous,
       remark,
+      eventId,
     } = body;
 
     const numAmount = Number(amount);
@@ -29,6 +30,10 @@ export async function POST(request: Request) {
       ? "Anonymous Donor"
       : donorName?.trim() || "Kind Citizen";
 
+    const finalRemark =
+      remark?.trim() ||
+      (eventId ? `Website Donation for Event ID: ${eventId}` : "Donation from Public Website");
+
     // 1. Create donation in backend database
     let backendDonation: any = null;
     try {
@@ -39,7 +44,8 @@ export async function POST(request: Request) {
         amount: numAmount,
         cause: cause || "General Support & Human Rights Protection",
         isAnonymous: Boolean(isAnonymous),
-        remark: remark?.trim() || undefined,
+        remark: finalRemark,
+        source: "Website",
       });
     } catch (err: any) {
       console.warn("Backend donation record warning:", err.message);
