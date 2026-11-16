@@ -226,7 +226,7 @@ export default function MembershipRenewPage() {
                     className={`${styles.tierBtn} ${isSelected ? styles.tierBtnActive : ""
                       }`}
                   >
-                    {isSelected ? "Selected Tier" : "Select Tier"}
+                    Select Tier
                   </Link>
                 </div>
               );

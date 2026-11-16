@@ -88,7 +88,7 @@ export async function generateMetadata({
         description: dbEvent.short_information || dbEvent.description,
       };
     }
-  } catch {}
+  } catch { }
 
   // 2. Check static data
   const staticEvent = events.find((item) => item.id === slug);
@@ -303,7 +303,7 @@ export default async function EventDetailPage({
             </ul>
 
             <div className={styles.actions} style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
-              <Link href="/events/all" className={styles.btnLight}>
+              <Link href="/events/" className={styles.btnLight}>
                 <ArrowLeft size={15} strokeWidth={2.2} aria-hidden="true" />
                 Back to All Events
               </Link>
