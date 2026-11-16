@@ -195,6 +195,7 @@ export default async function EventDetailPage({
     : "10:00 AM onwards";
 
   const eventVenueStr = rawDbEvent?.address || matchedEvent.location;
+  const isDonationEnabled = Boolean(rawDbEvent?.is_donation_enabled);
   const donateHref = `/donation?event_id=${matchedEvent.id}&cause=${encodeURIComponent(
     "Event: " + matchedEvent.title
   )}`;
@@ -307,23 +308,25 @@ export default async function EventDetailPage({
                 <ArrowLeft size={15} strokeWidth={2.2} aria-hidden="true" />
                 Back to All Events
               </Link>
-              <Link
-                href={donateHref}
-                className={shared.btnGold}
-                style={{
-                  color: "#0a2540",
-                  fontWeight: 700,
-                  textDecoration: "none",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "12px 24px",
-                  borderRadius: "8px",
-                }}
-              >
-                <Heart size={16} fill="currentColor" aria-hidden="true" />
-                Donate for this Event
-              </Link>
+              {isDonationEnabled && (
+                <Link
+                  href={donateHref}
+                  className={shared.btnGold}
+                  style={{
+                    color: "#0a2540",
+                    fontWeight: 700,
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "12px 24px",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <Heart size={16} fill="currentColor" aria-hidden="true" />
+                  Donate for this Event
+                </Link>
+              )}
             </div>
           </div>
         </article>

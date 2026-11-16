@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createBackendDonation, createCashfreeOrder } from "@/lib/backendApi";
+import { createBackendDonation, createCashfreeOrder, fetchEventById } from "@/lib/backendApi";
 
 export async function POST(request: Request) {
   try {
@@ -24,6 +24,24 @@ export async function POST(request: Request) {
         },
         { status: 400 }
       );
+    }
+
+    // Event donation eligibility check
+    if (eventId) {
+      try {
+        const ev = await fetchEventById(eventId);
+        if (ev && !ev.is_donation_enabled) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: `Donations are currently disabled for event "${ev.title}". Please contribute to our general support causes.`,
+            },
+            { status: 400 }
+          );
+        }
+      } catch (evErr: any) {
+        console.warn("Event donation check warning:", evErr.message);
+      }
     }
 
     const resolvedName = isAnonymous

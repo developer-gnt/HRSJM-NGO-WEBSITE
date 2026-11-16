@@ -83,7 +83,8 @@ export default function DonationForm() {
         if (res.ok) {
           const data = await res.json();
           if (isMounted && data.success && Array.isArray(data.items)) {
-            setUpcomingEvents(data.items);
+            const donationEvents = data.items.filter((ev: BackendEvent) => Boolean(ev.is_donation_enabled));
+            setUpcomingEvents(donationEvents);
           }
         }
       } catch (err) {
@@ -121,15 +122,25 @@ export default function DonationForm() {
       if (paramEmail) setDonorEmail(paramEmail);
       if (paramCause) setSelectedCause(paramCause);
       if (paramEventId) {
-        setSelectedEventId(paramEventId);
-        // Look up event details
+        // Look up event details and verify donation availability
         fetch(`/api/events/${encodeURIComponent(paramEventId)}`)
           .then((r) => r.json())
           .then((d) => {
             if (d.success && d.event) {
-              setSelectedEventDetails(d.event);
-              if (!paramCause) {
-                setSelectedCause(`Event: ${d.event.title}`);
+              if (Boolean(d.event.is_donation_enabled)) {
+                setSelectedEventId(paramEventId);
+                setSelectedEventDetails(d.event);
+                if (!paramCause) {
+                  setSelectedCause(`Event: ${d.event.title}`);
+                }
+              } else {
+                setMessage({
+                  type: "error",
+                  text: `Donations are not enabled for "${d.event.title}". You are redirected to our general support fund.`,
+                });
+                setSelectedEventId(null);
+                setSelectedEventDetails(null);
+                setSelectedCause("General Support & Human Rights Protection");
               }
             }
           })

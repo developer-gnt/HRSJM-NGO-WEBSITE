@@ -80,7 +80,7 @@ export default async function FeaturedEvent() {
               <Link href={detailHref} className={styles.btnLight}>
                 View Details
               </Link>
-              {featuredEvent.is_donation_enabled !== false && (
+              {Boolean(featuredEvent.is_donation_enabled) && (
                 <Link
                   href={donateHref}
                   className={styles.btnGold}
