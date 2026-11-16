@@ -86,7 +86,9 @@ export default function PastActivities({
   const filteredActivities = useMemo(() => {
     return activeCategory === "All"
       ? activities
-      : activities.filter((activity) => activity.category.toLowerCase() === activeCategory.toLowerCase());
+      : activities.filter(
+          (activity) => activity.category.toLowerCase() === activeCategory.toLowerCase()
+        );
   }, [activeCategory, activities]);
 
   const N = filteredActivities.length;
@@ -172,7 +174,9 @@ export default function PastActivities({
     const newFiltered =
       category === "All"
         ? activities
-        : activities.filter((activity) => activity.category.toLowerCase() === category.toLowerCase());
+        : activities.filter(
+            (activity) => activity.category.toLowerCase() === category.toLowerCase()
+          );
     offsetRef.current = newFiltered.length;
     glideRef.current = null;
   };
@@ -191,141 +195,117 @@ export default function PastActivities({
     let raf = 0;
     let last = performance.now();
 
-    const tick = (now: number) => {
-      const dt = (now - last) / 1000;
+    const step = (now: number) => {
+      const dt = Math.min(now - last, 100);
       last = now;
 
-      if (glideRef.current) {
-        const { from, to, start } = glideRef.current;
-        const elapsed = now - start;
-        const progress = Math.min(1, elapsed / GLIDE_DURATION_MS);
-        const eased = easeOutCubic(progress);
-
-        offsetRef.current = from + (to - from) * eased;
-
+      const glide = glideRef.current;
+      if (glide) {
+        const progress = Math.min((now - glide.start) / GLIDE_DURATION_MS, 1);
+        offsetRef.current = glide.from + (glide.to - glide.from) * easeOutCubic(progress);
         if (progress >= 1) {
-          offsetRef.current = to;
+          offsetRef.current = glide.to;
           glideRef.current = null;
         }
-
         while (offsetRef.current >= N * 2) offsetRef.current -= N;
         while (offsetRef.current < N) offsetRef.current += N;
-
         applyTransform();
       } else if (!pausedRef.current && inViewRef.current && !isDragging.current) {
-        offsetRef.current += dt * DRIFT_CARDS_PER_SECOND;
+        offsetRef.current += (dt / 1000) * DRIFT_CARDS_PER_SECOND;
         while (offsetRef.current >= N * 2) offsetRef.current -= N;
         applyTransform();
       }
 
-      raf = requestAnimationFrame(tick);
+      raf = requestAnimationFrame(step);
     };
 
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [N, applyTransform]);
+    raf = requestAnimationFrame(step);
 
-  // IntersectionObserver to pause when off-screen
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel || typeof IntersectionObserver === "undefined") return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        inViewRef.current = entry.isIntersecting;
+    const inViewObserver = new IntersectionObserver(
+      (entries) => {
+        inViewRef.current = entries[0]?.isIntersecting ?? true;
       },
       { threshold: 0.1 }
     );
+    inViewObserver.observe(carousel);
 
-    observer.observe(carousel);
-    return () => observer.disconnect();
-  }, []);
+    const pause = () => {
+      pausedRef.current = true;
+    };
+    const resume = () => {
+      pausedRef.current = false;
+    };
 
-  // Pointer drag interactions
-  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (N === 0) return;
-    pointerStart.current = { x: e.clientX, y: e.clientY };
+    const canHover = window.matchMedia("(hover: hover)").matches;
+    if (canHover) {
+      carousel.addEventListener("mouseenter", pause);
+      carousel.addEventListener("mouseleave", resume);
+    }
+    carousel.addEventListener("focusin", pause);
+    carousel.addEventListener("focusout", resume);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      inViewObserver.disconnect();
+      if (canHover) {
+        carousel.removeEventListener("mouseenter", pause);
+        carousel.removeEventListener("mouseleave", resume);
+      }
+      carousel.removeEventListener("focusin", pause);
+      carousel.removeEventListener("focusout", resume);
+    };
+  }, [applyTransform, N]);
+
+  // Touch and drag handling
+  const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    pointerStart.current = { x: event.clientX, y: event.clientY };
     isDragging.current = false;
-    glideRef.current = null;
   };
 
-  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (!pointerStart.current || N === 0) return;
-    const dx = e.clientX - pointerStart.current.x;
-
-    if (!isDragging.current && Math.abs(dx) > 6) {
+  const onPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!pointerStart.current) return;
+    const dx = event.clientX - pointerStart.current.x;
+    if (Math.abs(dx) > 8) {
       isDragging.current = true;
-      try {
-        e.currentTarget.setPointerCapture(e.pointerId);
-      } catch {}
-    }
-
-    if (isDragging.current) {
-      const carouselWidth = carouselRef.current?.offsetWidth || 1;
-      const cardWidth = carouselWidth / visibleRef.current;
-      const deltaCards = dx / cardWidth;
-
-      offsetRef.current -= deltaCards;
-      pointerStart.current = { x: e.clientX, y: e.clientY };
-
-      while (offsetRef.current >= N * 2) offsetRef.current -= N;
-      while (offsetRef.current < N) offsetRef.current += N;
-
-      applyTransform();
     }
   };
 
-  const onPointerUp = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (isDragging.current) {
-      try {
-        e.currentTarget.releasePointerCapture(e.pointerId);
-      } catch {}
-      glideRef.current = {
-        from: offsetRef.current,
-        to: Math.round(offsetRef.current),
-        start: performance.now(),
-      };
-    }
+  const onPointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const start = pointerStart.current;
     pointerStart.current = null;
+    if (!start) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) {
+      nudge(dx < 0 ? 1 : -1);
+    }
     setTimeout(() => {
       isDragging.current = false;
-    }, 50);
+    }, 60);
   };
 
-  const handleClickCapture = (e: ReactMouseEvent) => {
+  const handleClickCapture = (event: ReactMouseEvent) => {
     if (isDragging.current) {
-      e.preventDefault();
-      e.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
     }
   };
 
-  const onKeyDown = (e: ReactKeyboardEvent) => {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
+  const onKeyDown = (event: ReactKeyboardEvent) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
       nudge(-1);
-    } else if (e.key === "ArrowRight") {
-      e.preventDefault();
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
       nudge(1);
     }
   };
 
   return (
     <section
-      id="past-activities"
-      className={styles.past}
-      aria-labelledby="past-heading"
-      onMouseEnter={() => {
-        pausedRef.current = true;
-      }}
-      onMouseLeave={() => {
-        pausedRef.current = false;
-      }}
-      onFocusCapture={() => {
-        pausedRef.current = true;
-      }}
-      onBlurCapture={() => {
-        pausedRef.current = false;
-      }}
+      id="activities"
+      className={styles.pastActivities}
+      aria-labelledby="past-activities-heading"
     >
       <div className={styles.sectionInner}>
         <div className={styles.pastHeader}>
@@ -334,7 +314,7 @@ export default function PastActivities({
               <span className={styles.eyebrowDot} aria-hidden="true" />
               Past Events
             </p>
-            <h2 id="past-heading" className={styles.pastTitle}>
+            <h2 id="past-activities-heading" className={styles.pastTitle}>
               Our Activities in Action
             </h2>
             <p className={styles.pastSub}>
@@ -342,16 +322,16 @@ export default function PastActivities({
             </p>
           </div>
 
-          <ul className={styles.categoryPills} role="tablist" aria-label="Filter activities by category">
+          <ul className={styles.pastFilters} aria-label="Filter activities by category">
             {categories.map((category) => (
-              <li key={category} role="presentation">
+              <li key={category}>
                 <button
                   type="button"
-                  role="tab"
-                  className={`${styles.pill} ${
-                    category === activeCategory ? styles.pillActive : ""
-                  }`}
-                  aria-selected={category === activeCategory}
+                  className={
+                    category === activeCategory
+                      ? `${styles.filterBtn} ${styles.filterBtnActive}`
+                      : styles.filterBtn
+                  }
                   aria-pressed={category === activeCategory}
                   onClick={() => handleCategoryChange(category)}
                 >
