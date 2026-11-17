@@ -5,6 +5,57 @@ import {
   verifyDirectlyWithCashfree,
   verifyCashfreeSubscription,
 } from "@/lib/backendApi";
+import { sendDonationReceiptEmail } from "@/lib/emailService";
+
+async function dispatchDonationReceiptSafely(data: any, orderId: string, isSub = false) {
+  try {
+    const raw = data?.data || data?.payment || data;
+    const email =
+      raw?.customer_details?.customer_email ||
+      raw?.customer_email ||
+      raw?.donor_email ||
+      raw?.user?.email ||
+      data?.customer_details?.customer_email;
+    const name =
+      raw?.customer_details?.customer_name ||
+      raw?.customer_name ||
+      raw?.donor_name ||
+      raw?.user?.full_name ||
+      data?.customer_details?.customer_name ||
+      "Generous Supporter";
+    const amount =
+      raw?.payment_amount ||
+      raw?.order_amount ||
+      raw?.amount ||
+      raw?.plan_amount ||
+      data?.payment_amount ||
+      data?.order_amount ||
+      500;
+    const paymentId =
+      raw?.cf_payment_id ||
+      raw?.gateway_payment_id ||
+      raw?.payment_id ||
+      orderId;
+    const cause =
+      raw?.order_note ||
+      raw?.cause ||
+      "General Support & Human Rights Protection";
+
+    if (email && typeof email === "string" && email.includes("@")) {
+      await sendDonationReceiptEmail({
+        donorName: String(name),
+        donorEmail: String(email),
+        amount: Number(amount) || amount,
+        orderId: orderId,
+        paymentId: String(paymentId),
+        cause: String(cause),
+        isRecurring: isSub,
+      });
+    }
+  } catch (err: any) {
+    console.error("Auto donation receipt dispatch warning:", err.message);
+  }
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -20,6 +71,7 @@ export async function GET(request: NextRequest) {
     if (subId && !orderId) {
       try {
         const subData = await verifyCashfreeSubscription(subId);
+        dispatchDonationReceiptSafely(subData, subId, true).catch(console.error);
         return NextResponse.json({
           success: true,
           isSubscription: true,
@@ -72,9 +124,11 @@ export async function GET(request: NextRequest) {
           (json.data?.status === "SUCCESS" || json.status === "SUCCESS");
 
         if (isSuccess) {
+          const successPayload = json.data || json;
+          dispatchDonationReceiptSafely(successPayload, orderId, false).catch(console.error);
           return NextResponse.json({
             success: true,
-            data: json.data || json,
+            data: successPayload,
           });
         }
 
@@ -96,6 +150,7 @@ export async function GET(request: NextRequest) {
     try {
       const directRes = await verifyDirectlyWithCashfree(orderId);
       if (directRes && (directRes.status === "SUCCESS" || directRes.latest_status === "SUCCESS")) {
+        dispatchDonationReceiptSafely(directRes, orderId, false).catch(console.error);
         return NextResponse.json({
           success: true,
           data: directRes,
@@ -127,9 +182,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    const finalPayload = json.data || json;
+    dispatchDonationReceiptSafely(finalPayload, orderId, false).catch(console.error);
     return NextResponse.json({
       success: true,
-      data: json.data || json,
+      data: finalPayload,
     });
   } catch (error: any) {
     console.error("Payment verification proxy error:", error);
