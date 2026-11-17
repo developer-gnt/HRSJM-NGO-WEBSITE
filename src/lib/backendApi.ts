@@ -1,18 +1,18 @@
-const LOCAL_BACKEND_URL = "http://localhost:3000/api/v1";
-const PROD_BACKEND_URL = "http://187.126.121.157/:3000/api/v1";
+const LOCAL_BACKEND_URL = process.env.BACKEND_API_URL || "http://127.0.0.1:5000/api/v1";
+const PROD_BACKEND_URL = process.env.BACKEND_API_URL || "http://127.0.0.1:5000/api/v1";
 
 export function getBackendApiUrl(): string {
   // 1. Check explicit URL from environment
   const envUrl =
     typeof window === "undefined"
       ? process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL
-      : process.env.NEXT_PUBLIC_API_URL;
+      : process.env.NEXT_PUBLIC_API_URL || "https://hrsjm.org/api/v1";
 
   if (envUrl && envUrl.trim().length > 0) {
-    return envUrl.trim();
+    return envUrl.trim().replace(/\/+$/, "");
   }
 
-  // 2. Check if running on Vercel or production mode
+  // 2. Check if running on production mode
   const isProd =
     process.env.NODE_ENV === "production" ||
     Boolean(process.env.VERCEL) ||
