@@ -484,7 +484,7 @@ export default function DonationForm() {
               )}
             </div>
 
-            {/* Frequency Selector: One-Time vs Monthly Recurring AutoPay */}
+            {/* Monthly AutoPay Toggle (Temporarily commented out)
             <div
               style={{
                 display: "flex",
@@ -574,6 +574,7 @@ export default function DonationForm() {
                 </span>
               </div>
             )}
+            */}
 
             <h3 className={styles.formHeading}>Choose an Amount</h3>
             <p className={styles.formSubheading}>
