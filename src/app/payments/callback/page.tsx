@@ -19,11 +19,40 @@ import { verifyCashfreeOrder } from "@/lib/backendApi";
 function PaymentCallbackContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("order_id") || searchParams.get("orderId");
+  const rawSubId =
+    searchParams.get("sub_id") ||
+    searchParams.get("subId") ||
+    searchParams.get("subscription_id") ||
+    searchParams.get("subscriptionId");
+  const subId = rawSubId && !rawSubId.includes("{") ? rawSubId : null;
 
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<any | null>(null);
+  const [isSubscription, setIsSubscription] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [retryAttempt, setRetryAttempt] = useState(1);
+
+  const verifySubscription = async (sid: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/payments/verify?sub_id=${encodeURIComponent(sid)}`, {
+        cache: "no-store",
+      });
+      const data = await res.json();
+      if (data?.success && data?.data) {
+        setResult(data.data);
+        setIsSubscription(true);
+        setError(null);
+      } else {
+        setError(data?.error || "Could not verify subscription mandate status.");
+      }
+    } catch (err: any) {
+      setError(err?.message || "Failed to verify recurring mandate.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const verifyPayment = async (oid: string, maxAttempts = 3) => {
     setIsLoading(true);
@@ -85,13 +114,15 @@ function PaymentCallbackContent() {
   };
 
   useEffect(() => {
-    if (orderId) {
+    if (subId) {
+      verifySubscription(subId);
+    } else if (orderId) {
       verifyPayment(orderId);
     } else {
       setIsLoading(false);
-      setError("No Cashfree order reference provided in callback URL.");
+      setError("No Cashfree order or subscription reference provided in callback URL.");
     }
-  }, [orderId]);
+  }, [orderId, subId]);
 
   if (isLoading) {
     return (
@@ -133,10 +164,12 @@ function PaymentCallbackContent() {
   const isSuccess =
     result?.status === "SUCCESS" ||
     result?.payment?.payment_status === "SUCCESS" ||
-    result?.data?.status === "SUCCESS";
+    result?.data?.status === "SUCCESS" ||
+    (isSubscription && ["ACTIVE", "INITIALIZED", "BANK_APPROVAL_PENDING"].includes(result?.status));
   const paymentData = result?.payment || result?.data?.payment || result;
   const receiptData = result?.receipt || result?.data?.receipt;
   const isDonation =
+    isSubscription ||
     orderId?.toLowerCase().includes("don") ||
     result?.purpose?.toLowerCase().includes("donation");
 
@@ -305,15 +338,21 @@ function PaymentCallbackContent() {
             marginBottom: 10,
           }}
         >
-          Payment Verified
+          {isSubscription ? "Monthly AutoPay Mandate Active" : "Payment Verified"}
         </span>
 
         <h1 style={{ fontSize: 24, fontWeight: 800, color: "#0a3a6b", margin: "0 0 8px 0" }}>
-          {isDonation ? "Donation Successfully Received!" : "Membership Application Verified!"}
+          {isSubscription
+            ? "Monthly Contribution Mandate Confirmed!"
+            : isDonation
+            ? "Donation Successfully Received!"
+            : "Membership Application Verified!"}
         </h1>
 
         <p style={{ fontSize: 13.5, color: "#64748b", margin: "0 0 24px 0", lineHeight: 1.5 }}>
-          {isDonation
+          {isSubscription
+            ? "Thank you for joining our mission with a recurring monthly contribution. Your support provides predictable, lasting impact for human dignity and legal aid."
+            : isDonation
             ? "Thank you for your generous support towards human dignity and justice. Your official donation receipt has been recorded."
             : "Your membership application payment has been confirmed. Welcome to Human Rights & Social Justice Mission."}
         </p>
@@ -334,16 +373,23 @@ function PaymentCallbackContent() {
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #f1f5f9", paddingBottom: 8 }}>
-            <span style={{ color: "#64748b" }}>Transaction Status:</span>
+            <span style={{ color: "#64748b" }}>Mandate Status:</span>
             <strong style={{ color: "#059669", display: "flex", alignItems: "center", gap: 4 }}>
-              <ShieldCheck size={14} /> Confirmed via Cashfree
+              <ShieldCheck size={14} /> {isSubscription ? "AutoPay Active (Cashfree)" : "Confirmed via Cashfree"}
             </strong>
           </div>
 
           <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #f1f5f9", paddingBottom: 8 }}>
-            <span style={{ color: "#64748b" }}>Cashfree Order ID:</span>
-            <span style={{ fontFamily: "monospace", color: "#1e293b", fontWeight: 600 }}>{orderId}</span>
+            <span style={{ color: "#64748b" }}>{isSubscription ? "Mandate / Sub ID:" : "Cashfree Order ID:"}</span>
+            <span style={{ fontFamily: "monospace", color: "#1e293b", fontWeight: 600 }}>{subId || orderId}</span>
           </div>
+
+          {isSubscription && (
+            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #f1f5f9", paddingBottom: 8 }}>
+              <span style={{ color: "#64748b" }}>Billing Frequency:</span>
+              <strong style={{ color: "#0a3a6b" }}>Monthly Recurring (Auto-Debit)</strong>
+            </div>
+          )}
 
           {receiptData?.receipt_number && (
             <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #f1f5f9", paddingBottom: 8 }}>
@@ -352,10 +398,10 @@ function PaymentCallbackContent() {
             </div>
           )}
 
-          {paymentData?.amount && (
+          {(paymentData?.amount || result?.amount) && (
             <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #f1f5f9", paddingBottom: 8 }}>
-              <span style={{ color: "#64748b" }}>Amount Paid:</span>
-              <strong style={{ fontSize: 16, color: "#0a3a6b" }}>₹{Number(paymentData.amount).toLocaleString("en-IN")}</strong>
+              <span style={{ color: "#64748b" }}>{isSubscription ? "Monthly Amount:" : "Amount Paid:"}</span>
+              <strong style={{ fontSize: 16, color: "#0a3a6b" }}>₹{Number(paymentData?.amount || result?.amount).toLocaleString("en-IN")}{isSubscription ? " / Month" : ""}</strong>
             </div>
           )}
 

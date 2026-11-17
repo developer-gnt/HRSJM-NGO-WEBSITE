@@ -5,7 +5,7 @@ let globalPool: Pool | null = null;
 export function getDbPool(): Pool {
   if (!globalPool) {
     globalPool = new Pool({
-      host: process.env.DB_HOST || '194.164.151.17',
+      host: process.env.DB_HOST || 'http://187.126.121.157/',
       port: Number(process.env.DB_PORT) || 5432,
       user: process.env.DB_USER || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',

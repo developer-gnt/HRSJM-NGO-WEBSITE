@@ -362,7 +362,7 @@ The website interfaces with the HRSJM Backend REST API (`/api/v1`). To guarantee
 ```typescript
 // Architectural Pattern in src/lib/backendApi.ts
 const LOCAL_BACKEND_URL = "http://localhost:3000/api/v1";
-const PROD_BACKEND_URL  = "http://194.164.151.17:3000/api/v1";
+const PROD_BACKEND_URL  = "http://187.126.121.157/:3000/api/v1";
 
 export async function backendFetch(endpointPath: string, init?: RequestInit): Promise<Response> {
   const primaryBase = getBackendApiUrl();

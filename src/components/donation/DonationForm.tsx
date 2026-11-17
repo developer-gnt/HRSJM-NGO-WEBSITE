@@ -18,6 +18,7 @@ import {
   Loader2,
   MapPin,
   CheckCircle2,
+  ShieldCheck,
 } from "lucide-react";
 import { launchCashfreeCheckout } from "@/lib/cashfreeCheckout";
 import { formatEventDate, type BackendEvent } from "@/lib/backendApi";
@@ -53,6 +54,7 @@ const formatINR = (value: number) =>
 export default function DonationForm() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(5000);
   const [customValue, setCustomValue] = useState("5000");
+  const [donationFrequency, setDonationFrequency] = useState<"ONE_TIME" | "MONTHLY">("ONE_TIME");
   const [donorName, setDonorName] = useState("");
   const [donorPhone, setDonorPhone] = useState("");
   const [donorEmail, setDonorEmail] = useState("");
@@ -226,6 +228,55 @@ export default function DonationForm() {
     setMessage(null);
 
     try {
+      if (donationFrequency === "MONTHLY") {
+        const res = await fetch("/api/donation/subscription", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount,
+            frequency: "MONTHLY",
+            donorName: isAnonymous
+              ? "Anonymous Donor"
+              : donorName.trim() || "Kind Citizen",
+            donorMobile: donorPhone.trim() || undefined,
+            donorEmail: donorEmail.trim() || undefined,
+            cause: selectedCause || "General Support & Human Rights Protection",
+            eventId: selectedEventId || undefined,
+          }),
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          setMessage({
+            type: "error",
+            text:
+              data.error ||
+              "Failed to initialize recurring AutoPay session. Please try again.",
+          });
+          return;
+        }
+
+        const sessionId = data.subscription?.subscription_session_id;
+        if (sessionId) {
+          setMessage({
+            type: "info",
+            text: "Opening Cashfree secure payment gateway...",
+          });
+          await launchCashfreeCheckout({
+            paymentSessionId: sessionId,
+            redirectTarget: "_self",
+          });
+        } else {
+          setMessage({
+            type: "error",
+            text: "Could not create payment gateway session. Please try again.",
+          });
+          setSubmitting(false);
+        }
+        return;
+      }
+
+      // One-time standard donation
       const res = await fetch("/api/donation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -433,6 +484,97 @@ export default function DonationForm() {
               )}
             </div>
 
+            {/* Frequency Selector: One-Time vs Monthly Recurring AutoPay */}
+            <div
+              style={{
+                display: "flex",
+                background: "#f1f5f9",
+                borderRadius: "10px",
+                padding: "4px",
+                marginBottom: "20px",
+                gap: "4px",
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => setDonationFrequency("ONE_TIME")}
+                style={{
+                  flex: 1,
+                  padding: "10px 14px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: donationFrequency === "ONE_TIME" ? "#ffffff" : "transparent",
+                  color: donationFrequency === "ONE_TIME" ? "var(--color-navy, #0a3a6b)" : "#64748b",
+                  fontWeight: 700,
+                  fontSize: "13.5px",
+                  cursor: "pointer",
+                  boxShadow: donationFrequency === "ONE_TIME" ? "0 2px 8px rgba(0,0,0,0.08)" : "none",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                One-Time Donation
+              </button>
+              <button
+                type="button"
+                onClick={() => setDonationFrequency("MONTHLY")}
+                style={{
+                  flex: 1,
+                  padding: "10px 14px",
+                  borderRadius: "8px",
+                  border: "none",
+                  background: donationFrequency === "MONTHLY" ? "#0a3a6b" : "transparent",
+                  color: donationFrequency === "MONTHLY" ? "#ffffff" : "#64748b",
+                  fontWeight: 700,
+                  fontSize: "13.5px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "6px",
+                  boxShadow: donationFrequency === "MONTHLY" ? "0 2px 8px rgba(10,58,107,0.2)" : "none",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                <RefreshCw size={14} />
+                Monthly AutoPay
+                <span
+                  style={{
+                    fontSize: "10px",
+                    background: donationFrequency === "MONTHLY" ? "#f59e0b" : "#e2e8f0",
+                    color: donationFrequency === "MONTHLY" ? "#0f172a" : "#475569",
+                    padding: "1px 6px",
+                    borderRadius: "10px",
+                    fontWeight: 800,
+                  }}
+                >
+                  RECURRING
+                </span>
+              </button>
+            </div>
+
+            {donationFrequency === "MONTHLY" && (
+              <div
+                style={{
+                  background: "#eff6ff",
+                  border: "1px solid #bfdbfe",
+                  borderRadius: "10px",
+                  padding: "12px 14px",
+                  marginBottom: "20px",
+                  fontSize: "12.5px",
+                  color: "#1e40af",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "10px",
+                  lineHeight: 1.5,
+                }}
+              >
+                <ShieldCheck size={18} color="#2563eb" style={{ flexShrink: 0, marginTop: "1px" }} />
+                <span>
+                  <strong>Hassle-Free Monthly Auto-Debit:</strong> Authenticate once via <strong>UPI AutoPay (GPay, PhonePe, Paytm)</strong> or <strong>Card</strong>. Your chosen contribution automatically processes once a month, keeping our human rights missions funded. Cancel anytime.
+                </span>
+              </div>
+            )}
+
             <h3 className={styles.formHeading}>Choose an Amount</h3>
             <p className={styles.formSubheading}>
               Your contribution helps us continue our mission for human rights
@@ -615,7 +757,9 @@ export default function DonationForm() {
               ) : (
                 <>
                   <Heart size={16} fill="currentColor" aria-hidden="true" />
-                  Proceed to Donate {selectedAmount ? formatINR(selectedAmount) : customValue ? `₹${customValue}` : ""}
+                  {donationFrequency === "MONTHLY"
+                    ? `Set Up Monthly AutoPay of ${selectedAmount ? formatINR(selectedAmount) : customValue ? `₹${customValue}` : ""} / Month`
+                    : `Proceed to Donate ${selectedAmount ? formatINR(selectedAmount) : customValue ? `₹${customValue}` : ""}`}
                   <ArrowRight size={17} strokeWidth={2.2} aria-hidden="true" />
                 </>
               )}

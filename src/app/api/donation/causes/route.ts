@@ -297,7 +297,7 @@ export async function GET() {
   } catch {
     // 2. If primary fails (e.g. localhost offline), try VPS endpoint
     try {
-      const vpsUrl = "http://194.164.151.17:3000/api/v1/assistance-requests/approved";
+      const vpsUrl = "http://187.126.121.157/:3000/api/v1/assistance-requests/approved";
       const res = await fetch(vpsUrl, { cache: "no-store", signal: AbortSignal.timeout(3000) });
       if (res.ok) {
         const data = await res.json();

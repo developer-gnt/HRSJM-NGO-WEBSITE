@@ -1,14 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
-import { backendFetch, extractErrorMessage, verifyDirectlyWithCashfree } from "@/lib/backendApi";
+import {
+  backendFetch,
+  extractErrorMessage,
+  verifyDirectlyWithCashfree,
+  verifyCashfreeSubscription,
+} from "@/lib/backendApi";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const orderId = searchParams.get("order_id") || searchParams.get("orderId");
+    const subId =
+      searchParams.get("sub_id") ||
+      searchParams.get("subId") ||
+      searchParams.get("subscription_id") ||
+      searchParams.get("subscriptionId");
+
+    // Handle Subscription / AutoPay verification
+    if (subId && !orderId) {
+      try {
+        const subData = await verifyCashfreeSubscription(subId);
+        return NextResponse.json({
+          success: true,
+          isSubscription: true,
+          data: subData,
+        });
+      } catch (subErr: any) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: subErr.message || "Failed to verify recurring subscription status",
+          },
+          { status: 500 }
+        );
+      }
+    }
 
     if (!orderId) {
       return NextResponse.json(
-        { success: false, error: "Missing order_id parameter" },
+        { success: false, error: "Missing order_id or sub_id parameter" },
         { status: 400 }
       );
     }
