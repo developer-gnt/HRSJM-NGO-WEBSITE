@@ -879,6 +879,12 @@
   letter-spacing: 0.02em;
 }
 
+.donorNamePhoneGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
 /* Tablet */
 @media (max-width: 1023px) {
   .donateLayout {
@@ -895,7 +901,20 @@
 /* Mobile */
 @media (max-width: 639px) {
   .donateLayout {
-    padding: 44px 0;
+    padding: 36px 0;
+    min-width: 0;
+  }
+
+  .donateCard {
+    padding: 18px 14px;
+    border-radius: 12px;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .donorNamePhoneGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .customRow {
@@ -904,12 +923,68 @@
 
   .quickAmounts {
     justify-content: space-between;
+    gap: 8px;
   }
 
   .quickButton {
     flex: 1;
     min-width: 0;
-    padding-inline: 8px;
+    padding: 10px 6px;
+    font-size: 13px;
+  }
+
+  .donateButton {
+    font-size: 14.5px;
+    padding: 12px 14px;
+    min-height: 48px;
+  }
+
+  .secureRow {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 18px;
+    text-align: center;
+  }
+
+  .secureText {
+    font-size: 12px;
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .paymentMarks {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .amountGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .amountCard {
+    padding: 16px 6px 12px;
+    min-width: 0;
+  }
+
+  .amountValue {
+    font-size: 18px;
+  }
+
+  .amountDesc {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .popularBadge {
+    font-size: 9px;
+    padding: 2px 7px;
+    top: -9px;
+    letter-spacing: 0.03em;
   }
 }
 
@@ -1763,6 +1838,7 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
+  max-width: 100%;
 }
 
 .emergencyEyebrowBar {
@@ -1770,6 +1846,7 @@
   height: 3px;
   background-color: var(--color-gold-dark);
   border-radius: 9999px;
+  flex-shrink: 0;
 }
 
 .emergencyEyebrow {
@@ -1779,7 +1856,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-gold-dark);
-  line-height: 1;
+  line-height: 1.3;
 }
 
 .emergencyMainHeading {
@@ -1832,6 +1909,7 @@
 .emergencyHeroMedia {
   position: relative;
   width: 100%;
+  min-width: 0;
 }
 
 .emergencyMontageImageWrap {
@@ -1844,6 +1922,46 @@
   border: 1px solid var(--color-border);
   box-shadow: 0 12px 32px rgba(6, 42, 79, 0.08);
   background: var(--color-white);
+}
+
+@media (max-width: 639px) {
+  .emergencyEyebrowWrap {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .emergencyEyebrowBar {
+    display: none;
+  }
+
+  .emergencyEyebrow {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+  }
+
+  .emergencyMainHeading {
+    font-size: clamp(26px, 7.5vw, 34px);
+    margin-bottom: 14px;
+  }
+
+  .emergencyDescription {
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+
+  .btnExploreEmergency {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  .emergencyMontageImageWrap {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
 }
 
 .emergencyMontageImg {
@@ -2318,4 +2436,37 @@
   color: var(--color-text-secondary);
   line-height: 1.4;
   margin: 0;
+}
+
+@media (max-width: 639px) {
+  .emergencyTrustCard {
+    padding: 18px 14px;
+    border-radius: 12px;
+  }
+
+  .emergencyTrustGrid {
+    gap: 16px;
+  }
+
+  .trustItem {
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .trustBadgeNavy,
+  .trustBadgeGold,
+  .trustBadgeBlue,
+  .trustBadgeAmber,
+  .trustBadge {
+    width: 40px;
+    height: 40px;
+  }
+
+  .trustTitle {
+    font-size: 15px;
+  }
+
+  .trustDesc {
+    font-size: 12px;
+  }
 }

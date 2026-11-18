@@ -639,8 +639,8 @@ export default function DonationForm() {
 
             {/* Donor Information */}
             <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "12px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-                <div>
+              <div className={styles.donorNamePhoneGrid}>
+                <div style={{ minWidth: 0 }}>
                   <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "var(--color-navy)", marginBottom: "4px" }}>
                     Full Name
                   </label>
@@ -652,6 +652,8 @@ export default function DonationForm() {
                     onChange={(e) => setDonorName(e.target.value)}
                     style={{
                       width: "100%",
+                      minWidth: 0,
+                      boxSizing: "border-box",
                       padding: "10px 14px",
                       border: "1px solid var(--color-border)",
                       borderRadius: "8px",
@@ -663,7 +665,7 @@ export default function DonationForm() {
                   />
                 </div>
 
-                <div>
+                <div style={{ minWidth: 0 }}>
                   <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "var(--color-navy)", marginBottom: "4px" }}>
                     Mobile Number
                   </label>
@@ -676,6 +678,8 @@ export default function DonationForm() {
                     onChange={(e) => setDonorPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
                     style={{
                       width: "100%",
+                      minWidth: 0,
+                      boxSizing: "border-box",
                       padding: "10px 14px",
                       border: "1px solid var(--color-border)",
                       borderRadius: "8px",
@@ -699,6 +703,8 @@ export default function DonationForm() {
                   onChange={(e) => setDonorEmail(e.target.value)}
                   style={{
                     width: "100%",
+                    minWidth: 0,
+                    boxSizing: "border-box",
                     padding: "10px 14px",
                     border: "1px solid var(--color-border)",
                     borderRadius: "8px",

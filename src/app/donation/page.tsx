@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function DonationPage() {
   return (
-    <main>
+    <main style={{ overflowX: "hidden", width: "100%", maxWidth: "100%" }}>
       <DonationHero />
       <ImpactStats />
       <DonationForm />
