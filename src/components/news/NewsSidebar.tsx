@@ -25,7 +25,7 @@ export default function NewsSidebar() {
         if (!res.ok) return;
         const data = await res.json();
         if (data.success && Array.isArray(data.items) && data.items.length > 0) {
-          const mapped = data.items.slice(0, 5).map((item: any) => ({
+          const mapped = data.items.slice(0, 5).map((item: { title: string; slug?: string; id?: string }) => ({
             title: item.title,
             href: `/news/${item.slug || item.id}`,
           }));
@@ -67,41 +67,62 @@ export default function NewsSidebar() {
           Get the latest updates, stories and human rights resources
           delivered to your inbox.
         </p>
-        <form
-          className={styles.newsletterForm}
-          onSubmit={(event) => {
-            event.preventDefault();
-            setSubscribed(true);
-          }}
-        >
-          <label className={styles.visuallyHidden} htmlFor="newsletter-email">
-            Email address
-          </label>
-          <input
-            id="newsletter-email"
-            type="email"
-            required
-            placeholder="Enter your email address"
-            className={styles.newsletterInput}
-          />
-          <button
-            type="submit"
-            className={styles.newsletterSubmit}
-            aria-label="Subscribe to newsletter"
+        {subscribed ? (
+          <div className={styles.newsletterThanks} role="status">
+            ✓ Thank you for subscribing! You will receive our latest updates.
+          </div>
+        ) : (
+          <form
+            className={styles.newsletterForm}
+            onSubmit={async (event) => {
+              event.preventDefault();
+              const input = document.getElementById("newsletter-email") as HTMLInputElement | null;
+              const emailVal = input?.value?.trim();
+              if (emailVal) {
+                setSubscribed(true);
+                try {
+                  await fetch("/api/contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      formName: "News & Article Newsletter Subscription",
+                      name: "News Subscriber",
+                      email: emailVal,
+                      subject: "News Updates & Human Rights Resources Subscription",
+                      message: "Visitor subscribed to receive latest news, stories, and human rights resources from HRSJM.",
+                    }),
+                  });
+                } catch (e) {
+                  console.warn("Newsletter notification failed:", e);
+                }
+              }
+            }}
           >
-            <ArrowRight size={16} strokeWidth={2.4} aria-hidden="true" />
-          </button>
-        </form>
-        {subscribed && (
-          <p className={styles.newsletterSuccess} role="status">
-            Thank you for subscribing!
-          </p>
+            <label className={styles.visuallyHidden} htmlFor="newsletter-email">
+              Email address
+            </label>
+            <input
+              id="newsletter-email"
+              type="email"
+              required
+              placeholder="Enter your email address"
+              className={styles.newsletterInput}
+            />
+            <button
+              type="submit"
+              className={styles.newsletterButton}
+              aria-label="Subscribe to newsletter"
+            >
+              <span>Subscribe</span>
+              <ArrowRight size={16} strokeWidth={2.4} aria-hidden="true" />
+            </button>
+          </form>
         )}
       </div>
 
       <div className={styles.quoteCard} data-reveal style={revealDelay(3)}>
         <span className={styles.quoteIcon} aria-hidden="true">
-          <QuoteIcon size={24} />
+          <QuoteIcon size={20} />
         </span>
         <blockquote className={styles.quoteText}>
           &ldquo;Where, after all, do universal human rights begin? In small

@@ -31,9 +31,29 @@ export default function EventsNewsletter() {
         ) : (
           <form
             className={styles.newsletterForm}
-            onSubmit={(event) => {
+            onSubmit={async (event) => {
               event.preventDefault();
-              setSubscribed(true);
+              const form = event.currentTarget;
+              const emailInput = form.elements.namedItem("email") as HTMLInputElement;
+              const emailVal = emailInput?.value?.trim();
+              if (emailVal) {
+                setSubscribed(true);
+                try {
+                  await fetch("/api/contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      formName: "Event Enquiry & Newsletter",
+                      name: "Event Updates Subscriber",
+                      email: emailVal,
+                      subject: "Event Enquiry & Updates Subscription",
+                      message: "Citizen subscribed to receive notifications regarding HRSJM events, legal awareness camps, and community drives.",
+                    }),
+                  });
+                } catch (e) {
+                  console.warn("Newsletter subscription notification failed:", e);
+                }
+              }
             }}
           >
             <label htmlFor="events-newsletter-email" className={styles.newsletterLabel}>

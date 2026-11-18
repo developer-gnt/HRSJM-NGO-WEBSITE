@@ -92,14 +92,35 @@ export default function NewsArticleDetailView({ data }: Props) {
   const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
   const whatsappUrl = `https://api.whatsapp.com/send?text=${shareTitle}%20${encodeURIComponent(currentUrl)}`;
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail) {
       setNewsletterSubscribed(true);
+      const emailToSubmit = newsletterEmail.trim();
       setTimeout(() => {
         setNewsletterSubscribed(false);
         setNewsletterEmail("");
       }, 4000);
+
+      try {
+        await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            formName: "News Article Newsletter Subscription",
+            name: "News Subscriber",
+            email: emailToSubmit,
+            subject: `Newsletter Subscription from Article: ${data.title.slice(0, 40)}`,
+            message: `Reader subscribed to newsletter while viewing article "${data.title}" (${data.category}).`,
+            metadata: {
+              Article: data.title,
+              Category: data.category,
+            },
+          }),
+        });
+      } catch (err) {
+        console.warn("Article newsletter notification failed:", err);
+      }
     }
   };
 

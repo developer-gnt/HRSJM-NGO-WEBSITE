@@ -60,8 +60,8 @@ Website: https://hrsjm.org
   const adminEmail =
     process.env.ADMIN_NOTIFICATION_EMAIL ||
     process.env.ADMIN_EMAIL ||
-    process.env.SMTP_USER ||
-    "thefarooquicollection@gmail.com";
+    process.env.PRESIDENT_EMAIL ||
+    "president.hrsjm@gmail.com";
 
   const submittedDateStr = new Date(record.submittedAt).toLocaleString("en-IN", {
     timeZone: "Asia/Kolkata",
@@ -169,8 +169,106 @@ Website: https://hrsjm.org
         cid: "hrsjm_logo",
       };
 
+      const adminMembershipSubject = `[HRSJM] New Membership Application - ${record.fullName} [${applicationRef}]`;
+
+      const adminMembershipHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${adminMembershipSubject}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; margin: 0; padding: 24px 12px; color: #1e293b; line-height: 1.5; }
+    .card { max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #cbd5e1; box-shadow: 0 4px 12px rgba(15, 44, 89, 0.08); }
+    .gold-bar { height: 6px; background: linear-gradient(90deg, #d4af37, #f3e5ab, #d4af37); }
+    .top-header { background-color: #0F2C59; padding: 24px 28px; text-align: left; }
+    .enquiry-tag { display: inline-block; font-size: 11.5px; font-weight: 800; letter-spacing: 1.5px; color: #facc15; text-transform: uppercase; margin-bottom: 8px; }
+    .form-source-banner { background: #ffffff; color: #0F2C59; padding: 10px 16px; border-radius: 8px; font-size: 16px; font-weight: 800; letter-spacing: 0.6px; border-left: 6px solid #d4af37; }
+    .content { padding: 26px; }
+    .highlight-card { background: #f8fafc; border: 2px solid #0F2C59; border-radius: 10px; padding: 20px; margin-bottom: 22px; }
+    .highlight-source-header { font-size: 15px; font-weight: 800; color: #0F2C59; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .highlight-source-badge { background: #0F2C59; color: #ffffff; padding: 4px 12px; border-radius: 6px; display: inline-block; }
+    .section-title { font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.6px; margin: 12px 0 10px 0; }
+    .details-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .details-table td { padding: 8px 12px; border-bottom: 1px solid #edf2f7; }
+    .details-table td.label-col { width: 175px; font-weight: 600; color: #475569; background: #f1f5f9; }
+    .details-table td.value-col { color: #0f172a; font-weight: 500; }
+    .message-card { background: #fffbeb; border: 1px solid #fef3c7; border-left: 5px solid #f59e0b; border-radius: 8px; padding: 18px 20px; font-size: 14px; color: #78350f; line-height: 1.6; }
+    .reply-callout { background: #eff6ff; border: 1px solid #bfdbfe; border-left: 5px solid #2563eb; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #1e40af; margin-top: 22px; }
+    .footer { background: #f8fafc; padding: 18px 24px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="gold-bar"></div>
+    <div class="top-header">
+      <div class="enquiry-tag">NEW WEBSITE ENQUIRY</div>
+      <div class="form-source-banner">
+        FORM SOURCE: MEMBERSHIP APPLICATION
+      </div>
+    </div>
+    <div class="content">
+      <div class="highlight-card">
+        <div class="highlight-source-header">
+          FORM SOURCE: <span class="highlight-source-badge">MEMBERSHIP APPLICATION</span>
+        </div>
+        <div class="section-title">Submission Details:</div>
+        <table class="details-table">
+          <tr><td class="label-col">Full Name:</td><td class="value-col"><strong>${record.fullName}</strong></td></tr>
+          <tr><td class="label-col">Email Address:</td><td class="value-col"><a href="mailto:${recipient}" style="color:#0F2C59;font-weight:700;text-decoration:none;">${recipient}</a></td></tr>
+          <tr><td class="label-col">Phone Number:</td><td class="value-col">+91 ${record.phone}</td></tr>
+          <tr><td class="label-col">Subject:</td><td class="value-col"><strong>Paid Membership Application: ${record.packageName}</strong></td></tr>
+          <tr><td class="label-col">Submission Date:</td><td class="value-col">${submittedDateStr} (IST)</td></tr>
+          <tr><td class="label-col">Submission Reference:</td><td class="value-col"><strong style="font-family:monospace;color:#0F2C59;font-size:14px;">${applicationRef}</strong></td></tr>
+          <tr><td class="label-col">Membership Post:</td><td class="value-col"><strong>${record.packageName}</strong></td></tr>
+          <tr><td class="label-col">Registration Fee Paid:</td><td class="value-col"><strong style="color:#16a34a;">${record.packageFee}</strong></td></tr>
+          <tr><td class="label-col">Payment Mode:</td><td class="value-col">${record.paymentMode || "Online (Cashfree Gateway)"}</td></tr>
+        </table>
+      </div>
+
+      <div style="font-weight:700;color:#0F2C59;font-size:14px;margin:20px 0 8px 0;text-transform:uppercase;">Application Summary:</div>
+      <div class="message-card">
+Applicant ${record.fullName} has successfully registered and completed payment for membership post: "${record.packageName}".
+Fee Paid: ${record.packageFee}
+Status: Confirmed Paid (Awaiting Document Verification)
+      </div>
+
+      <div class="reply-callout">
+        💡 <strong>Quick Direct Reply:</strong> Click "Reply" in your email client to respond directly to <strong>${record.fullName}</strong> at <code>${recipient}</code>.
+      </div>
+    </div>
+    <div class="footer">
+      Human Rights & Social Justice Mission (HRSJM) &bull; Centralized Intake Portal<br/>
+      Notification delivered to: <strong>${adminEmail}</strong>
+    </div>
+  </div>
+</body>
+</html>
+      `.trim();
+
+      const adminMembershipText = `
+NEW WEBSITE ENQUIRY
+FORM SOURCE: MEMBERSHIP APPLICATION
+
+Submission Details:
+Full Name            : ${record.fullName}
+Email Address        : ${recipient}
+Phone Number         : +91 ${record.phone}
+Subject              : Paid Membership Application: ${record.packageName}
+Submission Date      : ${submittedDateStr} (IST)
+Submission Reference : ${applicationRef}
+Membership Post      : ${record.packageName}
+Registration Fee     : ${record.packageFee}
+Payment Mode         : ${record.paymentMode || "Online (Cashfree Gateway)"}
+
+Application Details:
+Applicant ${record.fullName} has completed payment for "${record.packageName}".
+
+You can reply directly to this email to respond to ${recipient}.
+      `.trim();
+
       await Promise.all([
-        // Thank-you confirmation to applicant
+        // Thank-you confirmation to applicant (official crest preserved)
         transporter.sendMail({
           from: formattedFrom,
           to: recipient,
@@ -179,15 +277,14 @@ Website: https://hrsjm.org
           text: emailContent,
           attachments: [logoAttachment],
         }),
-        // Notification to admin
+        // Notification to admin (clean, no logo, prominent form source)
         transporter.sendMail({
           from: formattedFrom,
           to: adminEmail,
           replyTo: recipient,
-          subject: `[New Paid Membership] ${record.fullName} (${record.packageName}) - Ref: ${applicationRef}`,
-          html: emailHtml,
-          text: emailContent,
-          attachments: [logoAttachment],
+          subject: adminMembershipSubject,
+          html: adminMembershipHtml,
+          text: adminMembershipText,
         }),
       ]);
 
@@ -201,7 +298,7 @@ Website: https://hrsjm.org
         message: "Membership confirmation email sent via SMTP.",
         recipient,
       };
-    } catch (smtpErr: any) {
+    } catch (smtpErr: unknown) {
       console.error("Nodemailer SMTP dispatch error for membership application:", smtpErr);
     }
   }
@@ -252,17 +349,94 @@ Website: https://hrsjm.org
   };
 }
 
+export function resolveFormSourceDetails(
+  formName?: string,
+  subject?: string,
+  metadata?: Record<string, unknown>,
+): {
+  sourceLabel: string;
+  subjectTitle: string;
+  dynamicSubjectPrefix: string;
+} {
+  const rawForm = (formName || "").trim();
+  const rawSubj = (subject || "").trim();
+  const combined = `${rawForm} ${rawSubj}`.toLowerCase();
+  const metaStr = metadata ? JSON.stringify(metadata).toLowerCase() : "";
+
+  let sourceLabel = "CONTACT US ENQUIRY";
+  let subjectTitle = "Contact Us Enquiry";
+
+  if (combined.includes("feedback")) {
+    sourceLabel = "WEBSITE FEEDBACK";
+    subjectTitle = "Website Feedback";
+  } else if (
+    combined.includes("membership application") ||
+    combined.includes("paid membership") ||
+    metaStr.includes("application reference")
+  ) {
+    sourceLabel = "MEMBERSHIP APPLICATION";
+    subjectTitle = "Membership Application";
+  } else if (
+    combined.includes("membership") ||
+    combined.includes("join movement") ||
+    metaStr.includes("general member")
+  ) {
+    sourceLabel = "MEMBERSHIP ENQUIRY";
+    subjectTitle = "Membership Enquiry";
+  } else if (combined.includes("donation") || combined.includes("donate") || combined.includes("contribution")) {
+    sourceLabel = "DONATION ENQUIRY";
+    subjectTitle = "Donation Enquiry";
+  } else if (combined.includes("event")) {
+    sourceLabel = "EVENT ENQUIRY";
+    subjectTitle = "Event Enquiry";
+  } else if (combined.includes("complaint") || combined.includes("grievance") || metaStr.includes("ticket id")) {
+    sourceLabel = "PUBLIC COMPLAINT";
+    subjectTitle = "Public Complaint";
+  } else if (combined.includes("newsletter") || combined.includes("subscribe")) {
+    sourceLabel = "NEWSLETTER SUBSCRIPTION";
+    subjectTitle = "Newsletter Subscription";
+  } else if (combined.includes("volunteer")) {
+    sourceLabel = "VOLUNTEER ENQUIRY";
+    subjectTitle = "Volunteer Enquiry";
+  } else if (combined.includes("partner") || combined.includes("collaboration")) {
+    sourceLabel = "PARTNERSHIP ENQUIRY";
+    subjectTitle = "Partnership Enquiry";
+  } else if (combined.includes("media") || combined.includes("press")) {
+    sourceLabel = "MEDIA & PRESS ENQUIRY";
+    subjectTitle = "Media & Press Enquiry";
+  } else if (combined.includes("support") || combined.includes("human rights support") || combined.includes("help")) {
+    sourceLabel = "SUPPORT ENQUIRY";
+    subjectTitle = "Support Enquiry";
+  } else if (combined.includes("general")) {
+    sourceLabel = "GENERAL ENQUIRY";
+    subjectTitle = "General Enquiry";
+  } else {
+    sourceLabel = "CONTACT US ENQUIRY";
+    subjectTitle = "Contact Us Enquiry";
+  }
+
+  return {
+    sourceLabel,
+    subjectTitle,
+    dynamicSubjectPrefix: `[HRSJM] New ${subjectTitle}`,
+  };
+}
+
 export async function sendContactInquiryEmail(data: {
+  formName?: string;
   name: string;
   email: string;
   phone?: string;
   subject?: string;
   message: string;
+  inquiryRef?: string;
+  metadata?: Record<string, unknown>;
 }): Promise<EmailDispatchResult> {
   const recipient = data.email.trim();
-  const inquiryRef = `INQ-${Date.now().toString(36).toUpperCase()}`;
+  const inquiryRef = data.inquiryRef || `INQ-${Date.now().toString(36).toUpperCase()}`;
+  const cleanForm = data.formName?.trim() || "Contact Us";
   const cleanName = data.name.trim() || "Citizen";
-  const cleanSubject = data.subject?.trim() || "General Inquiry";
+  const cleanSubject = data.subject?.trim() || cleanForm;
   const cleanPhone = data.phone?.trim() || "Not provided";
   const submittedDateStr = new Date().toLocaleString("en-IN", {
     timeZone: "Asia/Kolkata",
@@ -273,8 +447,8 @@ export async function sendContactInquiryEmail(data: {
   const adminEmail =
     process.env.ADMIN_NOTIFICATION_EMAIL ||
     process.env.ADMIN_EMAIL ||
-    process.env.SMTP_USER ||
-    "thefarooquicollection@gmail.com";
+    process.env.PRESIDENT_EMAIL ||
+    "president.hrsjm@gmail.com";
 
   // 1. Citizen Confirmation Email
   const citizenSubject = `Inquiry Received [${inquiryRef}] - Human Rights & Social Justice Mission`;
@@ -361,8 +535,37 @@ Our secretariat team will get back to you within 24 to 48 hours.
 Helpline: +91 7021057853 | Email: enquiry@hrsjm.org | Website: https://hrsjm.org
   `.trim();
 
-  // 2. Admin Notification Email
-  const adminSubject = `[New Contact Inquiry] ${cleanName} - "${cleanSubject}" [${inquiryRef}]`;
+  // 2. Admin Notification Email (Dynamic Subject, Prominent Form Source, Zero Logo Attachments)
+  const { sourceLabel, subjectTitle, dynamicSubjectPrefix } = resolveFormSourceDetails(
+    cleanForm,
+    cleanSubject,
+    data.metadata,
+  );
+
+  const isSubjectRedundant =
+    cleanSubject.toLowerCase().replace(/[^a-z]/g, "") === subjectTitle.toLowerCase().replace(/[^a-z]/g, "") ||
+    cleanSubject.toLowerCase().replace(/[^a-z]/g, "") === cleanForm.toLowerCase().replace(/[^a-z]/g, "") ||
+    cleanSubject.toLowerCase() === "contact us";
+
+  const adminSubject = isSubjectRedundant
+    ? `${dynamicSubjectPrefix} - ${cleanName} [${inquiryRef}]`
+    : `${dynamicSubjectPrefix}: ${cleanSubject} - ${cleanName} [${inquiryRef}]`;
+
+  let metadataRows = "";
+  let metadataTextRows = "";
+  if (data.metadata && typeof data.metadata === "object") {
+    for (const [key, val] of Object.entries(data.metadata)) {
+      if (val !== undefined && val !== null && String(val).trim()) {
+        const label = key
+          .replace(/([A-Z])/g, " $1")
+          .replace(/^./, (str) => str.toUpperCase())
+          .trim();
+        metadataRows += `<tr><td class="label-col">${label}:</td><td class="value-col">${String(val)}</td></tr>`;
+        metadataTextRows += `${label.padEnd(20)} : ${String(val)}\n`;
+      }
+    }
+  }
+
   const adminHtml = `
 <!DOCTYPE html>
 <html lang="en">
@@ -370,70 +573,83 @@ Helpline: +91 7021057853 | Email: enquiry@hrsjm.org | Website: https://hrsjm.org
   <meta charset="UTF-8">
   <title>${adminSubject}</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f1f5f9; margin: 0; padding: 24px 12px; color: #1e293b; }
-    .card { max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; }
-    .alert-bar { height: 5px; background: #ea580c; }
-    .header { background-color: #0F2C59; padding: 22px 24px; color: #ffffff; }
-    .badge { display: inline-block; background: #ea580c; color: #ffffff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 8px; }
-    .content { padding: 24px; }
-    .info-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
-    .info-table td { padding: 8px 12px; border-bottom: 1px solid #edf2f7; }
-    .info-table td.label { width: 140px; font-weight: 600; color: #475569; background: #f8fafc; }
-    .message-card { background: #fffbeb; border: 1px solid #fef3c7; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 16px; margin: 16px 0; font-size: 14px; color: #78350f; line-height: 1.6; }
-    .footer { background: #f8fafc; padding: 16px 24px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; margin: 0; padding: 24px 12px; color: #1e293b; line-height: 1.5; }
+    .card { max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #cbd5e1; box-shadow: 0 4px 12px rgba(15, 44, 89, 0.08); }
+    .gold-bar { height: 6px; background: linear-gradient(90deg, #d4af37, #f3e5ab, #d4af37); }
+    .top-header { background-color: #0F2C59; padding: 24px 28px; text-align: left; }
+    .enquiry-tag { display: inline-block; font-size: 11.5px; font-weight: 800; letter-spacing: 1.5px; color: #facc15; text-transform: uppercase; margin-bottom: 8px; }
+    .form-source-banner { background: #ffffff; color: #0F2C59; padding: 10px 16px; border-radius: 8px; font-size: 16px; font-weight: 800; letter-spacing: 0.6px; border-left: 6px solid #d4af37; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .content { padding: 26px 26px; }
+    .highlight-card { background: #f8fafc; border: 2px solid #0F2C59; border-radius: 10px; padding: 20px 22px; margin: 0 0 22px 0; }
+    .highlight-source-header { font-size: 15px; font-weight: 800; color: #0F2C59; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .highlight-source-badge { background: #0F2C59; color: #ffffff; padding: 4px 12px; border-radius: 6px; display: inline-block; }
+    .section-title { font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.6px; margin: 12px 0 10px 0; }
+    .details-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 13.5px; }
+    .details-table td { padding: 8px 12px; border-bottom: 1px solid #edf2f7; vertical-align: top; }
+    .details-table td.label-col { width: 175px; font-weight: 600; color: #475569; background: #f1f5f9; }
+    .details-table td.value-col { color: #0f172a; font-weight: 500; }
+    .message-title { font-weight: 700; color: #0F2C59; font-size: 14px; margin: 20px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .message-card { background: #fffbeb; border: 1px solid #fef3c7; border-left: 5px solid #f59e0b; border-radius: 8px; padding: 18px 20px; font-size: 14px; color: #78350f; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+    .reply-callout { background: #eff6ff; border: 1px solid #bfdbfe; border-left: 5px solid #2563eb; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #1e40af; margin-top: 22px; line-height: 1.5; }
+    .footer { background: #f8fafc; padding: 18px 24px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b; line-height: 1.5; }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="alert-bar"></div>
-    <div class="header">
-      <span class="badge">Website Contact Form</span>
-      <h2 style="margin:0;font-size:19px;">New Citizen Inquiry Received</h2>
-      <p style="margin:4px 0 0 0;font-size:12px;color:#cbd5e1;">Reference: ${inquiryRef}</p>
+    <div class="gold-bar"></div>
+    <div class="top-header">
+      <div class="enquiry-tag">NEW WEBSITE ENQUIRY</div>
+      <div class="form-source-banner">
+        FORM SOURCE: ${sourceLabel}
+      </div>
     </div>
     <div class="content">
-      <p style="font-size:14px;color:#334155;margin-top:0;">
-        A visitor has submitted a message via the <strong>HRSJM Contact Us</strong> form. Details are provided below:
-      </p>
-
-      <table class="info-table">
-        <tr>
-          <td class="label">Reference ID</td>
-          <td><strong>${inquiryRef}</strong></td>
-        </tr>
-        <tr>
-          <td class="label">Citizen Name</td>
-          <td><strong>${cleanName}</strong></td>
-        </tr>
-        <tr>
-          <td class="label">Email Address</td>
-          <td><a href="mailto:${recipient}" style="color:#0F2C59;font-weight:600;">${recipient}</a></td>
-        </tr>
-        <tr>
-          <td class="label">Phone Number</td>
-          <td><a href="tel:${cleanPhone}" style="color:#0F2C59;">${cleanPhone}</a></td>
-        </tr>
-        <tr>
-          <td class="label">Subject</td>
-          <td><strong>${cleanSubject}</strong></td>
-        </tr>
-        <tr>
-          <td class="label">Submitted At</td>
-          <td>${submittedDateStr} (IST)</td>
-        </tr>
-      </table>
-
-      <div style="font-weight:700;color:#0F2C59;margin:18px 0 6px 0;font-size:14px;">Inquiry Message:</div>
-      <div class="message-card">
-        ${data.message}
+      <div class="highlight-card">
+        <div class="highlight-source-header">
+          FORM SOURCE: <span class="highlight-source-badge">${sourceLabel}</span>
+        </div>
+        <div class="section-title">Submission Details:</div>
+        <table class="details-table">
+          <tr>
+            <td class="label-col">Full Name:</td>
+            <td class="value-col"><strong>${cleanName}</strong></td>
+          </tr>
+          <tr>
+            <td class="label-col">Email Address:</td>
+            <td class="value-col"><a href="mailto:${recipient}" style="color:#0F2C59;font-weight:700;text-decoration:none;">${recipient}</a></td>
+          </tr>
+          <tr>
+            <td class="label-col">Phone Number:</td>
+            <td class="value-col"><a href="tel:${cleanPhone}" style="color:#0F2C59;text-decoration:none;">${cleanPhone}</a></td>
+          </tr>
+          <tr>
+            <td class="label-col">Subject:</td>
+            <td class="value-col"><strong>${cleanSubject}</strong></td>
+          </tr>
+          <tr>
+            <td class="label-col">Submission Date:</td>
+            <td class="value-col">${submittedDateStr} (IST)</td>
+          </tr>
+          <tr>
+            <td class="label-col">Submission Reference:</td>
+            <td class="value-col"><strong style="font-family:monospace;color:#0F2C59;font-size:14px;">${inquiryRef}</strong></td>
+          </tr>
+          ${metadataRows}
+        </table>
       </div>
 
-      <div style="background:#eff6ff;border:1px solid #dbeafe;border-radius:6px;padding:12px 16px;font-size:13px;color:#1e40af;margin-top:16px;">
-        💡 <strong>Quick Action:</strong> Click "Reply" in your email client to respond directly to <strong>${cleanName}</strong> at <code>${recipient}</code>.
+      <div class="message-title">Message / Enquiry Details:</div>
+      <div class="message-card">
+${data.message}
+      </div>
+
+      <div class="reply-callout">
+        💡 <strong>Quick Direct Reply:</strong> Click "Reply" in your email client to respond directly to <strong>${cleanName}</strong> at <code>${recipient}</code>.
       </div>
     </div>
     <div class="footer">
-      This is an automated notification from the HRSJM Website Portal.
+      Human Rights & Social Justice Mission (HRSJM) &bull; Centralized Intake Portal<br/>
+      Notification delivered to: <strong>${adminEmail}</strong>
     </div>
   </div>
 </body>
@@ -441,15 +657,18 @@ Helpline: +91 7021057853 | Email: enquiry@hrsjm.org | Website: https://hrsjm.org
   `.trim();
 
   const adminText = `
-[NEW CONTACT INQUIRY RECEIVED]
-Reference ID : ${inquiryRef}
-Citizen Name : ${cleanName}
-Email        : ${recipient}
-Phone        : ${cleanPhone}
-Subject      : ${cleanSubject}
-Date & Time  : ${submittedDateStr} (IST)
+NEW WEBSITE ENQUIRY
+FORM SOURCE: ${sourceLabel}
 
-MESSAGE:
+Submission Details:
+Full Name            : ${cleanName}
+Email Address        : ${recipient}
+Phone Number         : ${cleanPhone}
+Subject              : ${cleanSubject}
+Submission Date      : ${submittedDateStr} (IST)
+Submission Reference : ${inquiryRef}
+${metadataTextRows}
+Message / Enquiry Details:
 ${data.message}
 
 You can reply directly to this email to respond to ${recipient}.
@@ -501,7 +720,6 @@ You can reply directly to this email to respond to ${recipient}.
           subject: adminSubject,
           html: adminHtml,
           text: adminText,
-          attachments: [logoAttachment],
         }),
       ]);
 
@@ -515,7 +733,7 @@ You can reply directly to this email to respond to ${recipient}.
         message: "Contact acknowledgement email sent via SMTP.",
         recipient,
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Nodemailer SMTP dispatch error in emailService:", err);
     }
   }
@@ -733,10 +951,106 @@ Helpline: +91 7021057853 | Email: enquiry@hrsjm.org | Website: https://hrsjm.org
   const adminEmail =
     process.env.ADMIN_NOTIFICATION_EMAIL ||
     process.env.ADMIN_EMAIL ||
-    process.env.SMTP_USER ||
-    "thefarooquicollection@gmail.com";
+    process.env.PRESIDENT_EMAIL ||
+    "president.hrsjm@gmail.com";
 
-  const adminSubject = `[New Grievance Docketed] ${cleanName} - "${cleanCategory}" [Ticket: ${complaintRef}]`;
+  const adminComplaintSubject = `[HRSJM] New Public Complaint - ${cleanName} [Ticket: ${complaintRef}]`;
+
+  const adminComplaintHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${adminComplaintSubject}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; margin: 0; padding: 24px 12px; color: #1e293b; line-height: 1.5; }
+    .card { max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #cbd5e1; box-shadow: 0 4px 12px rgba(15, 44, 89, 0.08); }
+    .gold-bar { height: 6px; background: linear-gradient(90deg, #d4af37, #f3e5ab, #d4af37); }
+    .top-header { background-color: #0F2C59; padding: 24px 28px; text-align: left; }
+    .enquiry-tag { display: inline-block; font-size: 11.5px; font-weight: 800; letter-spacing: 1.5px; color: #facc15; text-transform: uppercase; margin-bottom: 8px; }
+    .form-source-banner { background: #ffffff; color: #0F2C59; padding: 10px 16px; border-radius: 8px; font-size: 16px; font-weight: 800; letter-spacing: 0.6px; border-left: 6px solid #d4af37; }
+    .content { padding: 26px; }
+    .highlight-card { background: #f8fafc; border: 2px solid #0F2C59; border-radius: 10px; padding: 20px; margin-bottom: 22px; }
+    .highlight-source-header { font-size: 15px; font-weight: 800; color: #0F2C59; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .highlight-source-badge { background: #0F2C59; color: #ffffff; padding: 4px 12px; border-radius: 6px; display: inline-block; }
+    .section-title { font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.6px; margin: 12px 0 10px 0; }
+    .details-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .details-table td { padding: 8px 12px; border-bottom: 1px solid #edf2f7; }
+    .details-table td.label-col { width: 175px; font-weight: 600; color: #475569; background: #f1f5f9; }
+    .details-table td.value-col { color: #0f172a; font-weight: 500; }
+    .message-card { background: #fffbeb; border: 1px solid #fef3c7; border-left: 5px solid #f59e0b; border-radius: 8px; padding: 18px 20px; font-size: 14px; color: #78350f; line-height: 1.6; }
+    .reply-callout { background: #eff6ff; border: 1px solid #bfdbfe; border-left: 5px solid #2563eb; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #1e40af; margin-top: 22px; }
+    .footer { background: #f8fafc; padding: 18px 24px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="gold-bar"></div>
+    <div class="top-header">
+      <div class="enquiry-tag">NEW WEBSITE ENQUIRY</div>
+      <div class="form-source-banner">
+        FORM SOURCE: PUBLIC COMPLAINT
+      </div>
+    </div>
+    <div class="content">
+      <div class="highlight-card">
+        <div class="highlight-source-header">
+          FORM SOURCE: <span class="highlight-source-badge">PUBLIC COMPLAINT</span>
+        </div>
+        <div class="section-title">Submission Details:</div>
+        <table class="details-table">
+          <tr><td class="label-col">Full Name:</td><td class="value-col"><strong>${cleanName}</strong></td></tr>
+          <tr><td class="label-col">Email Address:</td><td class="value-col"><a href="mailto:${recipient}" style="color:#0F2C59;font-weight:700;text-decoration:none;">${recipient}</a></td></tr>
+          <tr><td class="label-col">Phone Number:</td><td class="value-col">+91 ${cleanPhone}</td></tr>
+          <tr><td class="label-col">Subject:</td><td class="value-col"><strong>Public Complaint: ${cleanCategory}</strong></td></tr>
+          <tr><td class="label-col">Submission Date:</td><td class="value-col">${submittedDateStr} (IST)</td></tr>
+          <tr><td class="label-col">Submission Reference:</td><td class="value-col"><strong style="font-family:monospace;color:#0F2C59;font-size:14px;">${complaintRef}</strong></td></tr>
+          <tr><td class="label-col">Complaint Category:</td><td class="value-col"><strong>${cleanCategory}</strong></td></tr>
+          <tr><td class="label-col">State / Jurisdiction:</td><td class="value-col">${cleanState}</td></tr>
+          <tr><td class="label-col">Nearby Police Station:</td><td class="value-col">${cleanPoliceStation}</td></tr>
+          <tr><td class="label-col">Aadhaar Document:</td><td class="value-col">${data.aadhaarFileName || "Attached"}</td></tr>
+          <tr><td class="label-col">Complaint Letter:</td><td class="value-col">${data.handwrittenFileName || "Attached"}</td></tr>
+        </table>
+      </div>
+
+      <div style="font-weight:700;color:#0F2C59;font-size:14px;margin:20px 0 8px 0;text-transform:uppercase;">Grievance Summary:</div>
+      <div class="message-card">
+${data.details}
+      </div>
+
+      <div class="reply-callout">
+        💡 <strong>Quick Direct Reply:</strong> Click "Reply" in your email client to respond directly to <strong>${cleanName}</strong> at <code>${recipient}</code>.
+      </div>
+    </div>
+    <div class="footer">
+      Human Rights & Social Justice Mission (HRSJM) &bull; Centralized Intake Portal<br/>
+      Notification delivered to: <strong>${adminEmail}</strong>
+    </div>
+  </div>
+</body>
+</html>
+  `.trim();
+
+  const adminComplaintText = `
+NEW WEBSITE ENQUIRY
+FORM SOURCE: PUBLIC COMPLAINT
+
+Submission Details:
+Full Name            : ${cleanName}
+Email Address        : ${recipient}
+Phone Number         : +91 ${cleanPhone}
+Subject              : Public Complaint: ${cleanCategory}
+Submission Date      : ${submittedDateStr} (IST)
+Submission Reference : ${complaintRef}
+Complaint Category   : ${cleanCategory}
+State / Jurisdiction : ${cleanState}
+Nearby Police Station: ${cleanPoliceStation}
+
+Grievance Summary:
+${data.details}
+
+You can reply directly to this email to respond to ${recipient}.
+  `.trim();
 
   const smtpHost = process.env.SMTP_HOST;
   const smtpUser = process.env.SMTP_USER;
@@ -780,10 +1094,9 @@ Helpline: +91 7021057853 | Email: enquiry@hrsjm.org | Website: https://hrsjm.org
           from: formattedFrom,
           to: adminEmail,
           replyTo: recipient,
-          subject: adminSubject,
-          html: citizenHtml,
-          text: citizenText,
-          attachments: [logoAttachment],
+          subject: adminComplaintSubject,
+          html: adminComplaintHtml,
+          text: adminComplaintText,
         }),
       ]);
 
@@ -797,7 +1110,7 @@ Helpline: +91 7021057853 | Email: enquiry@hrsjm.org | Website: https://hrsjm.org
         message: "Complaint confirmation email sent via SMTP.",
         recipient,
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Nodemailer SMTP dispatch error for complaint:", err);
     }
   }
@@ -831,9 +1144,9 @@ Helpline: +91 7021057853 | Email: enquiry@hrsjm.org | Website: https://hrsjm.org
             from: process.env.EMAIL_FROM || "HRSJM <no-reply@hrsjm.org>",
             to: [adminEmail],
             reply_to: recipient,
-            subject: adminSubject,
-            html: citizenHtml,
-            text: citizenText,
+            subject: adminComplaintSubject,
+            html: adminComplaintHtml,
+            text: adminComplaintText,
           }),
         }),
       ]);
