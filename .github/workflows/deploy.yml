@@ -61,6 +61,10 @@ jobs:
             echo "📦 Installing dependencies..."
             npm install
             
+            # Clear stale Next.js image & build cache
+            echo "🧹 Clearing stale Next.js image cache..."
+            rm -rf .next/cache
+            
             # Build Next.js production bundle
             echo "🔨 Building Next.js application..."
             npm run build

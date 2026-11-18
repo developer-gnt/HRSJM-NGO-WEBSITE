@@ -16,6 +16,7 @@ export default function Logo({ onNavigate }: LogoProps) {
         width={557}
         height={448}
         priority
+        unoptimized
       />
       <span className={styles.logoCopy}>
         <small className={styles.logoTitle}>Human Rights &amp; Social Justice Mission</small>
