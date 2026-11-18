@@ -27,12 +27,15 @@ const initialValues: FormValues = {
 
 const subjectOptions = [
   "General Enquiry",
+  "Feedback",
+  "Support Enquiry",
+  "Membership Enquiry",
+  "Event Enquiry",
+  "Donation Enquiry",
   "Human Rights Support",
   "Partnership / Collaboration",
   "Volunteer With Us",
-  "Donation",
   "Media / Press",
-  "Events & Activities",
   "Other",
 ];
 
@@ -155,6 +158,7 @@ export default function ContactForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          formName: values.subject ? `${values.subject}` : "Contact Us",
           name: values.name,
           email: values.email,
           phone: values.phone,
@@ -170,8 +174,9 @@ export default function ContactForm() {
 
       setSubmitted(true);
       setValues(initialValues);
-    } catch (err: any) {
-      setApiError(err.message || "An unexpected error occurred. Please try again.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "An unexpected error occurred. Please try again.";
+      setApiError(msg);
     } finally {
       setSubmitting(false);
     }

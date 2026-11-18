@@ -26,6 +26,8 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
   const [city, setCity] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -110,21 +112,60 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) {
       return;
     }
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setName("");
-      setPhone("");
-      setEmail("");
-      setCity("");
-      setErrors({});
-      onClose();
-    }, 2500);
+    setSubmitting(true);
+    setApiError(null);
+
+    const roleLabel =
+      role === "member"
+        ? "General Member"
+        : role === "volunteer"
+        ? "Volunteer"
+        : "Legal Advocate";
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formName: "Membership / Join Movement Enquiry",
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          subject: `Membership Enquiry - ${roleLabel}`,
+          message: `Applicant requested to join HRSJM as ${roleLabel}.\nCity / State: ${city.trim()}`,
+          metadata: {
+            "Desired Role": roleLabel,
+            "City / State": city.trim(),
+          },
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to submit request. Please try again.");
+      }
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setName("");
+        setPhone("");
+        setEmail("");
+        setCity("");
+        setErrors({});
+        onClose();
+      }, 2500);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to submit application. Please try again.";
+      setApiError(msg);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const roleTabs = [
@@ -296,12 +337,18 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
             </div>
 
             {/* Submit */}
+            {apiError && (
+              <div style={{ color: "#dc2626", fontSize: "13px", marginTop: "10px", display: "flex", alignItems: "center", gap: "6px" }} role="alert">
+                <AlertCircle size={15} />
+                <span>{apiError}</span>
+              </div>
+            )}
             <div className={styles.joinActions}>
-              <button type="button" onClick={handleClose} className={styles.joinCancel}>
+              <button type="button" onClick={handleClose} disabled={submitting} className={styles.joinCancel}>
                 Cancel
               </button>
-              <button type="submit" className={styles.joinSubmit}>
-                Submit Application →
+              <button type="submit" disabled={submitting} className={styles.joinSubmit}>
+                {submitting ? "Submitting..." : "Submit Application →"}
               </button>
             </div>
           </form>
