@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, RotateCcw, Search, X } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CalendarDays,
+  RotateCcw,
+  Search,
+  X,
+} from "lucide-react";
 import { formatEventDate, resolveEventCoverImage, type BackendEvent } from "@/lib/backendApi";
 import EventCard, { type EventItem } from "./EventCard";
 import shared from "./events.module.css";
@@ -9,19 +16,11 @@ import styles from "./allEvents.module.css";
 
 type AllEventsItem = EventItem & { category: string };
 
-const baseFilters = [
-  "All Events",
-  "Community",
-  "Legal Awareness",
-  "Relief",
-  "Workshop",
-  "Seminar",
-] as const;
-
 const PAGE_SIZE = 6;
 
 export default function AllEventsListing() {
   const [activeFilter, setActiveFilter] = useState<string>("All Events");
+  const [activeStatus, setActiveStatus] = useState<string>("All Events");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [page, setPage] = useState(1);
   const [eventsList, setEventsList] = useState<AllEventsItem[]>([]);
@@ -42,7 +41,9 @@ export default function AllEventsListing() {
           const mappedDbEvents: AllEventsItem[] = data.items.map((event: BackendEvent) => {
             const rawCat = (event.category || "Community").trim();
             const category = rawCat.charAt(0).toUpperCase() + rawCat.slice(1);
-            const isUpcoming = event.status === "UPCOMING";
+            const rawStatus = (event.status || "").toUpperCase();
+            const isUpcoming = rawStatus === "UPCOMING";
+            const isOngoing = rawStatus === "ONGOING";
             return {
               id: event.id,
               title: event.title,
@@ -53,8 +54,16 @@ export default function AllEventsListing() {
                 "HRSJM grassroots initiative for social empowerment and legal protection.",
               date: formatEventDate(event.start_at),
               location: event.location || event.address || "India",
-              status: isUpcoming ? "Upcoming" : "Completed",
-              statusType: isUpcoming ? "open" : "completed",
+              status: isUpcoming
+                ? "Upcoming"
+                : isOngoing
+                  ? "Ongoing"
+                  : "Completed",
+              statusType: isUpcoming
+                ? "open"
+                : isOngoing
+                  ? "open"
+                  : "completed",
               image: resolveEventCoverImage(event.cover_image_url, event.category),
               action: {
                 label: "Event Details",
@@ -82,29 +91,22 @@ export default function AllEventsListing() {
   }, []);
 
   // Compute dynamic filter categories including any custom categories in database
-  const filters = useMemo(() => {
-    const categoriesSet = new Set<string>(["All Events"]);
-    eventsList.forEach((e) => {
-      if (e.category && typeof e.category === "string" && e.category.trim()) {
-        categoriesSet.add(e.category.trim());
-      }
-    });
-    return Array.from(categoriesSet);
-  }, [eventsList]);
+  const filters = ["All Events", "Upcoming", "Ongoing", "Past"];
 
-  // Compute category counts for badge indicators
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { "All Events": eventsList.length };
-    filters.forEach((f) => {
-      if (f !== "All Events") {
-        counts[f] = eventsList.filter((e) => e.category.toLowerCase() === f.toLowerCase()).length;
-      }
-    });
-    return counts;
-  }, [eventsList, filters]);
+  const statusCounts = useMemo<Record<string, number>>(() => ({
+    "All Events": eventsList.length,
+    Upcoming: eventsList.filter((event) => event.status === "Upcoming").length,
+    Ongoing: eventsList.filter((event) => event.status === "Ongoing").length,
+    Past: eventsList.filter((event) => event.status === "Completed").length,
+  }), [eventsList]);
 
   const filteredEvents = useMemo(() => {
     return eventsList.filter((event) => {
+      const matchesStatus =
+        activeStatus === "All Events" ||
+        (activeStatus === "Past"
+          ? event.status === "Completed"
+          : event.status === activeStatus);
       const matchesCategory =
         activeFilter === "All Events" ||
         event.category.toLowerCase() === activeFilter.toLowerCase();
@@ -116,9 +118,9 @@ export default function AllEventsListing() {
         event.description.toLowerCase().includes(normalizedQuery) ||
         event.category.toLowerCase().includes(normalizedQuery);
 
-      return matchesCategory && matchesSearch;
+      return matchesStatus && matchesCategory && matchesSearch;
     });
-  }, [eventsList, activeFilter, searchQuery]);
+  }, [eventsList, activeStatus, activeFilter, searchQuery]);
 
   const totalPages = Math.max(1, Math.ceil(filteredEvents.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -128,7 +130,7 @@ export default function AllEventsListing() {
   );
 
   function applyFilter(filter: string) {
-    setActiveFilter(filter);
+    setActiveStatus(filter);
     setPage(1);
   }
 
@@ -144,6 +146,7 @@ export default function AllEventsListing() {
 
   function resetAllFilters() {
     setActiveFilter("All Events");
+    setActiveStatus("All Events");
     setSearchQuery("");
     setPage(1);
   }
@@ -158,6 +161,18 @@ export default function AllEventsListing() {
   return (
     <section className={styles.listingSection} aria-label="Browse and filter events">
       <div className={styles.sectionInner}>
+        <div className={styles.listingHeader}>
+          <span className={styles.listingHeaderIcon} aria-hidden="true">
+            <CalendarDays size={28} strokeWidth={2} />
+          </span>
+          <div>
+            <h2 className={styles.listingHeading}>Events</h2>
+            <p className={styles.listingSubheading}>
+              Discover business events, workshops, meetups and more.
+            </p>
+          </div>
+        </div>
+
         <div className={styles.toolbar}>
           <div className={styles.searchContainer}>
             <div className={styles.searchBox}>
@@ -186,37 +201,38 @@ export default function AllEventsListing() {
                 </button>
               )}
             </div>
+          </div>
+
+          <div className={styles.filterRow}>
             <p className={styles.resultsCount} aria-live="polite">
               Showing <strong>{filteredEvents.length}</strong> event
               {filteredEvents.length === 1 ? "" : "s"}
-              {searchQuery.trim() ? ` matching "${searchQuery.trim()}"` : ""}
             </p>
+            <ul className={styles.filterBar} aria-label="Filter events by status">
+              {filters.map((filter) => {
+                const isActive = filter === activeStatus;
+                return (
+                  <li key={filter}>
+                    <button
+                      type="button"
+                      className={
+                        isActive
+                          ? `${styles.filterBtn} ${styles.filterBtnActive}`
+                          : styles.filterBtn
+                      }
+                      aria-pressed={isActive}
+                      onClick={() => applyFilter(filter)}
+                    >
+                      <span>{filter}</span>
+                      <span className={styles.filterBadge}>
+                        {statusCounts[filter] ?? 0}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-
-          <ul className={styles.filterBar} aria-label="Filter events by category">
-            {filters.map((filter) => {
-              const isActive = filter === activeFilter;
-              return (
-                <li key={filter}>
-                  <button
-                    type="button"
-                    className={
-                      isActive
-                        ? `${styles.filterBtn} ${styles.filterBtnActive}`
-                        : styles.filterBtn
-                    }
-                    aria-pressed={isActive}
-                    onClick={() => applyFilter(filter)}
-                  >
-                    <span>{filter}</span>
-                    <span className={styles.filterBadge}>
-                      {categoryCounts[filter] ?? 0}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
         </div>
 
         {visibleEvents.length > 0 ? (
@@ -231,19 +247,35 @@ export default function AllEventsListing() {
           </div>
         ) : (
           <div className={styles.listingEmpty}>
+            <div className={styles.emptyCalendar} aria-hidden="true">
+              <CalendarDays size={82} strokeWidth={1.8} />
+              <span className={styles.emptyRayOne} />
+              <span className={styles.emptyRayTwo} />
+              <span className={styles.emptyRayThree} />
+            </div>
             <p className={styles.listingEmptyTitle}>No events match your criteria</p>
             <p className={styles.listingEmptyText}>
               We couldn&apos;t find any programs matching your current filter and
               search query. Try adjusting your search or view all events.
             </p>
-            <button
-              type="button"
-              onClick={resetAllFilters}
-              className={styles.resetBtn}
-            >
-              <RotateCcw size={14} strokeWidth={2.2} />
-              Reset All Filters
-            </button>
+            <div className={styles.emptyActions}>
+              <button
+                type="button"
+                onClick={resetAllFilters}
+                className={styles.viewAllBtn}
+              >
+                <Search size={18} strokeWidth={2} />
+                View All Events
+              </button>
+              <button
+                type="button"
+                onClick={resetAllFilters}
+                className={styles.resetBtn}
+              >
+                <RotateCcw size={16} strokeWidth={2.2} />
+                Reset All Filters
+              </button>
+            </div>
           </div>
         )}
 
