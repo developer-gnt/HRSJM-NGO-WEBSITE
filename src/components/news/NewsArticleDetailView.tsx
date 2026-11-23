@@ -162,7 +162,7 @@ export default function NewsArticleDetailView({ data }: Props) {
             <div className={styles.metaLeft}>
               <Calendar size={15} className={styles.metaIcon} />
               <span>
-                {data.date} &bull; {data.readTime}
+                {data.date}{data.readTime ? ` • ${data.readTime}` : ""}
               </span>
             </div>
 
@@ -475,7 +475,7 @@ export default function NewsArticleDetailView({ data }: Props) {
                   <h3 className={styles.relatedTitle}>{art.title}</h3>
                   <div className={styles.relatedFooter}>
                     <span className={styles.relatedMeta}>
-                      {art.date} &bull; {art.readTime}
+                      {art.date}{art.readTime ? ` • ${art.readTime}` : ""}
                     </span>
                     <span className={styles.relatedArrow}>
                       <ArrowRight size={14} />

@@ -51,7 +51,7 @@ export default function ArticleCard({
         <p className={styles.articleDesc}>{description}</p>
         <div className={styles.articleFooter}>
           <span className={styles.articleMeta}>
-            {date} &bull; {readTime}
+            {date}{readTime ? ` • ${readTime}` : ""}
           </span>
           {href ? (
             <Link

@@ -75,7 +75,7 @@ export default function ArticleDetailPage({ article }: { article: Article }) {
               <span className={shared.metaText}>
                 <span className={shared.author}>{article.author ?? "HRSJM Editorial Team"}</span>
                 <span className={shared.metaInfo}>
-                  {article.date} &bull; {article.readTime}
+                  {article.date}{article.readTime ? ` • ${article.readTime}` : ""}
                 </span>
               </span>
             </div>

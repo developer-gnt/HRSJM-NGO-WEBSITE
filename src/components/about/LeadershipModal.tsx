@@ -102,7 +102,7 @@ export default function LeadershipModal({
               <div>
                 <span className={styles.leadModalInfoLabel}>Organizational Standing</span>
                 <p className={styles.leadModalInfoVal}>
-                  {member.role ? `${member.role} &bull; National Governing Body` : "National Governing Body Member"}
+                  {member.role ? `${member.role} • National Governing Body` : "National Governing Body Member"}
                 </p>
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function LeadershipModal({
           <div className={styles.leadModalMeta}>
             <span className={styles.leadModalVerified}>
               <ShieldCheck size={16} strokeWidth={2.2} />
-              Verified Official Profile &bull; hrsjm.org
+              Verified Official Profile • hrsjm.org
             </span>
           </div>
         </div>
