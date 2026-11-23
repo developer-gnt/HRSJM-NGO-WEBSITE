@@ -124,7 +124,7 @@ export default function FeaturedNews({
                 <span className={styles.metaText}>
                   <span className={styles.author}>{authorStr}</span>
                   <span className={styles.metaInfo}>
-                    {dateStr} &bull; {readTimeStr}
+                    {dateStr}{readTimeStr ? ` • ${readTimeStr}` : ""}
                   </span>
                 </span>
               </div>

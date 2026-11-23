@@ -98,7 +98,7 @@ export default function FeaturedArticlePage() {
               <span className={shared.metaText}>
                 <span className={shared.author}>{featuredArticle.author}</span>
                 <span className={shared.metaInfo}>
-                  {featuredArticle.date} &bull; {featuredArticle.readTime}
+                  {featuredArticle.date}{featuredArticle.readTime ? ` • ${featuredArticle.readTime}` : ""}
                 </span>
               </span>
             </div>

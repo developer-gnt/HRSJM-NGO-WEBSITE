@@ -238,7 +238,7 @@ Status: Confirmed Paid (Awaiting Document Verification)
       </div>
     </div>
     <div class="footer">
-      Human Rights & Social Justice Mission (HRSJM) &bull; Centralized Intake Portal<br/>
+      Human Rights & Social Justice Mission (HRSJM) • Centralized Intake Portal<br/>
       Notification delivered to: <strong>${adminEmail}</strong>
     </div>
   </div>
@@ -648,7 +648,7 @@ ${data.message}
       </div>
     </div>
     <div class="footer">
-      Human Rights & Social Justice Mission (HRSJM) &bull; Centralized Intake Portal<br/>
+      Human Rights & Social Justice Mission (HRSJM) • Centralized Intake Portal<br/>
       Notification delivered to: <strong>${adminEmail}</strong>
     </div>
   </div>
@@ -1023,7 +1023,7 @@ ${data.details}
       </div>
     </div>
     <div class="footer">
-      Human Rights & Social Justice Mission (HRSJM) &bull; Centralized Intake Portal<br/>
+      Human Rights & Social Justice Mission (HRSJM) • Centralized Intake Portal<br/>
       Notification delivered to: <strong>${adminEmail}</strong>
     </div>
   </div>
