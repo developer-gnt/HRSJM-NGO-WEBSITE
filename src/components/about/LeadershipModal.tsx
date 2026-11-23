@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import { X, ShieldCheck, MapPin, Award, Building2, UserCheck } from "lucide-react";
 import type { LeadershipMember } from "./aboutData";
@@ -14,6 +15,25 @@ export default function LeadershipModal({
   member,
   onClose,
 }: LeadershipModalProps) {
+  useEffect(() => {
+    if (!member) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [member, onClose]);
+
   if (!member) return null;
 
   return (
@@ -28,17 +48,18 @@ export default function LeadershipModal({
         className={`${styles.modalPanel} ${styles.modalPanelNarrow}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          aria-label="Close profile"
-          className={styles.leadModalClose}
-        >
-          <X size={20} />
-        </button>
-
         {/* Top portrait & header */}
         <div className={styles.leadModalHeader}>
+          {/* Prominent Close (X) button */}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close profile"
+            className={styles.leadModalClose}
+          >
+            <X size={20} strokeWidth={2.4} />
+          </button>
+
           <Image
             src={member.image}
             alt={member.name}

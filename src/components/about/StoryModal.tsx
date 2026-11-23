@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { X, Scale, Users, BookOpen } from "lucide-react";
 import styles from "./about.module.css";
 
@@ -14,6 +15,23 @@ export default function StoryModal({
   onClose,
   onOpenJoin,
 }: StoryModalProps) {
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
