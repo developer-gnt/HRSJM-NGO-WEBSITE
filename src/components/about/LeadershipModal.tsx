@@ -136,85 +136,87 @@ export default function LeadershipModal({
 
         {/* Right Column: Detailed Info Cards & Close Profile Action */}
         <div className={styles.leadModalContent}>
-          <div className={styles.leadModalCardList}>
-            {/* 1. DESIGNATION */}
-            <div className={styles.leadInfoCard}>
-              <div className={styles.leadInfoIconWrap}>
-                <Building2 size={17} />
-              </div>
-              <div className={styles.leadInfoText}>
-                <span className={styles.leadInfoLabel}>Designation</span>
-                <p className={styles.leadInfoVal}>{member.designation}</p>
-              </div>
-            </div>
-
-            {/* 2. ACADEMIC & PROFESSIONAL DETAILS */}
-            {member.qualification && (
+          <div className={styles.leadModalScrollArea}>
+            <div className={styles.leadModalCardList}>
+              {/* 1. DESIGNATION */}
               <div className={styles.leadInfoCard}>
                 <div className={styles.leadInfoIconWrap}>
-                  <Award size={17} />
+                  <Building2 size={17} />
+                </div>
+                <div className={styles.leadInfoText}>
+                  <span className={styles.leadInfoLabel}>Designation</span>
+                  <p className={styles.leadInfoVal}>{member.designation}</p>
+                </div>
+              </div>
+
+              {/* 2. ACADEMIC & PROFESSIONAL DETAILS */}
+              {member.qualification && (
+                <div className={styles.leadInfoCard}>
+                  <div className={styles.leadInfoIconWrap}>
+                    <Award size={17} />
+                  </div>
+                  <div className={styles.leadInfoText}>
+                    <span className={styles.leadInfoLabel}>
+                      Academic &amp; Professional Details
+                    </span>
+                    <p className={styles.leadInfoVal}>{member.qualification}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* 3. LOCATION / JURISDICTION */}
+              {member.location && (
+                <div className={styles.leadInfoCard}>
+                  <div className={styles.leadInfoIconWrap}>
+                    <MapPin size={17} />
+                  </div>
+                  <div className={styles.leadInfoText}>
+                    <span className={styles.leadInfoLabel}>
+                      Location / Jurisdiction
+                    </span>
+                    <p className={styles.leadInfoVal}>{member.location}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* 4. PROFESSIONAL EXPERIENCE */}
+              <div className={styles.leadInfoCard}>
+                <div className={styles.leadInfoIconWrap}>
+                  <Briefcase size={17} />
                 </div>
                 <div className={styles.leadInfoText}>
                   <span className={styles.leadInfoLabel}>
-                    Academic &amp; Professional Details
+                    Professional Experience
                   </span>
-                  <p className={styles.leadInfoVal}>{member.qualification}</p>
+                  <p className={styles.leadInfoVal}>{experience}</p>
                 </div>
               </div>
-            )}
 
-            {/* 3. LOCATION / JURISDICTION */}
-            {member.location && (
+              {/* 5. KEY AREAS OF FOCUS */}
               <div className={styles.leadInfoCard}>
                 <div className={styles.leadInfoIconWrap}>
-                  <MapPin size={17} />
+                  <Target size={17} />
                 </div>
                 <div className={styles.leadInfoText}>
-                  <span className={styles.leadInfoLabel}>
-                    Location / Jurisdiction
-                  </span>
-                  <p className={styles.leadInfoVal}>{member.location}</p>
+                  <span className={styles.leadInfoLabel}>Key Areas of Focus</span>
+                  <p className={styles.leadInfoVal}>{focusAreas}</p>
                 </div>
               </div>
-            )}
 
-            {/* 4. PROFESSIONAL EXPERIENCE */}
-            <div className={styles.leadInfoCard}>
-              <div className={styles.leadInfoIconWrap}>
-                <Briefcase size={17} />
-              </div>
-              <div className={styles.leadInfoText}>
-                <span className={styles.leadInfoLabel}>
-                  Professional Experience
-                </span>
-                <p className={styles.leadInfoVal}>{experience}</p>
-              </div>
-            </div>
-
-            {/* 5. KEY AREAS OF FOCUS */}
-            <div className={styles.leadInfoCard}>
-              <div className={styles.leadInfoIconWrap}>
-                <Target size={17} />
-              </div>
-              <div className={styles.leadInfoText}>
-                <span className={styles.leadInfoLabel}>Key Areas of Focus</span>
-                <p className={styles.leadInfoVal}>{focusAreas}</p>
-              </div>
-            </div>
-
-            {/* 6. ABOUT */}
-            <div className={styles.leadInfoCard}>
-              <div className={styles.leadInfoIconWrap}>
-                <Users size={17} />
-              </div>
-              <div className={styles.leadInfoText}>
-                <span className={styles.leadInfoLabel}>About</span>
-                <p className={styles.leadInfoVal}>{aboutText}</p>
+              {/* 6. ABOUT */}
+              <div className={styles.leadInfoCard}>
+                <div className={styles.leadInfoIconWrap}>
+                  <Users size={17} />
+                </div>
+                <div className={styles.leadInfoText}>
+                  <span className={styles.leadInfoLabel}>About</span>
+                  <p className={styles.leadInfoVal}>{aboutText}</p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Bottom Action Footer */}
+          {/* Bottom Action Footer (Fixed & Always Visible) */}
           <div className={styles.leadModalFooterRow}>
             <button
               type="button"

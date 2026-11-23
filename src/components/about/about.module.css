@@ -1837,14 +1837,15 @@
 }
 
 .modalPanelTwoCol {
-  max-width: 940px;
+  max-width: 960px;
   width: 100%;
-  max-height: min(92vh, 740px);
+  height: min(88vh, 620px);
+  max-height: min(88vh, 620px);
   display: grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: 380px minmax(0, 1fr);
   background: #ffffff;
   border-radius: 18px;
-  box-shadow: 0 25px 60px -15px rgba(6, 42, 79, 0.4);
+  box-shadow: 0 25px 60px -15px rgba(6, 42, 79, 0.45);
   border: 1px solid #e5e0d5;
   overflow: hidden;
   position: relative;
@@ -2055,7 +2056,7 @@
 .leadModalHero {
   position: relative;
   height: 100%;
-  min-height: 520px;
+  min-height: 0;
   background: #062a4f;
   overflow: hidden;
   display: flex;
@@ -2067,7 +2068,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 15%;
+  object-position: center top;
   image-rendering: -webkit-optimize-contrast;
 }
 
@@ -2076,10 +2077,10 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(6, 42, 79, 0.05) 0%,
-    rgba(6, 42, 79, 0.35) 40%,
-    rgba(6, 42, 79, 0.88) 75%,
-    #062a4f 100%
+    rgba(6, 42, 79, 0) 0%,
+    rgba(6, 42, 79, 0.15) 35%,
+    rgba(6, 42, 79, 0.72) 68%,
+    rgba(6, 42, 79, 0.98) 95%
   );
   pointer-events: none;
 }
@@ -2097,7 +2098,7 @@
 .leadModalHeroCaption {
   position: relative;
   z-index: 10;
-  padding: 24px 24px 26px;
+  padding: 16px 22px 20px;
   color: #ffffff;
 }
 
@@ -2108,28 +2109,28 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #fad25c;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 .leadModalHeroName {
   font-family: var(--font-playfair), var(--font-display), Georgia, serif;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 700;
   line-height: 1.15;
   color: #ffffff;
-  margin: 0 0 6px 0;
+  margin: 0 0 4px 0;
 }
 
 .leadModalHeroDesignation {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: #e2e8f0;
   line-height: 1.35;
-  margin: 0 0 12px 0;
+  margin: 0 0 10px 0;
 }
 
 .leadModalGoldBar {
-  width: 44px;
+  width: 40px;
   height: 3px;
   background: #fad25c;
   border-radius: 2px;
@@ -2138,25 +2139,52 @@
 .leadModalContent {
   display: flex;
   flex-direction: column;
-  padding: 24px 26px 20px 22px;
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
   background: #ffffff;
+}
+
+.leadModalScrollArea {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  height: 100%;
+  padding: 20px 24px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #d4ccb8 #f8f6f0;
+}
+
+.leadModalScrollArea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leadModalScrollArea::-webkit-scrollbar-track {
+  background: #f8f6f0;
+  border-radius: 4px;
+}
+
+.leadModalScrollArea::-webkit-scrollbar-thumb {
+  background: #d4ccb8;
+  border-radius: 4px;
+}
+
+.leadModalScrollArea::-webkit-scrollbar-thumb:hover {
+  background: #b8ad96;
 }
 
 .leadModalCardList {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-right: 4px;
 }
 
 .leadInfoCard {
   display: flex;
   align-items: flex-start;
-  gap: 13px;
-  padding: 11px 14px;
+  gap: 12px;
+  padding: 10px 13px;
   background: #faf8f2;
   border: 1px solid #e7e2d6;
   border-radius: 12px;
@@ -2170,8 +2198,8 @@
 }
 
 .leadInfoIconWrap {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   flex-shrink: 0;
   border-radius: 10px;
   background: #ffffff;
@@ -2207,8 +2235,8 @@
 .leadModalFooterRow {
   display: flex;
   justify-content: flex-end;
-  padding-top: 14px;
-  margin-top: 10px;
+  padding: 12px 24px 16px;
+  background: #ffffff;
   border-top: 1px solid #eee8dc;
   flex-shrink: 0;
 }
@@ -2235,6 +2263,8 @@
 @media (max-width: 767px) {
   .modalPanelTwoCol {
     grid-template-columns: 1fr;
+    grid-template-rows: 240px 1fr;
+    height: min(92vh, 680px);
     max-height: 92vh;
   }
 
@@ -2252,7 +2282,15 @@
   }
 
   .leadModalContent {
-    padding: 16px 14px 16px;
+    min-height: 0;
+  }
+
+  .leadModalScrollArea {
+    padding: 16px 16px 10px;
+  }
+
+  .leadModalFooterRow {
+    padding: 10px 16px 14px;
   }
 }
 
