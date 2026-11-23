@@ -123,7 +123,12 @@ export default function Icon({ name, ...props }: IconProps) {
     case "venus":
       return <svg {...commonProps}><circle cx="12" cy="9" r="5" /><path d="M12 14v7" /><path d="M9 18.5h6" /></svg>;
     case "youtube":
-      return <svg {...commonProps}><rect x="3" y="6" width="18" height="12" rx="3" /><path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" /></svg>;
+      return (
+        <svg {...commonProps}>
+          <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+          <polygon points="10 15 15 12 10 9 10 15" fill="currentColor" stroke="none" />
+        </svg>
+      );
     case "x":
       return <svg {...commonProps}><path d="M5 4 19 20" /><path d="M19 4 5 20" /></svg>;
   }
