@@ -59,6 +59,11 @@ export const socialLinks: SocialLink[] = [
     href: "https://www.instagram.com/humanrights_hrsjm/",
     icon: "instagram",
   },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@humanrightssocialjustice",
+    icon: "youtube",
+  },
 ];
 
 // TODO: phone and email are dummy placeholders - replace with real contact details.

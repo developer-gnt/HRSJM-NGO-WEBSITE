@@ -40,5 +40,6 @@ export const maintenanceConfig: MaintenanceConfig = {
     { name: "Facebook", href: "https://www.facebook.com/HumanRightsSocialJusticeMissionNgo" },
     { name: "X (Twitter)", href: "https://x.com/hrsjm_president" },
     { name: "Instagram", href: "https://www.instagram.com/humanrights_hrsjm/" },
+    { name: "YouTube", href: "https://www.youtube.com/@humanrightssocialjustice" },
   ],
 };

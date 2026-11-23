@@ -96,6 +96,7 @@ const organizationSchema = {
     "https://www.facebook.com/HumanRightsSocialJusticeMissionNgo",
     "https://x.com/hrsjm_president",
     "https://www.instagram.com/humanrights_hrsjm/",
+    "https://www.youtube.com/@humanrightssocialjustice",
   ],
   description:
     "Human Rights & Social Justice Mission is a nationwide organization working for human rights, dignity, equality, legal awareness, and social justice across India.",
