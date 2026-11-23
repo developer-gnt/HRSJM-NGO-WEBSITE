@@ -9,6 +9,8 @@ export interface LeadershipMember {
   quote?: string;
   bio?: string;
   specialization?: string;
+  experience?: string;
+  focusAreas?: string;
 }
 
 export interface ValueItem {
@@ -40,6 +42,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "M.A. Human Rights",
     location: "Delhi, Mumbai",
     role: "National President",
+    experience: "Human Rights Leadership, Administration & Governance",
+    focusAreas: "Human Rights Protection, Social Justice, Policy Advocacy, National Coordination, Member Welfare",
+    bio: "Mr. M.T. Qazi serves as the Honorable National President of HRSJM, leading the organization's national initiatives for the promotion and protection of human rights across India.",
     image: "/assets/leadership/leader_mt_qazi_v3.jpg",
   },
   {
@@ -49,6 +54,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "B.Com | Engineer",
     location: "Maharashtra",
     role: "National Vice President",
+    experience: "Organizational Strategy, Institutional Development & Operations",
+    focusAreas: "Public Advocacy, Community Development, Executive Governance, State Operations",
+    bio: "Mr. S. P. Panigrahi serves as the National Vice President of HRSJM, overseeing executive administration, nationwide organizational coordination, and public advocacy.",
     image: "/assets/leadership/leader_sp_panigrahi_v2.jpg",
   },
   {
@@ -58,6 +66,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "M.A. | B.Ed.",
     location: "Maharashtra",
     role: "National General Secretary",
+    experience: "Grassroots Mobilization, Human Rights Education & Public Outreach",
+    focusAreas: "Educational Rights, Community Legal Awareness, Grievance Redressal, Field Missions",
+    bio: "Mr. N. A. Diwakar leads grassroots mobilization and administrative execution as the National General Secretary of HRSJM.",
     image: "/assets/leadership/leader_placeholder.svg",
   },
   {
@@ -67,6 +78,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "B.A. | L.L.B.",
     location: "Maharashtra",
     role: "Joint Secretary",
+    experience: "Legal Advocacy, Constitutional Law & Grievance Counseling",
+    focusAreas: "Civil Rights, Legal Aid Support, Public Interest Litigation, Statutory Compliance",
+    bio: "Adv. S. H. Shaikh serves as Joint Secretary of HRSJM, providing strategic legal guidance and facilitating legal assistance for marginalized individuals.",
     image: "/assets/leadership/leader_sh_shaikh_v2.jpg",
   },
   {
@@ -76,6 +90,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "B.Com | Engineer",
     location: "Maharashtra",
     role: "Treasurer",
+    experience: "Financial Management, Audit Compliance & Resource Planning",
+    focusAreas: "Transparent Accounting, Fund Allocation, Social Welfare Budgeting, Governance",
+    bio: "Mr. A. R. Ahmed oversees financial integrity, statutory audits, and fiscal stewardship as Treasurer of HRSJM.",
     image: "/assets/leadership/leader_ar_ahmed_v2.jpg",
   },
   {
@@ -85,6 +102,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "Governing Body Member",
     location: "Maharashtra",
     role: "Director",
+    experience: "Community Relations, Grassroots Welfare & Social Mediation",
+    focusAreas: "Public Grievance Resolution, Community Outreach, Social Welfare",
+    bio: "Mr. R. D. Khetri serves as Director on the National Governing Body, championing community harmony and grassroots social justice initiatives.",
     image: "/assets/leadership/leader_rd_khetri_v2.jpg",
   },
   {
@@ -94,6 +114,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "B.A. | L.L.B.",
     location: "Gujarat",
     role: "Director (Legal)",
+    experience: "Judicial Procedures, Human Rights Litigation & Legal Counseling",
+    focusAreas: "Fundamental Rights, Labor Protections, Legal Clinics, Judicial Advocacy",
+    bio: "Adv. M. M. Patel guides legal aid clinics, constitutional rights advocacy, and statutory compliance as Director (Legal).",
     image: "/assets/leadership/leader_mm_patel_v2.jpg",
   },
   {
@@ -103,6 +126,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "M.A. | B.Ed. | L.L.B.",
     location: "Maharashtra",
     role: "Director (Legal)",
+    experience: "Constitutional Advocacy, Dispute Resolution & Public Defense",
+    focusAreas: "Citizens' Rights, Legal Literacy, Civil Liberties, Pro Bono Defense",
+    bio: "Adv. M. Z. Siddiqui champions legal education, civic literacy, and pro bono legal support across Maharashtra.",
     image: "/assets/leadership/leader_mz_siddiqui_v2.jpg",
   },
   {
@@ -112,6 +138,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "Governing Body Member",
     location: "Delhi",
     role: "Director (Legal)",
+    experience: "National Policy Advocacy & Legal Governance",
+    focusAreas: "Central Regulatory Affairs, Human Rights Frameworks, Legal Redressal",
+    bio: "Adv. I. H. Khan oversees legal governance and statutory compliance for national-level campaigns from Delhi.",
     image: "/assets/leadership/leader_ih_khan_v2.jpg",
   },
   {
@@ -121,6 +150,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "Doctor",
     location: "U.P.",
     role: "Director (Human Resources)",
+    experience: "Public Health Advocacy, Community Welfare & Talent Administration",
+    focusAreas: "Healthcare Equity, Volunteer Training, Medical Rights, Community Outreach",
+    bio: "Dr. F. P. Khan directs human resource development, volunteer coordination, and public health awareness drives.",
     image: "/assets/leadership/leader_fp_khan_v2.jpg",
   },
   {
@@ -130,6 +162,9 @@ export const leadershipMembers: LeadershipMember[] = [
     qualification: "M.B.A. (Finance)",
     location: "U.K.",
     role: "Director",
+    experience: "International Relations, Global Advocacy & Strategic Development",
+    focusAreas: "Global Human Rights Standards, International Collaboration, Strategic Oversight",
+    bio: "Mr. A. S. Sayyed represents international coordination, cross-border advocacy partnerships, and institutional relations.",
     image: "/assets/leadership/leader_as_sayyed_v2.jpg",
   },
 ];
