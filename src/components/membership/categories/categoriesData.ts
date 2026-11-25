@@ -226,7 +226,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 10,
-        post: "National Minority Council Call",
+        post: "National Minority Council Cell",
         qualification:
           "Graduate / Degree (Muslim, Christian, Buddhist, Parsi, Jain & Sikh)",
         fees: "₹ 10,000",
@@ -244,7 +244,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 11,
-        post: "National Women Council Call",
+        post: "National Women Council Cell",
         qualification: "Graduate / Degree (Only for Women)",
         fees: "₹ 10,000",
         validity: "10 Years",
@@ -261,7 +261,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       },
       {
         srNo: 12,
-        post: "National Political Council Call",
+        post: "National Political Council Cell",
         qualification: "Graduate / Degree (For Politicians)",
         fees: "₹ 10,000",
         validity: "10 Years",
