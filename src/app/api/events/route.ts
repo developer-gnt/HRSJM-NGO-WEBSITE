@@ -4,7 +4,8 @@ import { fetchUpcomingEvents } from "@/lib/backendApi";
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const status = searchParams.get("status") || "UPCOMING";
+    const statusParam = searchParams.get("status");
+    const status = statusParam && statusParam !== "ALL" ? statusParam : undefined;
     const category = searchParams.get("category") || undefined;
     const search = searchParams.get("search") || undefined;
     const page = parseInt(searchParams.get("page") || "1", 10) || 1;

@@ -13,9 +13,21 @@ export default async function UpcomingEvents() {
   let events: EventItem[] = [];
 
   try {
-    const data = await fetchUpcomingEvents({ status: "UPCOMING", limit: 6 });
+    const data = await fetchUpcomingEvents({ status: "UPCOMING", limit: 12 });
     if (data.items && data.items.length > 0) {
-      events = data.items.map((event: BackendEvent) => ({
+      // Find the featured event so we don't display it redundantly if multiple upcoming events exist
+      const featuredId = data.items.find((item: BackendEvent) =>
+        item.tags && Array.isArray(item.tags) && item.tags.some((t: string) => {
+          const clean = t.trim().toLowerCase();
+          return clean === "featured" || clean === "featured event";
+        })
+      )?.id;
+
+      const displayItems = (featuredId && data.items.length > 1)
+        ? data.items.filter((item: BackendEvent) => item.id !== featuredId)
+        : data.items;
+
+      events = displayItems.map((event: BackendEvent) => ({
         id: event.id,
         title: event.title,
         description:

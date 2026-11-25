@@ -13,9 +13,22 @@ export default async function FeaturedEvent() {
   let featuredEvent: BackendEvent | null = null;
 
   try {
-    const data = await fetchUpcomingEvents({ status: "UPCOMING", limit: 1 });
+    const data = await fetchUpcomingEvents({ limit: 50 });
     if (data.items && data.items.length > 0) {
-      featuredEvent = data.items[0];
+      // Prioritize the event specifically tagged as Featured in Admin WebApp
+      const explicitlyFeatured = data.items.find((item: BackendEvent) =>
+        item.tags && Array.isArray(item.tags) && item.tags.some((t: string) => {
+          const clean = t.trim().toLowerCase();
+          return clean === "featured" || clean === "featured event";
+        })
+      );
+
+      if (explicitlyFeatured) {
+        featuredEvent = explicitlyFeatured;
+      } else {
+        // Fallback to first upcoming event if none explicitly tagged
+        featuredEvent = data.items.find((i: BackendEvent) => i.status === "UPCOMING") || data.items[0];
+      }
     }
   } catch (err) {
     console.warn("Could not fetch featured event from database:", err);

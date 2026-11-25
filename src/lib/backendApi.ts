@@ -1,5 +1,5 @@
-const LOCAL_BACKEND_URL = process.env.BACKEND_API_URL || "http://127.0.0.1:5000/api/v1";
-const PROD_BACKEND_URL = process.env.BACKEND_API_URL || "http://127.0.0.1:5000/api/v1";
+const LOCAL_BACKEND_URL = process.env.BACKEND_API_URL || "http://127.0.0.1:3000/api/v1";
+const PROD_BACKEND_URL = process.env.BACKEND_API_URL || "https://hrsjm.org/api/v1";
 
 export function getBackendApiUrl(): string {
   // 1. Check explicit URL from environment
@@ -1190,7 +1190,9 @@ export async function fetchUpcomingEvents(params?: {
   limit?: number;
 }): Promise<EventsListApiResponse> {
   const query = new URLSearchParams();
-  query.append("status", params?.status || "UPCOMING");
+  if (params?.status && params.status !== "ALL") {
+    query.append("status", params.status);
+  }
   if (params?.category && params.category !== "All Events") {
     query.append("category", params.category);
   }
