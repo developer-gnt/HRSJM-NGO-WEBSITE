@@ -355,7 +355,7 @@ export default function AimsAndObjectivesPage() {
         <div className={styles.ctaBgLayer}>
           <Image
             src="/images/aims/aims_hero.jpg"
-            alt=""
+            alt="Preamble to the Constitution of India and justice emblem"
             fill
             sizes="100vw"
             className={styles.ctaBgImage}

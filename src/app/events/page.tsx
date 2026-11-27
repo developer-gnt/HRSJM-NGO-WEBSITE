@@ -15,7 +15,7 @@ import {
 import type { ActivityItem } from "@/components/events/ActivityCard";
 
 export const metadata: Metadata = {
-  title: "Events & Community Activities - Human Rights & Social Justice Mission",
+  title: "Events & Community Activities | HRSJM",
   description:
     "Participate in nationwide legal awareness workshops, human rights rallies, charity drives, and grassroots community conferences organized by HRSJM across India.",
   keywords: [

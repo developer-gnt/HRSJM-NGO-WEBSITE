@@ -8,9 +8,9 @@ import WhatHRSJMDoesImpact from "@/components/what-hrsjm-does/WhatHRSJMDoesImpac
 import WhatHRSJMDoesFinalCta from "@/components/what-hrsjm-does/WhatHRSJMDoesFinalCta";
 
 export const metadata: Metadata = {
-  title: "What HRSJM Does - Programs, Legal Aid, Advocacy & Social Impact",
+  title: "What We Do - Legal Aid, Programs & Advocacy | HRSJM",
   description:
-    "Discover what the Human Rights & Social Justice Mission (HRSJM) does. From community legal aid clinics and survivor support to constitutional education and grassroots campaigns across India.",
+    "Discover what HRSJM does: grassroots legal aid clinics, emergency relief, survivor support, and nationwide constitutional rights advocacy programs.",
   keywords: [
     "What HRSJM Does",
     "Human Rights Programs India",

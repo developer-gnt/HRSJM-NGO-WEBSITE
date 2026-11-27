@@ -13,12 +13,11 @@ export default function DonationHero() {
     <section className={styles.hero} aria-labelledby="donation-hero-heading">
       <Image
         src="/donation/donation-hero-clean.png"
-        alt=""
+        alt="HRSJM volunteers and advocates supporting human rights and social justice"
         fill
         preload
         sizes="100vw"
         className={styles.heroImage}
-        aria-hidden="true"
       />
       <div className={styles.heroScrim} aria-hidden="true" />
 

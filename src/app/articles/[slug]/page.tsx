@@ -17,15 +17,42 @@ export async function generateMetadata({
   const { slug } = await params;
   const dbNews = await fetchNewsByIdOrSlug(slug);
   if (dbNews) {
-    return { title: `${dbNews.title} | HRSJM`, description: dbNews.summary };
+    const desc = dbNews.summary || "HRSJM legal and human rights article.";
+    return {
+      title: `${dbNews.title} | HRSJM Articles`,
+      description: desc.slice(0, 155),
+      alternates: {
+        canonical: `/articles/${slug}`,
+      },
+    };
   }
   const richArticle = newsArticlesData[slug];
   if (richArticle) {
-    return { title: richArticle.title, description: richArticle.subtitle };
+    const desc = richArticle.subtitle || richArticle.title;
+    return {
+      title: richArticle.title,
+      description: desc.slice(0, 155),
+      alternates: {
+        canonical: `/articles/${slug}`,
+      },
+    };
   }
   const article = findLatestArticleBySlug(slug);
-  if (!article) return { title: "Article Not Found" };
-  return { title: article.title, description: article.description };
+  if (!article) {
+    return {
+      title: "Article Not Found | HRSJM",
+      alternates: {
+        canonical: `/articles/${slug}`,
+      },
+    };
+  }
+  return {
+    title: `${article.title} | HRSJM Articles`,
+    description: article.description?.slice(0, 155),
+    alternates: {
+      canonical: `/articles/${slug}`,
+    },
+  };
 }
 
 export default async function ArticleRoute({

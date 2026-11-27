@@ -4,7 +4,7 @@ import MembershipCategoriesPage from "@/components/membership/categories/Members
 export const metadata: Metadata = {
   title: "Membership Categories, Posts & Fees | HRSJM India",
   description:
-    "Explore HRSJM membership categories, qualification criteria, fees, validity, and kit details. Apply for District Active Member, State Unit Post, Letter Pad Post, or National Council.",
+    "Explore HRSJM membership categories, fees, validity, and kit details for District Active Member, State Unit, Letter Pad, and National Council posts.",
   keywords: [
     "HRSJM Membership Categories",
     "NGO Post Fees",

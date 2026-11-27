@@ -68,16 +68,6 @@ export default function LeadershipModal({
         className={`${styles.modalPanel} ${styles.modalPanelTwoCol}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top-Right Circular Close (X) Button */}
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close profile"
-          className={styles.leadModalClose}
-        >
-          <X size={18} strokeWidth={2.4} />
-        </button>
-
         {/* Left Column: Portrait, Identity & Gradient */}
         <div className={styles.leadModalHero}>
           <Image
@@ -136,6 +126,16 @@ export default function LeadershipModal({
 
         {/* Right Column: Detailed Info Cards & Close Profile Action */}
         <div className={styles.leadModalContent}>
+          {/* Top-Right Circular Close (X) Button */}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close profile"
+            className={styles.leadModalClose}
+          >
+            <X size={18} strokeWidth={2.4} />
+          </button>
+
           <div className={styles.leadModalScrollArea}>
             <div className={styles.leadModalCardList}>
               {/* 1. DESIGNATION */}

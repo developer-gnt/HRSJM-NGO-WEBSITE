@@ -10,7 +10,7 @@ import DonationFAQ from "@/components/donation/DonationFAQ";
 import DonationCTA from "@/components/donation/DonationCTA";
 
 export const metadata: Metadata = {
-  title: "Donate to HRSJM - Support Human Rights, Legal Aid & Social Justice in India",
+  title: "Donate to HRSJM | Support Human Rights & Legal Aid",
   description:
     "Make an 80G tax-exempt donation to the Human Rights & Social Justice Mission (HRSJM). Fund free legal aid, emergency survivor relief, and human rights advocacy.",
   keywords: [

@@ -91,7 +91,7 @@ export default function MembershipLoginPage() {
       <section className={styles.hero} aria-labelledby="login-heading">
         <Image
           src="/membership/membership-hero.png"
-          alt=""
+          alt="HRSJM official member login and verification portal"
           fill
           priority
           sizes="100vw"

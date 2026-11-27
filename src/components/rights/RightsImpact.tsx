@@ -58,11 +58,10 @@ export default function RightsImpact() {
     >
       <Image
         src="/rights-impact-bg.png"
-        alt=""
+        alt="HRSJM nationwide legal awareness programs and rights impact"
         fill
         sizes="100vw"
         className={styles.bg}
-        aria-hidden="true"
       />
       <div className={styles.scrim} aria-hidden="true" />
 

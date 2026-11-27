@@ -8,9 +8,9 @@ import RightsFAQ from "@/components/rights/RightsFAQ";
 import RightsFinalCTA from "@/components/rights/RightsFinalCTA";
 
 export const metadata: Metadata = {
-  title: "Know Your Rights - Fundamental Rights & Legal Awareness Guide | HRSJM",
+  title: "Know Your Rights - Legal Awareness Guide | HRSJM",
   description:
-    "Comprehensive legal rights guide by HRSJM. Understand your constitutional rights, right to education, child protection, women rights, consumer rights, and senior citizen laws in India.",
+    "Understand your constitutional and legal rights in India. Practical guides covering women's safety, child protection, RTE, and consumer protection.",
   keywords: [
     "Know Your Rights India",
     "Fundamental Rights Constitution of India",

@@ -44,7 +44,7 @@ export default function WhatHRSJMDoesFinalCta() {
       <div className={styles.finalCtaBg} aria-hidden="true">
         <Image
           src="/WHD-FinalCta/final-cta-bg.png"
-          alt=""
+          alt="Support HRSJM mission to uphold justice, human rights and equality"
           fill
           sizes="100vw"
           className={styles.finalCtaImg}

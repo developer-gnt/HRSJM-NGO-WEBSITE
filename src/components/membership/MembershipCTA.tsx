@@ -8,11 +8,10 @@ export default function MembershipCTA() {
     <section className={styles.cta} aria-labelledby="membership-cta-heading">
       <Image
         src="/membership/membership-cta.png"
-        alt=""
+        alt="Join HRSJM nationwide human rights membership network"
         fill
         sizes="100vw"
         className={styles.ctaImage}
-        aria-hidden="true"
       />
       <div className={styles.ctaScrim} aria-hidden="true" />
 

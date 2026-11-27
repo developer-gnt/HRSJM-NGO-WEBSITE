@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import HelpCenterPage from "@/components/help/HelpCenterPage";
 
 export const metadata: Metadata = {
-  title: "Help Centre & Support - Human Rights & Social Justice Mission",
+  title: "Help Centre & Support | HRSJM Citizen Helpline",
   description:
-    "Official Help Centre of HRSJM. Find guides, membership support, complaint tracking assistance, and direct helpline contact for citizens and members.",
+    "Official HRSJM Help Centre. Access member support, complaint tracking assistance, FAQs, and reach our dedicated human rights helpline across India.",
   keywords: [
     "HRSJM Help Centre",
     "Human Rights Support India",

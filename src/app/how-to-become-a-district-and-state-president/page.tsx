@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import PresidentPage from "@/components/president/PresidentPage";
 
 export const metadata: Metadata = {
-  title: "How to Become a District / State President - Leadership in HRSJM",
+  title: "Become a District or State President | HRSJM",
   description:
-    "Take leadership with the Human Rights & Social Justice Mission (HRSJM). Learn the step-by-step appointment process, build a 25-member unit, and lead human rights in your district or state.",
+    "Lead HRSJM in your district or state. Learn our official appointment criteria, build a 25-member active unit, and champion human rights and social justice.",
   keywords: [
     "How to Become a District President NGO",
     "HRSJM State President Appointment",

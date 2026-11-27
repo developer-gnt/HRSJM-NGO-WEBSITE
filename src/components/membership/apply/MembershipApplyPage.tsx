@@ -698,7 +698,7 @@ function MembershipApplyContent() {
       <section className={styles.hero} aria-labelledby="apply-heading">
         <Image
           src="/membership/membership-hero.png"
-          alt=""
+          alt="Apply online for HRSJM official membership and identity card"
           fill
           priority
           sizes="100vw"

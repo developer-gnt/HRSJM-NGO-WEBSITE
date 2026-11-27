@@ -10,7 +10,7 @@ export default function HelpCTA() {
       <div className={styles.ctaBg} aria-hidden="true">
         <Image
           src="/images/contact/contact-cta.jpg"
-          alt=""
+          alt="Contact HRSJM for emergency help, grievance redressal and free legal guidance"
           fill
           sizes="100vw"
           className={styles.ctaImg}

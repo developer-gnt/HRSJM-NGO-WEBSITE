@@ -6,7 +6,7 @@ import { faqCategories } from "@/components/faqs/faqData";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions (FAQs) | HRSJM",
   description:
-    "Get authoritative answers about the Human Rights & Social Justice Mission (HRSJM), fundamental rights in India, online membership, filing complaints, and 80G tax-exempt donations.",
+    "Find answers to frequently asked questions about HRSJM membership, filing human rights complaints, free legal aid, and 80G tax-exempt donations.",
   keywords: [
     "HRSJM FAQ",
     "Human rights questions India",

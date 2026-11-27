@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import MembershipRenewPage from "@/components/membership/renew/MembershipRenewPage";
 
 export const metadata: Metadata = {
-  title: "Renew Membership - Human Rights & Social Justice Mission",
+  title: "Renew Membership | Human Rights & Social Justice Mission",
   description:
-    "Renew your HRSJM annual membership online. Verify your member credentials, renew your identity card and appointment validity, and continue active human rights work.",
+    "Renew your HRSJM annual membership online. Verify your member credentials, renew your ID card and appointment validity, and continue active advocacy.",
   keywords: [
     "Renew HRSJM Membership",
     "NGO Member Renewal Online",

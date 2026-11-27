@@ -54,7 +54,7 @@ export default function TakeActionSection() {
       <span className={styles.bgWrap} aria-hidden="true">
         <Image
           src="/images/take-action-bg.png"
-          alt=""
+          alt="Take action with HRSJM to protect fundamental constitutional rights across India"
           fill
           sizes="100vw"
           className={styles.bg}

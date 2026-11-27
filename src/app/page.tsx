@@ -10,9 +10,9 @@ import { maintenanceConfig } from "@/config/maintenance";
 import MaintenancePage from "@/components/maintenance/MaintenancePage";
 
 export const metadata: Metadata = {
-  title: "HRSJM | Human Rights & Social Justice Mission - Justice, Equality & Dignity for All",
+  title: "HRSJM - Human Rights & Social Justice Mission India",
   description:
-    "Join the Human Rights & Social Justice Mission (HRSJM). We fight for constitutional rights, legal justice, public welfare, women empowerment, and human dignity across India.",
+    "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment, and human dignity across India.",
   keywords: [
     "Human Rights NGO India",
     "Human Rights and Social Justice Mission",

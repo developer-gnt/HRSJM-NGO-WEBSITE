@@ -1837,12 +1837,12 @@
 }
 
 .modalPanelTwoCol {
-  max-width: 960px;
+  max-width: 1000px;
   width: 100%;
-  height: min(88vh, 620px);
-  max-height: min(88vh, 620px);
+  height: min(90vh, 660px);
+  max-height: min(90vh, 660px);
   display: grid;
-  grid-template-columns: 380px minmax(0, 1fr);
+  grid-template-columns: 400px minmax(0, 1fr);
   background: #ffffff;
   border-radius: 18px;
   box-shadow: 0 25px 60px -15px rgba(6, 42, 79, 0.45);
@@ -2034,24 +2034,23 @@
   top: 14px;
   right: 14px;
   z-index: 50;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: #d9a928;
+  background: #062a4f;
   border: none;
-  color: #062a4f;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 180ms ease;
-  box-shadow: 0 2px 8px rgba(217, 169, 40, 0.35);
+  box-shadow: 0 2px 10px rgba(6, 42, 79, 0.35);
 }
 
 .leadModalClose:hover {
-  background: #c99b24;
-  color: #062a4f;
-  transform: scale(1.06);
+  background: #0a3a6e;
+  transform: scale(1.08);
 }
 
 .leadModalHero {
@@ -2145,6 +2144,7 @@
   max-height: 100%;
   overflow: hidden;
   background: #ffffff;
+  position: relative;
 }
 
 .leadModalScrollArea {
@@ -2152,7 +2152,7 @@
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 20px 24px 10px;
+  padding: 56px 24px 10px;
   scrollbar-width: thin;
   scrollbar-color: #d4ccb8 #f8f6f0;
 }
@@ -2244,35 +2244,35 @@
 
 .leadModalCloseProfileBtn {
   padding: 9px 24px;
-  background: #d9a928;
-  color: #062a4f;
+  background: #062a4f;
+  color: #ffffff;
   font-size: 13.5px;
   font-weight: 700;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 160ms ease;
-  box-shadow: 0 2px 6px rgba(217, 169, 40, 0.3);
+  box-shadow: 0 2px 6px rgba(6, 42, 79, 0.25);
 }
 
 .leadModalCloseProfileBtn:hover {
-  background: #c99b24;
-  color: #062a4f;
+  background: #0a3a6e;
+  color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(217, 169, 40, 0.4);
+  box-shadow: 0 4px 12px rgba(6, 42, 79, 0.35);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .modalPanelTwoCol {
     grid-template-columns: 1fr;
-    grid-template-rows: 240px 1fr;
-    height: min(92vh, 680px);
-    max-height: 92vh;
+    grid-template-rows: 260px 1fr;
+    height: min(93vh, 700px);
+    max-height: 93vh;
   }
 
   .leadModalHero {
-    height: 240px;
-    min-height: 240px;
+    height: 260px;
+    min-height: 260px;
   }
 
   .leadModalHeroCaption {
@@ -2280,7 +2280,7 @@
   }
 
   .leadModalHeroName {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .leadModalContent {
@@ -2288,11 +2288,11 @@
   }
 
   .leadModalScrollArea {
-    padding: 16px 16px 10px;
+    padding: 14px 14px 8px;
   }
 
   .leadModalFooterRow {
-    padding: 10px 16px 14px;
+    padding: 10px 14px 14px;
   }
 }
 

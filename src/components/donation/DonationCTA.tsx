@@ -8,11 +8,10 @@ export default function DonationCTA() {
     <section className={styles.cta} aria-labelledby="donation-cta-heading">
       <Image
         src="/donation/donation-cta.png"
-        alt=""
+        alt="Support human rights initiatives and contribute to social equality"
         fill
         sizes="100vw"
         className={styles.ctaImage}
-        aria-hidden="true"
       />
       <div className={styles.ctaScrim} aria-hidden="true" />
 

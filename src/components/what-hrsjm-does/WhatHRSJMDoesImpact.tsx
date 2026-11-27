@@ -60,7 +60,7 @@ export default function WhatHRSJMDoesImpact() {
       <div className={styles.impactBg} aria-hidden="true">
         <Image
           src="/WHD-Impact/impact-bg.png"
-          alt=""
+          alt="Field impact of HRSJM human rights and social welfare interventions across India"
           fill
           sizes="100vw"
           className={styles.impactImg}

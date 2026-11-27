@@ -11,9 +11,9 @@ import MembershipFAQ from "@/components/membership/MembershipFAQ";
 import MembershipCTA from "@/components/membership/MembershipCTA";
 
 export const metadata: Metadata = {
-  title: "Join HRSJM Membership - Human Rights & Social Justice Mission India",
+  title: "Join HRSJM Membership | Stand for Human Rights",
   description:
-    "Become an active member of the Human Rights & Social Justice Mission (HRSJM). Receive official appointment letters, identity cards, and lead community advocacy across India.",
+    "Join the Human Rights & Social Justice Mission (HRSJM). Receive official ID cards, appointment letters, and lead grassroots social justice across India.",
   keywords: [
     "Join HRSJM",
     "Human Rights Membership India",

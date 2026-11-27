@@ -85,11 +85,10 @@ export default function OurImpactSection() {
     <section ref={sectionRef} className={styles.section} aria-labelledby="our-impact-heading">
       <Image
         src="/our-impact-bg.png"
-        alt=""
+        alt="HRSJM nationwide impact in legal aid, citizen protection and human rights"
         fill
         sizes="100vw"
         className={styles.bg}
-        aria-hidden="true"
       />
       <div className={styles.scrim} aria-hidden="true" />
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import MembershipApplyPage from "@/components/membership/apply/MembershipApplyPage";
 
 export const metadata: Metadata = {
-  title: "Apply for Membership Online | Human Rights & Social Justice Mission",
+  title: "Apply for Membership Online | HRSJM",
   description:
     "Apply online for official HRSJM membership. Simple 3-step application with instant verification, appointment letter, and official membership identity card.",
   keywords: [
