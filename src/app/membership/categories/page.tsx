@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     title: "Membership Categories, Posts & Fees | HRSJM India",
     description: "Explore HRSJM membership categories, fees, validity, and kit details for District Active Member, State Unit, Letter Pad, and National Council posts.",
     urlPath: "/membership/categories",
-    image: "/social-preview.jpg?v=2",
+    image: "/social-preview.jpg",
     imageAlt: "Human Rights & Social Justice Mission (HRSJM) Official Logo",
   }),
   twitter: createTwitter({
     title: "Membership Categories, Posts & Fees | HRSJM India",
     description: "Explore HRSJM membership categories, fees, validity, and kit details for District Active Member, State Unit, Letter Pad, and National Council posts.",
-    image: "/social-preview.jpg?v=2",
+    image: "/social-preview.jpg",
   }),
 };
 

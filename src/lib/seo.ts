@@ -31,6 +31,10 @@ export function createOpenGraph({
   const imgWidth = isSquare ? 600 : 1200;
   const imgHeight = isSquare ? 600 : 630;
 
+  const cleanUrl = imageUrl.split("?")[0].toLowerCase();
+  const isJpg = cleanUrl.endsWith(".jpg") || cleanUrl.endsWith(".jpeg");
+  const mimeType = isJpg ? "image/jpeg" : "image/png";
+
   return {
     type,
     locale: "en_IN",
@@ -45,7 +49,7 @@ export function createOpenGraph({
         width: imgWidth,
         height: imgHeight,
         alt: imageAlt,
-        type: imageUrl.endsWith(".jpg") || imageUrl.endsWith(".jpeg") ? "image/jpeg" : "image/png",
+        type: mimeType,
       },
     ],
   };
