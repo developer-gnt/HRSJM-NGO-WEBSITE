@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import AimsAndObjectivesPage from "@/components/aims-and-objectives/AimsAndObjectivesPage";
 
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/aims-and-objectives",
   },
-  openGraph: {
-    title: "Aims & Objectives - HRSJM",
-    description:
-      "Our constitutional commitment to defending fundamental rights and advancing social equality for all citizens.",
-    url: "https://hrsjm.org/aims-and-objectives",
-  },
+  openGraph: createOpenGraph({
+    title: "Aims & Objectives | HRSJM Human Rights Mission",
+    description: "Explore the constitutional aims, legal advocacy objectives, and social welfare goals of the Human Rights and Social Justice Mission (HRSJM) across India.",
+    urlPath: "/aims-and-objectives",
+    image: "/images/aims/aims_hero.jpg",
+    imageAlt: "Aims & Objectives | HRSJM Human Rights Mission",
+  }),
 };
 
 export default function AimsAndObjectivesRoute() {

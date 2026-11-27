@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import OurHistoryPage from "@/components/our-history/OurHistoryPage";
 
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/our-history",
   },
-  openGraph: {
-    title: "Our History - The Journey of HRSJM Since 2012",
-    description:
-      "From a grassroots initiative in 2012 to a nationwide human rights organization upholding justice and dignity.",
-    url: "https://hrsjm.org/our-history",
-  },
+  openGraph: createOpenGraph({
+    title: "Our History - Journey Since 2012 | HRSJM",
+    description: "Founded on 26 November 2012, discover the founding milestones, constitutional principles, and decade-long human rights journey of HRSJM across India.",
+    urlPath: "/our-history",
+    image: "/logo.png",
+    imageAlt: "Our History - Journey Since 2012 | HRSJM",
+  }),
 };
 
 export default function Page() {

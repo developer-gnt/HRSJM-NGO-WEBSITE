@@ -35,7 +35,7 @@ const securityHeaders = [
     key: "Cross-Origin-Resource-Policy",
     value: "same-origin",
   },
-  // 7. Missing Content Security Policy (CSP) & frame-ancestors
+  // 7. Missing Content Security Policy (CSP) & Trusted Types Policy
   {
     key: "Content-Security-Policy",
     value: [
@@ -48,6 +48,8 @@ const securityHeaders = [
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",
+      "require-trusted-types-for 'script'",
+      "trusted-types default nextjs#bundler",
     ].join("; "),
   },
 ];

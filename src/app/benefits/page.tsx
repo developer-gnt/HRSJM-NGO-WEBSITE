@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import BenefitsPage from "@/components/benefits/BenefitsPage";
 
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/benefits",
   },
-  openGraph: {
-    title: "HRSJM Membership Benefits & Kit Privileges",
-    description:
-      "Explore the privileges, credentials, and legal backing provided to certified HRSJM members across India.",
-    url: "https://hrsjm.org/benefits",
-  },
+  openGraph: createOpenGraph({
+    title: "Membership Benefits & Official Kit | HRSJM",
+    description: "Discover HRSJM membership benefits: official appointment letters, photo ID cards, car stickers, legal training, and grassroots leadership authority.",
+    urlPath: "/benefits",
+    image: "/membership/membership-movement.png",
+    imageAlt: "Membership Benefits & Official Kit | HRSJM",
+  }),
 };
 
 export default function Page() {

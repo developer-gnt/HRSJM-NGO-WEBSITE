@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import MembershipApplyPage from "@/components/membership/apply/MembershipApplyPage";
 
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/membership/apply",
   },
-  openGraph: {
-    title: "Apply Online for HRSJM Membership",
-    description:
-      "Join the nationwide human rights movement today. Submit your online membership application.",
-    url: "https://hrsjm.org/membership/apply",
-  },
+  openGraph: createOpenGraph({
+    title: "Apply for Membership Online | HRSJM",
+    description: "Apply online for official HRSJM membership. Simple 3-step application with instant verification, appointment letter, and official membership identity card.",
+    urlPath: "/membership/apply",
+    image: "/membership/membership-hero.png",
+    imageAlt: "Apply for Membership Online | HRSJM",
+  }),
 };
 
 export default function MembershipApplyRoute() {

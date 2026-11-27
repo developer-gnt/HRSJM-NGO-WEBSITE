@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import ConstitutionPage from "@/components/constitution/ConstitutionPage";
 
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/constitution",
   },
-  openGraph: {
+  openGraph: createOpenGraph({
     title: "Constitution & Governance Bylaws | HRSJM",
-    description:
-      "The foundational governance document defining the vision, operational structure, and ethical principles of HRSJM.",
-    url: "https://hrsjm.org/constitution",
-  },
+    description: "Read the official Constitution of HRSJM. Learn our legal framework, governance bylaws, code of conduct, and democratic structure upholding human rights.",
+    urlPath: "/constitution",
+    image: "/assets/terms_hero.png",
+    imageAlt: "Constitution & Governance Bylaws | HRSJM",
+  }),
 };
 
 export default function ConstitutionRoute() {

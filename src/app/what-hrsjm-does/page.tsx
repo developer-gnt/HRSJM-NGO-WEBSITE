@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import WhatHRSJMDoesHero from "@/components/what-hrsjm-does/WhatHRSJMDoesHero";
 import WhatHRSJMDoesWhatWeDo from "@/components/what-hrsjm-does/WhatHRSJMDoesWhatWeDo";
@@ -22,12 +23,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/what-hrsjm-does",
   },
-  openGraph: {
-    title: "What HRSJM Does - Direct Impact & Advocacy in Communities",
-    description:
-      "Explore the key intervention areas and grassroots legal defense programs executed by HRSJM nationwide.",
-    url: "https://hrsjm.org/what-hrsjm-does",
-  },
+  openGraph: createOpenGraph({
+    title: "What We Do - Legal Aid, Programs & Advocacy | HRSJM",
+    description: "Discover what HRSJM does: grassroots legal aid clinics, emergency relief, survivor support, and nationwide constitutional rights advocacy programs.",
+    urlPath: "/what-hrsjm-does",
+    image: "/WHD-hero-bg.png",
+    imageAlt: "What We Do - Legal Aid, Programs & Advocacy | HRSJM",
+  }),
 };
 
 export default function WhatHRSJMDoesPage() {

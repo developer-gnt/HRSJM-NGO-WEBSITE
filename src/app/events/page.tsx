@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import EventsHero from "@/components/events/EventsHero";
 import FeaturedEvent from "@/components/events/FeaturedEvent";
@@ -29,12 +30,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/events",
   },
-  openGraph: {
-    title: "HRSJM Events & Community Activities",
-    description:
-      "Join our public seminars, legal clinics, and human rights campaigns across Indian states.",
-    url: "https://hrsjm.org/events",
-  },
+  openGraph: createOpenGraph({
+    title: "Events & Community Activities | HRSJM",
+    description: "Participate in nationwide legal awareness workshops, human rights rallies, charity drives, and grassroots community conferences organized by HRSJM across India.",
+    urlPath: "/events",
+    image: "/logo.png",
+    imageAlt: "Events & Community Activities | HRSJM",
+  }),
 };
 
 export const dynamic = "force-dynamic";

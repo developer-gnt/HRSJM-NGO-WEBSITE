@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import NewsHero from "@/components/news/NewsHero";
 import FeaturedNews from "@/components/news/FeaturedNews";
@@ -22,12 +23,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/news",
   },
-  openGraph: {
-    title: "Human Rights News & Legal Insights Blog | HRSJM",
-    description:
-      "Latest human rights stories, legal awareness articles, and ground reports from across India.",
-    url: "https://hrsjm.org/news",
-  },
+  openGraph: createOpenGraph({
+    title: "Human Rights News & Legal Blog | HRSJM India",
+    description: "Latest human rights news, legal updates, grassroots campaign reports, and constitutional justice articles from HRSJM leaders across India.",
+    urlPath: "/news",
+    image: "/logo.png",
+    imageAlt: "Human Rights News & Legal Blog | HRSJM India",
+  }),
 };
 
 export const dynamic = "force-dynamic";
