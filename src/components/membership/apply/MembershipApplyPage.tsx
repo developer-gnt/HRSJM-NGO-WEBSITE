@@ -447,7 +447,7 @@ function MembershipApplyContent() {
     if (!validateStep3()) {
       setCurrentStep(3);
       window.scrollTo({ top: 320, behavior: "smooth" });
-      alert("Please upload all 4 required documents and accept all declarations in Step 3 before making payment.");
+      alert("Please accept all required declarations in Step 3 before making payment.");
       return;
     }
 
@@ -519,9 +519,9 @@ function MembershipApplyContent() {
         addressProofUri: step3Data.addressProof.dataUrl,
         qualificationName: step3Data.qualification.name,
         qualificationUri: step3Data.qualification.dataUrl,
-        photoName: step3Data.photograph.name || (step1Data.photoFile ? step1Data.photoFile.name : "photograph.png"),
-        photoUri: step3Data.photograph.dataUrl || step1Data.photoPreview || undefined,
-        avatarUrl: step3Data.photograph.dataUrl || step1Data.photoPreview || undefined,
+        photoName: step1Data.photoFile ? step1Data.photoFile.name : (step1Data.photoPreview ? "applicant_photograph.jpg" : undefined),
+        photoUri: step1Data.photoPreview || undefined,
+        avatarUrl: step1Data.photoPreview || undefined,
         agreePrivacy: step3Data.agreePrivacy,
         agreeTerms: step3Data.agreeTerms,
         agreePledge: step3Data.agreePledge,

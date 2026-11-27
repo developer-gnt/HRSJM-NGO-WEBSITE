@@ -1,25 +1,49 @@
-const LOCAL_BACKEND_URL = process.env.BACKEND_API_URL || "http://127.0.0.1:3000/api/v1";
-const PROD_BACKEND_URL = process.env.BACKEND_API_URL || "https://hrsjm.org/api/v1";
+const DEFAULT_LOCAL_URL = "http://127.0.0.1:3000/api/v1";
+const DEFAULT_PROD_URL = "https://hrsjm.org/api/v1";
 
 export function getBackendApiUrl(): string {
-  // 1. Check explicit URL from environment
+  const envMode = (
+    process.env.NEXT_PUBLIC_APP_ENV ||
+    process.env.APP_ENV ||
+    ""
+  ).toLowerCase().trim();
+
+  // 1. Explicit local mode
+  if (envMode === "local" || envMode === "development" || envMode === "dev") {
+    const localUrl =
+      process.env.LOCAL_BACKEND_URL ||
+      process.env.LOCAL_BACKEND_API_URL ||
+      DEFAULT_LOCAL_URL;
+    return localUrl.trim().replace(/\/+$/, "");
+  }
+
+  // 2. Explicit production mode
+  if (envMode === "production" || envMode === "prod") {
+    const prodUrl =
+      process.env.PROD_BACKEND_URL ||
+      process.env.PROD_BACKEND_API_URL ||
+      process.env.BACKEND_API_URL ||
+      DEFAULT_PROD_URL;
+    return prodUrl.trim().replace(/\/+$/, "");
+  }
+
+  // 3. Fallback: check explicit URL from environment
   const envUrl =
     typeof window === "undefined"
       ? process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL
-      : process.env.NEXT_PUBLIC_API_URL || "https://hrsjm.org/api/v1";
+      : process.env.NEXT_PUBLIC_API_URL;
 
   if (envUrl && envUrl.trim().length > 0) {
     return envUrl.trim().replace(/\/+$/, "");
   }
 
-  // 2. Check if running on production mode
+  // 4. Fallback based on NODE_ENV
   const isProd =
     process.env.NODE_ENV === "production" ||
     Boolean(process.env.VERCEL) ||
-    Boolean(process.env.NEXT_PUBLIC_VERCEL_ENV) ||
-    (process.env.NEXT_PUBLIC_APP_ENV || process.env.APP_ENV || "").toLowerCase() === "production";
+    Boolean(process.env.NEXT_PUBLIC_VERCEL_ENV);
 
-  return isProd ? PROD_BACKEND_URL : LOCAL_BACKEND_URL;
+  return isProd ? DEFAULT_PROD_URL : DEFAULT_LOCAL_URL;
 }
 
 /**
@@ -53,7 +77,12 @@ export async function backendFetch(
     if (timeoutId) clearTimeout(timeoutId);
     // If primary was localhost and connection failed (e.g. local backend offline), fallback to live VPS
     if (primaryBase.includes("localhost") || primaryBase.includes("127.0.0.1")) {
-      const fallbackUrl = `${PROD_BACKEND_URL}${cleanEndpoint}`;
+      const prodUrl =
+        process.env.PROD_BACKEND_URL ||
+        process.env.PROD_BACKEND_API_URL ||
+        process.env.BACKEND_API_URL ||
+        DEFAULT_PROD_URL;
+      const fallbackUrl = `${prodUrl.trim().replace(/\/+$/, "")}${cleanEndpoint}`;
       console.warn(
         `[backendApi] Primary local endpoint (${primaryUrl}) unreachable (${err.message}). Retrying via live backend: ${fallbackUrl}`
       );
@@ -1227,7 +1256,7 @@ export async function fetchUpcomingEvents(params?: {
     const res = await backendFetch(`/events?${query.toString()}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      cache: "no-store",
+      next: { revalidate: 30 },
     });
 
     if (res.ok) {
@@ -1267,7 +1296,7 @@ export async function fetchEventById(id: string): Promise<BackendEvent | null> {
     const res = await backendFetch(`/events/${encodeURIComponent(id)}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      cache: "no-store",
+      next: { revalidate: 30 },
     });
 
     if (res.ok) {

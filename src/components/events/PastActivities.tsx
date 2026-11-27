@@ -39,6 +39,9 @@ export default function PastActivities({
 
   // Fetch real completed events from database on mount if not provided via SSR
   useEffect(() => {
+    if (initialActivities && initialActivities.length > 0) {
+      return;
+    }
     let isMounted = true;
     async function loadPastEvents() {
       try {

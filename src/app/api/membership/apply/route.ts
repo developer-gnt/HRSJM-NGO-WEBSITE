@@ -178,7 +178,7 @@ export async function POST(request: Request) {
       photoName
         ? {
             id: "photograph",
-            title: "Passport Size Photograph",
+            title: "Applicant Photograph (Profile Photo)",
             fileName: photoName,
             fileSize: "850 KB",
             type: "PHOTOGRAPH",

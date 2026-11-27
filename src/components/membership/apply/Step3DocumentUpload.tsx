@@ -26,7 +26,7 @@ export interface Step3Data {
   idProof: DocumentUploadItem;
   addressProof: DocumentUploadItem;
   qualification: DocumentUploadItem;
-  photograph: DocumentUploadItem;
+  photograph?: DocumentUploadItem;
   agreePrivacy: boolean;
   agreeTerms: boolean;
   agreePledge: boolean;
@@ -50,10 +50,9 @@ export default function Step3DocumentUpload({
   const browseIdRef = useRef<HTMLInputElement>(null);
   const browseAddrRef = useRef<HTMLInputElement>(null);
   const browseQualRef = useRef<HTMLInputElement>(null);
-  const browsePhotoRef = useRef<HTMLInputElement>(null);
 
   const handleFile = async (
-    field: "idProof" | "addressProof" | "qualification" | "photograph",
+    field: "idProof" | "addressProof" | "qualification",
     e: ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
@@ -87,11 +86,9 @@ export default function Step3DocumentUpload({
     }
 
     try {
-      const maxDim = field === "photograph" ? 600 : 1200;
-      const quality = field === "photograph" ? 0.8 : 0.75;
       const { dataUrl, size } = await compressImageToDataUrl(file, {
-        maxDimension: maxDim,
-        quality,
+        maxDimension: 1200,
+        quality: 0.75,
       });
 
       onChange(field, {
@@ -114,7 +111,7 @@ export default function Step3DocumentUpload({
     }
   };
 
-  const handleRemove = (field: "idProof" | "addressProof" | "qualification" | "photograph") => {
+  const handleRemove = (field: "idProof" | "addressProof" | "qualification") => {
     onChange(field, {
       file: null,
       name: "",
@@ -419,99 +416,6 @@ export default function Step3DocumentUpload({
                     type="button"
                     className={styles.docActionBtn}
                     onClick={() => browseQualRef.current?.click()}
-                  >
-                    <FileText size={14} /> Browse Files
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Document 4: Photograph */}
-        <div
-          className={`${styles.docCard} ${
-            errors.photograph ? styles.docCardError : ""
-          }`}
-        >
-          <div className={styles.docCardMeta}>
-            <span className={styles.docNumberBadge} aria-hidden="true">
-              4
-            </span>
-            <div className={styles.docMetaText}>
-              <h3 className={styles.docTitle}>
-                Photograph
-              </h3>
-              <p className={styles.docSubtitle}>
-                Recent passport size photograph
-              </p>
-              {errors.photograph && (
-                <p className={styles.fieldError} role="alert">
-                  <AlertCircle size={12} strokeWidth={2} />
-                  {errors.photograph}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className={styles.docUploadBox}>
-            <input
-              ref={browsePhotoRef}
-              type="file"
-              accept=".jpg,.jpeg,.png"
-              style={{ display: "none" }}
-              onChange={(e) => handleFile("photograph", e)}
-            />
-
-            {data.photograph.file ? (
-              <div className={styles.docUploadedState}>
-                <div className={styles.docUploadedFile}>
-                  <CheckCircle2 size={20} className={styles.docCheckIcon} />
-                  <div>
-                    <span className={styles.docUploadedFileName}>
-                      {data.photograph.name}
-                    </span>
-                    <span className={styles.docUploadedFileSize}>
-                      ({formatSize(data.photograph.size)})
-                    </span>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className={styles.photoRemoveBtn}
-                  onClick={() => handleRemove("photograph")}
-                  title="Remove document"
-                >
-                  <Trash2 size={16} /> Remove
-                </button>
-              </div>
-            ) : (
-              <>
-                <div
-                  className={styles.docUploadPrompt}
-                  onClick={() => browsePhotoRef.current?.click()}
-                  role="button"
-                  tabIndex={0}
-                  style={{ cursor: "pointer" }}
-                >
-                  <div className={styles.docUploadIcon} aria-hidden="true">
-                    <FileUp size={18} strokeWidth={2.2} />
-                  </div>
-                  <div className={styles.docUploadInfo}>
-                    <span className={styles.docUploadHeadline}>
-                      Tap to choose document
-                    </span>
-                    <span className={styles.docUploadSub}>
-                      JPG or PNG (Max 5MB)
-                    </span>
-                  </div>
-                </div>
-
-                <div className={styles.docActions}>
-                  <button
-                    type="button"
-                    className={styles.docActionBtn}
-                    onClick={() => browsePhotoRef.current?.click()}
                   >
                     <FileText size={14} /> Browse Files
                   </button>
