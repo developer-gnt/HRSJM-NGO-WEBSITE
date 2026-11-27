@@ -80,7 +80,7 @@ export default function MembershipCategoriesPage() {
 
   const handleShare = async (item: (typeof membershipCategorySections)[0]["items"][0]) => {
     const siteOrigin = "https://hrsjm.org";
-    const shareUrl = `${siteOrigin}/membership/categories?cat=${item.srNo}`;
+    const shareUrl = `${siteOrigin}/membership/categories?cat=${item.srNo}&share=1`;
     const shareTitle = `${item.post} - HRSJM Membership`;
     const shareText = `Join Human Rights & Social Justice Mission (HRSJM) as "${item.post}" (${item.fees} / ${item.duration || item.validity}). Qualification: ${item.qualification}.\n\nApply online:`;
 
