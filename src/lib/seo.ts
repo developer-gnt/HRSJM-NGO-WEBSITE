@@ -27,6 +27,10 @@ export function createOpenGraph({
       : `${siteUrl}${image.startsWith("/") ? image : `/${image}`}`
     : defaultSocialImage;
 
+  const isSquare = !image || image.includes("social-preview") || image.includes("logo");
+  const imgWidth = isSquare ? 600 : 1200;
+  const imgHeight = isSquare ? 600 : 630;
+
   return {
     type,
     locale: "en_IN",
@@ -38,8 +42,8 @@ export function createOpenGraph({
       {
         url: imageUrl,
         secureUrl: imageUrl,
-        width: 1200,
-        height: 630,
+        width: imgWidth,
+        height: imgHeight,
         alt: imageAlt,
         type: imageUrl.endsWith(".jpg") || imageUrl.endsWith(".jpeg") ? "image/jpeg" : "image/png",
       },
