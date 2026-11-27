@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import AllArticlesPage from "@/components/articles/AllArticlesPage";
 
 export const metadata: Metadata = {
-  title: "All Articles & Research Publications - HRSJM India",
+  title: "Articles & Research Publications | HRSJM India",
   description:
     "Read in-depth research articles, legal explainers, human rights analyses, and policy commentaries authored by advocates and leaders at HRSJM.",
   keywords: [
