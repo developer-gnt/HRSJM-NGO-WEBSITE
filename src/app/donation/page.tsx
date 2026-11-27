@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import DonationHero from "@/components/donation/DonationHero";
 import ImpactStats from "@/components/donation/ImpactStats";
 import DonationForm from "@/components/donation/DonationForm";
@@ -25,20 +26,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/donation",
   },
-  openGraph: {
+  openGraph: createOpenGraph({
     title: "Donate to HRSJM - Empower Human Rights & Social Justice",
     description:
       "Support nationwide grassroots legal aid, emergency citizen assistance, and human dignity with your contribution to HRSJM.",
-    url: "https://hrsjm.org/donation",
-    images: [
-      {
-        url: "/donation-hero.png",
-        width: 1200,
-        height: 630,
-        alt: "Donate to HRSJM Human Rights Mission",
-      },
-    ],
-  },
+    urlPath: "/donation",
+    image: "/donation-hero.png",
+    imageAlt: "Donate to HRSJM Human Rights Mission",
+  }),
+  twitter: createTwitter({
+    title: "Donate to HRSJM - Empower Human Rights & Social Justice",
+    description:
+      "Support nationwide grassroots legal aid, emergency citizen assistance, and human dignity with your contribution to HRSJM.",
+    image: "/donation-hero.png",
+  }),
 };
 
 export default function DonationPage() {

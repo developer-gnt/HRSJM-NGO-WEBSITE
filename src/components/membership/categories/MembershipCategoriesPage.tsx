@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -63,9 +63,24 @@ function GreenCheck() {
 export default function MembershipCategoriesPage() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const catId = params.get("cat") || params.get("category");
+    if (catId) {
+      const timer = setTimeout(() => {
+        const el = document.getElementById(`category-${catId}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const handleShare = async (item: (typeof membershipCategorySections)[0]["items"][0]) => {
-    const siteOrigin = typeof window !== "undefined" ? window.location.origin : "https://hrsjm.org";
-    const shareUrl = `${siteOrigin}/membership/categories#category-${item.srNo}`;
+    const siteOrigin = "https://hrsjm.org";
+    const shareUrl = `${siteOrigin}/membership/categories?cat=${item.srNo}`;
     const shareTitle = `${item.post} - HRSJM Membership`;
     const shareText = `Join Human Rights & Social Justice Mission (HRSJM) as "${item.post}" (${item.fees} / ${item.duration || item.validity}). Qualification: ${item.qualification}.\n\nApply online:`;
 

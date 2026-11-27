@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import PresidentPage from "@/components/president/PresidentPage";
 
 export const metadata: Metadata = {
@@ -16,20 +17,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/how-to-become-a-district-and-state-president",
   },
-  openGraph: {
+  openGraph: createOpenGraph({
     title: "How to Become a District / State President | HRSJM",
     description:
       "Form a dedicated 25-member unit and take official leadership for human rights, equality, and public welfare in your district or state.",
-    url: "https://hrsjm.org/how-to-become-a-district-and-state-president",
-    images: [
-      {
-        url: "/president-hero-full.jpg",
-        width: 1024,
-        height: 576,
-        alt: "HRSJM District and State President Leadership",
-      },
-    ],
-  },
+    urlPath: "/how-to-become-a-district-and-state-president",
+    image: "/president-hero-full.jpg",
+    imageAlt: "HRSJM District and State President Leadership",
+  }),
+  twitter: createTwitter({
+    title: "How to Become a District / State President | HRSJM",
+    description:
+      "Form a dedicated 25-member unit and take official leadership for human rights, equality, and public welfare in your district or state.",
+    image: "/president-hero-full.jpg",
+  }),
 };
 
 export default function Page() {
