@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import ComplaintHero from "@/components/complaint/ComplaintHero";
 import SupportOptions from "@/components/complaint/SupportOptions";
@@ -23,12 +24,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/complaint",
   },
-  openGraph: {
-    title: "File a Human Rights Complaint Online | HRSJM Legal Support",
-    description:
-      "Confidential, secure grievance portal for citizens facing human rights violations, social injustice, or police harassment across India.",
-    url: "https://hrsjm.org/complaint",
-  },
+  openGraph: createOpenGraph({
+    title: "File Human Rights Complaint Online | HRSJM",
+    description: "File a confidential human rights complaint with HRSJM. Get free legal advice, citizen support, and constitutional advocacy for violations across India.",
+    urlPath: "/complaint",
+    image: "/logo.png",
+    imageAlt: "File Human Rights Complaint Online | HRSJM",
+  }),
 };
 
 export default function ComplaintPage() {

@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import TermsPage from "@/components/terms/TermsPage";
 
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/terms",
   },
-  openGraph: {
-    title: "Terms & Conditions | Human Rights & Social Justice Mission",
-    description:
-      "Official terms governing membership, donations, and usage of the HRSJM platform.",
-    url: "https://hrsjm.org/terms",
-  },
+  openGraph: createOpenGraph({
+    title: "Terms & Conditions | HRSJM Official Rules",
+    description: "Review official Terms and Conditions governing HRSJM website usage, member registration, appointment validity, legal guidelines, and public donations.",
+    urlPath: "/terms",
+    image: "/assets/terms_hero.png",
+    imageAlt: "Terms & Conditions | HRSJM Official Rules",
+  }),
 };
 
 export default function TermsRoute() {

@@ -8,7 +8,12 @@ interface LogoProps {
 
 export default function Logo({ onNavigate }: LogoProps) {
   return (
-    <Link className={styles.logo} href="/" aria-label="HRSJM home" onClick={onNavigate}>
+    <Link
+      className={styles.logo}
+      href="/"
+      aria-label="Human Rights & Social Justice Mission home"
+      onClick={onNavigate}
+    >
       <Image
         className={styles.logoMark}
         src="/logo.png"

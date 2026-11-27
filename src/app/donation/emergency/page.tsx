@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import EmergencyPage from "@/components/emergency/EmergencyPage";
 
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/donation/emergency",
   },
-  openGraph: {
-    title: "Emergency & Humanitarian Assistance Fund | HRSJM",
-    description:
-      "Direct emergency assistance for citizens in severe distress. Transparent and verified humanitarian relief.",
-    url: "https://hrsjm.org/donation/emergency",
-  },
+  openGraph: createOpenGraph({
+    title: "Emergency & Humanitarian Relief Fund | HRSJM",
+    description: "Donate to the HRSJM Emergency Relief Fund. Support urgent medical crises, disaster-affected families, and immediate legal defense with 100% transparency.",
+    urlPath: "/donation/emergency",
+    image: "/donation-hero.png",
+    imageAlt: "Emergency & Humanitarian Relief Fund | HRSJM",
+  }),
 };
 
 export default function Page() {

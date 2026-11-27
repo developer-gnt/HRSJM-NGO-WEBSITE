@@ -205,7 +205,7 @@ export default function ConstitutionPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.btnPrimary}
-                  aria-label="View Constitution in PDF format in a new browser tab"
+                  aria-label="View Constitution (PDF) in a new browser tab"
                 >
                   <FileText size={17} strokeWidth={2.2} />
                   <span>View Constitution (PDF) →</span>
@@ -215,7 +215,7 @@ export default function ConstitutionPage() {
                   href="/docs/HRSJM_Constitution.pdf"
                   download="HRSJM_Constitution.pdf"
                   className={styles.btnSecondary}
-                  aria-label="Download Constitution PDF document"
+                  aria-label="Download PDF Constitution document"
                 >
                   <Download size={17} strokeWidth={2.2} />
                   <span>Download PDF →</span>

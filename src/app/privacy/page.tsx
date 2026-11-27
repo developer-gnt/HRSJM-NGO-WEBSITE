@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import PrivacyPolicyPage from "@/components/privacy/PrivacyPolicyPage";
 
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/privacy",
   },
-  openGraph: {
-    title: "Privacy Policy | Human Rights & Social Justice Mission",
-    description:
-      "Learn how HRSJM safeguards your personal data, membership records, and privacy.",
-    url: "https://hrsjm.org/privacy",
-  },
+  openGraph: createOpenGraph({
+    title: "Privacy Policy | HRSJM Official Website",
+    description: "Learn how HRSJM protects your personal information, member records, and donation data under India",
+    urlPath: "/privacy",
+    image: "/logo.png",
+    imageAlt: "Privacy Policy | HRSJM Official Website",
+  }),
 };
 
 export default function PrivacyRoute() {

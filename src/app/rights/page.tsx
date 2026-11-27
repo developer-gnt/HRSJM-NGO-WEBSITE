@@ -6,6 +6,7 @@ import RightsResources from "@/components/rights/RightsResources";
 import RightsImpact from "@/components/rights/RightsImpact";
 import RightsFAQ from "@/components/rights/RightsFAQ";
 import RightsFinalCTA from "@/components/rights/RightsFinalCTA";
+import { createOpenGraph } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Know Your Rights - Legal Awareness Guide | HRSJM",
@@ -23,12 +24,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/rights",
   },
-  openGraph: {
+  openGraph: createOpenGraph({
     title: "Know Your Rights - Human Rights & Social Justice Mission",
     description:
       "Empowering citizens with legal literacy and practical knowledge to defend their constitutional and fundamental human rights.",
-    url: "https://hrsjm.org/rights",
-  },
+    urlPath: "/rights",
+    image: "/rights-hero-bg.png",
+    imageAlt: "Know Your Rights - Legal Guide by HRSJM",
+  }),
 };
 
 export default function RightsPage() {

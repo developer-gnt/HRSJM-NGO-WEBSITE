@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import MembershipCategoriesPage from "@/components/membership/categories/MembershipCategoriesPage";
 
@@ -17,12 +18,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/membership/categories",
   },
-  openGraph: {
-    title: "HRSJM Membership Categories & Leadership Posts",
-    description:
-      "Detailed fee structure, qualification requirements, and kit entitlements for district, state, and national posts in HRSJM.",
-    url: "https://hrsjm.org/membership/categories",
-  },
+  openGraph: createOpenGraph({
+    title: "Membership Categories, Posts & Fees | HRSJM India",
+    description: "Explore HRSJM membership categories, fees, validity, and kit details for District Active Member, State Unit, Letter Pad, and National Council posts.",
+    urlPath: "/membership/categories",
+    image: "/membership/membership-cta.png",
+    imageAlt: "Membership Categories, Posts & Fees | HRSJM India",
+  }),
 };
 
 export default function MembershipCategoriesRoute() {

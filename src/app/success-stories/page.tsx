@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import SuccessStoriesHero from "@/components/success-stories/SuccessStoriesHero";
 import SuccessStoriesGrid from "@/components/success-stories/SuccessStoriesGrid";
@@ -18,12 +19,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/success-stories",
   },
-  openGraph: {
-    title: "Success Stories - Real Impact with HRSJM",
-    description:
-      "Explore inspiring case studies of citizens who claimed their rights and found justice through HRSJM.",
-    url: "https://hrsjm.org/success-stories",
-  },
+  openGraph: createOpenGraph({
+    title: "Success Stories & Human Impact Case Studies | HRSJM",
+    description: "Read real impact stories and case studies of citizens and families who secured justice and restored dignity through HRSJM legal and social support.",
+    urlPath: "/success-stories",
+    image: "/logo.png",
+    imageAlt: "Success Stories & Human Impact Case Studies | HRSJM",
+  }),
 };
 
 export default function SuccessStoriesPage() {

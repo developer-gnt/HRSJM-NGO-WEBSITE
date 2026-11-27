@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import FAQPage from "@/components/faqs/FAQPage";
 import JsonLd from "@/components/seo/JsonLd";
@@ -17,6 +18,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/faqs",
   },
+  openGraph: createOpenGraph({
+    title: "Frequently Asked Questions (FAQs) | HRSJM",
+    description: "Find answers to frequently asked questions about HRSJM membership, filing human rights complaints, free legal aid, and 80G tax-exempt donations.",
+    urlPath: "/faqs",
+    image: "/logo.png",
+    imageAlt: "Frequently Asked Questions (FAQs) | HRSJM",
+  }),
 };
 
 export default function FAQsPage() {

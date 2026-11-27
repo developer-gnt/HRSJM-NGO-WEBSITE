@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AboutPage from "@/components/about/AboutPage";
+import { createOpenGraph } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "About Us | Human Rights & Social Justice Mission",
@@ -17,12 +18,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/about",
   },
-  openGraph: {
-    title: "About Us - Human Rights & Social Justice Mission (HRSJM)",
+  openGraph: createOpenGraph({
+    title: "About Us | Human Rights & Social Justice Mission",
     description:
       "Discover the founding history, core leadership, and nationwide mission of HRSJM, defending dignity and equality for every citizen.",
-    url: "https://hrsjm.org/about",
-  },
+    urlPath: "/about",
+    image: "/logo.png",
+    imageAlt: "About HRSJM - Human Rights & Social Justice Mission",
+  }),
 };
 
 export default function About() {

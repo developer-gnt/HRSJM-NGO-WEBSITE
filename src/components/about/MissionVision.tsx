@@ -9,7 +9,7 @@ interface MissionVisionProps {
 }
 
 export default function MissionVision({
-  visionButtonText = "Learn More",
+  visionButtonText = "Explore Our Vision",
   visionButtonHref = "/our-vision",
   onVisionClick,
 }: MissionVisionProps) {

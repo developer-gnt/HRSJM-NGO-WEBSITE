@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import AllArticlesPage from "@/components/articles/AllArticlesPage";
 
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/articles",
   },
-  openGraph: {
-    title: "HRSJM Articles & Research Publications",
-    description:
-      "Expert legal commentary and grassroots stories on human rights and constitutional justice.",
-    url: "https://hrsjm.org/articles",
-  },
+  openGraph: createOpenGraph({
+    title: "Articles & Research Publications | HRSJM India",
+    description: "Read in-depth research articles, legal explainers, human rights analyses, and policy commentaries authored by advocates and leaders at HRSJM.",
+    urlPath: "/articles",
+    image: "/logo.png",
+    imageAlt: "Articles & Research Publications | HRSJM India",
+  }),
 };
 
 export default function ArticlesRoute() {

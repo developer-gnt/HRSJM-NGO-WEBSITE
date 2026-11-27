@@ -1,3 +1,4 @@
+import { createOpenGraph } from "@/lib/seo";
 import type { Metadata } from "next";
 import ContactHero from "@/components/contact/ContactHero";
 import ContactBreadcrumb from "@/components/contact/ContactBreadcrumb";
@@ -21,12 +22,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/contact",
   },
-  openGraph: {
-    title: "Contact HRSJM - National Head Office Mumbai",
-    description:
-      "Get in touch with the Human Rights & Social Justice Mission team for guidance, support, or partnership.",
-    url: "https://hrsjm.org/contact",
-  },
+  openGraph: createOpenGraph({
+    title: "Contact Us | National Head Office Mumbai - HRSJM",
+    description: "Contact HRSJM National Head Office in Andheri East, Mumbai. Phone: +91 7021057853, Email: enquiry@hrsjm.org for legal support and membership enquiries.",
+    urlPath: "/contact",
+    image: "/images/contact-hero-bg.jpg",
+    imageAlt: "Contact Us | National Head Office Mumbai - HRSJM",
+  }),
 };
 
 export default function ContactPage() {
