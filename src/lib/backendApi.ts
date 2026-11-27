@@ -36,9 +36,21 @@ export async function backendFetch(
   const cleanEndpoint = endpointPath.startsWith("/") ? endpointPath : `/${endpointPath}`;
   const primaryUrl = `${primaryBase}${cleanEndpoint}`;
 
+  // Attach a reasonable 3.5-second timeout on server-side requests so navigation never hangs
+  const isServer = typeof window === "undefined";
+  const controller = new AbortController();
+  const timeoutId = isServer ? setTimeout(() => controller.abort(), 3500) : null;
+  const mergedInit = {
+    ...init,
+    signal: init?.signal || controller.signal,
+  };
+
   try {
-    return await fetch(primaryUrl, init);
+    const res = await fetch(primaryUrl, mergedInit);
+    if (timeoutId) clearTimeout(timeoutId);
+    return res;
   } catch (err: any) {
+    if (timeoutId) clearTimeout(timeoutId);
     // If primary was localhost and connection failed (e.g. local backend offline), fallback to live VPS
     if (primaryBase.includes("localhost") || primaryBase.includes("127.0.0.1")) {
       const fallbackUrl = `${PROD_BACKEND_URL}${cleanEndpoint}`;
@@ -46,7 +58,14 @@ export async function backendFetch(
         `[backendApi] Primary local endpoint (${primaryUrl}) unreachable (${err.message}). Retrying via live backend: ${fallbackUrl}`
       );
       try {
-        return await fetch(fallbackUrl, init);
+        const fbController = new AbortController();
+        const fbTimeout = isServer ? setTimeout(() => fbController.abort(), 3500) : null;
+        const res = await fetch(fallbackUrl, {
+          ...init,
+          signal: init?.signal || fbController.signal,
+        });
+        if (fbTimeout) clearTimeout(fbTimeout);
+        return res;
       } catch (fallbackErr: any) {
         throw new Error(
           `Unable to connect to backend server. Both local (${primaryUrl}) and live (${fallbackUrl}) endpoints failed: ${fallbackErr.message || err.message}`

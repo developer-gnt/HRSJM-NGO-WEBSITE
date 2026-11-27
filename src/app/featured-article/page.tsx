@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { fetchNews } from "@/lib/backendApi";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function FeaturedArticleRoute() {
   try {

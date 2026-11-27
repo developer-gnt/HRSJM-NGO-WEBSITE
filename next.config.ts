@@ -35,7 +35,7 @@ const securityHeaders = [
     key: "Cross-Origin-Resource-Policy",
     value: "same-origin",
   },
-  // 7. Missing Content Security Policy (CSP) & Trusted Types Policy
+  // 7. Missing Content Security Policy (CSP) & frame-ancestors
   {
     key: "Content-Security-Policy",
     value: [
@@ -48,8 +48,6 @@ const securityHeaders = [
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",
-      "require-trusted-types-for 'script'",
-      "trusted-types default nextjs#bundler",
     ].join("; "),
   },
 ];
@@ -77,6 +75,11 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
+    // Only apply strict security headers in production to avoid blocking localhost development & Turbopack HMR
+    if (process.env.NODE_ENV !== "production") {
+      return [];
+    }
+
     return [
       {
         source: "/:path*",
