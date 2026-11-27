@@ -16,12 +16,12 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const matchedItem = catId ? allItems.find((item) => item.srNo === catId) : undefined;
 
   if (matchedItem) {
-    const postTitle = `${matchedItem.post} | HRSJM Membership`;
+    const postTitle = `${matchedItem.post} - HRSJM Membership`;
     const postDesc = `Join Human Rights & Social Justice Mission (HRSJM) as "${matchedItem.post}" (${matchedItem.fees} / ${matchedItem.duration || matchedItem.validity}). Qualification: ${matchedItem.qualification}. Apply online.`;
     const urlPath = `/membership/categories?cat=${matchedItem.srNo}`;
 
     return {
-      title: `${matchedItem.post} - Membership Categories & Fees | HRSJM India`,
+      title: postTitle,
       description: postDesc,
       alternates: {
         canonical: urlPath,
