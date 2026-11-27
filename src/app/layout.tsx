@@ -121,6 +121,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
       <head>
+        {/* Preload critical LCP Hero image & preconnect fonts to accelerate rendering */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          as="image"
+          href="/home-hero-bg.png"
+          type="image/png"
+          fetchPriority="high"
+        />
         <JsonLd schema={organizationSchema} />
       </head>
       <body suppressHydrationWarning>
