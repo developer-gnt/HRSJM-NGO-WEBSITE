@@ -10,7 +10,7 @@ export default function BenefitsCTA() {
       <div className={styles.ctaBg} aria-hidden="true">
         <Image
           src="/membership/membership-cta.png"
-          alt=""
+          alt="HRSJM nationwide network of leaders and human rights defenders"
           fill
           sizes="100vw"
           className={styles.ctaImg}

@@ -12,11 +12,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hrsjm.org";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "HRSJM | Human Rights & Social Justice Mission - Justice, Equality & Dignity for All",
+    default: "HRSJM - Human Rights & Social Justice Mission India",
     template: "%s | HRSJM",
   },
   description:
-    "Human Rights & Social Justice Mission (HRSJM) is a registered nationwide NGO in India advocating for constitutional rights, legal aid, social justice, women empowerment, and public welfare.",
+    "HRSJM is a registered nationwide NGO in India defending constitutional rights, legal aid, social justice, women empowerment, and citizen welfare.",
   keywords: [
     "Human Rights NGO India",
     "HRSJM",

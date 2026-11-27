@@ -49,7 +49,7 @@ export default function RightsHero() {
       <div className={styles.heroBg} aria-hidden="true">
         <Image
           src="/rights-hero-bg.png"
-          alt=""
+          alt="Citizens learning about constitutional fundamental rights and human rights laws"
           fill
           preload
           sizes="100vw"

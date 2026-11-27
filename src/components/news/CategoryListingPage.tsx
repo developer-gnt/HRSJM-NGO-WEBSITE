@@ -118,7 +118,7 @@ export default function CategoryListingPage({ slug }: { slug: string }) {
               <div className={shared.articleGrid}>
                 {articles.map((article, index) => (
                   <ArticleCard
-                    key={article.slug || article.title}
+                    key={`${article.slug || article.title}-${index}`}
                     article={article}
                     index={index}
                   />

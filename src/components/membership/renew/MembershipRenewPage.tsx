@@ -123,7 +123,7 @@ export default function MembershipRenewPage() {
       <section className={styles.hero} aria-labelledby="renew-heading">
         <Image
           src="/membership/membership-hero.png"
-          alt=""
+          alt="Renew HRSJM membership card and validation status online"
           fill
           priority
           sizes="100vw"

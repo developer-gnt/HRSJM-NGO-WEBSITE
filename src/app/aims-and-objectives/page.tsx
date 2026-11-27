@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import AimsAndObjectivesPage from "@/components/aims-and-objectives/AimsAndObjectivesPage";
 
 export const metadata: Metadata = {
-  title: "Aims & Objectives - Human Rights & Social Justice Mission (HRSJM)",
+  title: "Aims & Objectives | HRSJM Human Rights Mission",
   description:
     "Explore the constitutional aims, legal advocacy objectives, and social welfare goals of the Human Rights and Social Justice Mission (HRSJM) across India.",
   keywords: [

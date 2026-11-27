@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import AboutPage from "@/components/about/AboutPage";
 
 export const metadata: Metadata = {
-  title: "About Us - Human Rights & Social Justice Mission (HRSJM) | India",
+  title: "About Us | Human Rights & Social Justice Mission",
   description:
-    "Learn about HRSJM (Human Rights & Social Justice Mission), established in 2012 to champion fundamental constitutional rights, free legal assistance, social justice, and citizen empowerment across India.",
+    "Established in 2012, HRSJM champions constitutional rights, free legal aid, social justice, and citizen empowerment across India. Learn our story.",
   keywords: [
     "About HRSJM",
     "Human Rights NGO Profile",

@@ -8,9 +8,9 @@ import SupportedStories from "@/components/complaint/SupportedStories";
 import ComplaintCTA from "@/components/complaint/ComplaintCTA";
 
 export const metadata: Metadata = {
-  title: "File a Human Rights Complaint Online | Get Help - HRSJM",
+  title: "File Human Rights Complaint Online | HRSJM",
   description:
-    "File a confidential human rights violation complaint with HRSJM. Get legal advice, community support, and constitutional advocacy for rights violations across India.",
+    "File a confidential human rights complaint with HRSJM. Get free legal advice, citizen support, and constitutional advocacy for violations across India.",
   keywords: [
     "File Human Rights Complaint Online",
     "Human Rights Violation Complaint India",

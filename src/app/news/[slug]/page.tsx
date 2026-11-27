@@ -103,18 +103,34 @@ export async function generateMetadata({
   // 1. Check central database first
   const dbNews = await fetchNewsByIdOrSlug(slug);
   if (dbNews) {
+    const desc = dbNews.summary || dbNews.content?.slice(0, 155) || "Human rights news and updates from HRSJM.";
     return {
       title: `${dbNews.title} | HRSJM News`,
-      description: dbNews.summary || dbNews.content?.slice(0, 160),
+      description: desc.slice(0, 155),
+      alternates: {
+        canonical: `/news/${dbNews.slug || dbNews.id}`,
+      },
     };
   }
 
   // 2. Legacy fallback
   const richArticle = newsArticlesData[slug];
   if (richArticle) {
-    return { title: richArticle.title, description: richArticle.subtitle };
+    const desc = richArticle.subtitle || richArticle.title;
+    return {
+      title: richArticle.title,
+      description: desc.slice(0, 155),
+      alternates: {
+        canonical: `/news/${slug}`,
+      },
+    };
   }
-  return { title: "Article Not Found | HRSJM" };
+  return {
+    title: "Article Not Found | HRSJM",
+    alternates: {
+      canonical: `/news/${slug}`,
+    },
+  };
 }
 
 export default async function NewsArticleRoute({

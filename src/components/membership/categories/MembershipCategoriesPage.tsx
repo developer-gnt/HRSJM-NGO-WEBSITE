@@ -256,7 +256,7 @@ export default function MembershipCategoriesPage() {
       <section className={styles.bottomCta} aria-labelledby="bottom-cta-heading">
         <Image
           src="/membership/membership-cta.png"
-          alt=""
+          alt="HRSJM membership categories and appointment entitlements"
           fill
           sizes="100vw"
           className={styles.bottomCtaBg}

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import OurVisionPage from "@/components/our-vision/OurVisionPage";
 
 export const metadata: Metadata = {
-  title: "Our Vision - Love, Peace, Harmony & Human Dignity | HRSJM",
+  title: "Our Vision - Peace, Equality & Human Dignity | HRSJM",
   description:
-    "The vision of the Human Rights & Social Justice Mission (HRSJM) is to transform discrimination into equality, conflict into harmony, and ensure human dignity for every citizen.",
+    "HRSJM envisions transforming discrimination into equality, conflict into harmony, and protecting fundamental constitutional dignity for every citizen.",
   keywords: [
     "HRSJM Vision",
     "Human Rights Vision India",

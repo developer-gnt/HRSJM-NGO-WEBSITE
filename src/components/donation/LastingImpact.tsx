@@ -39,7 +39,7 @@ export default function LastingImpact() {
       <div className={styles.lastingImageWrap} aria-hidden="true">
         <Image
           src="/donation/donation-lasting-impact.png"
-          alt=""
+          alt="Sustainable human rights protection and grassroots legal empowerment across India"
           fill
           sizes="100vw"
           className={styles.lastingImage}

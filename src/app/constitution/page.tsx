@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ConstitutionPage from "@/components/constitution/ConstitutionPage";
 
 export const metadata: Metadata = {
-  title: "HRSJM Constitution & Governance By-Laws | Official Document",
+  title: "Constitution & Governance Bylaws | HRSJM",
   description:
-    "Read the official Constitution of the Human Rights and Social Justice Mission (HRSJM). Understand our legal framework, governance bylaws, code of conduct, and democratic structure.",
+    "Read the official Constitution of HRSJM. Learn our legal framework, governance bylaws, code of conduct, and democratic structure upholding human rights.",
   keywords: [
     "HRSJM Constitution",
     "NGO Governance Bylaws India",

@@ -9,7 +9,7 @@ export default function WhatHRSJMDoesHero() {
       <div className={styles.heroBg} aria-hidden="true">
         <Image
           src="/WHD-hero-bg.png"
-          alt=""
+          alt="Human Rights and Social Justice Mission community programs and legal aid initiatives"
           fill
           preload
           sizes="100vw"

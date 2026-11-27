@@ -18,11 +18,10 @@ export default function ImpactStats() {
     >
       <Image
         src="/our-impact-bg.png"
-        alt=""
+        alt="HRSJM nationwide impact statistics and human rights milestones"
         fill
         sizes="100vw"
         className={styles.statsBg}
-        aria-hidden="true"
       />
       <div className={styles.statsScrim} aria-hidden="true" />
 

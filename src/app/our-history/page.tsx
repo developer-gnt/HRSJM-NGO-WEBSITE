@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import OurHistoryPage from "@/components/our-history/OurHistoryPage";
 
 export const metadata: Metadata = {
-  title: "Our History - Since 2012 | Human Rights & Social Justice Mission",
+  title: "Our History - Journey Since 2012 | HRSJM",
   description:
-    "Founded on 26 November 2012, discover the founding milestones, constitutional principles, and decade-long journey of the Human Rights & Social Justice Mission across India.",
+    "Founded on 26 November 2012, discover the founding milestones, constitutional principles, and decade-long human rights journey of HRSJM across India.",
   keywords: [
     "HRSJM History",
     "Human Rights NGO History India",

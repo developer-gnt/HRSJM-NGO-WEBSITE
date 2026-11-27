@@ -58,7 +58,7 @@ export default function MembershipBenefits() {
       <div className={styles.benefitsImageWrap} aria-hidden="true">
         <Image
           src="/membership/membership-movement.png"
-          alt=""
+          alt="HRSJM community empowerment movement and member kit benefits"
           fill
           sizes="100vw"
           className={styles.benefitsImage}

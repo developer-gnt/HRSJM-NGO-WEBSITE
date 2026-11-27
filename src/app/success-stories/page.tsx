@@ -7,7 +7,7 @@ import SuccessStoriesCTA from "@/components/success-stories/SuccessStoriesCTA";
 export const metadata: Metadata = {
   title: "Success Stories & Human Impact Case Studies | HRSJM",
   description:
-    "Real impact stories of justice, dignity, and life transformation. Read verified case studies of citizens and families empowered through HRSJM legal and community interventions.",
+    "Read real impact stories and case studies of citizens and families who secured justice and restored dignity through HRSJM legal and social support.",
   keywords: [
     "HRSJM Success Stories",
     "Human Rights Impact Case Studies",

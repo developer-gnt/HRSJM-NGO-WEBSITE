@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import BenefitsPage from "@/components/benefits/BenefitsPage";
 
 export const metadata: Metadata = {
-  title: "HRSJM Membership Benefits - Identity Card, Legal Network & Recognition",
+  title: "Membership Benefits & Official Kit | HRSJM",
   description:
-    "Discover the official benefits of joining the Human Rights & Social Justice Mission. Receive recognized appointment letters, laminated ID cards, car stickers, legal training, and grassroots leadership authority.",
+    "Discover HRSJM membership benefits: official appointment letters, photo ID cards, car stickers, legal training, and grassroots leadership authority.",
   keywords: [
     "HRSJM Membership Benefits",
     "Human Rights ID Card Benefits",

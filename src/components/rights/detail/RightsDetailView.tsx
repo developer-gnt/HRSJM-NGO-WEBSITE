@@ -604,7 +604,7 @@ export default function RightsDetailView({
         <div className={styles.ctaBg}>
           <Image
             src="/rights-final-cta-bg.png"
-            alt=""
+            alt="Know your rights and take action with HRSJM advocacy"
             fill
             sizes="100vw"
           />

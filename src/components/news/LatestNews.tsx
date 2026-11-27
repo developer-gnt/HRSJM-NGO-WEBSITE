@@ -98,7 +98,7 @@ export default function LatestNews({
             {articles.length > 0 ? (
               <div className={styles.articleGrid}>
                 {articles.map((article, index) => (
-                  <ArticleCard key={article.slug || article.title} article={article} index={index} />
+                  <ArticleCard key={`${article.slug || article.title}-${index}`} article={article} index={index} />
                 ))}
               </div>
             ) : (

@@ -45,7 +45,7 @@ export default function DonationSupports() {
       <div className={styles.supportsImageWrap} aria-hidden="true">
         <Image
           src="/donation/donation-supports.png"
-          alt=""
+          alt="HRSJM nationwide support initiatives for education, equality and legal aid"
           fill
           sizes="(max-width: 1099px) 100vw, 100vw"
           className={styles.supportsImage}

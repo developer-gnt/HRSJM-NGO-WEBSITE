@@ -39,7 +39,7 @@ export default function HelpHero({
       <div className={styles.heroBg} aria-hidden="true">
         <Image
           src="/images/contact-hero-bg.jpg"
-          alt=""
+          alt="HRSJM Help Centre and citizen assistance support team"
           fill
           priority
           sizes="100vw"

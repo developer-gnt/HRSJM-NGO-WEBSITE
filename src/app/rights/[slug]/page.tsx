@@ -22,15 +22,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!data) {
     return {
       title: "Category Not Found",
+      alternates: {
+        canonical: `/rights/${slug}`,
+      },
     };
   }
 
+  const desc = data.heroSubtitle ? data.heroSubtitle.slice(0, 155) : "Know your rights with HRSJM.";
+
   return {
     title: `${data.title} | Know Your Rights`,
-    description: data.heroSubtitle,
+    description: desc,
+    alternates: {
+      canonical: `/rights/${slug}`,
+    },
     openGraph: {
       title: `${data.title} | Human Rights & Social Justice Mission`,
-      description: data.heroSubtitle,
+      description: desc,
       images: [data.heroImage],
     },
   };

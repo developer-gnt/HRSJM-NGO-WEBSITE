@@ -56,7 +56,7 @@ export default function RightsFinalCTA() {
       <div className={styles.bg} aria-hidden="true">
         <Image
           src="/rights-final-cta-bg.png"
-          alt=""
+          alt="Support and advocate for human rights protections across India"
           fill
           sizes="100vw"
           className={styles.bgImg}

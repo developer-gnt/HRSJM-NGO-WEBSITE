@@ -20,7 +20,7 @@ export default function MembershipHero() {
     <section className={styles.hero} aria-labelledby="membership-hero-heading">
       <Image
         src="/membership/membership-hero.png"
-        alt=""
+        alt="HRSJM members and social activists working together for human rights"
         fill
         priority
         sizes="100vw"

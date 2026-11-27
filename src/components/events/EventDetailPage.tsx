@@ -59,9 +59,12 @@ export async function generateMetadata({
 
   if (slug === "hrsjm-organisation-overview" || slug === "organisation-overview") {
     return {
-      title: "Human Rights & Social Justice Mission (HRSJM) - Organisation Overview",
+      title: "Organisation Overview | HRSJM",
       description:
-        "Justice. Equality. Dignity. Humanity. Learn about HRSJM's mission, key focus areas, leadership and community programs.",
+        "Learn about HRSJM's mission, constitutional focus areas, leadership and nationwide community programs across India.",
+      alternates: {
+        canonical: `/events/${slug}`,
+      },
     };
   }
 
@@ -73,9 +76,13 @@ export async function generateMetadata({
     (slug === "community-cleanliness-drive" ? activitiesData[3] : undefined);
 
   if (activity) {
+    const desc = `Explore ${activity.title} in ${activity.location} and HRSJM's organizational overview.`;
     return {
-      title: `${activity.title} | HRSJM Activities in Action`,
-      description: `Explore ${activity.title} in ${activity.location} and HRSJM's organizational overview.`,
+      title: `${activity.title} | HRSJM Events`,
+      description: desc.slice(0, 155),
+      alternates: {
+        canonical: `/events/${slug}`,
+      },
     };
   }
 
@@ -83,9 +90,13 @@ export async function generateMetadata({
   try {
     const dbEvent = await fetchEventById(slug);
     if (dbEvent) {
+      const desc = dbEvent.short_information || dbEvent.description || "Human rights community events and activities by HRSJM.";
       return {
         title: `${dbEvent.title} | HRSJM Events`,
-        description: dbEvent.short_information || dbEvent.description,
+        description: desc.slice(0, 155),
+        alternates: {
+          canonical: `/events/${slug}`,
+        },
       };
     }
   } catch { }
@@ -93,10 +104,23 @@ export async function generateMetadata({
   // 2. Check static data
   const staticEvent = events.find((item) => item.id === slug);
   if (staticEvent) {
-    return { title: staticEvent.title, description: staticEvent.description };
+    const desc = staticEvent.description || "HRSJM community activities and events in action.";
+    return {
+      title: `${staticEvent.title} | HRSJM Events`,
+      description: desc.slice(0, 155),
+      alternates: {
+        canonical: `/events/${slug}`,
+      },
+    };
   }
 
-  return { title: "Event Not Found | HRSJM" };
+  return {
+    title: "Event Details | HRSJM",
+    description: "Join HRSJM events, workshops and legal aid clinics across India.",
+    alternates: {
+      canonical: `/events/${slug}`,
+    },
+  };
 }
 
 export default async function EventDetailPage({

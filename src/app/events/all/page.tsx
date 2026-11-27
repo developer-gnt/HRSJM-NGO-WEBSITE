@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Upcoming Events | Events & Activities",
   description:
     "Browse every upcoming HRSJM workshop, seminar, community drive and awareness program across India, and register for the ones you want to join.",
+  alternates: {
+    canonical: "/events/all",
+  },
 };
 
 export default function AllEventsPage() {

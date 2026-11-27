@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import EmergencyPage from "@/components/emergency/EmergencyPage";
 
 export const metadata: Metadata = {
-  title: "Emergency & Humanitarian Assistance Relief Fund | HRSJM",
+  title: "Emergency & Humanitarian Relief Fund | HRSJM",
   description:
-    "Donate to the HRSJM Emergency Relief Fund. Support urgent medical crises, disaster-affected families, children education emergencies, and immediate legal defense with 100% transparent fund use.",
+    "Donate to the HRSJM Emergency Relief Fund. Support urgent medical crises, disaster-affected families, and immediate legal defense with 100% transparency.",
   keywords: [
     "Emergency Relief Fund NGO",
     "Humanitarian Assistance India",
