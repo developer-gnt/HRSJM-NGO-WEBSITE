@@ -1,5 +1,5 @@
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hrsjm.org";
-const defaultSocialImage = `${siteUrl}/social-preview.png`;
+const defaultSocialImage = `${siteUrl}/social-preview.jpg`;
 
 export interface PageSocialProps {
   title: string;
