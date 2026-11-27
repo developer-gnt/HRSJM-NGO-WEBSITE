@@ -8,9 +8,9 @@ import NewsCTA from "@/components/news/NewsCTA";
 import { fetchNews } from "@/lib/backendApi";
 
 export const metadata: Metadata = {
-  title: "Human Rights News & Legal Insights Blog | HRSJM India",
+  title: "Human Rights News & Legal Blog | HRSJM India",
   description:
-    "Stay informed with the latest human rights news, grassroots community reports, legal analyses, and social justice campaign updates from HRSJM across India.",
+    "Latest human rights news, legal updates, grassroots campaign reports, and constitutional justice articles from HRSJM leaders across India.",
   keywords: [
     "Human Rights News India",
     "HRSJM Blog",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     canonical: "/news",
   },
   openGraph: {
-    title: "HRSJM News & Human Rights Insights",
+    title: "Human Rights News & Legal Insights Blog | HRSJM",
     description:
-      "Latest human rights stories, legal awareness articles, and field reports from across India.",
+      "Latest human rights stories, legal awareness articles, and ground reports from across India.",
     url: "https://hrsjm.org/news",
   },
 };
