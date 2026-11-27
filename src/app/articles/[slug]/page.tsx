@@ -6,8 +6,8 @@ import { findLatestArticleBySlug } from "@/data/articles";
 import { newsArticlesData } from "@/data/newsDetailData";
 import { fetchNewsByIdOrSlug } from "@/lib/backendApi";
 
-export const dynamic = "force-dynamic";
 export const dynamicParams = true;
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,

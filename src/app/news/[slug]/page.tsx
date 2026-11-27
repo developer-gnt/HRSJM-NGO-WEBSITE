@@ -10,9 +10,8 @@ import {
   type BackendNews,
 } from "@/lib/backendApi";
 
-export const dynamic = "force-dynamic";
 export const dynamicParams = true;
-export const revalidate = 0;
+export const revalidate = 60;
 
 function mapBackendNewsToDetail(
   item: BackendNews,
