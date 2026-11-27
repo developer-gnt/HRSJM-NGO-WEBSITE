@@ -67,7 +67,7 @@ export default function MembershipCategoriesPage() {
     const siteOrigin = typeof window !== "undefined" ? window.location.origin : "https://hrsjm.org";
     const shareUrl = `${siteOrigin}/membership/categories#category-${item.srNo}`;
     const shareTitle = `${item.post} - HRSJM Membership`;
-    const shareText = `Join Human Rights & Social Justice Mission (HRSJM) as "${item.post}" (${item.fees} / ${item.duration || item.validity}). Qualification: ${item.qualification}.\n\nApply online: ${shareUrl}`;
+    const shareText = `Join Human Rights & Social Justice Mission (HRSJM) as "${item.post}" (${item.fees} / ${item.duration || item.validity}). Qualification: ${item.qualification}.\n\nApply online:`;
 
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
@@ -87,12 +87,12 @@ export default function MembershipCategoriesPage() {
     // Fallback: Copy to clipboard
     try {
       if (typeof navigator !== "undefined" && navigator.clipboard) {
-        await navigator.clipboard.writeText(shareText);
+        await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
         setCopiedId(item.srNo);
         setTimeout(() => setCopiedId(null), 2500);
       }
     } catch {
-      window.prompt("Copy link to share this membership:", shareText);
+      window.prompt("Copy link to share this membership:", `${shareText}\n${shareUrl}`);
     }
   };
   return (
