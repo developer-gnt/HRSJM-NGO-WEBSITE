@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import BenefitsPage from "@/components/benefits/BenefitsPage";
 
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     urlPath: "/benefits",
     image: "/membership/membership-movement.png",
     imageAlt: "Membership Benefits & Official Kit | HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "Membership Benefits & Official Kit | HRSJM",
+    description: "Discover HRSJM membership benefits: official appointment letters, photo ID cards, car stickers, legal training, and grassroots leadership authority.",
+    image: "/membership/membership-movement.png",
   }),
 };
 

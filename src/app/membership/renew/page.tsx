@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import MembershipRenewPage from "@/components/membership/renew/MembershipRenewPage";
 
@@ -21,6 +21,11 @@ export const metadata: Metadata = {
     urlPath: "/membership/renew",
     image: "/membership/membership-hero.png",
     imageAlt: "Renew Membership Online | HRSJM Official Portal",
+  }),
+  twitter: createTwitter({
+    title: "Renew Membership Online | HRSJM Official Portal",
+    description: "Renew your HRSJM annual membership online. Verify your member credentials, renew your ID card and appointment validity, and continue active advocacy.",
+    image: "/membership/membership-hero.png",
   }),
 };
 

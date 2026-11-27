@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import AimsAndObjectivesPage from "@/components/aims-and-objectives/AimsAndObjectivesPage";
 
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     urlPath: "/aims-and-objectives",
     image: "/images/aims/aims_hero.jpg",
     imageAlt: "Aims & Objectives | HRSJM Human Rights Mission",
+  }),
+  twitter: createTwitter({
+    title: "Aims & Objectives | HRSJM Human Rights Mission",
+    description: "Explore the constitutional aims, legal advocacy objectives, and social welfare goals of the Human Rights and Social Justice Mission (HRSJM) across India.",
+    image: "/images/aims/aims_hero.jpg",
   }),
 };
 

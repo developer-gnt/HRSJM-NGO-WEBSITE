@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import NewsHero from "@/components/news/NewsHero";
 import FeaturedNews from "@/components/news/FeaturedNews";
@@ -29,6 +29,11 @@ export const metadata: Metadata = {
     urlPath: "/news",
     image: "/logo.png",
     imageAlt: "Human Rights News & Legal Blog | HRSJM India",
+  }),
+  twitter: createTwitter({
+    title: "Human Rights News & Legal Blog | HRSJM India",
+    description: "Latest human rights news, legal updates, grassroots campaign reports, and constitutional justice articles from HRSJM leaders across India.",
+    image: "/logo.png",
   }),
 };
 

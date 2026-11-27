@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import OurVisionPage from "@/components/our-vision/OurVisionPage";
 
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     urlPath: "/our-vision",
     image: "/logo.png",
     imageAlt: "Our Vision - Peace, Equality & Human Dignity | HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "Our Vision - Peace, Equality & Human Dignity | HRSJM",
+    description: "HRSJM envisions transforming discrimination into equality, conflict into harmony, and protecting fundamental constitutional dignity for every citizen.",
+    image: "/logo.png",
   }),
 };
 

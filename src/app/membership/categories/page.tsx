@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import MembershipCategoriesPage from "@/components/membership/categories/MembershipCategoriesPage";
 
@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     urlPath: "/membership/categories",
     image: "/membership/membership-cta.png",
     imageAlt: "Membership Categories, Posts & Fees | HRSJM India",
+  }),
+  twitter: createTwitter({
+    title: "Membership Categories, Posts & Fees | HRSJM India",
+    description: "Explore HRSJM membership categories, fees, validity, and kit details for District Active Member, State Unit, Letter Pad, and National Council posts.",
+    image: "/membership/membership-cta.png",
   }),
 };
 

@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import AllEventsHero from "@/components/events/AllEventsHero";
 import AllEventsListing from "@/components/events/AllEventsListing";
@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     urlPath: "/events/all",
     image: "/logo.png",
     imageAlt: "Upcoming Events | Events & Activities",
+  }),
+  twitter: createTwitter({
+    title: "Upcoming Events | Events & Activities",
+    description: "Browse every upcoming HRSJM workshop, seminar, community drive and awareness program across India, and register for the ones you want to join.",
+    image: "/logo.png",
   }),
 };
 

@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import EmergencyPage from "@/components/emergency/EmergencyPage";
 
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     urlPath: "/donation/emergency",
     image: "/donation-hero.png",
     imageAlt: "Emergency & Humanitarian Relief Fund | HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "Emergency & Humanitarian Relief Fund | HRSJM",
+    description: "Donate to the HRSJM Emergency Relief Fund. Support urgent medical crises, disaster-affected families, and immediate legal defense with 100% transparency.",
+    image: "/donation-hero.png",
   }),
 };
 

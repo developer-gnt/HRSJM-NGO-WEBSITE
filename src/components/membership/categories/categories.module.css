@@ -214,6 +214,7 @@
 
 /* Single Item Card */
 .itemCard {
+  scroll-margin-top: 90px;
   background: #ffffff;
   border: 1px solid #d9e3ee;
   border-radius: 12px;
@@ -286,8 +287,76 @@
 }
 
 .itemPricing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
   text-align: right;
   flex-shrink: 0;
+}
+
+/* Redesigned Golden Pill Share Button (Matching Reference Exactly) */
+.pillShareBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: #fbb03b;
+  color: #0f172a;
+  border: none;
+  border-radius: 9999px;
+  padding: 4px 13px 4px 11px;
+  cursor: pointer;
+  transition: all 160ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 5px rgba(245, 158, 11, 0.32);
+  line-height: 1;
+}
+
+.pillShareBtn:hover {
+  background: #f59e0b;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(245, 158, 11, 0.45);
+}
+
+.pillShareBtn:active {
+  transform: translateY(0);
+}
+
+.pillShareIcon {
+  color: #0f172a;
+  flex-shrink: 0;
+}
+
+.pillShareDivider {
+  display: inline-block;
+  width: 1.5px;
+  height: 12px;
+  background-color: #0f172a;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.pillShareText {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.pillShareBtnCopied {
+  background: #16a34a !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.4) !important;
+}
+
+.pillShareBtnCopied .pillShareIcon,
+.pillShareBtnCopied .pillShareText {
+  color: #ffffff !important;
+}
+
+.pillShareBtnCopied .pillShareDivider {
+  background-color: #ffffff !important;
+  opacity: 0.9;
 }
 
 .itemPrice {
@@ -705,6 +774,15 @@
     padding: 7px 8px;
     font-size: 12px;
     border-radius: 6px;
+  }
+
+  .pillShareBtn {
+    padding: 3.5px 10px 3.5px 8px;
+    gap: 5px;
+  }
+
+  .pillShareText {
+    font-size: 11px;
   }
 
   .bottomCtaInner {

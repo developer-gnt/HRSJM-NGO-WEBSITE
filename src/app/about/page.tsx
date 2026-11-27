@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import AboutPage from "@/components/about/AboutPage";
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "About Us | Human Rights & Social Justice Mission",
@@ -25,6 +25,11 @@ export const metadata: Metadata = {
     urlPath: "/about",
     image: "/logo.png",
     imageAlt: "About HRSJM - Human Rights & Social Justice Mission",
+  }),
+  twitter: createTwitter({
+    title: "About Us | Human Rights & Social Justice Mission",
+    description: "Discover the founding history, core leadership, and nationwide mission of HRSJM, defending dignity and equality for every citizen.",
+    image: "/logo.png",
   }),
 };
 

@@ -1,3 +1,4 @@
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -55,50 +56,78 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-
-  if (slug === "hrsjm-organisation-overview" || slug === "organisation-overview") {
-    return {
-      title: "Organisation Overview | HRSJM",
-      description:
-        "Learn about HRSJM's mission, constitutional focus areas, leadership and nationwide community programs across India.",
-      alternates: {
-        canonical: `/events/${slug}`,
-      },
-    };
-  }
+  const { slug } = await params;    if (slug === "hrsjm-organisation-overview" || slug === "organisation-overview") {
+      const title = "Organisation Overview | HRSJM";
+      const desc = "Learn about HRSJM's mission, constitutional focus areas, leadership and nationwide community programs across India.";
+      const canonicalPath = `/events/${slug}`;
+      return {
+        title,
+        description: desc,
+        alternates: {
+          canonical: canonicalPath,
+        },
+        openGraph: createOpenGraph({
+          title,
+          description: desc,
+          urlPath: canonicalPath,
+        }),
+        twitter: createTwitter({
+          title,
+          description: desc,
+        }),
+      };
+    }
 
   const activity =
     activitiesData.find((item) => item.id === slug) ||
     (slug === "human-rights-awareness-rally" ? activitiesData[0] : undefined) ||
     (slug === "free-legal-aid-camp" ? activitiesData[1] : undefined) ||
     (slug === "womens-rights-awareness-program" ? activitiesData[2] : undefined) ||
-    (slug === "community-cleanliness-drive" ? activitiesData[3] : undefined);
-
-  if (activity) {
-    const desc = `Explore ${activity.title} in ${activity.location} and HRSJM's organizational overview.`;
-    return {
-      title: `${activity.title} | HRSJM Events`,
-      description: desc.slice(0, 155),
-      alternates: {
-        canonical: `/events/${slug}`,
-      },
-    };
-  }
-
-  // 1. Check central database first
-  try {
-    const dbEvent = await fetchEventById(slug);
-    if (dbEvent) {
-      const desc = dbEvent.short_information || dbEvent.description || "Human rights community events and activities by HRSJM.";
+    (slug === "community-cleanliness-drive" ? activitiesData[3] : undefined);    if (activity) {
+      const desc = `Explore ${activity.title} in ${activity.location} and HRSJM's organizational overview.`;
+      const title = `${activity.title} | HRSJM Events`;
+      const canonicalPath = `/events/${slug}`;
       return {
-        title: `${dbEvent.title} | HRSJM Events`,
+        title,
         description: desc.slice(0, 155),
         alternates: {
-          canonical: `/events/${slug}`,
+          canonical: canonicalPath,
         },
+        openGraph: createOpenGraph({
+          title,
+          description: desc.slice(0, 155),
+          urlPath: canonicalPath,
+        }),
+        twitter: createTwitter({
+          title,
+          description: desc.slice(0, 155),
+        }),
       };
     }
+
+  // 1. Check central database first
+  try {        const dbEvent = await fetchEventById(slug);
+        if (dbEvent) {
+          const desc = dbEvent.short_information || dbEvent.description || "Human rights community events and activities by HRSJM.";
+          const title = `${dbEvent.title} | HRSJM Events`;
+          const canonicalPath = `/events/${slug}`;
+          return {
+            title,
+            description: desc.slice(0, 155),
+            alternates: {
+              canonical: canonicalPath,
+            },
+            openGraph: createOpenGraph({
+              title,
+              description: desc.slice(0, 155),
+              urlPath: canonicalPath,
+            }),
+            twitter: createTwitter({
+              title,
+              description: desc.slice(0, 155),
+            }),
+          };
+        }
   } catch { }
 
   // 2. Check static data

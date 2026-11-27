@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import SuccessStoriesHero from "@/components/success-stories/SuccessStoriesHero";
 import SuccessStoriesGrid from "@/components/success-stories/SuccessStoriesGrid";
@@ -25,6 +25,11 @@ export const metadata: Metadata = {
     urlPath: "/success-stories",
     image: "/logo.png",
     imageAlt: "Success Stories & Human Impact Case Studies | HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "Success Stories & Human Impact Case Studies | HRSJM",
+    description: "Read real impact stories and case studies of citizens and families who secured justice and restored dignity through HRSJM legal and social support.",
+    image: "/logo.png",
   }),
 };
 

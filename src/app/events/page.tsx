@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import EventsHero from "@/components/events/EventsHero";
 import FeaturedEvent from "@/components/events/FeaturedEvent";
@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     urlPath: "/events",
     image: "/logo.png",
     imageAlt: "Events & Community Activities | HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "Events & Community Activities | HRSJM",
+    description: "Participate in nationwide legal awareness workshops, human rights rallies, charity drives, and grassroots community conferences organized by HRSJM across India.",
+    image: "/logo.png",
   }),
 };
 

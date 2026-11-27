@@ -8,6 +8,7 @@ import HumanStoriesSection from "@/components/home/HumanStoriesSection";
 import TakeActionSection from "@/components/home/TakeActionSection";
 import { maintenanceConfig } from "@/config/maintenance";
 import MaintenancePage from "@/components/maintenance/MaintenancePage";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "HRSJM - Human Rights & Social Justice Mission India",
@@ -27,20 +28,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  openGraph: {
-    title: "HRSJM - Human Rights & Social Justice Mission",
+  openGraph: createOpenGraph({
+    title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
-      "A nationwide human rights movement dedicated to constitutional values, free legal guidance, citizen empowerment, and public welfare.",
-    url: "https://hrsjm.org",
-    images: [
-      {
-        url: "/home-hero-bg.png",
-        width: 1200,
-        height: 630,
-        alt: "Human Rights & Social Justice Mission Banner",
-      },
-    ],
-  },
+      "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment, and human dignity across India.",
+    urlPath: "/",
+    image: "/social-preview.png",
+    imageAlt: "Human Rights & Social Justice Mission (HRSJM) - Official Preview",
+  }),
+  twitter: createTwitter({
+    title: "HRSJM - Human Rights & Social Justice Mission India",
+    description:
+      "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment, and human dignity across India.",
+    image: "/social-preview.png",
+  }),
 };
 
 export default function Home() {

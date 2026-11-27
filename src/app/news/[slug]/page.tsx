@@ -9,6 +9,7 @@ import {
   resolveNewsThumbnail,
   type BackendNews,
 } from "@/lib/backendApi";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 
 export const dynamicParams = true;
 export const revalidate = 60;
@@ -97,31 +98,57 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-
-  // 1. Check central database first
+  const { slug } = await params;  // 1. Check central database first
   const dbNews = await fetchNewsByIdOrSlug(slug);
   if (dbNews) {
     const desc = dbNews.summary || dbNews.content?.slice(0, 155) || "Human rights news and updates from HRSJM.";
+    const title = `${dbNews.title} | HRSJM News`;
+    const canonicalPath = `/news/${dbNews.slug || dbNews.id}`;
+    const img = dbNews.thumbnail_url ? resolveNewsThumbnail(dbNews.thumbnail_url) : undefined;
     return {
-      title: `${dbNews.title} | HRSJM News`,
+      title,
       description: desc.slice(0, 155),
       alternates: {
-        canonical: `/news/${dbNews.slug || dbNews.id}`,
+        canonical: canonicalPath,
       },
+      openGraph: createOpenGraph({
+        title,
+        description: desc.slice(0, 155),
+        urlPath: canonicalPath,
+        image: img,
+        type: "article",
+      }),
+      twitter: createTwitter({
+        title,
+        description: desc.slice(0, 155),
+        image: img,
+      }),
     };
-  }
-
-  // 2. Legacy fallback
+  }  // 2. Legacy fallback
   const richArticle = newsArticlesData[slug];
   if (richArticle) {
     const desc = richArticle.subtitle || richArticle.title;
+    const title = richArticle.title;
+    const canonicalPath = `/news/${slug}`;
+    const img = richArticle.bannerImage || richArticle.cardImage || undefined;
     return {
-      title: richArticle.title,
+      title,
       description: desc.slice(0, 155),
       alternates: {
-        canonical: `/news/${slug}`,
+        canonical: canonicalPath,
       },
+      openGraph: createOpenGraph({
+        title,
+        description: desc.slice(0, 155),
+        urlPath: canonicalPath,
+        image: img,
+        type: "article",
+      }),
+      twitter: createTwitter({
+        title,
+        description: desc.slice(0, 155),
+        image: img,
+      }),
     };
   }
   return {
