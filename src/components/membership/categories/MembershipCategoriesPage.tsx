@@ -1,9 +1,14 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
   ChevronRight,
   Calendar,
+  Share2,
+  Check,
   Users,
   Briefcase,
   Crown,
@@ -56,6 +61,40 @@ function GreenCheck() {
 }
 
 export default function MembershipCategoriesPage() {
+  const [copiedId, setCopiedId] = useState<number | null>(null);
+
+  const handleShare = async (item: (typeof membershipCategorySections)[0]["items"][0]) => {
+    const siteOrigin = typeof window !== "undefined" ? window.location.origin : "https://hrsjm.org";
+    const shareUrl = `${siteOrigin}/membership/categories#category-${item.srNo}`;
+    const shareTitle = `${item.post} - HRSJM Membership`;
+    const shareText = `Join Human Rights & Social Justice Mission (HRSJM) as "${item.post}" (${item.fees} / ${item.duration || item.validity}). Qualification: ${item.qualification}.\n\nApply online: ${shareUrl}`;
+
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: shareUrl,
+        });
+        return;
+      } catch (err: unknown) {
+        if ((err as Error)?.name === "AbortError") {
+          return;
+        }
+      }
+    }
+
+    // Fallback: Copy to clipboard
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText(shareText);
+        setCopiedId(item.srNo);
+        setTimeout(() => setCopiedId(null), 2500);
+      }
+    } catch {
+      window.prompt("Copy link to share this membership:", shareText);
+    }
+  };
   return (
     <div className={styles.page}>
       {/* Hero Section */}
@@ -143,7 +182,7 @@ export default function MembershipCategoriesPage() {
                   const isGreenTheme = item.theme === "green";
 
                   return (
-                    <div key={item.srNo} className={styles.itemCard}>
+                    <div key={item.srNo} id={`category-${item.srNo}`} className={styles.itemCard}>
                       {/* Top Row: Icon + Title & Subtitle | Price & Validity */}
                       <div className={styles.itemTopRow}>
                         <div className={styles.itemIdentity}>
@@ -164,6 +203,29 @@ export default function MembershipCategoriesPage() {
                         </div>
 
                         <div className={styles.itemPricing}>
+                          <button
+                            type="button"
+                            onClick={() => handleShare(item)}
+                            className={`${styles.pillShareBtn} ${
+                              copiedId === item.srNo ? styles.pillShareBtnCopied : ""
+                            }`}
+                            title={`Share ${item.post}`}
+                            aria-label={`Share ${item.post}`}
+                          >
+                            {copiedId === item.srNo ? (
+                              <>
+                                <Check size={13} strokeWidth={2.8} className={styles.pillShareIcon} aria-hidden="true" />
+                                <span className={styles.pillShareDivider} aria-hidden="true" />
+                                <span className={styles.pillShareText}>Copied!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Share2 size={13} strokeWidth={2.4} className={styles.pillShareIcon} aria-hidden="true" />
+                                <span className={styles.pillShareDivider} aria-hidden="true" />
+                                <span className={styles.pillShareText}>Share</span>
+                              </>
+                            )}
+                          </button>
                           <div className={styles.itemPrice}>{item.fees}</div>
                           <div className={styles.itemPriceValidity}>
                             {item.validity}

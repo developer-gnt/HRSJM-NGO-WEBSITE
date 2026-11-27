@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import PrivacyPolicyPage from "@/components/privacy/PrivacyPolicyPage";
 
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     urlPath: "/privacy",
     image: "/logo.png",
     imageAlt: "Privacy Policy | HRSJM Official Website",
+  }),
+  twitter: createTwitter({
+    title: "Privacy Policy | HRSJM Official Website",
+    description: "Learn how HRSJM protects your personal information, member records, and donation data under India",
+    image: "/logo.png",
   }),
 };
 

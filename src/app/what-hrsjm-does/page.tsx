@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import WhatHRSJMDoesHero from "@/components/what-hrsjm-does/WhatHRSJMDoesHero";
 import WhatHRSJMDoesWhatWeDo from "@/components/what-hrsjm-does/WhatHRSJMDoesWhatWeDo";
@@ -29,6 +29,11 @@ export const metadata: Metadata = {
     urlPath: "/what-hrsjm-does",
     image: "/WHD-hero-bg.png",
     imageAlt: "What We Do - Legal Aid, Programs & Advocacy | HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "What We Do - Legal Aid, Programs & Advocacy | HRSJM",
+    description: "Discover what HRSJM does: grassroots legal aid clinics, emergency relief, survivor support, and nationwide constitutional rights advocacy programs.",
+    image: "/WHD-hero-bg.png",
   }),
 };
 

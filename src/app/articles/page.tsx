@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import AllArticlesPage from "@/components/articles/AllArticlesPage";
 
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     urlPath: "/articles",
     image: "/logo.png",
     imageAlt: "Articles & Research Publications | HRSJM India",
+  }),
+  twitter: createTwitter({
+    title: "Articles & Research Publications | HRSJM India",
+    description: "Read in-depth research articles, legal explainers, human rights analyses, and policy commentaries authored by advocates and leaders at HRSJM.",
+    image: "/logo.png",
   }),
 };
 

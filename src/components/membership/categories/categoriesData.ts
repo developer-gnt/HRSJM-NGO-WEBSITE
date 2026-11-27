@@ -164,7 +164,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
         qualification: "Minimum 12th Pass",
         fees: "₹ 5,000",
         validity: "5 Years",
-        duration: "2 Years",
+        duration: "5 Years",
         kit: [
           "Appointment Letter",
           "Certificate",

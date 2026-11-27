@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import ContactHero from "@/components/contact/ContactHero";
 import ContactBreadcrumb from "@/components/contact/ContactBreadcrumb";
@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     urlPath: "/contact",
     image: "/images/contact-hero-bg.jpg",
     imageAlt: "Contact Us | National Head Office Mumbai - HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "Contact Us | National Head Office Mumbai - HRSJM",
+    description: "Contact HRSJM National Head Office in Andheri East, Mumbai. Phone: +91 7021057853, Email: enquiry@hrsjm.org for legal support and membership enquiries.",
+    image: "/images/contact-hero-bg.jpg",
   }),
 };
 

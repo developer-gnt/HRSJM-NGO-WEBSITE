@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import OurHistoryPage from "@/components/our-history/OurHistoryPage";
 
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     urlPath: "/our-history",
     image: "/logo.png",
     imageAlt: "Our History - Journey Since 2012 | HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "Our History - Journey Since 2012 | HRSJM",
+    description: "Founded on 26 November 2012, discover the founding milestones, constitutional principles, and decade-long human rights journey of HRSJM across India.",
+    image: "/logo.png",
   }),
 };
 

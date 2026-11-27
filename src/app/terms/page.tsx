@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import TermsPage from "@/components/terms/TermsPage";
 
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     urlPath: "/terms",
     image: "/assets/terms_hero.png",
     imageAlt: "Terms & Conditions | HRSJM Official Rules",
+  }),
+  twitter: createTwitter({
+    title: "Terms & Conditions | HRSJM Official Rules",
+    description: "Review official Terms and Conditions governing HRSJM website usage, member registration, appointment validity, legal guidelines, and public donations.",
+    image: "/assets/terms_hero.png",
   }),
 };
 

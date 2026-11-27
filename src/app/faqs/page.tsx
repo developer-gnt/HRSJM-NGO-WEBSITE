@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import FAQPage from "@/components/faqs/FAQPage";
 import JsonLd from "@/components/seo/JsonLd";
@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     urlPath: "/faqs",
     image: "/logo.png",
     imageAlt: "Frequently Asked Questions (FAQs) | HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "Frequently Asked Questions (FAQs) | HRSJM",
+    description: "Find answers to frequently asked questions about HRSJM membership, filing human rights complaints, free legal aid, and 80G tax-exempt donations.",
+    image: "/logo.png",
   }),
 };
 

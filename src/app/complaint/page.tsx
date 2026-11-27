@@ -1,4 +1,4 @@
-import { createOpenGraph } from "@/lib/seo";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 import ComplaintHero from "@/components/complaint/ComplaintHero";
 import SupportOptions from "@/components/complaint/SupportOptions";
@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     urlPath: "/complaint",
     image: "/logo.png",
     imageAlt: "File Human Rights Complaint Online | HRSJM",
+  }),
+  twitter: createTwitter({
+    title: "File Human Rights Complaint Online | HRSJM",
+    description: "File a confidential human rights complaint with HRSJM. Get free legal advice, citizen support, and constitutional advocacy for violations across India.",
+    image: "/logo.png",
   }),
 };
 

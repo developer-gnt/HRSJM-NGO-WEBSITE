@@ -44,24 +44,36 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: siteUrl,
     siteName: "HRSJM - Human Rights & Social Justice Mission",
-    title: "HRSJM | Human Rights & Social Justice Mission - Fighting for Justice, Equality & Dignity",
+    title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
-      "A nationwide non-governmental movement committed to protecting human rights, offering legal support, and uplifting communities across India.",
+      "HRSJM is a registered nationwide NGO in India defending constitutional rights, legal aid, social justice, women empowerment, and citizen welfare.",
     images: [
       {
-        url: "/logo.png",
+        url: `${siteUrl}/social-preview.png`,
+        secureUrl: `${siteUrl}/social-preview.png`,
         width: 1200,
         height: 630,
-        alt: "Human Rights & Social Justice Mission Logo & Emblem",
+        type: "image/png",
+        alt: "Human Rights & Social Justice Mission (HRSJM) - Official Preview",
+      },
+      {
+        url: `${siteUrl}/social-preview.jpg`,
+        secureUrl: `${siteUrl}/social-preview.jpg`,
+        width: 1200,
+        height: 630,
+        type: "image/jpeg",
+        alt: "Human Rights & Social Justice Mission (HRSJM) - Official Preview",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "HRSJM | Human Rights & Social Justice Mission",
+    site: "@hrsjm_president",
+    creator: "@hrsjm_president",
+    title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
       "Nationwide NGO fighting for fundamental rights, equality, legal aid, and social dignity for every citizen.",
-    images: ["/logo.png"],
+    images: [`${siteUrl}/social-preview.png`],
   },
   robots: {
     index: true,
