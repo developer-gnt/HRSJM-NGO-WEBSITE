@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
       "Nationwide NGO fighting for fundamental rights, equality, legal aid, and social dignity for every citizen.",
-    images: [`${siteUrl}/social-preview.png`],
+    images: [`${siteUrl}/social-preview.jpg`],
   },
   robots: {
     index: true,
@@ -143,6 +143,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="image/png"
           fetchPriority="high"
         />
+        {/* Backward-compatibility image fallbacks for WhatsApp and legacy scrapers */}
+        <link rel="image_src" href={`${siteUrl}/social-preview.jpg`} />
+        <meta itemProp="image" content={`${siteUrl}/social-preview.jpg`} />
         <JsonLd schema={organizationSchema} />
       </head>
       <body suppressHydrationWarning>

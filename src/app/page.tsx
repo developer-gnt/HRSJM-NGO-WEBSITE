@@ -33,14 +33,14 @@ export const metadata: Metadata = {
     description:
       "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment, and human dignity across India.",
     urlPath: "/",
-    image: "/social-preview.png",
+    image: "/social-preview.jpg",
     imageAlt: "Human Rights & Social Justice Mission (HRSJM) - Official Preview",
   }),
   twitter: createTwitter({
     title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
       "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment, and human dignity across India.",
-    image: "/social-preview.png",
+    image: "/social-preview.jpg",
   }),
 };
 
