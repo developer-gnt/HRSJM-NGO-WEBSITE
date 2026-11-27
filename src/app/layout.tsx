@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
       "Nationwide NGO fighting for fundamental rights, equality, legal aid, and social dignity for every citizen.",
-    images: [`${siteUrl}/social-preview.png`],
+    images: [`${siteUrl}/social-preview.jpg`],
   },
   robots: {
     index: true,
