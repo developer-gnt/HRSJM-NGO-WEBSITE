@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import { rightsDetailData } from "@/data/rightsDetailData";
 import RightsDetailView from "@/components/rights/detail/RightsDetailView";
 

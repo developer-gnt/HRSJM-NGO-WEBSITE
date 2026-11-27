@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createOpenGraph, createTwitter } from "@/lib/seo";
 import MembershipHero from "@/components/membership/MembershipHero";
 import WhyMembership from "@/components/membership/WhyMembership";
 import MembershipBenefits from "@/components/membership/MembershipBenefits";
@@ -26,20 +27,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/membership",
   },
-  openGraph: {
+  openGraph: createOpenGraph({
     title: "Join HRSJM Membership - Stand for Justice & Human Dignity",
     description:
       "Join thousands of active leaders and volunteers fighting for justice, constitutional rights, and public welfare nationwide.",
-    url: "https://hrsjm.org/membership",
-    images: [
-      {
-        url: "/membership/membership-hero.png",
-        width: 1200,
-        height: 630,
-        alt: "HRSJM Membership Movement",
-      },
-    ],
-  },
+    urlPath: "/membership",
+    image: "/membership/membership-hero.png",
+    imageAlt: "HRSJM Membership Movement",
+  }),
+  twitter: createTwitter({
+    title: "Join HRSJM Membership - Stand for Justice & Human Dignity",
+    description:
+      "Join thousands of active leaders and volunteers fighting for justice, constitutional rights, and public welfare nationwide.",
+    image: "/membership/membership-hero.png",
+  }),
 };
 
 export default function MembershipPage() {
