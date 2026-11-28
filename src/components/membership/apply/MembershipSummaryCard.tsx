@@ -46,7 +46,19 @@ export default function MembershipSummaryCard({
               </button>
             </div>
             <span className={styles.summaryMeta}>
-              {selectedPackage.item.qualification} • {selectedPackage.item.validity} Duration
+              {selectedPackage.item.qualification.includes("(") ? (
+                <>
+                  <span>
+                    {selectedPackage.item.qualification.split("(")[0].trim()} •{" "}
+                    {selectedPackage.item.validity} Duration
+                  </span>
+                  <span className={styles.summarySubNote}>
+                    ({selectedPackage.item.qualification.split("(")[1]}
+                  </span>
+                </>
+              ) : (
+                `${selectedPackage.item.qualification} • ${selectedPackage.item.validity} Duration`
+              )}
             </span>
           </div>
         </div>
@@ -107,7 +119,7 @@ export default function MembershipSummaryCard({
                       if (e.key === "Enter" || e.key === " ") handleChoose(pkg);
                     }}
                   >
-                    <div>
+                    <div className={styles.packageOptionInfo}>
                       <div className={styles.packageOptionName}>
                         {pkg.item.post}{" "}
                         {isSelected && (
@@ -118,7 +130,23 @@ export default function MembershipSummaryCard({
                         )}
                       </div>
                       <div className={styles.packageOptionMeta}>
-                        {pkg.category.title} • {pkg.item.qualification} • {pkg.item.validity}
+                        {(() => {
+                          const qual = pkg.item.qualification;
+                          if (qual.includes("(")) {
+                            const [mainQual, parenPart] = qual.split(/\((.*)\)/);
+                            return (
+                              <>
+                                <span>{pkg.category.title} • {mainQual.trim()} • {pkg.item.validity}</span>
+                                <span className={styles.packageOptionSubNote}>
+                                  ({parenPart})
+                                </span>
+                              </>
+                            );
+                          }
+                          return (
+                            <span>{pkg.category.title} • {qual} • {pkg.item.validity}</span>
+                          );
+                        })()}
                       </div>
                     </div>
                     <div className={styles.packageOptionFee}>{pkg.item.fees}</div>
