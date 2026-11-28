@@ -212,7 +212,16 @@ export default function MembershipCategoriesPage() {
                           <div className={styles.itemTitles}>
                             <h3 className={styles.itemPostName}>{item.post}</h3>
                             <p className={styles.itemQualification}>
-                              {item.qualification}
+                              {item.qualification.includes("(") ? (
+                                <>
+                                  <span>{item.qualification.split("(")[0].trim()}</span>
+                                  <span className={styles.itemSubQualification}>
+                                    ({item.qualification.split("(")[1]}
+                                  </span>
+                                </>
+                              ) : (
+                                item.qualification
+                              )}
                             </p>
                           </div>
                         </div>
