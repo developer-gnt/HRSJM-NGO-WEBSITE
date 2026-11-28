@@ -26,14 +26,14 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
   },
-  // 6. Missing Cross-Origin Isolation (COOP & COEP/CORP)
+  // 6. Cross-Origin Policies (allow preview scrapers and social sharing)
   {
     key: "Cross-Origin-Opener-Policy",
     value: "same-origin-allow-popups",
   },
   {
     key: "Cross-Origin-Resource-Policy",
-    value: "same-origin",
+    value: "cross-origin",
   },
   // 7. Missing Content Security Policy (CSP) & frame-ancestors
   {
@@ -86,12 +86,34 @@ const nextConfig: NextConfig = {
         headers: securityHeaders,
       },
       {
-        // Cache static public assets aggressively
+        // Cache static public assets aggressively and allow social preview scrapers
         source: "/:all*(svg|jpg|png|webp|avif|ico|woff|woff2)",
         headers: [
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "Cross-Origin-Resource-Policy",
+            value: "cross-origin",
+          },
+        ],
+      },
+      {
+        // Membership categories preview caching for crawlers & CDN
+        source: "/membership/categories",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400",
+          },
+          {
+            key: "Cross-Origin-Resource-Policy",
+            value: "cross-origin",
           },
         ],
       },

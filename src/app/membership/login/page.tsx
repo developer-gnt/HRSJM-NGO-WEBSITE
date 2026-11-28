@@ -14,13 +14,15 @@ export const metadata: Metadata = {
     description:
       "Secure member login and verification portal for HRSJM members. Access member records, digital ID, and official updates.",
     urlPath: "/membership/login",
-    image: "/social-preview.jpg",
+    image: "/logo.png",
+    imageAlt: "HRSJM Official Logo",
   }),
   twitter: createTwitter({
     title: "Member Login - Human Rights & Social Justice Mission",
     description:
       "Secure member login and verification portal for HRSJM members. Access member records, digital ID, and official updates.",
-    image: "/social-preview.jpg",
+    image: "/logo.png",
+    card: "summary",
   }),
 };
 
