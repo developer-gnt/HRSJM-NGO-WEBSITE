@@ -1,5 +1,5 @@
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hrsjm.org";
-const defaultSocialImage = `${siteUrl}/social-preview.jpg`;
+const defaultSocialImage = `${siteUrl}/logo.png`;
 
 export interface PageSocialProps {
   title: string;
@@ -15,7 +15,7 @@ export function createOpenGraph({
   description,
   urlPath = "",
   image,
-  imageAlt = "Human Rights & Social Justice Mission (HRSJM)",
+  imageAlt = "HRSJM Official Logo",
   type = "website",
 }: PageSocialProps) {
   const fullUrl = urlPath
@@ -27,9 +27,9 @@ export function createOpenGraph({
       : `${siteUrl}${image.startsWith("/") ? image : `/${image}`}`
     : defaultSocialImage;
 
-  const isSquare = !image || image.includes("social-preview") || image.includes("logo");
-  const imgWidth = isSquare ? 600 : 1200;
-  const imgHeight = isSquare ? 600 : 630;
+  const isSquare = !image || image.includes("logo") || image.includes("social-preview");
+  const imgWidth = isSquare ? 813 : 1200;
+  const imgHeight = isSquare ? 825 : 630;
 
   const cleanUrl = imageUrl.split("?")[0].toLowerCase();
   const isJpg = cleanUrl.endsWith(".jpg") || cleanUrl.endsWith(".jpeg");
@@ -59,10 +59,12 @@ export function createTwitter({
   title,
   description,
   image,
+  card = "summary",
 }: {
   title: string;
   description: string;
   image?: string;
+  card?: "summary" | "summary_large_image";
 }) {
   const imageUrl = image
     ? image.startsWith("http")
@@ -71,7 +73,7 @@ export function createTwitter({
     : defaultSocialImage;
 
   return {
-    card: "summary_large_image" as const,
+    card,
     title,
     description,
     images: [imageUrl],

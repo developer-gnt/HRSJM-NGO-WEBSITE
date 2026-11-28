@@ -13,7 +13,7 @@ import { createOpenGraph, createTwitter } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "HRSJM - Human Rights & Social Justice Mission India",
   description:
-    "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment, and human dignity across India.",
+    "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment and social justice.",
   keywords: [
     "Human Rights NGO India",
     "Human Rights and Social Justice Mission",
@@ -31,16 +31,17 @@ export const metadata: Metadata = {
   openGraph: createOpenGraph({
     title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
-      "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment, and human dignity across India.",
+      "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment and social justice.",
     urlPath: "/",
-    image: "/social-preview.jpg",
-    imageAlt: "Human Rights & Social Justice Mission (HRSJM) - Official Preview",
+    image: "/logo.png",
+    imageAlt: "HRSJM Official Logo",
   }),
   twitter: createTwitter({
     title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
-      "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment, and human dignity across India.",
-    image: "/social-preview.jpg",
+      "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment and social justice.",
+    image: "/logo.png",
+    card: "summary",
   }),
 };
 

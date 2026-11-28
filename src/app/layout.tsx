@@ -46,34 +46,26 @@ export const metadata: Metadata = {
     siteName: "HRSJM - Human Rights & Social Justice Mission",
     title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
-      "HRSJM is a registered nationwide NGO in India defending constitutional rights, legal aid, social justice, women empowerment, and citizen welfare.",
+      "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment and social justice.",
     images: [
       {
-        url: `${siteUrl}/social-preview.jpg`,
-        secureUrl: `${siteUrl}/social-preview.jpg`,
-        width: 600,
-        height: 600,
-        type: "image/jpeg",
-        alt: "Human Rights & Social Justice Mission (HRSJM) - Official Logo",
-      },
-      {
-        url: `${siteUrl}/social-preview.png`,
-        secureUrl: `${siteUrl}/social-preview.png`,
-        width: 600,
-        height: 600,
+        url: `${siteUrl}/logo.png`,
+        secureUrl: `${siteUrl}/logo.png`,
+        width: 813,
+        height: 825,
         type: "image/png",
-        alt: "Human Rights & Social Justice Mission (HRSJM) - Official Logo",
+        alt: "HRSJM Official Logo",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     site: "@hrsjm_president",
     creator: "@hrsjm_president",
     title: "HRSJM - Human Rights & Social Justice Mission India",
     description:
-      "Nationwide NGO fighting for fundamental rights, equality, legal aid, and social dignity for every citizen.",
-    images: [`${siteUrl}/social-preview.jpg`],
+      "Join HRSJM, India's leading human rights NGO. Defending constitutional rights, free legal justice, women empowerment and social justice.",
+    images: [`${siteUrl}/logo.png`],
   },
   robots: {
     index: true,
@@ -144,8 +136,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           fetchPriority="high"
         />
         {/* Backward-compatibility image fallbacks for WhatsApp and legacy scrapers */}
-        <link rel="image_src" href={`${siteUrl}/social-preview.jpg`} />
-        <meta itemProp="image" content={`${siteUrl}/social-preview.jpg`} />
+        <link rel="image_src" href={`${siteUrl}/logo.png`} />
+        <meta itemProp="image" content={`${siteUrl}/logo.png`} />
         <JsonLd schema={organizationSchema} />
       </head>
       <body suppressHydrationWarning>

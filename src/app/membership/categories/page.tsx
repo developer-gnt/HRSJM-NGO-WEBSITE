@@ -34,13 +34,14 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
         title: postTitle,
         description: postDesc,
         urlPath,
-        image: "/social-preview.jpg",
-        imageAlt: `HRSJM Membership - ${matchedItem.post}`,
+        image: "/logo.png",
+        imageAlt: `HRSJM Official Logo - ${matchedItem.post}`,
       }),
       twitter: createTwitter({
         title: postTitle,
         description: postDesc,
-        image: "/social-preview.jpg",
+        image: "/logo.png",
+        card: "summary",
       }),
     };
   }
@@ -68,13 +69,14 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
       title: defaultTitle,
       description: defaultDesc,
       urlPath: "/membership/categories",
-      image: "/social-preview.jpg",
-      imageAlt: "Human Rights & Social Justice Mission (HRSJM) Official Logo",
+      image: "/logo.png",
+      imageAlt: "HRSJM Official Logo",
     }),
     twitter: createTwitter({
       title: defaultTitle,
       description: defaultDesc,
-      image: "/social-preview.jpg",
+      image: "/logo.png",
+      card: "summary",
     }),
   };
 }
