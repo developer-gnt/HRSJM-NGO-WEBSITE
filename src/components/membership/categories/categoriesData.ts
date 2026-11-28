@@ -262,7 +262,7 @@ export const membershipCategorySections: MembershipCategorySection[] = [
       {
         srNo: 12,
         post: "National Political Council Cell",
-        qualification: "Graduate / Degree (For Politicians)",
+        qualification: "Graduate / Degree (For Politicians Public Social Works)",
         fees: "₹ 10,000",
         validity: "10 Years",
         duration: "10 Years",
